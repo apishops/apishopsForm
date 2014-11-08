@@ -1531,8 +1531,20 @@ apishopsFormTemplates = [
     theme_main_normal: "",
     theme_main_light: ""
   }, {
-    theme_main_normal: " -- ",
-    theme_main_light: " -- "
+    theme_main_light: " //= include ../template/apishops/1/light.html ",
+    theme_main_normal: " //= include ../template/apishops/1/normal.html "
+  }, {
+    theme_main_light: " //= include ../template/apishops/1/light.html ",
+    theme_main_normal: " //= include ../template/apishops/1/normal.html "
+  }, {
+    theme_main_light: " //= include ../template/apishops/1/light.html ",
+    theme_main_normal: " //= include ../template/apishops/1/normal.html "
+  }, {
+    theme_main_light: " //= include ../template/apishops/1/light.html ",
+    theme_main_normal: " //= include ../template/apishops/1/normal.html "
+  }, {
+    theme_main_light: " //= include ../template/apishops/1/light.html ",
+    theme_main_normal: " //= include ../template/apishops/1/normal.html "
   }
 ];
 
