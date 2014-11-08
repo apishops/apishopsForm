@@ -57,27 +57,6 @@ jQuery.fn.apishopsForm=function(options)
             
    return init(this);
    
-
-   /**
-
-        $('#containerId').apishopsForm({
-            type:'inline', 
-            debug:false, 
-            successUrl:false, 
-            form:'light', 
-            displayed_containers:['picture','price','name'],
-            theme:1,
-            siteId:32290,
-            productId:384562,
-            wpId:22055620,
-            lang:1,
-            featured:{
-               container: '#containerAdditionalItemsId',
-               theme: 2
-            }
-        });
-    * 
-    */
   
    function init(object){
     
@@ -96,8 +75,7 @@ jQuery.fn.apishopsForm=function(options)
    }
 
    function spawn(){
-        //$(settings.object).length
-             
+        //$(settings.object).length      
    }
   
    /**
@@ -108,7 +86,7 @@ jQuery.fn.apishopsForm=function(options)
    function check()
    {
         if(settings.object.length==0)
-            alert('Ошибка формы:\n $("'+object.selector+'") к которому подключается форма  "$("'+object.selector+'").apishopsForm()" не найден. Проверьте, пожалуйста, код');
+            alert('Ошибка формы:\n $("'+settings.object.selector+'") к которому подключается форма  "$("'+object.selector+'").apishopsForm()" не найден. Проверьте, пожалуйста, код');
 
         if(typeof settings.productId == 'undefined' || settings.productId<=0)
             alert('settings.productId должен быть указан и не равен 0')
@@ -1546,6 +1524,17 @@ function apishopsFormSubmit(params){
         });
 }
 
+var apishopsFormTemplates;
+
+apishopsFormTemplates = [
+  {
+    theme_main_normal: "",
+    theme_main_light: ""
+  }, {
+    theme_main_normal: "<form class=\"apishopsFormTheme1__ apishopsFormTheme\">\n    <h1>Обратный звонок</h1> <small>Заполните пожалуйста поля</small>\n    <div class=\"apishopsFormTheme1__Group\">\n        <div class=\"apishopsFormTheme1__Info\">\n            <div class=\"apishopsFormTheme1__Image apishopsFormImage\" style=\"display:none\"> <img class=\"__IMG__\" width=180 src=\"img/watch_img1.jpg\" alt=\"watch\" /> </div>\n            <div class=\"apishopsFormTheme1__Name apishopsFormName\" style=\"display:none\">\n                <some class=\"__NAME__\">%NAME%</some>\n            </div>\n            <div class=\"apishopsFormTheme1__Price apishopsFormPrice\" style=\"display:none\">\n                <div class=\"price-arrow\">\n                    <p class=\"new\">\n                        <some class=__PRICE__>%PRICE%</some>\n                        <some class=__CY__>%CY%</some>\n                    </p>\n                    <p class=\"old\">вместо <span><some  class=__OLDPRICE__>%OLDPRICE%</some> <some class=__CY__>%CY%</some></span>\n                    </p>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"apishopsFormTheme1__Group\">\n        <select name=\"apishopsFormCount\">\n            <option>1</option>\n            <option>2</option>\n            <option>3</option>\n            <option>4</option>\n            <option>5</option>\n        </select>\n    </div>\n    <div class=\"apishopsFormTheme1__Group\">\n        <input type=\"text\" name=\"apishopsFormFio\" placeholder=\"Ваше имя\" pattern=\".{3,}\"> \n    </div>\n    <div class=\"apishopsFormTheme1__Group\">\n        <input type=\"text\" name=\"apishopsFormPhone\" placeholder=\"Контактный номер\" pattern=\".{3,}\"> \n    </div>\n    <div class=\"apishopsFormTheme1__Group\">\n        <input type=\"text\" name=\"apishopsFormAddress\" placeholder=\"Адрес доставки\" pattern=\".{3,}\"> \n    </div>\n    <div class=\"apishopsFormTheme1__Group\">\n        <input type=\"text\" name=\"apishopsFormPromocode\" placeholder=\"Промокод(если есть)\"> \n    </div>\n    <div class=\"apishopsFormTheme1__Group apishopsFormCity apishopsFormGroup\">\n        <label style=\"display:block !important;\">Выберите город доставки</label>\n        <select name=\"apishopsFormRegion\" pattern=\"^[0-9][0-9]*$\"> </select>\n    </div>\n    <div class=\"apishopsFormTheme1__Group apishopsFormDelivery apishopsFormGroup\" style=\"display:none\">\n        <label style=\"display:block !important;\">Выберите способ доставки</label>\n        <select name=\"apishopsFormDelivery\" pattern=\"^[0-9][0-9]*$\"></select>\n    </div>\n    <div class=\"apishopsFormTheme1__Group apishopsFormPayment apishopsFormGroup\" style=\"display:none\">\n        <label style=\"display:block !important;\">Выберите способ оплаты</label>\n        <select name=\"apishopsFormPayment\" pattern=\"^[0-9][0-9]*$\"></select>\n    </div>\n    <div class=\"apishopsFormTheme1__Group apishopsFormCost apishopsFormGroup\" style=\"display:none\">\n        <label style=\"display:block !important;\"><span name=\"apishopsFormCost\"></span>\n        </label>\n    </div>\n    <div class=\"apishopsFormTheme1__Group\"> <a href=\"#\" onclick=\"jQuery(this).closest('form').submit(); return false;\"  class=\"apishopsFormTheme1__ThemeButton apishopsFormTheme1__Button apishopsFormTheme1__Buy apishopsFormThemeButton\"><b>Заказать</b></a> </div>\n</form>",
+    theme_main_light: "<form class=\"apishopsFormTheme1__ apishopsFormTheme\">\n<h1>Обратный звонок</h1>\n<small>Заполните пожалуйста поля</small>\n<div class=\"apishopsFormTheme1__Group\">\n    <div class=\"apishopsFormTheme1__Info\">\n        <div class=\"apishopsFormTheme1__Image apishopsFormImage\" style=\"display:none\"> <img class=\"__IMG__\" width=180 src=\"img/watch_img1.jpg\" alt=\"watch\" /> </div>\n        <div class=\"apishopsFormTheme1__Name apishopsFormName\" style=\"display:none\">\n            <some class=\"__NAME__\">%NAME%</some>\n        </div>\n        <div class=\"apishopsFormTheme1__Price apishopsFormPrice\" style=\"display:none\">\n            <div class=\"price-arrow\">\n                <p class=\"new\">\n                    <some class=__PRICE__>%PRICE%</some>\n                    <some class=__CY__>%CY%</some>\n                </p>\n                <p class=\"old\">\n                    вместо\n                    <span>\n                 <some  class=__OLDPRICE__>%OLDPRICE%</some>\n                 <some class=__CY__>%CY%</some>\n              </span>\n                </p>\n            </div>\n        </div>\n    </div>\n</div>\n<div class=\"apishopsFormTheme1__Group\">\n    <select name=\"apishopsFormCount\">\n        <option>1</option>\n        <option>2</option>\n        <option>3</option>\n        <option>4</option>\n        <option>5</option>\n    </select>\n</div>\n<div class=\"apishopsFormTheme1__Group\">\n    <input type=\"text\" name=\"apishopsFormFio\" placeholder=\"Ваше имя\" pattern=\".{3,}\"> </div>\n<div class=\"apishopsFormTheme1__Group\">\n    <input type=\"text\" name=\"apishopsFormPhone\" placeholder=\"Контактный номер\" pattern=\".{3,}\"> </div>\n<div class=\"apishopsFormTheme1__Group\">\n    <input type=\"text\" name=\"apishopsFormAddress\" placeholder=\"Адрес доставки\" pattern=\".{3,}\"> </div>\n<div class=\"apishopsFormTheme1__Group\">\n    <input type=\"text\" name=\"apishopsFormPromocode\" placeholder=\"Промокод(если есть)\"> \n</div>\n<div class=\"apishopsFormTheme1__Group\"> <a href=\"#\" onclick=\"jQuery(this).closest('form').submit(); return false;\" class=\"apishopsFormTheme1__ThemeButton apishopsFormTheme1__Button apishopsFormTheme1__Buy apishopsFormThemeButton\"><b>Заказать</b></a> </div>\n</form>"
+  }
+];
 
 var apishopsJSONP={
     gates:[
