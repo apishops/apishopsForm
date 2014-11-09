@@ -25,7 +25,7 @@ jQuery.fn.apishopsForm=function(options)
         containers:{
             picture:'.apishopsFormImage',
             price:'.apishopsFormPrice',
-            name:'.apishopsFormName',
+            name:'.apishopsFormName'
         },      
         inputs_:{
             address:'Поле адреса',
@@ -75,7 +75,22 @@ jQuery.fn.apishopsForm=function(options)
    }
 
    function spawn(){
-        //$(settings.object).length      
+ 
+        $jsonp={
+                action: "getFeaturedProductIdListForProductId",
+                siteId: settings.siteId,
+                lang: settings.lang
+        };  
+
+
+        //settings.form.addClass('apishopsLoading');  
+
+            
+        apishopsFormGetJSONP($jsonp,function(result){
+
+                    alert(result);
+        });
+
    }
   
    /**
