@@ -250,7 +250,7 @@ jQuery.fn.apishopsForm=function(options)
                     PRICE : Math.round(settings.price),
                     OLDPRICE : Math.round(settings.oldprice),
                     CYR : (settings.lang==6)?'грн':'руб',
-                    CY : (settings.lang==6)?'г':'р',
+                    CY : (settings.lang==6)?'г':'р'
                 })).clone().css('display',"");
         
         $('.__IMG__', settings.form).attr('src',settings.img)
