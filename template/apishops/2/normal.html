@@ -1,0 +1,47 @@
+<link href="../css/apishopsForm/apishopsForm3.css" rel="stylesheet" >
+<link href="http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm/apishopsForm3.css" rel="stylesheet" >
+
+<form class="apishopsFormTheme1__ apishopsFormTheme">
+   <h1>Обратный звонок</h1>
+   <small>Заполните пожалуйста поля</small>          
+   <div class="apishopsFormTheme1__Group">
+      <div class="apishopsFormTheme1__Info">
+         <div class="apishopsFormTheme1__Image apishopsFormImage"  style="display:none">            <img class="__IMG__" width=180 src="img/watch_img1.jpg" alt="watch"/>         </div>
+         <div class="apishopsFormTheme1__Name apishopsFormName"  style="display:none">
+            <some class="__NAME__">%NAME%</some>
+         </div>
+         <div class="apishopsFormTheme1__Price apishopsFormPrice"  style="display:none">
+            <div class="price-arrow">
+               <p class="new">
+                  <some  class=__PRICE__>%PRICE%</some>
+                  <some class=__CY__>%CY%</some>
+               </p>
+               <p class="old">
+                  вместо 
+                  <span>
+                     <some  class=__OLDPRICE__>%OLDPRICE%</some>
+                     <some class=__CY__>%CY%</some>
+                  </span>
+               </p>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="apishopsFormTheme1__Group">
+      <select name="apishopsFormCount">
+         <option>1</option>
+         <option>2</option>
+         <option>3</option>
+         <option>4</option>
+         <option>5</option>
+      </select>
+   </div>
+   <div class="apishopsFormTheme1__Group">                      <input type="text" name="apishopsFormFio" placeholder="Ваше имя" pattern=".{3,}">         </div>
+   <div class="apishopsFormTheme1__Group">                      <input type="text"  name="apishopsFormPhone" placeholder="Контактный номер" pattern=".{3,}">         </div>
+   <div class="apishopsFormTheme1__Group">                      <input type="text"  name="apishopsFormAddress" placeholder="Адрес доставки" pattern=".{3,}">         </div>
+   <div class="apishopsFormTheme1__Group apishopsFormCity apishopsFormGroup">                <label style="display:block !important;">Выберите город доставки</label>                  <select name="apishopsFormRegion" pattern="^[0-9][0-9]*$"> </select>             </div>
+   <div class="apishopsFormTheme1__Group apishopsFormDelivery apishopsFormGroup"  style="display:none">                <label  style="display:block !important;">Выберите способ доставки</label>                 <select name="apishopsFormDelivery" pattern="^[0-9][0-9]*$"></select>               </div>
+   <div class="apishopsFormTheme1__Group apishopsFormPayment apishopsFormGroup"  style="display:none">                <label  style="display:block !important;">Выберите способ оплаты</label>        <select name="apishopsFormPayment" pattern="^[0-9][0-9]*$"></select>            </div>
+   <div class="apishopsFormTheme1__Group apishopsFormCost apishopsFormGroup"  style="display:none">                <label  style="display:block !important;"><span name="apishopsFormCost"></span></label>     </div>
+   <div class="apishopsFormTheme1__Group">                <a href="#" class="apishopsFormTheme1__ThemeButton apishopsFormTheme1__Button apishopsFormTheme1__Buy apishopsFormThemeButton"><b>Заказать</b></a>         <a href="#" class='%MORE%'>Читать о товаре</a> </div>
+</form>
