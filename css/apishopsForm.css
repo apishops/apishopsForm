@@ -8,17 +8,17 @@
     display: none;
 }
             .apishopsModal.apishopsAnimation{
-                transition: opacity 0.2s ease-out;  
-                opacity:0;  
+                transition: opacity 0.2s ease-out;
+                opacity:0;
                 visibility:hidden;
             }
 
 
 
-            .apishopsModal.apishopsAnimation.in{                
+            .apishopsModal.apishopsAnimation.in{
                 opacity:1;
                 visibility:visible;
-            }           
+            }
 
 
             .apishopsModalWindow {
@@ -38,11 +38,11 @@
 
 
             .apishopsModal.apishopsAnimationQuickView.in .apishopsModalWindow{
-                transition: left 0.5s ease-out !important;  
-                opacity:1;  
+                transition: left 0.5s ease-out !important;
+                opacity:1;
                 visibility:visible;
                 -webkit-animation: bounce 2500ms linear!important;
-                animation: bounce 2500ms linear!important; 
+                animation: bounce 2500ms linear!important;
                 left: 50%;
                 margin-left: -450px;
                 padding: 0px;
@@ -53,7 +53,11 @@
               display: none;
             }
 
-            
+            .apishopsModal.apishopsAnimationQuickView.in .apishopsModalContent{
+                height: 100%;
+            }
+
+
 
             @-webkit-keyframes bounce {
                 0% {
@@ -77,12 +81,12 @@
                     -webkit-transform: scale3d(1,1,1);
                     transform: scale3d(1,1,1);
                     margin-left: -250px;
-                } 
+                }
                 20% {
                     -webkit-transform: scale3d(1.05,1.05,1.05);
                     transform: scale3d(1.05,1.05,1.05);
                     margin-left: -250px;
-                }                
+                }
 
                 30% {
                     -webkit-transform: scale3d(1,1,1);
@@ -94,10 +98,10 @@
                     -webkit-transform: scale3d(1,1,1);
                     transform: scale3d(1,1,1);
                     margin-left: -450px;
-                }                
+                }
             }
 
-            
+
 
             @keyframes bounce {
                 0% {
@@ -121,12 +125,12 @@
                     -webkit-transform: scale3d(1,1,1);
                     transform: scale3d(1,1,1);
                     margin-left: -250px;
-                } 
+                }
                 20% {
                     -webkit-transform: scale3d(1.05,1.05,1.05);
                     transform: scale3d(1.05,1.05,1.05);
                     margin-left: -250px;
-                }                
+                }
 
                 30% {
                     -webkit-transform: scale3d(1,1,1);
@@ -138,7 +142,7 @@
                     -webkit-transform: scale3d(1,1,1);
                     transform: scale3d(1,1,1);
                     margin-left: -450px;
-                }                
+                }
             }
 
             .apishopsFormQuickView {
@@ -146,8 +150,8 @@
                 height: 100%;
                 position: relative;
                 -webkit-animation: changesize 1500ms forwards!important;
-                animation: changesize 1500ms forwards!important;  
-                width: 500px;               
+                animation: changesize 1500ms forwards!important;
+                width: 500px;
             }
             .apishopsFormQuickViewImageContainer {
                 float: left;
@@ -168,13 +172,13 @@
                 padding: 37px;
                 text-align: left;
                 overflow: hidden;
-                  
+
             }
             .apishopsFormQuickViewInfoContainerIn{
                 position: relative;
                 -webkit-animation: slideleft 2200ms forwards!important;
-                animation: slideleft 2200ms forwards!important;     
-                opacity: 0;                        
+                animation: slideleft 2200ms forwards!important;
+                opacity: 0;
             }
 
 
@@ -200,14 +204,14 @@
                   display: block;
                   line-height: 1.6;
                   margin: 1em 0;
-            }            
+            }
 
 
             @-webkit-keyframes changesize {
                 0% { width: 500px; }
                 50% { width: 500px; }
                 100% { width: 900px; }
-            }            
+            }
 
 
             @keyframes changesize {
@@ -229,7 +233,7 @@
                 60% { left: -1000px; opacity: 0;}
                 100% { left: 0px; opacity: 1;}
             }
-            
+
 
 
 
@@ -245,8 +249,8 @@
             .apishopsAnimation.apishopsSuperScaled.in .apishopsModalWindow{
               -webkit-transform: scale(1);
                       transform: scale(1);
-            }   
-            
+            }
+
             .apishopsAnimation.apishopsLetMeIn .apishopsModalWindow{
               -webkit-transform: scale(2);
                       transform: scale(2);
@@ -256,8 +260,8 @@
             .apishopsAnimation.apishopsLetMeIn.in .apishopsModalWindow{
               -webkit-transform: scale(1);
                       transform: scale(1);
-            }               
-            
+            }
+
             /*sideFall*/
             .apishopsAnimation.apishopsSideFall .apishopsModalWindow{
               -webkit-transform: scale(2) translate(30%) translateZ(600px) rotate(10deg);
@@ -266,13 +270,13 @@
                   -ms-transform-style: preserve-3d;
                       transform-style: preserve-3d;
               transition: -webkit-transform 0.2s ease-out;
-              transition: transform 0.2s ease-out; box-sizing: border-box; 
+              transition: transform 0.2s ease-out; box-sizing: border-box;
             }
             .apishopsAnimation.apishopsSideFall.in .apishopsModalWindow{
               -webkit-transform: scale(1) translate(0%) translateZ(0px) rotate(0deg);
-                      transform: scale(1) translate(0%) translateZ(0px) rotate(0deg); box-sizing: border-box; 
-            }   
-            
+                      transform: scale(1) translate(0%) translateZ(0px) rotate(0deg); box-sizing: border-box;
+            }
+
             /*3dFlip*/
             .apishopsAnimation.apishopsFlip .apishopsModalWindow{
               -webkit-transform: rotateY(-76deg);
@@ -288,9 +292,9 @@
               -webkit-transform: rotateY(0deg);
                       transform: rotateY(0deg);
               opacity:1;
-            }                               
-            
-                
+            }
+
+
             .apishopsModalOverlay {
                 background: none repeat scroll 0 0 rgba(71, 55, 78, 0.8);
                 bottom: 0;
@@ -355,8 +359,8 @@
                 border-bottom: 1px dotted;
                 font-size: 12px;
                 text-decoration: none;
-            }   
-            
+            }
+
 
 
 
@@ -377,7 +381,7 @@
 
 .apishopsForm .apishopsFormGroup {
     margin-bottom: 15px;
-    transition: all 0.5s ease-out;        
+    transition: all 0.5s ease-out;
 }
 .apishopsForm.apishopsFormInline .apishopsFormGroup {
     display: inline-block;
@@ -389,7 +393,7 @@
     transition-duration: 0.3s;
     transition-timing-function: ease-in;
     max-height: 1000px;
-    overflow: hidden;   
+    overflow: hidden;
      margin: inherit;
      opacity:1;
      visibility:visible;
@@ -417,19 +421,19 @@
     display: block;
     font-size: 21px;
     font-weight: bold;
-    margin-bottom: 5px;  
+    margin-bottom: 5px;
 }
 
 
 
 .apishopsForm .apishopsFormError > * {
-   color:#B94A48  
+   color:#B94A48
 }
 
-.apishopsForm .apishopsFormError > input, .apishopsForm .apishopsFormError > select {       
+.apishopsForm .apishopsFormError > input, .apishopsForm .apishopsFormError > select {
     background: none repeat scroll 0 0 rgba(254, 122, 101, 0.63) !important;
     box-shadow: 0 0 2px rgba(255, 0, 0, 0.55);
-    color: #FFFFFF !important;     
+    color: #FFFFFF !important;
 }
 
 
@@ -439,17 +443,17 @@
 
     font-size: 17px;
     padding: 9px 9px;
-    
+
     display:block;
     width:100%;
-    transition: all 0.4s ease-out;  
-    
-    border: 1px solid rgba(0, 0, 0, 0.25);     
-    
-    height:45px; 
-    
+    transition: all 0.4s ease-out;
+
+    border: 1px solid rgba(0, 0, 0, 0.25);
+
+    height:45px;
+
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.17) inset;
-    
+
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -o-box-sizing: border-box;
@@ -471,7 +475,7 @@
     white-space: nowrap;
     position: relative;
 }
- 
+
 .apishopsFormButton.apishopsFormBuy b:after {
     background: url("http://img.apishops.org/SinglePageWebsites/custom/images/button_bg2.png") no-repeat scroll right -59px rgba(0, 0, 0, 0);
     content: "";
@@ -497,12 +501,12 @@
 
 
 .apishopsFormGroup.apishopsLoading{
-    position: relative; 
+    position: relative;
 }
 
 .apishopsFormGroup:after{
     transition: all 0.2s ease-out;
-    opacity:0;      
+    opacity:0;
 }
 
 
@@ -515,7 +519,7 @@
     right: 0;
     top: 0;
     transition: all 0.2s ease-out;
-    opacity:1;   
+    opacity:1;
 }
 
 
@@ -532,7 +536,7 @@
 }
 
 body{
-    transition: all 0.3s ease-in;   
+    transition: all 0.3s ease-in;
 }
 
 .apishopsFormLoadingText {
@@ -550,6 +554,11 @@ body{
 }
 .apishopsModalContent {
     text-align: center;
+}
+
+
+.apishopsModalContent .apishopsFormTheme3____item {
+    border: 0px;
 }
 
 
@@ -580,7 +589,7 @@ body{
 }
 
 
-.apishopsFormTheme2_form .button { 
+.apishopsFormTheme2_form .button {
 background: linear-gradient(to bottom, #a0ad4f 0%, #a0ad4f 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
  outline: medium none; border: 0 none; padding: 0 39px; box-sizing: border-box; border-radius: 4px; padding: 0 39px; height: 51px; color: #ffffff; text-shadow: 0px 0px 1px #aaa; display: block; margin: 20px auto auto; font-family: "nerissemibold", Arial; font-weight: normal; font-style: normal; font-size: 24px; background-clip: padding-box; border-radius: 4px; letter-spacing: 1px; text-decoration: none; background-color: #a0ad4f; box-shadow: 0 4px 0 #818c36; text-transform: uppercase;}
 
@@ -608,7 +617,7 @@ background: linear-gradient(to bottom, #a0ad4f 0%, #a0ad4f 100%) repeat scroll 0
 .featured_grid .featured_item {
   opacity: 0;
 }
- 
+
 .featured_grid .featured_item.animate {
   -webkit-animation: fadeIn 1.65s ease forwards;
   animation: fadeIn 1.65s ease forwards;
@@ -3492,7 +3501,6 @@ background: linear-gradient(to bottom, #a0ad4f 0%, #a0ad4f 100%) repeat scroll 0
     border-top-width: 1px;
     color: rgb(27, 27, 27);
     font-family: Arial, Helvetica, sans-serif;
-    height: 39px;
     line-height: 20px;
     outline-color: rgb(27, 27, 27);
     overflow-x: hidden;
@@ -3501,7 +3509,6 @@ background: linear-gradient(to bottom, #a0ad4f 0%, #a0ad4f 100%) repeat scroll 0
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 10px;
-    width: 300px;
     -webkit-perspective-origin: 200px 33.5px;
     perspective-origin: 200px 33.5px;
     -webkit-transform-origin: 200px 33.5px;
@@ -3521,6 +3528,7 @@ background: linear-gradient(to bottom, #a0ad4f 0%, #a0ad4f 100%) repeat scroll 0
     overflow: hidden;
     padding: 10px;
     margin-bottom: 10px;
+    display: inline-block;
 }/*#apishopsFormQuickViewInfoContainerIn2DIV_6*/
 
 #apishopsFormQuickViewInfoContainerIn2SPAN_7 {
@@ -3561,7 +3569,7 @@ background: linear-gradient(to bottom, #a0ad4f 0%, #a0ad4f 100%) repeat scroll 0
     line-height: 20px;
     outline-color: rgb(106, 106, 106);
     text-align: center;
-    width: 70px;
+    width: 60px;
     -webkit-perspective-origin: 46.296875px 22.5px;
     perspective-origin: 46.296875px 22.5px;
     -webkit-transform-origin: 46.296875px 22.5px;
@@ -4265,8 +4273,24 @@ background: linear-gradient(to bottom, #a0ad4f 0%, #a0ad4f 100%) repeat scroll 0
     padding: 0px 20px 0px 20px;
 }
 
+/**
+ * Фикс для вставляемой формы
+ */
+.featuredFormInsertContainer {
+    max-width: 1000px;
+     padding-bottom: 50px;
+}
+.featuredFormInsertContainer .featured__more{
+    opacity: 0.8;
+    padding: 31px;
+}
+.featuredFormInsertContainer .featured__more:HOVER{
+    opacity: 1;
+}
 
-
+#featuredFormInsertContainerClosest h3.title {
+    padding: 1% !important;
+}
 
 
 
