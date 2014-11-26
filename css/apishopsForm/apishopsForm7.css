@@ -851,7 +851,7 @@
     padding-top: 21px;
     text-shadow: rgb(170, 170, 170) 0px 0px 1px;
     text-transform: uppercase;
-    width: 221px;
+    width: auto;
     -webkit-perspective-origin: 110.5px 35.5px;
     perspective-origin: 110.5px 35.5px;
     -webkit-transform-origin: 110.5px 35.5px;
@@ -882,7 +882,7 @@
     margin-top: 20px;
     display: inline-block;
     border-bottom: 1px dotted;
-    text-decoration: none;    
+    text-decoration: none;
 }
 
 #apishopsFormTheme7FORM_12 a:hover{
