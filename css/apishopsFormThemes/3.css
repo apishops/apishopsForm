@@ -1,0 +1,506 @@
+
+
+@font-face {
+    font-family: 'forumregular';
+    src: url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/forum-regular-webfont.eot');
+    src: url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/forum-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('forum-regular-webfont.woff2') format('woff2'),
+         url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/forum-regular-webfont.woff') format('woff'),
+         url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/forum-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'candarabold_italic';
+    src: url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/candaraz-webfont.eot');
+    src: url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/candaraz-webfont.eot?#iefix') format('embedded-opentype'),
+         url('candaraz-webfont.woff2') format('woff2'),
+         url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/candaraz-webfont.woff') format('woff'),
+         url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/candaraz-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'candaraitalic';
+    src: url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/candarai-webfont.eot');
+    src: url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/candarai-webfont.eot?#iefix') format('embedded-opentype'),
+         url('candarai-webfont.woff2') format('woff2'),
+         url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/candarai-webfont.woff') format('woff'),
+         url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/candarai-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'candararegular';
+    src: url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/candara-webfont.eot');
+    src: url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/candara-webfont.eot?#iefix') format('embedded-opentype'),
+         url('candara-webfont.woff2') format('woff2'),
+         url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/candara-webfont.woff') format('woff'),
+         url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/candara-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'candarabold';
+    src: url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/candarab-webfont.eot');
+    src: url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/candarab-webfont.eot?#iefix') format('embedded-opentype'),
+         url('candarab-webfont.woff2') format('woff2'),
+         url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/candarab-webfont.woff') format('woff'),
+         url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/candarab-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+@font-face {
+    font-family: 'open_sansbold';
+    src: url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/opensans-bold-webfont.eot');
+    src: url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/opensans-bold-webfont.eot?#iefix') format('embedded-opentype'),
+    url('opensans-bold-webfont.woff2') format('woff2'),
+    url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/opensans-bold-webfont.woff') format('woff'),
+    url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/opensans-bold-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: 'open_sanslight';
+    src: url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/opensans-light-webfont.eot');
+    src: url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/opensans-light-webfont.eot?#iefix') format('embedded-opentype'),
+    url('opensans-light-webfont.woff2') format('woff2'),
+    url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/opensans-light-webfont.woff') format('woff'),
+    url('http://edwatchpandora_web.apishops.ru/css/fonts/watchPandora_web/opensans-light-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+#apishopsFormTheme4DIV_20 {
+    color: rgb(116, 115, 116);
+    height: 4570px;
+    position: relative;
+    width: 1344px;
+    -webkit-perspective-origin: 672px 2285px;
+    perspective-origin: 672px 2285px;
+    -webkit-transform-origin: 672px 2285px;
+    transform-origin: 672px 2285px;
+    border: 0px none rgb(116, 115, 116);
+    font: normal normal normal 16px/22px candararegular;
+    outline: rgb(116, 115, 116) none 0px;
+}/*#apishopsFormTheme4DIV_20*/
+
+#apishopsFormTheme4DIV_21 {
+    color: rgb(116, 115, 116);
+    height: 3846px;
+    width: 1344px;
+    -webkit-perspective-origin: 672px 1923px;
+    perspective-origin: 672px 1923px;
+    -webkit-transform-origin: 672px 1923px;
+    transform-origin: 672px 1923px;
+    border: 0px none rgb(116, 115, 116);
+    font: normal normal normal 16px/22.3999996185303px candararegular;
+    outline: rgb(116, 115, 116) none 0px;
+}/*#apishopsFormTheme4DIV_21*/
+
+#apishopsFormTheme4DIV_22 {
+    color: rgb(116, 115, 116);
+    height: 727px;
+    width: 1344px;
+    -webkit-perspective-origin: 672px 363.5px;
+    perspective-origin: 672px 363.5px;
+    -webkit-transform-origin: 672px 363.5px;
+    transform-origin: 672px 363.5px;
+    border: 0px none rgb(116, 115, 116);
+    font: normal normal normal 16px/22.3999996185303px candararegular;
+    margin: 30px 0px 0px;
+    outline: rgb(116, 115, 116) none 0px;
+}/*#apishopsFormTheme4DIV_22*/
+
+#apishopsFormTheme4DIV_23 {
+    color: rgb(116, 115, 116);
+    height: 667px;
+    max-width: 1200px;
+    position: relative;
+    width: 1000px;
+    -webkit-perspective-origin: 500px 333.5px;
+    perspective-origin: 500px 333.5px;
+    -webkit-transform-origin: 500px 333.5px;
+    transform-origin: 500px 333.5px;
+    border: 0px none rgb(116, 115, 116);
+    font: normal normal normal 16px/22.3999996185303px candararegular;
+    margin: 0px 172px;
+    outline: rgb(116, 115, 116) none 0px;
+}/*#apishopsFormTheme4DIV_23*/
+
+#apishopsFormTheme4DIV_1 {
+    box-shadow: rgb(151, 127, 187) 0px 14px 40px -7px;
+    box-sizing: border-box;
+    color: rgb(116, 115, 116);
+    display: inline-block;
+    text-align: center;
+    vertical-align: top;
+    width: 314px;
+    -webkit-perspective-origin: 157px 306px;
+    perspective-origin: 157px 306px;
+    -webkit-transform-origin: 157px 306px;
+    transform-origin: 157px 306px;
+    background: rgb(151, 127, 187) none repeat scroll 0% 0% / auto padding-box border-box;
+    border: 0px none rgb(116, 115, 116);
+    border-radius: 6px 6px 6px 6px;
+    font: normal normal normal 16px/22.3999996185303px candararegular;
+    margin: 55px 22px 0px 0px;
+    outline: rgb(116, 115, 116) none 0px;
+    padding: 10px 0px;
+}/*#apishopsFormTheme4DIV_1*/
+
+#apishopsFormTheme4DIV_2 {
+    box-shadow: rgb(255, 255, 255) 0px 36px 140px -60px;
+    color: rgb(116, 115, 116);
+    text-align: center;
+    width: 314px;
+    -webkit-perspective-origin: 157px 88.5px;
+    perspective-origin: 157px 88.5px;
+    -webkit-transform-origin: 157px 88.5px;
+    transform-origin: 157px 88.5px;
+    border: 0px none rgb(116, 115, 116);
+    font: normal normal normal 16px/22.3999996185303px candararegular;
+    outline: rgb(116, 115, 116) none 0px;
+    overflow: hidden;
+}/*#apishopsFormTheme4DIV_2*/
+
+#apishopsFormTheme4IMG_3 {
+    color: rgb(116, 115, 116);
+    text-align: center;
+    width: 314px;
+    -webkit-perspective-origin: 157px 88.5px;
+    perspective-origin: 157px 88.5px;
+    -webkit-transform-origin: 157px 88.5px;
+    transform-origin: 157px 88.5px;
+    border: 0px none rgb(116, 115, 116);
+    font: normal normal normal 16px/22.3999996185303px candararegular;
+    outline: rgb(116, 115, 116) none 0px;
+}/*#apishopsFormTheme4IMG_3*/
+
+#apishopsFormTheme4DIV_4 {
+    color: rgb(116, 115, 116);
+    position: relative;
+    text-align: center;
+    width: 274px;
+    -webkit-perspective-origin: 157px 207.5px;
+    perspective-origin: 157px 207.5px;
+    -webkit-transform-origin: 157px 207.5px;
+    transform-origin: 157px 207.5px;
+    border: 0px none rgb(116, 115, 116);
+    font: normal normal normal 16px/22.3999996185303px candararegular;
+    outline: rgb(116, 115, 116) none 0px;
+    padding: 20px 20px 30px;
+}/*#apishopsFormTheme4DIV_4*/
+
+#apishopsFormTheme4DIV_4:after {
+    background-position: 0px -72px;
+    color: rgb(116, 115, 116);
+    height: 5px;
+    left: 137px;
+    position: absolute;
+    text-align: center;
+    top: 60px;
+    width: 106px;
+    z-index: 0;
+    -webkit-align-self: stretch;
+    -ms-flex-item-align: stretch;
+    align-self: stretch;
+    -webkit-perspective-origin: 53px 2.5px;
+    perspective-origin: 53px 2.5px;
+    -webkit-transform: matrix(1, 0, 0, 1, -53, 0);
+    transform: matrix(1, 0, 0, 1, -53, 0);
+    -webkit-transform-origin: 53px 2.5px;
+    transform-origin: 53px 2.5px;
+    content: '';
+    
+    border: 0px none rgb(116, 115, 116);
+    font: normal normal normal 16px/22.3999996185303px candararegular;
+    outline: rgb(116, 115, 116) none 0px;
+}/*#apishopsFormTheme4DIV_4:after*/
+
+#apishopsFormTheme4H3_5 {
+    color: rgb(255, 255, 255);
+    text-align: center;
+    width: 274px;
+    -webkit-perspective-origin: 137px 13.5px;
+    perspective-origin: 137px 13.5px;
+    -webkit-transform-origin: 137px 13.5px;
+    transform-origin: 137px 13.5px;
+    border: 0px none rgb(255, 255, 255);
+    font: normal normal normal 27px/27px forumregular;
+    margin: 0px;
+    outline: rgb(255, 255, 255) none 0px;
+}/*#apishopsFormTheme4H3_5*/
+
+#apishopsFormTheme4DIV_6 {
+    color: rgb(116, 115, 116);
+    text-align: center;
+    width: 234px;
+    -webkit-perspective-origin: 137px 20px;
+    perspective-origin: 137px 20px;
+    -webkit-transform-origin: 137px 20px;
+    transform-origin: 137px 20px;
+    border: 0px none rgb(116, 115, 116);
+    font: normal normal normal 16px/22.3999996185303px forumregular;
+    margin: 25px 0px 15px;
+    outline: rgb(116, 115, 116) none 0px;
+    padding: 0px 20px;
+}/*#apishopsFormTheme4DIV_6*/
+
+#apishopsFormTheme4H3_7 {
+    box-sizing: border-box;
+    color: rgb(255, 255, 255);
+    float: left;
+    text-align: center;
+    width: 136px;
+    -webkit-perspective-origin: 68px 20px;
+    perspective-origin: 68px 20px;
+    -webkit-transform-origin: 68px 20px;
+    transform-origin: 68px 20px;
+    border: 0px none rgb(255, 255, 255);
+    font: normal normal normal 32px/30px forumregular;
+    margin: 0px;
+    outline: rgb(255, 255, 255) none 0px;
+    padding: 10px 10px 0px;
+}/*#apishopsFormTheme4H3_7*/
+
+#apishopsFormTheme4SPAN_8 {
+    color: rgb(255, 255, 255);
+    text-align: center;
+    border: 0px none rgb(255, 255, 255);
+    font: normal normal normal 32px/30px forumregular;
+    outline: rgb(255, 255, 255) none 0px;
+}/*#apishopsFormTheme4SPAN_8*/
+
+#apishopsFormTheme4H4_9 {
+    color: rgb(205, 190, 229);
+    display: inline-block;
+
+    position: relative;
+    text-align: center;
+
+    -webkit-perspective-origin: 40.5px 14px;
+
+    perspective-origin: 40.5px 14px;
+    -webkit-transform-origin: 40.5px 14px;
+    transform-origin: 40.5px 14px;
+    border: 0px none rgb(205, 190, 229);
+    font: normal normal normal 20px/28px forumregular;
+    margin: 12px 0px 0px;
+    outline: rgb(205, 190, 229) none 0px;
+}/*#apishopsFormTheme4H4_9*/
+
+#apishopsFormTheme4H4_9:after {
+    color: rgb(205, 190, 229);
+    left: 0px;
+    position: absolute;
+    right: 0px;
+    text-align: center;
+    top: 15px;
+
+    -webkit-align-self: stretch;
+
+    -ms-flex-item-align: stretch;
+
+    align-self: stretch;
+    -webkit-perspective-origin: 40.5px 0.5px;
+    perspective-origin: 40.5px 0.5px;
+    -webkit-transform-origin: 40.5px 0.5px;
+    transform-origin: 40.5px 0.5px;
+    content: '';
+    border-top: 0px none rgb(205, 190, 229);
+    border-right: 0px none rgb(205, 190, 229);
+    border-bottom: 1px solid rgb(205, 190, 229);
+    border-left: 0px none rgb(205, 190, 229);
+    font: normal normal normal 20px/28px forumregular;
+    margin: 0px;
+    outline: rgb(205, 190, 229) none 0px;
+}/*#apishopsFormTheme4H4_9:after*/
+
+#apishopsFormTheme4SPAN_10 {
+    color: rgb(205, 190, 229);
+    text-align: center;
+    border: 0px none rgb(205, 190, 229);
+    font: normal normal normal 20px/28px forumregular;
+    outline: rgb(205, 190, 229) none 0px;
+}/*#apishopsFormTheme4SPAN_10*/
+
+#apishopsFormTheme4DIV_11 {
+    clear: both;
+    color: rgb(116, 115, 116);
+    text-align: center;
+    width: 274px;
+    -webkit-perspective-origin: 137px 121.5px;
+    perspective-origin: 137px 121.5px;
+    -webkit-transform-origin: 137px 121.5px;
+    transform-origin: 137px 121.5px;
+    border: 0px none rgb(116, 115, 116);
+    font: normal normal normal 16px/22.3999996185303px candararegular;
+    outline: rgb(116, 115, 116) none 0px;
+}/*#apishopsFormTheme4DIV_11*/
+
+#apishopsFormTheme4DIV_11:after {
+    clear: both;
+    color: rgb(116, 115, 116);
+    display: table;
+    text-align: center;
+    width: 1px;
+    -webkit-perspective-origin: 0.5px 0px;
+    perspective-origin: 0.5px 0px;
+    -webkit-transform-origin: 0.5px 0px;
+    transform-origin: 0.5px 0px;
+    content: ' ';
+    border: 0px none rgb(116, 115, 116);
+    font: normal normal normal 16px/22.3999996185303px candararegular;
+    outline: rgb(116, 115, 116) none 0px;
+}/*#apishopsFormTheme4DIV_11:after*/
+
+#apishopsFormTheme4DIV_12 {
+    color: rgb(116, 115, 116);
+    text-align: center;
+    width: 274px;
+    -webkit-perspective-origin: 137px 121.5px;
+    perspective-origin: 137px 121.5px;
+    -webkit-transform-origin: 137px 121.5px;
+    transform-origin: 137px 121.5px;
+    border: 0px none rgb(116, 115, 116);
+    font: normal normal normal 16px/22.3999996185303px candararegular;
+    outline: rgb(116, 115, 116) none 0px;
+}/*#apishopsFormTheme4DIV_12*/
+
+#apishopsFormTheme4FORM_13 {
+    color: rgb(116, 115, 116);
+    position: relative;
+    text-align: center;
+    width: 274px;
+    -webkit-perspective-origin: 137px 121.5px;
+    perspective-origin: 137px 121.5px;
+    -webkit-transform-origin: 137px 121.5px;
+    transform-origin: 137px 121.5px;
+    border: 0px none rgb(116, 115, 116);
+    font: normal normal normal 16px/22.3999996185303px candararegular;
+    margin: 30px 0px 0px;
+    outline: rgb(116, 115, 116) none 0px;
+}/*#apishopsFormTheme4FORM_13*/
+
+#apishopsFormTheme4INPUT_14 {
+    box-shadow: rgba(0, 0, 0, 0.0470588) 0px 2px 3px 0px inset;
+    display: block;
+    height: 33px;
+    width: 269px;
+    -webkit-perspective-origin: 50% 50%;
+    perspective-origin: 50% 50%;
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box padding-box;
+    border: 1px solid rgb(236, 236, 236);
+    border-radius: 18px 18px 18px 18px;
+    font: normal normal normal 16px/normal 'Lucida Grande';
+    margin: auto auto 10px;
+    padding: 0px 0px 0px 16px;
+}/*#apishopsFormTheme4INPUT_14*/
+
+#apishopsFormTheme4INPUT_15, #apishopsFormTheme4INPUT_16, #apishopsFormTheme4INPUT_18 {
+    box-shadow: rgba(0, 0, 0, 0.0470588) 0px 2px 3px 0px inset;
+    display: block;
+    height: 33px;
+    width: 269px;
+    -webkit-perspective-origin: 134.5px 16.5px;
+    perspective-origin: 134.5px 16.5px;
+    -webkit-transform-origin: 134.5px 16.5px;
+    transform-origin: 134.5px 16.5px;
+    background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box padding-box;
+    border: 1px solid rgb(236, 236, 236);
+    border-radius: 18px 18px 18px 18px;
+    font: normal normal normal 16px/normal 'Lucida Grande';
+    margin: 0px 2.5px 10px;
+    padding: 0px 0px 0px 16px;
+}/*#apishopsFormTheme4INPUT_15, #apishopsFormTheme4INPUT_16, #apishopsFormTheme4INPUT_18*/
+
+#apishopsFormTheme4INPUT_17 {
+    box-shadow: rgba(0, 0, 0, 0.0470588) 0px 2px 3px 0px inset;
+    display: block;
+    height: 33px;
+    width: 269px;
+    -webkit-perspective-origin: 134.5px 16.5px;
+    perspective-origin: 134.5px 16.5px;
+    -webkit-transform-origin: 134.5px 16.5px;
+    transform-origin: 134.5px 16.5px;
+    background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box padding-box;
+    border: 1px solid rgb(236, 236, 236);
+    border-radius: 18px 18px 18px 18px;
+    font: normal normal normal 16px/normal 'Lucida Grande';
+    margin: 0px 2.5px 10px;
+    padding: 0px 0px 0px 16px;
+}/*#apishopsFormTheme4INPUT_17*/
+
+#apishopsFormTheme4BUTTON_19 {
+    box-shadow: rgb(69, 57, 87) 0px 8px 32px -7px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    display: block;
+    height: 56px;
+    letter-spacing: 1px;
+    min-height: 0px;
+    text-shadow: rgb(178, 178, 178) 0px 0px 1px;
+    text-transform: uppercase;
+    width: 261px;
+    -webkit-perspective-origin: 130.5px 28px;
+    perspective-origin: 130.5px 28px;
+    -webkit-transform-origin: 130.5px 28px;
+    transform-origin: 130.5px 28px;
+    background: rgb(90, 194, 192) linear-gradient(rgb(101, 201, 200) 0%, rgb(81, 187, 186) 95%, rgb(76, 167, 166) 100%) repeat scroll 0% 0% / auto padding-box padding-box;
+    border: 0px none rgb(255, 255, 255);
+    border-radius: 28px 28px 28px 28px;
+    font: normal normal normal 23px/normal forumregular;
+    margin: 25px 6.5px 0px;
+    outline: rgb(255, 255, 255) none 0px;
+    padding: 0px 43px;
+    font-family: forumregular;
+}/*#apishopsFormTheme4BUTTON_19*/
+
+
+
+a.__QUICKVIEW__{
+    font-family: forumregular;
+    font-size: 21px;
+    color:white;
+    margin-top: 30px;
+    display: inline-block;
+    border-bottom: 1px dotted;
+    text-decoration: none;    
+}
+
+a.__QUICKVIEW__:hover{
+    opacity: 0.7;
+}

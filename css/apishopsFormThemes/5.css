@@ -1,0 +1,650 @@
+
+@font-face {
+    font-family: 'aleksandracregular';
+    src: url('http://edarmani_web.apishops.ru/css/fonts/ginseng_adaptive/aleksandrac_regular-webfont.eot');
+    src: url('http://edarmani_web.apishops.ru/css/fonts/ginseng_adaptive/aleksandrac_regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('aleksandrac_regular-webfont.woff2') format('woff2'),
+         url('http://edarmani_web.apishops.ru/css/fonts/ginseng_adaptive/aleksandrac_regular-webfont.woff') format('woff'),
+         url('http://edarmani_web.apishops.ru/css/fonts/ginseng_adaptive/aleksandrac_regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'clear_sansregular';
+    src: url('http://edarmani_web.apishops.ru/css/fonts/ginseng_adaptive/ClearSans-Regular-webfont.eot');
+    src: url('http://edarmani_web.apishops.ru/css/fonts/ginseng_adaptive/ClearSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('http://edarmani_web.apishops.ru/css/fonts/ginseng_adaptive/ClearSans-Regular-webfont.woff') format('woff'),
+    url('http://edarmani_web.apishops.ru/css/fonts/ginseng_adaptive/ClearSans-Regular-webfont.ttf') format('truetype'),
+    url('http://edarmani_web.apishops.ru/css/fonts/ginseng_adaptive/ClearSans-Regular-webfont.svg#clear_sansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'clear_sansbold';
+    src: url('http://edarmani_web.apishops.ru/css/fonts/ginseng_adaptive/ClearSans-Bold-webfont.eot');
+    src: url('http://edarmani_web.apishops.ru/css/fonts/ginseng_adaptive/ClearSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+    url('http://edarmani_web.apishops.ru/css/fonts/ginseng_adaptive/ClearSans-Bold-webfont.woff') format('woff'),
+    url('http://edarmani_web.apishops.ru/css/fonts/ginseng_adaptive/ClearSans-Bold-webfont.ttf') format('truetype'),
+    url('http://edarmani_web.apishops.ru/css/fonts/ginseng_adaptive/ClearSans-Bold-webfont.svg#clear_sansbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'neristhin';
+    src: url('http://edarmani_web.apishops.ru/css/fonts/ginseng_adaptive/Neris-Thin-webfont.eot');
+    src: url('http://edarmani_web.apishops.ru/css/fonts/ginseng_adaptive/Neris-Thin-webfont.eot?#iefix') format('embedded-opentype'),
+    url('http://edarmani_web.apishops.ru/css/fonts/ginseng_adaptive/Neris-Thin-webfont.woff') format('woff'),
+    url('http://edarmani_web.apishops.ru/css/fonts/ginseng_adaptive/Neris-Thin-webfont.ttf') format('truetype'),
+    url('http://edarmani_web.apishops.ru/css/fonts/ginseng_adaptive/Neris-Thin-webfont.svg#neristhin') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+#apishopsFormTheme6SECTION_16 {
+    border-bottom-color: rgb(51, 51, 51);
+    border-left-color: rgb(51, 51, 51);
+    border-right-color: rgb(51, 51, 51);
+    border-top-color: rgb(51, 51, 51);
+    box-sizing: border-box;
+    color: rgb(51, 51, 51);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    height: 674px;
+    line-height: 20px;
+    outline-color: rgb(51, 51, 51);
+    padding-top: 100px;
+    text-align: center;
+    width: 1344px;
+    -webkit-perspective-origin: 672px 337px;
+    perspective-origin: 672px 337px;
+    -webkit-transform-origin: 672px 337px;
+    transform-origin: 672px 337px;
+    border: 0px none rgb(51, 51, 51);
+    border-top: 0px none rgb(51, 51, 51);
+    border-right: 0px none rgb(51, 51, 51);
+    border-bottom: 0px none rgb(51, 51, 51);
+    border-left: 0px none rgb(51, 51, 51);
+    border-color: rgb(51, 51, 51);
+    font: normal normal normal normal 14px/20px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    outline: rgb(51, 51, 51) none 0px;
+    padding: 100px 0px 0px;
+}/*#apishopsFormTheme6SECTION_16*/
+
+#apishopsFormTheme6DIV_17 {
+    border-bottom-color: rgb(51, 51, 51);
+    border-left-color: rgb(51, 51, 51);
+    border-right-color: rgb(51, 51, 51);
+    border-top-color: rgb(51, 51, 51);
+    box-sizing: border-box;
+    color: rgb(51, 51, 51);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    height: 574px;
+    line-height: 20px;
+    margin-left: 189.5px;
+    margin-right: 189.5px;
+    max-width: 965px;
+    outline-color: rgb(51, 51, 51);
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+    width: 965px;
+    -webkit-perspective-origin: 482.5px 287px;
+    perspective-origin: 482.5px 287px;
+    -webkit-transform-origin: 482.5px 287px;
+    transform-origin: 482.5px 287px;
+    border: 0px none rgb(51, 51, 51);
+    border-top: 0px none rgb(51, 51, 51);
+    border-right: 0px none rgb(51, 51, 51);
+    border-bottom: 0px none rgb(51, 51, 51);
+    border-left: 0px none rgb(51, 51, 51);
+    border-color: rgb(51, 51, 51);
+    font: normal normal normal normal 14px/20px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0px 189.5px;
+    outline: rgb(51, 51, 51) none 0px;
+    padding: 0px 15px;
+
+}/*#apishopsFormTheme6DIV_17*/
+
+#apishopsFormTheme6DIV_18 {
+    border-bottom-color: rgb(51, 51, 51);
+    border-left-color: rgb(51, 51, 51);
+    border-right-color: rgb(51, 51, 51);
+    border-top-color: rgb(51, 51, 51);
+    box-sizing: border-box;
+    color: rgb(51, 51, 51);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    height: 468px;
+    line-height: 20px;
+    margin-left: -15px;
+    margin-right: -15px;
+    outline-color: rgb(51, 51, 51);
+    text-align: center;
+    width: 965px;
+    -webkit-perspective-origin: 482.5px 234px;
+    perspective-origin: 482.5px 234px;
+    -webkit-transform-origin: 482.5px 234px;
+    transform-origin: 482.5px 234px;
+    border: 0px none rgb(51, 51, 51);
+    border-top: 0px none rgb(51, 51, 51);
+    border-right: 0px none rgb(51, 51, 51);
+    border-bottom: 0px none rgb(51, 51, 51);
+    border-left: 0px none rgb(51, 51, 51);
+    border-color: rgb(51, 51, 51);
+    font: normal normal normal normal 14px/20px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0px -15px;
+    outline: rgb(51, 51, 51) none 0px;
+}/*#apishopsFormTheme6DIV_18*/
+
+#apishopsFormTheme6DIV_1 {
+    border-bottom-color: rgb(51, 51, 51);
+    border-left-color: rgb(51, 51, 51);
+    border-right-color: rgb(51, 51, 51);
+    border-top-color: rgb(51, 51, 51);
+    box-sizing: border-box;
+    color: rgb(51, 51, 51);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    min-height: 1px;
+    outline-color: rgb(51, 51, 51);
+    padding: 10px;
+    position: relative;
+    text-align: center;
+    width: 321.65625px;
+    -webkit-perspective-origin: 160.828125px 234px;
+    perspective-origin: 160.828125px 234px;
+    -webkit-transform-origin: 160.828125px 234px;
+    transform-origin: 160.828125px 234px;
+    border: 0px none rgb(51, 51, 51);
+    border-top: 0px none rgb(51, 51, 51);
+    border-right: 0px none rgb(51, 51, 51);
+    border-bottom: 0px none rgb(51, 51, 51);
+    border-left: 0px none rgb(51, 51, 51);
+    border-color: rgb(51, 51, 51);
+    font: normal normal normal normal 14px/20px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    outline: rgb(51, 51, 51) none 0px;
+    display: inline-block;
+}/*#apishopsFormTheme6DIV_1*/
+
+#apishopsFormTheme6DIV_2 {
+    border-bottom-color: rgb(191, 28, 43);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-style: solid;
+    border-bottom-width: 5px;
+    border-left-color: rgb(191, 28, 43);
+    border-left-style: solid;
+    border-left-width: 5px;
+    border-right-color: rgb(191, 28, 43);
+    border-right-style: solid;
+    border-right-width: 5px;
+    border-top-color: rgb(191, 28, 43);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-top-style: solid;
+    border-top-width: 5px;
+    box-sizing: border-box;
+    color: rgb(51, 51, 51);
+    font-family: aleksandracregular;
+    font-size: 14px;
+    line-height: 20px;
+    outline-color: rgb(51, 51, 51);
+    padding-bottom: 35px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 35px;
+    text-align: center;
+    width: 291.65625px;
+    -webkit-perspective-origin: 145.828125px 234px;
+    perspective-origin: 145.828125px 234px;
+    -webkit-transform-origin: 145.828125px 234px;
+    transform-origin: 145.828125px 234px;
+    border: 5px solid rgb(191, 28, 43);
+    border-top: 5px solid rgb(191, 28, 43);
+    border-right: 5px solid rgb(191, 28, 43);
+    border-bottom: 5px solid rgb(191, 28, 43);
+    border-left: 5px solid rgb(191, 28, 43);
+    border-width: 5px;
+    border-color: rgb(191, 28, 43);
+    border-style: solid;
+    border-radius: 4px 4px 4px 4px;
+    font: normal normal normal normal 14px/20px aleksandracregular;
+    outline: rgb(51, 51, 51) none 0px;
+    padding: 35px 25px;
+}/*#apishopsFormTheme6DIV_2*/
+
+#apishopsFormTheme6DIV_3 {
+    border-bottom-color: rgb(51, 51, 51);
+    border-left-color: rgb(51, 51, 51);
+    border-right-color: rgb(51, 51, 51);
+    border-top-color: rgb(51, 51, 51);
+    box-sizing: border-box;
+    color: rgb(51, 51, 51);
+    font-family: aleksandracregular;
+    font-size: 14px;
+    line-height: 20px;
+    outline-color: rgb(51, 51, 51);
+    text-align: center;
+    width: 231.65625px;
+    -webkit-perspective-origin: 115.828125px 10px;
+    perspective-origin: 115.828125px 10px;
+    -webkit-transform-origin: 115.828125px 10px;
+    transform-origin: 115.828125px 10px;
+    border: 0px none rgb(51, 51, 51);
+    border-top: 0px none rgb(51, 51, 51);
+    border-right: 0px none rgb(51, 51, 51);
+    border-bottom: 0px none rgb(51, 51, 51);
+    border-left: 0px none rgb(51, 51, 51);
+    border-color: rgb(51, 51, 51);
+    font: normal normal normal normal 14px/20px aleksandracregular;
+    outline: rgb(51, 51, 51) none 0px;
+}/*#apishopsFormTheme6DIV_3*/
+
+#apishopsFormTheme6IMG_4 {
+    border-bottom-color: rgb(51, 51, 51);
+    border-left-color: rgb(51, 51, 51);
+    border-right-color: rgb(51, 51, 51);
+    border-top-color: rgb(51, 51, 51);
+    box-sizing: border-box;
+    color: rgb(51, 51, 51);
+    display: inline-block;
+    font-family: aleksandracregular;
+    font-size: 14px;
+    line-height: 20px;
+    outline-color: rgb(51, 51, 51);
+    text-align: center;
+    vertical-align: middle;
+    width: 213px;
+    -webkit-perspective-origin: 106.5px 0px;
+    perspective-origin: 106.5px 0px;
+    -webkit-transform-origin: 106.5px 0px;
+    transform-origin: 106.5px 0px;
+    border: 0px none rgb(51, 51, 51);
+    border-top: 0px none rgb(51, 51, 51);
+    border-right: 0px none rgb(51, 51, 51);
+    border-bottom: 0px none rgb(51, 51, 51);
+    border-left: 0px none rgb(51, 51, 51);
+    border-color: rgb(51, 51, 51);
+    font: normal normal normal normal 14px/20px aleksandracregular;
+    outline: rgb(51, 51, 51) none 0px;
+}/*#apishopsFormTheme6IMG_4*/
+
+#apishopsFormTheme6H3_5 {
+    border-bottom-color: rgb(24, 24, 24);
+    border-left-color: rgb(24, 24, 24);
+    border-right-color: rgb(24, 24, 24);
+    border-top-color: rgb(24, 24, 24);
+    box-sizing: border-box;
+    color: rgb(24, 24, 24);
+    font-family: aleksandracregular;
+    font-size: 21px;
+    font-weight: normal;
+    line-height: 23.1000003814697px;
+    margin-bottom: 0px;
+    margin-top: 20px;
+    outline-color: rgb(24, 24, 24);
+    text-align: center;
+    width: 231.65625px;
+    -webkit-perspective-origin: 115.828125px 11.5px;
+    perspective-origin: 115.828125px 11.5px;
+    -webkit-transform-origin: 115.828125px 11.5px;
+    transform-origin: 115.828125px 11.5px;
+    border: 0px none rgb(24, 24, 24);
+    border-top: 0px none rgb(24, 24, 24);
+    border-right: 0px none rgb(24, 24, 24);
+    border-bottom: 0px none rgb(24, 24, 24);
+    border-left: 0px none rgb(24, 24, 24);
+    border-color: rgb(24, 24, 24);
+    font: normal normal normal normal 21px/23.1000003814697px aleksandracregular;
+    margin: 20px 0px 0px;
+    outline: rgb(24, 24, 24) none 0px;
+}/*#apishopsFormTheme6H3_5*/
+
+#apishopsFormTheme6H4_6 {
+    border-bottom-color: rgb(102, 102, 102);
+    border-left-color: rgb(102, 102, 102);
+    border-right-color: rgb(102, 102, 102);
+    border-top-color: rgb(102, 102, 102);
+    box-sizing: border-box;
+    color: rgb(102, 102, 102);
+    font-family: aleksandracregular;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 19.7999992370605px;
+    margin-bottom: 10px;
+    margin-top: 0px;
+    outline-color: rgb(102, 102, 102);
+    text-align: center;
+    width: 231.65625px;
+    -webkit-perspective-origin: 115.828125px 9.5px;
+    perspective-origin: 115.828125px 9.5px;
+    -webkit-transform-origin: 115.828125px 9.5px;
+    transform-origin: 115.828125px 9.5px;
+    border: 0px none rgb(102, 102, 102);
+    border-top: 0px none rgb(102, 102, 102);
+    border-right: 0px none rgb(102, 102, 102);
+    border-bottom: 0px none rgb(102, 102, 102);
+    border-left: 0px none rgb(102, 102, 102);
+    border-color: rgb(102, 102, 102);
+    font: normal normal normal normal 18px/19.7999992370605px aleksandracregular;
+    margin: 0px 0px 10px;
+    outline: rgb(102, 102, 102) none 0px;
+    text-decoration: line-through;
+}/*#apishopsFormTheme6H4_6*/
+
+#apishopsFormTheme6STRIKE_7 {
+    border-bottom-color: rgb(102, 102, 102);
+    border-left-color: rgb(102, 102, 102);
+    border-right-color: rgb(102, 102, 102);
+    border-top-color: rgb(102, 102, 102);
+    box-sizing: border-box;
+    color: rgb(102, 102, 102);
+    font-family: aleksandracregular;
+    font-size: 18px;
+    line-height: 19.7999992370605px;
+    outline-color: rgb(102, 102, 102);
+    text-align: center;
+    border: 0px none rgb(102, 102, 102);
+    border-top: 0px none rgb(102, 102, 102);
+    border-right: 0px none rgb(102, 102, 102);
+    border-bottom: 0px none rgb(102, 102, 102);
+    border-left: 0px none rgb(102, 102, 102);
+    border-color: rgb(102, 102, 102);
+    font: normal normal normal normal 18px/19.7999992370605px aleksandracregular;
+    outline: rgb(102, 102, 102) none 0px;
+}/*#apishopsFormTheme6STRIKE_7*/
+
+#apishopsFormTheme6P_8 {
+    border-bottom-color: rgb(24, 24, 24);
+    border-left-color: rgb(24, 24, 24);
+    border-right-color: rgb(24, 24, 24);
+    border-top-color: rgb(24, 24, 24);
+    box-sizing: border-box;
+    color: rgb(24, 24, 24);
+    font-family: aleksandracregular;
+    font-size: 29px;
+    line-height: 41.4285736083984px;
+    margin-bottom: 10px;
+    margin-top: 0px;
+    outline-color: rgb(24, 24, 24);
+    text-align: center;
+    text-transform: uppercase;
+    width: 231.65625px;
+    -webkit-perspective-origin: 115.828125px 41px;
+    perspective-origin: 115.828125px 41px;
+    -webkit-transform-origin: 115.828125px 41px;
+    transform-origin: 115.828125px 41px;
+    border: 0px none rgb(24, 24, 24);
+    border-top: 0px none rgb(24, 24, 24);
+    border-right: 0px none rgb(24, 24, 24);
+    border-bottom: 0px none rgb(24, 24, 24);
+    border-left: 0px none rgb(24, 24, 24);
+    border-color: rgb(24, 24, 24);
+    font: normal normal normal normal 29px/41.4285736083984px aleksandracregular;
+    margin: 0px 0px 10px;
+    outline: rgb(24, 24, 24) none 0px;
+}/*#apishopsFormTheme6P_8*/
+
+#apishopsFormTheme6DIV_9 {
+    border-bottom-color: rgb(51, 51, 51);
+    border-left-color: rgb(51, 51, 51);
+    border-right-color: rgb(51, 51, 51);
+    border-top-color: rgb(51, 51, 51);
+    box-sizing: border-box;
+    color: rgb(51, 51, 51);
+    font-family: aleksandracregular;
+    font-size: 14px;
+    line-height: 20px;
+    outline-color: rgb(51, 51, 51);
+    text-align: center;
+    width: 231.65625px;
+    -webkit-perspective-origin: 115.828125px 102px;
+    perspective-origin: 115.828125px 102px;
+    -webkit-transform-origin: 115.828125px 102px;
+    transform-origin: 115.828125px 102px;
+    border: 0px none rgb(51, 51, 51);
+    border-top: 0px none rgb(51, 51, 51);
+    border-right: 0px none rgb(51, 51, 51);
+    border-bottom: 0px none rgb(51, 51, 51);
+    border-left: 0px none rgb(51, 51, 51);
+    border-color: rgb(51, 51, 51);
+    font: normal normal normal normal 14px/20px aleksandracregular;
+    outline: rgb(51, 51, 51) none 0px;
+}/*#apishopsFormTheme6DIV_9*/
+
+#apishopsFormTheme6FORM_10 {
+    border-bottom-color: rgb(51, 51, 51);
+    border-left-color: rgb(51, 51, 51);
+    border-right-color: rgb(51, 51, 51);
+    border-top-color: rgb(51, 51, 51);
+    box-sizing: border-box;
+    color: rgb(51, 51, 51);
+    font-family: aleksandracregular;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 0px;
+    outline-color: rgb(51, 51, 51);
+    text-align: center;
+    width: 231.65625px;
+    -webkit-perspective-origin: 115.828125px 102px;
+    perspective-origin: 115.828125px 102px;
+    -webkit-transform-origin: 115.828125px 102px;
+    transform-origin: 115.828125px 102px;
+    border: 0px none rgb(51, 51, 51);
+    border-top: 0px none rgb(51, 51, 51);
+    border-right: 0px none rgb(51, 51, 51);
+    border-bottom: 0px none rgb(51, 51, 51);
+    border-left: 0px none rgb(51, 51, 51);
+    border-color: rgb(51, 51, 51);
+    font: normal normal normal normal 14px/20px aleksandracregular;
+    margin: 0px;
+    outline: rgb(51, 51, 51) none 0px;
+}/*#apishopsFormTheme6FORM_10*/
+
+#apishopsFormTheme6INPUT_11 {
+    border-bottom-color: rgba(204, 204, 204, 0.592157);
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color: rgba(204, 204, 204, 0.592157);
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right-color: rgba(204, 204, 204, 0.592157);
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-top-color: rgba(204, 204, 204, 0.592157);
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    color: rgb(153, 153, 153);
+    display: none;
+    font-family: aleksandracregular;
+    font-size: 15px;
+    height: 35px;
+    line-height: 21.4285717010498px;
+    margin-bottom: 12px;
+    outline-color: rgb(153, 153, 153);
+    padding-bottom: 0px;
+    padding-left: 10px;
+    padding-right: 0px;
+    padding-top: 0px;
+    width: 100%;
+    -webkit-perspective-origin: 50% 50%;
+    perspective-origin: 50% 50%;
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    border: 1px solid rgba(204, 204, 204, 0.592157);
+    border-top: 1px solid rgba(204, 204, 204, 0.592157);
+    border-right: 1px solid rgba(204, 204, 204, 0.592157);
+    border-bottom: 1px solid rgba(204, 204, 204, 0.592157);
+    border-left: 1px solid rgba(204, 204, 204, 0.592157);
+    border-width: 1px;
+    border-color: rgba(204, 204, 204, 0.592157);
+    border-style: solid;
+    border-radius: 2px 2px 2px 2px;
+    font: normal normal normal normal 15px/21.4285717010498px aleksandracregular;
+    margin: 0px 0px 12px;
+    outline: rgb(153, 153, 153) none 0px;
+    padding: 0px 0px 0px 10px;
+}/*#apishopsFormTheme6INPUT_11*/
+
+#apishopsFormTheme6INPUT_12, #apishopsFormTheme6INPUT_13 {
+    border-bottom-color: rgba(204, 204, 204, 0.592157);
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color: rgba(204, 204, 204, 0.592157);
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right-color: rgba(204, 204, 204, 0.592157);
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-top-color: rgba(204, 204, 204, 0.592157);
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    color: rgb(153, 153, 153);
+    font-family: aleksandracregular;
+    font-size: 15px;
+    height: 35px;
+    line-height: 21.4285717010498px;
+    margin-bottom: 12px;
+    outline-color: rgb(153, 153, 153);
+    padding-left: 10px;
+    width: 231.65625px;
+    -webkit-perspective-origin: 115.828125px 17.5px;
+    perspective-origin: 115.828125px 17.5px;
+    -webkit-transform-origin: 115.828125px 17.5px;
+    transform-origin: 115.828125px 17.5px;
+    border: 1px solid rgba(204, 204, 204, 0.592157);
+    border-top: 1px solid rgba(204, 204, 204, 0.592157);
+    border-right: 1px solid rgba(204, 204, 204, 0.592157);
+    border-bottom: 1px solid rgba(204, 204, 204, 0.592157);
+    border-left: 1px solid rgba(204, 204, 204, 0.592157);
+    border-width: 1px;
+    border-color: rgba(204, 204, 204, 0.592157);
+    border-style: solid;
+    border-radius: 2px 2px 2px 2px;
+    font: normal normal normal normal 15px/21.4285717010498px aleksandracregular;
+    margin: 0px 0px 12px;
+    outline: rgb(153, 153, 153) none 0px;
+    padding: 1px 1px 1px 10px;
+}/*#apishopsFormTheme6INPUT_12, #apishopsFormTheme6INPUT_13*/
+
+#apishopsFormTheme6INPUT_14 {
+    border-bottom-color: rgba(204, 204, 204, 0.592157);
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color: rgba(204, 204, 204, 0.592157);
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right-color: rgba(204, 204, 204, 0.592157);
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-top-color: rgba(204, 204, 204, 0.592157);
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    color: rgb(153, 153, 153);
+    font-family: aleksandracregular;
+    font-size: 15px;
+    height: 35px;
+    line-height: 21.4285717010498px;
+    margin-bottom: 12px;
+    outline-color: rgb(153, 153, 153);
+    padding-left: 10px;
+    width: 231.65625px;
+    -webkit-perspective-origin: 115.828125px 17.5px;
+    perspective-origin: 115.828125px 17.5px;
+    -webkit-transform-origin: 115.828125px 17.5px;
+    transform-origin: 115.828125px 17.5px;
+    border: 1px solid rgba(204, 204, 204, 0.592157);
+    border-top: 1px solid rgba(204, 204, 204, 0.592157);
+    border-right: 1px solid rgba(204, 204, 204, 0.592157);
+    border-bottom: 1px solid rgba(204, 204, 204, 0.592157);
+    border-left: 1px solid rgba(204, 204, 204, 0.592157);
+    border-width: 1px;
+    border-color: rgba(204, 204, 204, 0.592157);
+    border-style: solid;
+    border-radius: 2px 2px 2px 2px;
+    font: normal normal normal normal 15px/21.4285717010498px aleksandracregular;
+    margin: 0px 0px 12px;
+    outline: rgb(153, 153, 153) none 0px;
+    padding: 1px 1px 1px 10px;
+}/*#apishopsFormTheme6INPUT_14*/
+
+#apishopsFormTheme6BUTTON_15 {
+    background-color: rgb(126, 166, 65);
+    border-bottom-color: rgb(255, 255, 255);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-left-color: rgb(255, 255, 255);
+    border-left-style: none;
+    border-left-width: 0px;
+    border-right-color: rgb(255, 255, 255);
+    border-right-style: none;
+    border-right-width: 0px;
+    border-top-color: rgb(255, 255, 255);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    box-shadow: rgb(101, 143, 35) 0px 3px 0px 0px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    font-family: aleksandracregular;
+    font-size: 25px;
+    height: 53px;
+    line-height: 35.7142868041992px;
+    margin-top: 10px;
+    min-height: 0px;
+    outline-color: rgb(255, 255, 255);
+    width: 231.65625px;
+    -webkit-perspective-origin: 115.828125px 26.5px;
+    perspective-origin: 115.828125px 26.5px;
+    -webkit-transform-origin: 115.828125px 26.5px;
+    transform-origin: 115.828125px 26.5px;
+    background: rgb(126, 166, 65) none repeat scroll 0% 0% / auto padding-box border-box;
+    border: 0px none rgb(255, 255, 255);
+    border-top: 0px none rgb(255, 255, 255);
+    border-right: 0px none rgb(255, 255, 255);
+    border-bottom: 0px none rgb(255, 255, 255);
+    border-left: 0px none rgb(255, 255, 255);
+    border-width: 0px;
+    border-color: rgb(255, 255, 255);
+    border-style: none;
+    border-radius: 4px 4px 4px 4px;
+    font: normal normal normal normal 25px/35.7142868041992px aleksandracregular;
+    margin: 10px 0px 0px;
+    outline: rgb(255, 255, 255) none 0px;
+}/*#apishopsFormTheme6BUTTON_15*/
+
+
+a.__QUICKVIEW__{
+    font-family: aleksandracregular;
+    font-size: 21px;
+    color:rgb(191, 28, 43);
+    margin-top: 30px;
+    display: inline-block;
+    border-bottom: 1px dotted;
+    text-decoration: none;    
+}
+
+a.__QUICKVIEW__:hover{
+    opacity: 0.7;
+}
+

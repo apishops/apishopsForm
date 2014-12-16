@@ -30,7 +30,10 @@
             <option>4</option>
             <option>5</option>
          </select>
-         <input type="text" name="apishopsFormFio" class="name required" placeholder="Введите Ваше имя" >                   <input type="text" name="apishopsFormPhone" class="phone required" placeholder="Введите Ваш номер телефона">                    <input type="text" name="apishopsFormAddress" class="phone required" placeholder="Адрес доставки">          <button class="button button--yellow apishopsFormThemeButton">Заказать</button>
+         <input type="text" name="apishopsFormFio" class="name required" placeholder="Введите Ваше имя" >
+         <input type="text" name="apishopsFormPhone" pattern=".{3,}"  class="phone required" placeholder="Введите Ваш номер телефона">
+         <input type="text" name="apishopsFormAddress" class="phone required" placeholder="Адрес доставки">
+         <button class="button button--yellow apishopsFormThemeButton">Заказать</button>
          <a href="#" class='%QUICKVIEW%'>Читать о товаре</a>
       </form>
    </div>

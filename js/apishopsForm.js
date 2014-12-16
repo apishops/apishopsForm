@@ -40,7 +40,13 @@ jQuery.fn.apishopsForm=function(options)
             region:'Поле региона',
             cost:'Поле стоимости заказа'
         },
-        theme:2,
+        paths_:{
+            rootdir:'/',
+            cssdir:'css/',
+            jsdir:'js/',
+            themesdir:'apishopsFormThemes'
+        },
+        theme:1,
         forms:[],
         placements:[],
         optional_fields:['address'],
@@ -65,10 +71,24 @@ jQuery.fn.apishopsForm=function(options)
 
         settings.type=(settings.type=='inline' && $(settings.object).is("input,button,a"))?'modal':settings.type;
 
+        if(settings.form=='normal' || settings.form=='light'){
+            apishopsFormLoadTemplates(['modal','theme','quickview'],settings.theme,
+                function(result){
+                    start()
+                },
+                function(result){
+                    //alert(':((')
+                })
+        }else{
+            start();
+        }
+   }
+
+   function start(){
         check();
         spawn();
         construct('main');
-        //alert(settings.form)
+
         if(settings.displayed_containers.length>0 && settings.productId>0){
             loadRenderBind('main');
         }else{
@@ -76,7 +96,6 @@ jQuery.fn.apishopsForm=function(options)
             bind('main');
         }
    }
-
 
    function check()
    {
@@ -98,7 +117,7 @@ jQuery.fn.apishopsForm=function(options)
         if(typeof settings.productId == 'undefined' || settings.productId<=0)
             alert('settings.productId должен быть указан и не равен 0')
 
-        if(_.isUndefined(apishopsFormThemes[settings.theme]))
+        if(_.isUndefined(apishopsFormThemeLight))
             alert('Простите, но темы #'+settings.theme+' (параметр "$(...).apishopsForm({..theme:'+settings.theme+'..}) нет');
 
         if(settings.form!='normal' && settings.form!='light' && settings.checked!=true){
@@ -248,6 +267,11 @@ jQuery.fn.apishopsForm=function(options)
    }
 
    function spawnChilds(){
+
+        var dbt=new Date(new Date().getTime() + (2 * 24 * 60 * 60 * 1000));
+        settings.finisDate = (dbt.getMonth()+1)+"/"+dbt.getDate()+"/"+dbt.getFullYear()+" 5:00 AM";
+        startTimer()
+
         var productIdsLoading=_.first(_.difference(settings.featured.productIds, settings.featured.productIdsLoaded),settings.featured.count)
         _.each(productIdsLoading, function(productId){
             $(settings.featured.container).apishopsForm({
@@ -280,6 +304,7 @@ jQuery.fn.apishopsForm=function(options)
 
             settings.placement=(settings.type=='modal')?modalInit():settings.object
             settings.oldprice=0;
+            settings.discount=0;
             settings.name='';
             settings.img='';
 
@@ -291,11 +316,11 @@ jQuery.fn.apishopsForm=function(options)
              * - проверяем наличие полей для ввода
              */
             if(settings.form=='normal'){
-                settings.form=apishopsFormThemes[settings.theme].normal;
+                settings.form=apishopsFormThemeNormal;
                 settings.form_type='normal';
             }
             else if(settings.form=='light'){
-                settings.form=apishopsFormThemes[settings.theme].light;
+                settings.form=apishopsFormThemeLight;
                 settings.form_type='light';
             }
             else{
@@ -306,7 +331,7 @@ jQuery.fn.apishopsForm=function(options)
             }
         }else{
             if(settings.featured.form=='normal' || settings.featured.form=='light')
-                settings.featured.more=apishopsFormThemes[settings.featured.theme].more;
+                settings.featured.more=apishopsFormThemeMore;
 
             if(!_.isUndefined(settings.featured.more) && !_.isEmpty($(settings.featured.more)))
                 settings.featured.more=$('<div>').addClass('featured__more').append($(settings.featured.more)).appendTo(settings.featured.container)
@@ -338,15 +363,21 @@ jQuery.fn.apishopsForm=function(options)
                     if(typeof result.data.price != 'undefined')
                         settings.price=result.data.price
                     else{
-                        settings.form.remove()
+                        //settings.form.remove()
+                        return false;
                     }
 
                     settings.oldprice=parseInt(result.data.price)*1.72;
+                    settings.discount=20;
 
                     if(typeof result.data.img != 'undefined')
                         settings.img=result.data.img
+                    //if(typeof result.data.images != 'undefined')
+                        settings.images=[result.data.img,result.data.img]
                     if(typeof result.data.name != 'undefined')
                         settings.name=result.data.name
+                    if(typeof result.data.discount != 'undefined')
+                        settings.discount=result.data.discount
                     if(typeof result.data.shorDescription != 'undefined')
                         settings.description=result.data.shorDescription
                     if(typeof result.data.description != 'undefined')
@@ -375,11 +406,14 @@ jQuery.fn.apishopsForm=function(options)
                         IMG : '__IMG__ apishopsFormImage',
                         PRICE : '<some class="apishopsFormPrice">'+Math.round(settings.price)+'</some>',
                         OLDPRICE : '<some class="apishopsFormPrice">'+Math.round(settings.oldprice)+'</some>',
+                        DISCOUNT : '<some class="apishopsFormDiscount">'+Math.round(settings.discount)+'</some>',
                         CYR : '<some class="apishopsFormPrice">'+((settings.lang==6)?'грн':'руб')+'</some>',
                         CY : '<some class="apishopsFormPrice">'+((settings.lang==6)?'г':'р')+'</some>'
                     })).clone().css('display',"").addClass('featured_item').addClass('apishopsFormItem').addClass('animate');
 
-            $('.__IMG__', settings.form).attr('src',settings.img)
+            $('.__IMG__', settings.form).attr('src',settings.img).wrap('<div quickckview_id="'+settings.productId+'" class="apishopsFormImageWrapper"/>')
+            if($('.__QUICKVIEW__', settings.form))
+            $('.__QUICKVIEW__', settings.form).attr('quickckview_id',settings.productId).attr('name',settings.name).attr('discount',settings.discount).attr('src',settings.img)
 
             settings.placement.append(settings.form);
 
@@ -407,20 +441,55 @@ jQuery.fn.apishopsForm=function(options)
                 }
             }
 
-            $('.__QUICKVIEW__',settings.form).bind('click', function(event){
+            $('.apishopsFormImageWrapper,.__QUICKVIEW__',settings.form).bind('click', function(event){
 
                     event.preventDefault();
 
                     var source = $(this).closest('.apishopsFormItem');
                     var styles = $(source).getStyleObject();
                     var modal = $(apishopsFormHtml.modal).clone().appendTo('body');
+                    var modal_class='apishopsAnimationQV';
+                    var modal_top=parseInt($(source).offset().top);
+                    var quickview_id = $(this).attr('quickckview_id');
+                    var prev_quickview_id=0;
+                    var next_quickview_id=0;
+                    var current_quickview_id=0;
+                    var quickviews={};
 
-                    modal.addClass('in').css('display','block').children('.apishopsModalWindow').
-                    css('top',$(source).offset().top).
+                    if($(this).hasClass('__QUICKVIEWPREV__') || $(this).hasClass('__QUICKVIEWNEXT__')){
+                        if($(this).hasClass('__QUICKVIEWNEXT__'))
+                            modal_class='apishopsAnimationQVL';
+                        else if($(this).hasClass('__QUICKVIEWPREV__'))
+                            modal_class='apishopsAnimationQVR';
+                        $(this).removeClass('__QUICKVIEWPREV__').removeClass('__QUICKVIEWNEXT__')
+                        modal_top=parseInt($(this).attr('top'));
+                        $(this).attr('top','');
+                    }
+
+                    var foundCurrent=false;
+                    $.each($('.__QUICKVIEW__'), function( index, value ) {
+                        if($(value).attr('quickckview_id')==quickview_id && current_quickview_id!=quickview_id){
+                            prev_quickview_id=current_quickview_id;
+                        }
+                        if(current_quickview_id==quickview_id){
+                            next_quickview_id=$(value).attr('quickckview_id')
+                        }
+                        current_quickview_id=$(value).attr('quickckview_id');
+                        quickviews[current_quickview_id]=value;
+                    });
+                    //alert(prev_quickview_id+'<-'+quickview_id+'->'+next_quickview_id)
+
+                    modal.addClass('in').addClass(modal_class).css('display','block').children('.apishopsModalWindow').
+                    css('top',modal_top).
                     css('left',$(source).offset().left).
                     css('width',$(source).outerWidth()).
-                    css('height',$(source).outerHeight()).css('position','absolute')
+                    css('height',$(source).outerHeight()).css('position','absolute');
 
+                    if(!_.isEmpty(quickviews)){
+                        $('.apishopsModalNavigation',modal).show();
+                        $('.apishopsModalNavigationNextClosest',modal).css('top',modal_top)
+                        $('.apishopsModalNavigationPrevClosest',modal).css('top',modal_top)
+                    }
 
                     _.templateSettings = {
                       interpolate : /%(.+?)%/g
@@ -437,18 +506,121 @@ jQuery.fn.apishopsForm=function(options)
                         IMGSRC: settings.img,
                         PRICE : Math.round(settings.price),
                         OLDPRICE : Math.round(settings.oldprice),
+                        DISCOUNT : Math.round(settings.discount),
                         CYR : ((settings.lang==6)?'грн':'руб'),
-                        CY : ((settings.lang==6)?'г':'р')
+                        CY : ((settings.lang==6)?'г':'р'),
+                        ALTERNATIVEVIEW : '__ALTERNATIVEVIEW__',
+                        ALTERNATIVEVIEWITEM : '__ALTERNATIVEVIEWITEM__',
+                        ALTERNATIVEVIEWIMAGE : '__ALTERNATIVEVIEWIMAGE__',
+                        ALSOLIKE : '__ALSOLIKE__',
+                        ALSOLIKEITEM : '__ALSOLIKEITEM__',
+                        ALSOLIKENAME : '__ALSOLIKENAME__',
+                        ALSOLIKEIMAGE : '__ALSOLIKEIMAGE__',
+                        ALSOLIKEDISCOUNT : settings.discount
                     });
 
                     $('.apishopsModalContent',modal).html(quickViewHtml);
 
+                    var totalInserted=0;
+                    $.each(settings.images, function( index, value ) {
+                        totalInserted++;
+                        var item=$('.__ALTERNATIVEVIEWITEM__:first-child',modal).clone();
+                        item.find('.__ALTERNATIVEVIEWIMAGE__').attr('src',value);
+                        item.insertAfter( ".__ALTERNATIVEVIEWITEM__:first-child",modal);
+                        $(item).bind('mouseover', function(event){
+                            $('.apishopsFormQVContainerMainImage').attr('src',$(this).attr('src'));
+                            $('.apishopsFormBThubm').removeClass('apishopsFormBThubmSelected');
+                            $(this).addClass('apishopsFormBThubmSelected');
+                        });
+                    });
+                    $('.__ALTERNATIVEVIEWITEM__:first-child',modal).remove();
+                    if(totalInserted==0) $('.__ALTERNATIVEVIEW__',modal).remove();
+
+                    var iter=0;
+                    $.each($('.__ALSOLIKE__',modal), function( index, alsolike ) {
+                        var totalInserted=0;
+                        var finded_quickview_id=0;
+                        $.each(_.shuffle(quickviews), function( index, value ) {
+                            if(index!=quickview_id && index!=0){
+                                totalInserted++;
+                                var item=$('.__ALSOLIKEITEM__:first-child',alsolike).clone();
+                                item.find('.__ALSOLIKEIMAGE__').attr('src',$(value).attr('src'));
+                                item.find('.__ALSOLIKENAME__').html($(value).attr('name').substring(0, 23)+'...');
+                                item.insertAfter($(".__ALSOLIKEITEM__:first-child",alsolike));
+                                //quickckview_id
+                                $(item).bind('click', function(event){
+                                    event.preventDefault();
+                                    $(modal).remove();
+                                    $(quickviews[$(value).attr('quickckview_id')]).addClass('__QUICKVIEWNEXT__').attr('top',modal_top).click();
+                                });
+                            }else{
+                                finded_quickview_id=index;
+                            }
+                        });
+                        $('.__ALSOLIKEITEM__:first-child',alsolike).remove();
+                        if(totalInserted==0)
+                            $(alsolike).remove();
+                        iter++;
+                    });
+
+                    var phone_input=$('input[name=phone]',modal);
+                    if(settings.lang==6)
+                        phone_input.inputmask("+380(99)999-99-99");
+                    else if(settings.lang==1)
+                        phone_input.inputmask("+7(999)999-99-99");
+                    else if(settings.lang==7)
+                        phone_input.inputmask("+375(99)999-99-99");
+
+                    $('form',modal).submit(function(event) {
+                        event.preventDefault();
+                        if(phone_input.val().length<=5)
+                            alert('Номер телефона должен быть не менее 5 символов')
+                        else{
+                            params={
+                                object:phone_input,
+                                form:this,
+                                count:1,
+                                fio:'',
+                                address:'',
+                                phone:phone_input.val(),
+                                promocode:'',
+                                successUrl:false,
+                                sourceRef:getSource("sourceRef"),
+                                sourceParam:getSource("sourceParam"),
+                                productId:$(quickviews[current_quickview_id]).attr('quickckview_id'),
+                                siteId:settings.siteId,
+                                lang:settings.lang
+                            };
+                            apishopsFormSubmit(params);
+                        }
+                    });
+
+                    if(prev_quickview_id==0)
+                        $('.apishopsModalNavigationPrevClosest',modal).hide();
+                    else{
+                        $('.apishopsModalNavigationPrev',modal).css('background-image','url('+$(quickviews[prev_quickview_id]).attr('src')+')')
+                        $($('.apishopsModalNavigationPrevClosest',modal)).bind('click', function(event){
+                            modal.remove();
+                            $(quickviews[prev_quickview_id]).addClass('__QUICKVIEWPREV__').attr('top',modal_top).click();
+                        });
+                    }
+
+                    if(next_quickview_id==0)
+                        $('.apishopsModalNavigationNextClosest',modal).hide();
+                    else{
+                        $('.apishopsModalNavigationNext',modal).css('background-image','url('+$(quickviews[next_quickview_id]).attr('src')+')')
+                        $($('.apishopsModalNavigationNextClosest',modal)).bind('click', function(event){
+                            modal.remove();
+                            $(quickviews[next_quickview_id]).addClass('__QUICKVIEWNEXT__').attr('top',modal_top).click();
+                        });
+                    }
+
                     $($('.apishopsModalOverlay',modal)).bind('click', function(event){
-                        modal.fadeOut();
+                        modal.remove();
                     });
 
                     $($('.apishopsModalClose',modal)).bind('click', function(event){
-                        modal.fadeOut();
+                        modal.remove();
                     });
 
 
@@ -457,6 +629,8 @@ jQuery.fn.apishopsForm=function(options)
                         modal.children('.apishopsModalWindow').css('left','').css('width','auto');
                     },100)
             });
+        }else{
+
         }
    }
 
@@ -584,7 +758,7 @@ jQuery.fn.apishopsForm=function(options)
                         var error='';
                         event.preventDefault();
                         $.each(settings.inputs, function(index, value){
-                            if($(value) && typeof $(value) !='undefined' && typeof $(value).attr('pattern')!='undefined' && $(value).attr('pattern')!=''  && _.indexOf(settings.hidden_fields, index)<0)  {
+                            if($(value) && typeof $(value) !='undefined' && typeof $(value).attr('pattern')!='undefined' && $(value).attr('pattern')!=''  && _.indexOf(settings.hidden_fields, index)<0  && _.indexOf(settings.optional_fields, index)<0)  {
                                     if(!new RegExp($(value).attr('pattern')).test($(value).val())  || new RegExp('[<>]').test($(value).val())){
                                             $(value).closest('.apishopsFormGroup').addClass('apishopsFormError');
                                             error+=' - '+settings.inputs_[index]+'\n';
@@ -629,7 +803,7 @@ jQuery.fn.apishopsForm=function(options)
                         var error='';
                         event.preventDefault();
                         $.each(settings.inputs, function(index, value){
-                            if($(value) && typeof $(value) !='undefined' && typeof $(value).attr('pattern')!='undefined' && $(value).attr('pattern')!='' && settings.hidden_fields.indexOf(index)<0)  {
+                            if($(value) && typeof $(value) !='undefined' && typeof $(value).attr('pattern')!='undefined' && $(value).attr('pattern')!='' && _.indexOf(settings.hidden_fields, index)<0 && _.indexOf(settings.optional_fields, index)<0)  {
                                     if(!new RegExp($(value).attr('pattern')).test($(value).val())  || new RegExp('[<>]').test($(value).val())){
                                             $(value).closest('.apishopsFormGroup').addClass('apishopsFormError');
                                             error+=' - '+settings.inputs_[index]+'\n';
@@ -666,6 +840,8 @@ jQuery.fn.apishopsForm=function(options)
                 }
             }else{
 
+
+
                 settings.featured.more.bind('click', function(event){
                     event.preventDefault();
                     spawn()
@@ -675,6 +851,35 @@ jQuery.fn.apishopsForm=function(options)
             return true;
    }
 
+
+    function startTimer()
+    {
+        var finisTime = new Date(settings.finisDate);
+        var nowTime = new Date();
+        var diffTime = new Date(finisTime-nowTime);
+        var finishSeconds = Math.floor(diffTime.valueOf()/1000);
+
+        var days=parseInt(finishSeconds/86400);
+        var hours = parseInt(finishSeconds/3600)%24;
+        var minutes = parseInt(finishSeconds/60)%60;
+        var seconds = finishSeconds%60;
+        if (days < 10) days = "0" + days;
+        if (hours < 10) hours = "0" + hours;
+        if (minutes < 10) minutes = "0" + minutes;
+        if (seconds < 10) seconds = "0" + seconds;
+
+        days=days.toString();
+        hours=days.toString();
+        minutes=minutes.toString();
+        seconds=seconds.toString();
+
+
+        $('.hours__').html(hours.charAt(0) + hours.charAt(1));
+        $('.minutes__').html(minutes.charAt(0) + minutes.charAt(1));
+        $('.seconds__').html(seconds.charAt(0) + seconds.charAt(1));
+
+        setTimeout(startTimer, 1000);
+    }
 
 
 
@@ -1263,557 +1468,6 @@ function apishopsFormSubmit(params){
 
 
 })(jQuery);
-
-var apishopsJSONP={
-    gates:[
-    'http://gate1.apishops.org/single.page.ajax.php?callback=?',
-    'http://template2.basing.ru/single.page.ajax.php?callback=?'],
-    processes:[],
-    checkInterval:0,
-    results:[]
-}
-
-//TODO ошибка при непоступившем ответе
-//TODO xnr статусов ответов
-
-function apishopsFormGetJSONP(jsonp, callBackFunction){
-
-    clearInterval(apishopsJSONP.checkInterval);
-
-    jsonp.processId=String.fromCharCode(65 + Math.floor(Math.random() * 26)) + _.now();
-
-    apishopsJSONP.processes.push({jsonp:jsonp,callBackFunction:callBackFunction, processId:jsonp.processId, status:'run', retrys:0});
-
-    apishopsLog('New process #'+jsonp.processId);
-
-    $.getJSON(apishopsJSONP.gates[0], jsonp, apishopsFormCallbackJSONP);
-
-    apishopsJSONP.checkInterval=setInterval(function() {
-
-            apishopsLog('Interval 5000 ms:')
-
-            for(i in apishopsJSONP.processes){
-
-                process=apishopsJSONP.processes[i];
-                apishopsLog('Check process #'+process.processId+':');
-
-                if (process.status=='run' && process.retrys<apishopsJSONP.gates.length){
-                    apishopsLog("   Query no "+process.retrys+"("+apishopsJSONP.gates[process.retrys]+") failed");
-                    process.retrys++;
-                    $.getJSON(apishopsJSONP.gates[process.retrys], process.jsonp, apishopsFormCallbackJSONP);
-                    apishopsLog("   Sended query no "+process.retrys+"("+apishopsJSONP.gates[process.retrys]+")");
-                }else if(process.status=='run'){
-                    apishopsLog("   All retrys is failed "+process.retrys);
-                    apishopsJSONP.processes.splice(i,1);
-                }else if(process.status=='block'){
-                    apishopsLog("   Process is blocked.");
-                }
-
-                if(apishopsJSONP.processes.length==0){
-                    clearInterval(apishopsJSONP.checkInterval);
-                }
-            }
-
-    }, 10000);
-}
-
-function apishopsFormCallbackJSONP(result){
-    var processId=result.parameters.processId;
-    apishopsLog('Got process #'+processId+' result:');
-    for(i in apishopsJSONP.processes){
-        if(apishopsJSONP.processes[i].processId==processId){
-            apishopsJSONP.processes[i].status='block';
-            apishopsLog('   Exec callback function');
-            apishopsJSONP.processes[i].callBackFunction(result);
-            apishopsLog('   Remove process from queue');
-            apishopsJSONP.processes.splice(i,1);
-        }
-    }
-    if(apishopsJSONP.processes.length==0){
-        clearInterval(apishopsJSONP.checkInterval);
-    }
-}
-
-
-var apishopsParcelParamaters={};
-
-
-function apishopsFormLoadParcelParameters(params){
-
-    apishopsFormGetJSONP(
-        {
-            action: "getWSPDeliveryInfo",
-            count:params['count'],
-            siteId: params['siteId'],
-            productId: params['productId'],
-            price:params['price'],
-            paymentId:params['paymentId'],
-            deliveryId:params['deliveryId'],
-            region:params['regionId'],
-            objectId:params['objectId'],
-            jsonp: 'dataType',
-            retrys:params['retrys'],
-            charset:params['charset'],
-            lang:params['lang'],
-            callBackFunctionName:params['callBackFunctionName']
-        },
-        function(result){
-
-            var objectId=result.parameters.objectId;
-            var wpId=0;
-            var siteId=result.parameters.siteId;
-            var regionId=result.parameters.region;
-            var productId=result.parameters.productId;
-            var price=result.parameters.price;
-            var retrys=result.parameters.retrys;
-            var callBackFunctionName=result.parameters.callBackFunctionName;
-
-            if(typeof apishopsParcelParamaters[siteId]=='undefined')
-                apishopsParcelParamaters[siteId]={};
-
-            if(typeof apishopsParcelParamaters[siteId][wpId]=='undefined')
-                apishopsParcelParamaters[siteId][wpId]={};
-
-            if(typeof apishopsParcelParamaters[siteId][wpId][regionId]=='undefined')
-                apishopsParcelParamaters[siteId][wpId][regionId]={};
-
-            if(typeof apishopsParcelParamaters[siteId][wpId][regionId][productId]=='undefined')
-                apishopsParcelParamaters[siteId][wpId][regionId][productId]={};
-
-            if(typeof apishopsParcelParamaters[siteId][wpId][regionId][productId][price]=='undefined')
-                apishopsParcelParamaters[siteId][wpId][regionId][productId][price]={};
-
-            if(typeof apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['deliveries']=='undefined')
-                apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['deliveries']={};
-
-            if(typeof apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['payments']=='undefined')
-                apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['payments']={};
-
-            if(typeof apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['info']=='undefined')
-                apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['info']={};
-
-            $.each(result.data.deliveries, function () {
-                apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['deliveries'][this.value]=this.name;
-            });
-
-            $.each(result.data.payments, function () {
-                apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['payments'][this.value]=this.name;
-            });
-
-            apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['info'] = result.data.info;
-
-            result.parameters['object']=$('#'+result.parameters.objectId)
-            result.parameters['regionId']=result.parameters.region;
-
-            if(callBackFunctionName=='apishopsFormLoadDeliveryTypes')
-                apishopsFormLoadDeliveryTypes(result.parameters);
-            else if(callBackFunctionName=='apishopsFormLoadPaymentTypes')
-                apishopsFormLoadPaymentTypes(result.parameters);
-            else if(callBackFunctionName=='apishopsFormLoadPrice')
-                apishopsFormLoadPrice(result.parameters);
-         }
-    );//.fail(function() {alert("Ошибка получения списка параметров заказа")});;
-}
-
-
-
-
-function apishopsFormLoadRegions(params){
-
-    $object=$(params['object']);
-    $object.closest('.apishopsFormGroup').addClass('apishopsLoading');
-
-    if(typeof $object.attr('id')=='undefined')
-        $object.attr('id','apishopsId'+String.fromCharCode(65 + Math.floor(Math.random() * 26)) + _.now())
-
-
-    apishopsFormGetJSONP(
-        {
-            action: "getWSPRegions",
-            siteId: params['siteId'],
-            productId: params['productId'],
-            objectId:$object.attr('id'),
-            charset:params['charset'],
-            lang:params['lang'],
-            jsonp: 'dataType'
-        },
-        function(result){
-
-            $object=$('#'+result.parameters.objectId);
-
-            $object.append($('<option value="-1">Выберите регион доставки</option>'));
-
-            var topRegions = [53, 421, 92, 0];
-            $.each(result.data, function () {
-                if ($.inArray(this.id, topRegions) != -1){
-                    $object.append($('<option value="' + this.id + '">' + this.name + '</option>'));
-                }
-            });
-
-            $object.append('<optgroup label="----------------">');
-
-            $.each(result.data, function () {
-                if ($.inArray(this.id, topRegions) == -1){
-                    $object.append($('<option value="' + this.id + '">' + this.name + '</option>'));
-                }
-            });
-
-            $object.append('</optgroup>');
-
-            $object.closest('.apishopsFormGroup').removeClass('apishopsLoading').show();
-        }
-    );//.fail(function() {alert("Ошибка получения списка регионов")});
-}
-
-
-
-function apishopsFormLoadDeliveryTypes(params){
-
-    if(params['retrys']<0){
-        alert('Ошибка получения параметров доставки');
-        return false;
-    }
-
-    $object=$(params['object']);
-    $object.closest('.apishopsFormGroup').addClass('apishopsLoading');
-
-    if(typeof $object.attr('id') == 'undefined')
-        $object.attr('id','apishopsId'+String.fromCharCode(65 + Math.floor(Math.random() * 26)) + _.now());
-
-
-    try{
-        $object.empty();
-        $object.append($('<option value="-1">Выберите тип доставки</option>'));
-
-        $.each(apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['info'].items, function () {
-            var min = null;
-            var max = null;
-            $.each(this.payments, function () {
-
-                var bonus_ = 0;
-                if (params['regionId'] == '0'){
-                    bonus_ = 50;
-                } else if (params['regionId'] != '53' && params['regionId'] != '421' && params['regionId'] != '824') {
-                    if (this.paymentId == '0'){
-                        bonus_ = 100;
-                    }
-                }
-                var _sum = this.sum + bonus_;
-
-                if (min == null || _sum < min) {
-                    min = _sum;
-                }
-                if (max == null || _sum > max) {
-                    max = _sum;
-                }
-            });
-            if (min == max){
-                $object.append($('<option value="' + this.deliveryId + '">' + apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['deliveries'][this.deliveryId] + ' (' + Math.round(min*100)/100 + ' '+((params.lang==7)?'грн':'руб')+')' + '</option>'));
-            } else {
-                $object.append($('<option value="' + this.deliveryId + '">' + apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['deliveries'][this.deliveryId] + ' (' + Math.round(min*100)/100 + ' - ' + Math.round(max*100)/100 + ' '+((params.lang==7)?'грн':'руб')+')' + '</option>'));
-            }
-        });
-
-        $object.closest('.apishopsFormGroup').removeClass('apishopsLoading').show();
-    }
-    catch(err){
-        params['retrys']=params['retrys']-1;
-        params['objectId']=$object.attr('id');
-        params['callBackFunctionName']='apishopsFormLoadDeliveryTypes';
-        apishopsFormLoadParcelParameters(params);
-    }
-
-}
-
-
-
-
-function apishopsFormLoadPaymentTypes(params){
-
-    if(params['retrys']<0){
-        alert('Ошибка получения параметров оплаты');
-        return false;
-    }
-
-    $object=$(params['object']);
-    $object.closest('.apishopsFormGroup').addClass('apishopsLoading');
-
-    if(typeof $object.attr('id') == 'undefined')
-        $object.attr('id','apishopsId'+String.fromCharCode(65 + Math.floor(Math.random() * 26)) + _.now());
-
-
-    try{
-        $object.empty();
-        $.each(apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['info'].items, function () {
-            if (this.deliveryId == params['deliveryId']) {
-                $.each(this.payments, function () {
-                    var bonus_ = 0;
-                    if (params['regionId'] == '0'){
-                        bonus_ = 50;
-                    } else if (params['regionId'] != '53' && params['regionId'] != '421' && params['regionId'] != '824') {
-                        if (this.paymentId == '0'){
-                            bonus_ = 100;
-                        }
-                    }
-                    $object.append($('<option value="' + this.paymentId + '" alt="' + this.sum + '" baseSum="' + this.baseSum + '" addKgSum="' + this.addKgSum + '">' + apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['payments'][this.paymentId] + ' (доставка ' + Math.round((this.sum+bonus_)*100)/100 + ' '+((params.lang==7)?'грн':'руб')+')' + '</option>'));
-                });
-            }
-        });
-        $object.closest('.apishopsFormGroup').removeClass('apishopsLoading').show();
-    }
-    catch(err){
-        params['retrys']=params['retrys']-1;
-        params['objectId']=$object.attr('id');
-        params['callBackFunctionName']='apishopsFormLoadPaymentTypes';
-        apishopsFormLoadParcelParameters(params);
-    }
-
-}
-
-
-
-function apishopsFormLoadPrice(params){
-
-
-    if(params['retrys']<0){
-        alert('Ошибка получения параметров цены');
-        return false;
-    }
-
-    $object=$(params['object']);
-    $object.closest('.apishopsFormGroup').addClass('apishopsLoading');
-
-    if(typeof $object.attr('id') == 'undefined')
-        $object.attr('id','apishopsId'+String.fromCharCode(65 + Math.floor(Math.random() * 26)) + _.now());
-
-
-    try{
-
-        var count=1;
-        var weight=apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['info'].weight;
-        var paySum=0;
-        var baseSum=0;
-        var addKgSum=0;
-
-        $.each(apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['info'].items, function () {
-            if (this.deliveryId == params['deliveryId']) {
-                $.each(this.payments, function () {
-                    if(params['paymentId']==this.paymentId){
-                        paySum=this.sum;
-                        baseSum=this.baseSum;
-                        addKgSum=this.addKgSum;
-                    }
-                });
-            }
-        });
-
-        if(paySum>0){
-            if(weight==null)
-            {
-                $object.html(Math.round(params['price']) * params['count'] + Math.round(paySum*100)/100 + ''+((params.lang==7)?'грн':'руб')+'');
-            }else{
-                var addKgCount = 0;
-                var firstKg = false;
-                var mass = parseFloat(weight) * count;
-                while (mass > 0){
-                    mass -= 1;
-                    if (!firstKg){
-                        firstKg = true;
-                    } else {
-                        addKgCount++;
-                    }
-                }
-                var bonus_ = 0;
-                var region = params['regionId'];
-                if (region == '0'){
-                    bonus_ = 50;
-                } else if (region != '53' && region != '421' && region != '824') {
-                    if (params['paymentId'] == '0'){
-                        bonus_ = 100;
-                    }
-                }
-                $object.html((Math.round(params['price']) * params['count'] + Math.round((baseSum + addKgCount*addKgSum)*100)/100 + bonus_) + ' '+((params.lang==7)?'грн':'руб')+'')
-            }
-        } else {
-            alert('Параметры не выбраны');
-        }
-        $object.closest('.apishopsFormGroup').removeClass('apishopsLoading').show();
-    }
-    catch(err){
-        params['retrys']=params['retrys']-1;
-        params['objectId']=$object.attr('id');
-        params['callBackFunctionName']='apishopsFormLoadPaymentTypes';
-        apishopsFormLoadPrice(params);
-    }
-
-}
-
-
-
-function apishopsFormSubmit(params){
-
-    $object=$(params['object']);
-    $object.closest('.apishopsFormGroup').addClass('apishopsLoading');
-    $form=$(params['form']);
-    $form.addClass('apishopsFormLoading').append('<div class="apishopsFormLoadingText">Отправка..</div>');
-
-    if(!(typeof params['regionId']=='undefined' || typeof params['paymentId']=='undefined' || typeof params['deliveryId']=='undefined')){
-        $jsonp={
-                action: "submitOrder",
-                objectId: $object.attr('id'),
-                formId: $form.attr('id'),
-                siteId: params.siteId,
-                productId: params.productId,
-                region: params.regionId,
-                delivery: params.deliveryId,
-                payment: params.paymentId,
-                count: params.count,
-                fio: params.fio,
-                phone: params.phone,
-                promocode: params.promocode,
-                email: params.email,
-                address: params.address,
-                sourceParam: params.sourceParam,
-                sourceRef: params.sourceRef,
-                clientTimeZone: clientTimeZone,
-                successUrl: params.successUrl,
-                lang:params.lang
-        };
-    }else{
-        $jsonp={
-                action: "callingBack",
-                objectId: $object.attr('id'),
-                formId: $form.attr('id'),
-                siteId: params.siteId,
-                productId: params.productId,
-                count: params.count,
-                fio: params.fio,
-                phone: params.phone,
-                promocode: params.promocode,
-                address: params.address,
-                sourceParam: params.sourceParam,
-                sourceRef: params.sourceRef,
-                clientTimeZone: clientTimeZone,
-                successUrl: params.successUrl,
-                lang:params.lang
-        };
-    }
-
-    if(typeof $object.attr('id')=='undefined')
-        $object.attr('id','apishopsId'+String.fromCharCode(65 + Math.floor(Math.random() * 26)) + _.now())
-
-    var objDate = new Date();
-    var clientTimeZone = -objDate.getTimezoneOffset()/60;
-
-    apishopsFormGetJSONP($jsonp,function(result){
-            $object=$('#'+result.parameters.objectId);
-            $object.closest('.apishopsFormGroup').removeClass('apishopsLoading');
-            $form=$('#'+result.parameters.formId);
-            $form.removeClass('apishopsFormLoading').find(".apishopsFormLoadingText").remove()
-
-            if (result.data.error != null) {
-                alert("Возникла ошибка при оформлении заказа.\n Пожалуйста, повторите попытку через несколько минут");
-            }
-            else
-            {
-                if(result.parameters.successUrl==false || result.parameters.successUrl=='false')
-                    alert('Ваш заказ принят и будет исполнен в ближайшее время!\nЖдите звонка оператора в ближайшее время');
-                else{
-                if(typeof result.parameters.isReserve == 'undefined' || result.parameters.isReserve==0)
-                    document.location.href = result.parameters.successUrl + result.data.id+((result.data.double ==true)?'&double=true':'');
-                else
-                    document.location.href = '/finish.html?id=' + result.data.id+((result.data.double ==true)?'&double=true':'');
-                }
-            }
-        });
-}
-
-
-(function($){
-    $.fn.getStyleObject = function(){
-        var dom = this.get(0);
-        var style;
-        var returns = {};
-        if(window.getComputedStyle){
-            var camelize = function(a,b){
-                return b.toUpperCase();
-            };
-            style = window.getComputedStyle(dom, null);
-            for(var i = 0, l = style.length; i < l; i++){
-                var prop = style[i];
-                var camel = prop.replace(/\-([a-z])/g, camelize);
-                var val = style.getPropertyValue(prop);
-                if(typeof val !== 'undefined')
-                    returns[camel] = val;
-            };
-            return returns;
-        };
-        if(style = dom.currentStyle){
-            for(var prop in style){
-                if(typeof style[prop] !== 'undefined')
-                    returns[prop] = style[prop];
-            };
-            return returns;
-        };
-        return this.css();
-    }
-})(jQuery);
-
-function apishopsLog(text) {
-  if (window.console && window.console.log) {
-     window.console.log(text);
-  }
-  if (console) {
-    console.log(text);
-  }
-}
-
-
-var apishopsFormHtml, apishopsFormThemes;
-
-apishopsFormThemes = [
-  {
-    light: "",
-    normal: ""
-  }, {
-    light: "<link href=\"../css/apishopsForm/apishopsForm2.css\" rel=\"stylesheet\" >\n<link href=\"http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm/apishopsForm2.css\" rel=\"stylesheet\" >\n\n<form class=\"apishopsFormTheme1__ apishopsFormTheme\">\n    <div class=\"apishopsFormTheme1__Group\">\n        <div class=\"apishopsFormTheme1__Info\">\n            <div class=\"apishopsFormTheme1__Image apishopsFormImage\" style=\"display:none\"> \n                <img class=\"%IMG%\" height=110 src=\"\" alt=\"watch\" /> \n            </div>\n            <div class=\"apishopsFormTheme1__Name apishopsFormName\" style=\"display:none\">\n                %NAME%\n            </div>\n            <div class=\"apishopsFormTheme1__Price apishopsFormPrice\" style=\"display:none\">\n                <div class=\"price-arrow\">\n                    <p class=\"new\">\n                        %PRICE%\n                        %CY%\n                    </p>\n                    <p class=\"old\">\n                        вместо\n                        <span>\n                             %OLDPRICE%\n                             %CY%\n                        </span>\n                    </p>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"apishopsFormTheme1__Group\">\n        <select name=\"apishopsFormCount\">\n            <option>1</option>\n            <option>2</option>\n            <option>3</option>\n            <option>4</option>\n            <option>5</option>\n        </select>\n    </div>\n    <div class=\"apishopsFormTheme1__Group\">\n        <input type=\"text\" name=\"apishopsFormFio\" placeholder=\"Ваше имя\" pattern=\".{3,}\"> </div>\n    <div class=\"apishopsFormTheme1__Group\">\n        <input type=\"text\" name=\"apishopsFormPhone\" placeholder=\"Контактный номер\" pattern=\".{3,}\"> </div>\n    <div class=\"apishopsFormTheme1__Group\">\n        <input type=\"text\" name=\"apishopsFormAddress\" placeholder=\"Адрес доставки\" pattern=\".{3,}\"> </div>\n    <div class=\"apishopsFormTheme1__Group\">\n        <input type=\"text\" name=\"apishopsFormPromocode\" placeholder=\"Промокод(если есть)\"> \n    </div>\n    <div class=\"apishopsFormTheme1__Group\"> \n        <input type=submit class=\"apishopsFormTheme1__ThemeButton apishopsFormTheme1__Button apishopsFormTheme1__Buy apishopsFormThemeButton\" value='Заказать'>\n        <br>\n        <a href=\"#\" class='%QUICKVIEW%'>Читать о товаре</a>\n    </div>\n\n</form>\n",
-    normal: "<link href=\"../css/apishopsForm/apishopsForm2.css\" rel=\"stylesheet\" >\n<link href=\"http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm/apishopsForm2.css\" rel=\"stylesheet\" >\n\n<form class=\"apishopsFormTheme1__ apishopsFormTheme\">\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <div class=\"apishopsFormTheme1__Info\">\n                                <div class=\"apishopsFormTheme1__Image apishopsFormImage\" style=\"display:none\"> \n                                    <img class=\"%IMG%\" height=110 src=\"\" alt=\"watch\" /> \n                                </div>\n                                <div class=\"apishopsFormTheme1__Name apishopsFormName\" style=\"display:none\">\n                                    %NAME%\n                                </div>\n                                <div class=\"apishopsFormTheme1__Price apishopsFormPrice\" style=\"display:none\">\n                                    <div class=\"price-arrow\">\n                                        <p class=\"new\">\n                                            %PRICE%\n                                            %CY%\n                                        </p>\n                                        <p class=\"old\">\n                                            вместо \n                                            <span>%OLDPRICE% %CY%</span>\n                                        </p>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <select name=\"apishopsFormCount\">\n                                <option>1</option>\n                                <option>2</option>\n                                <option>3</option>\n                                <option>4</option>\n                                <option>5</option>\n                            </select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormFio\" placeholder=\"Ваше имя\" pattern=\".{3,}\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormPhone\" placeholder=\"Контактный номер\" pattern=\".{3,}\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormAddress\" placeholder=\"Адрес доставки\" pattern=\".{3,}\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormPromocode\" placeholder=\"Промокод(если есть)\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormCity apishopsFormGroup\">\n                            <label style=\"display:block !important;\">Выберите город доставки</label>\n                            <select name=\"apishopsFormRegion\" pattern=\"^[0-9][0-9]*$\"> </select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormDelivery apishopsFormGroup\" style=\"display:none\">\n                            <label style=\"display:block !important;\">Выберите способ доставки</label>\n                            <select name=\"apishopsFormDelivery\" pattern=\"^[0-9][0-9]*$\"></select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormPayment apishopsFormGroup\" style=\"display:none\">\n                            <label style=\"display:block !important;\">Выберите способ оплаты</label>\n                            <select name=\"apishopsFormPayment\" pattern=\"^[0-9][0-9]*$\"></select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormCost apishopsFormGroup\" style=\"display:none\">\n                            <label style=\"display:block !important;\"><span name=\"apishopsFormCost\"></span>\n                            </label>\n                        </div>\n                        <input type=submit class=\"apishopsFormTheme1__ThemeButton apishopsFormTheme1__Button apishopsFormTheme1__Buy apishopsFormThemeButton\" value='Заказать'>\n                        <br>\n                        <a href=\"#\" class='%QUICKVIEW%'>Читать о товаре</a>\n                    </form>\n",
-    more: "<div class='apishopsFormTheme1__more'>\n    <input type=\"submit\" value=\"Показать ещё\" class=\"apishopsFormTheme1__ThemeButton apishopsFormTheme1__Button apishopsFormTheme1__Buy apishopsFormThemeButton\">\n</div>\n"
-  }, {
-    light: "<link href=\"../css/apishopsForm/apishopsForm3.css\" rel=\"stylesheet\" >\n<link href=\"http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm/apishopsForm3.css\" rel=\"stylesheet\" >\n\n<div class=\"apishopsFormTheme3____item apishopsFormTheme\">\n   <div class=\"apishopsFormTheme3____caption apishopsFormName\"  style=\"display:none\">\n      <some class=\"__NAME__\">%NAME%</some>\n   </div>\n   <div class=\"apishopsFormTheme3____img apishopsFormImage\"  style=\"display:none\">    <img class=\"__IMG__\" width=180 src=\"img/watch_img1.jpg\" alt=\"watch\"/>    </div>\n   <div class=\"apishopsFormTheme3____price apishopsFormPrice\"  style=\"display:none\">\n      <h3>\n         Цена:\n         <span>\n            <some  class=__OLDPRICE__>%OLDPRICE%</some>\n            <some class=__CYR__>%CYR%</some>\n         </span>\n      </h3>\n      <h4>\n         <some  class=__PRICE__>%PRICE%</some>\n         <span>\n            <some class=__CYR__>%CYR%</some>\n         </span>\n      </h4>\n   </div>\n   <div class=\"apishopsFormTheme3____form\">\n      <form id =\"form2\" action=\"#\" method=\"post\">\n         <select name=\"apishopsFormCount\">\n            <option>1</option>\n            <option>2</option>\n            <option>3</option>\n            <option>4</option>\n            <option>5</option>\n         </select>\n         <input type=\"text\" name=\"apishopsFormFio\" class=\"name required\" placeholder=\"Введите Ваше имя\" >                   <input type=\"text\" name=\"apishopsFormPhone\" class=\"phone required\" placeholder=\"Введите Ваш номер телефона\">                    <input type=\"text\" name=\"apishopsFormAddress\" class=\"phone required\" placeholder=\"Адрес доставки\">          <button class=\"button button--yellow apishopsFormThemeButton\">Заказать</button>\n         <a href=\"#\" class='%QUICKVIEW%'>Читать о товаре</a>\n      </form>\n   </div>\n</div>\n",
-    normal: "<link href=\"../css/apishopsForm/apishopsForm3.css\" rel=\"stylesheet\" >\n<link href=\"http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm/apishopsForm3.css\" rel=\"stylesheet\" >\n\n<form class=\"apishopsFormTheme1__ apishopsFormTheme\">\n   <h1>Обратный звонок</h1>\n   <small>Заполните пожалуйста поля</small>          \n   <div class=\"apishopsFormTheme1__Group\">\n      <div class=\"apishopsFormTheme1__Info\">\n         <div class=\"apishopsFormTheme1__Image apishopsFormImage\"  style=\"display:none\">            <img class=\"__IMG__\" width=180 src=\"img/watch_img1.jpg\" alt=\"watch\"/>         </div>\n         <div class=\"apishopsFormTheme1__Name apishopsFormName\"  style=\"display:none\">\n            <some class=\"__NAME__\">%NAME%</some>\n         </div>\n         <div class=\"apishopsFormTheme1__Price apishopsFormPrice\"  style=\"display:none\">\n            <div class=\"price-arrow\">\n               <p class=\"new\">\n                  <some  class=__PRICE__>%PRICE%</some>\n                  <some class=__CY__>%CY%</some>\n               </p>\n               <p class=\"old\">\n                  вместо \n                  <span>\n                     <some  class=__OLDPRICE__>%OLDPRICE%</some>\n                     <some class=__CY__>%CY%</some>\n                  </span>\n               </p>\n            </div>\n         </div>\n      </div>\n   </div>\n   <div class=\"apishopsFormTheme1__Group\">\n      <select name=\"apishopsFormCount\">\n         <option>1</option>\n         <option>2</option>\n         <option>3</option>\n         <option>4</option>\n         <option>5</option>\n      </select>\n   </div>\n   <div class=\"apishopsFormTheme1__Group\">                      <input type=\"text\" name=\"apishopsFormFio\" placeholder=\"Ваше имя\" pattern=\".{3,}\">         </div>\n   <div class=\"apishopsFormTheme1__Group\">                      <input type=\"text\"  name=\"apishopsFormPhone\" placeholder=\"Контактный номер\" pattern=\".{3,}\">         </div>\n   <div class=\"apishopsFormTheme1__Group\">                      <input type=\"text\"  name=\"apishopsFormAddress\" placeholder=\"Адрес доставки\" pattern=\".{3,}\">         </div>\n   <div class=\"apishopsFormTheme1__Group apishopsFormCity apishopsFormGroup\">                <label style=\"display:block !important;\">Выберите город доставки</label>                  <select name=\"apishopsFormRegion\" pattern=\"^[0-9][0-9]*$\"> </select>             </div>\n   <div class=\"apishopsFormTheme1__Group apishopsFormDelivery apishopsFormGroup\"  style=\"display:none\">                <label  style=\"display:block !important;\">Выберите способ доставки</label>                 <select name=\"apishopsFormDelivery\" pattern=\"^[0-9][0-9]*$\"></select>               </div>\n   <div class=\"apishopsFormTheme1__Group apishopsFormPayment apishopsFormGroup\"  style=\"display:none\">                <label  style=\"display:block !important;\">Выберите способ оплаты</label>        <select name=\"apishopsFormPayment\" pattern=\"^[0-9][0-9]*$\"></select>            </div>\n   <div class=\"apishopsFormTheme1__Group apishopsFormCost apishopsFormGroup\"  style=\"display:none\">                <label  style=\"display:block !important;\"><span name=\"apishopsFormCost\"></span></label>     </div>\n   <div class=\"apishopsFormTheme1__Group\">                <a href=\"#\" class=\"apishopsFormTheme1__ThemeButton apishopsFormTheme1__Button apishopsFormTheme1__Buy apishopsFormThemeButton\"><b>Заказать</b></a>         <a href=\"#\" class='%MORE%'>Читать о товаре</a> </div>\n</form>\n",
-    more: "<div class='apishopsFormTheme1__more'>\n    <input type=\"submit\" value=\"Показать ещё\" class=\"apishopsFormTheme1__ThemeButton apishopsFormTheme1__Button apishopsFormTheme1__Buy apishopsFormThemeButton\">\n</div>\n"
-  }, {
-    light: "<link href=\"../css/apishopsForm/apishopsForm4.css\" rel=\"stylesheet\" >\n<link href=\"http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm/apishopsForm4.css\" rel=\"stylesheet\" >\n\n                <div id=\"apishopsFormTheme4DIV_1\">\n                    <div id=\"apishopsFormTheme4DIV_2\">\n                        <img alt=\"watch\" class='%IMG%' src=\"http://img2.apishops.org/SinglePageWebsites/custom/images/watchPandora_web/also_img1.jpg\" id=\"apishopsFormTheme4IMG_3\" />\n                    </div>\n                    <div id=\"apishopsFormTheme4DIV_4\">\n                        <h3 id=\"apishopsFormTheme4H3_5\">\n                            %NAME%\n                        </h3>\n                        <div id=\"apishopsFormTheme4DIV_6\">\n                            <h3 id=\"apishopsFormTheme4H3_7\">\n                                %PRICE%  <span id=\"apishopsFormTheme4SPAN_8\">%CYR%</span>\n                            </h3>\n                            <h4 id=\"apishopsFormTheme4H4_9\">\n                                %OLDPRICE%  <span id=\"apishopsFormTheme4SPAN_10\">%CYR%</span>\n                            </h4>\n                        </div>\n                        <div id=\"apishopsFormTheme4DIV_11\">\n                            <div id=\"apishopsFormTheme4DIV_12\">\n                                <form action=\"#\" id=\"apishopsFormTheme4FORM_13\" method=\"post\">\n                                    <input name=\"apishopsFormCount\" type=\"hidden\" value=\"1\" id=\"apishopsFormTheme4INPUT_14\" />\n                                    <input name=\"apishopsFormFio\" pattern=\".{3,}\" placeholder=\"Ваше имя\" type=\"text\" id=\"apishopsFormTheme4INPUT_15\" />\n                                    <input name=\"apishopsFormPhone\" pattern=\".{3,}\" placeholder=\"Мобильный телефон\" type=\"text\" id=\"apishopsFormTheme4INPUT_16\" />\n                                    <input id=\"apishopsFormTheme4INPUT_17\" name=\"apishopsFormAddress\" placeholder=\"Адрес доставки\" type=\"text\" />\n                                    <input id=\"apishopsFormTheme4INPUT_18\" name=\"apishopsFormPromocode\" placeholder=\"Промокод (если есть)\" type=\"text\" /> \n                                    <button id=\"apishopsFormTheme4BUTTON_19\">\n                                        заказать\n                                    </button>\n                                    <a href=\"#\" class='%QUICKVIEW%'>Читать о товаре</a>\n                                </form>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n",
-    normal: "<link href=\"../css/apishopsForm/apishopsForm2.css\" rel=\"stylesheet\" >\n<link href=\"http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm/apishopsForm2.css\" rel=\"stylesheet\" >\n\n<form class=\"apishopsFormTheme1__ apishopsFormTheme\">\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <div class=\"apishopsFormTheme1__Info\">\n                                <div class=\"apishopsFormTheme1__Image apishopsFormImage\" style=\"display:none\"> \n                                    <img class=\"%IMG%\" height=110 src=\"\" alt=\"watch\" /> \n                                </div>\n                                <div class=\"apishopsFormTheme1__Name apishopsFormName\" style=\"display:none\">\n                                    %NAME%\n                                </div>\n                                <div class=\"apishopsFormTheme1__Price apishopsFormPrice\" style=\"display:none\">\n                                    <div class=\"price-arrow\">\n                                        <p class=\"new\">\n                                            %PRICE%\n                                            %CY%\n                                        </p>\n                                        <p class=\"old\">\n                                            вместо \n                                            <span>%OLDPRICE% %CY%</span>\n                                        </p>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <select name=\"apishopsFormCount\">\n                                <option>1</option>\n                                <option>2</option>\n                                <option>3</option>\n                                <option>4</option>\n                                <option>5</option>\n                            </select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormFio\" placeholder=\"Ваше имя\" pattern=\".{3,}\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormPhone\" placeholder=\"Контактный номер\" pattern=\".{3,}\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormAddress\" placeholder=\"Адрес доставки\" pattern=\".{3,}\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormPromocode\" placeholder=\"Промокод(если есть)\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormCity apishopsFormGroup\">\n                            <label style=\"display:block !important;\">Выберите город доставки</label>\n                            <select name=\"apishopsFormRegion\" pattern=\"^[0-9][0-9]*$\"> </select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormDelivery apishopsFormGroup\" style=\"display:none\">\n                            <label style=\"display:block !important;\">Выберите способ доставки</label>\n                            <select name=\"apishopsFormDelivery\" pattern=\"^[0-9][0-9]*$\"></select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormPayment apishopsFormGroup\" style=\"display:none\">\n                            <label style=\"display:block !important;\">Выберите способ оплаты</label>\n                            <select name=\"apishopsFormPayment\" pattern=\"^[0-9][0-9]*$\"></select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormCost apishopsFormGroup\" style=\"display:none\">\n                            <label style=\"display:block !important;\"><span name=\"apishopsFormCost\"></span>\n                            </label>\n                        </div>\n                        <input type=submit class=\"apishopsFormTheme1__ThemeButton apishopsFormTheme1__Button apishopsFormTheme1__Buy apishopsFormThemeButton\" value='Заказать'>\n                        <br>\n                        <a href=\"#\" class='%QUICKVIEW%'>Читать о товаре</a>\n                    </form>\n",
-    more: "<center><button id=\"apishopsFormTheme4BUTTON_19\">\n                        Показать ещё\n  </button></center>\n"
-  }, {
-    light: "<link href=\"../css/apishopsForm/apishopsForm5.css\" rel=\"stylesheet\" >\n<link href=\"http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm/apishopsForm5.css\" rel=\"stylesheet\" >\n\n\n                <div id=\"apishopsFormTheme5DIV_1\">\n                    <div id=\"apishopsFormTheme5DIV_2\">\n                        <img alt=\"img\" class='%IMG%' width=\"170\" id=\"apishopsFormTheme5IMG_3\" />\n                    </div>\n                    <div id=\"apishopsFormTheme5DIV_4\">\n                        <div id=\"apishopsFormTheme5DIV_5\">\n                            %NAME%\n                        </div>\n                        <div id=\"apishopsFormTheme5DIV_6\">\n                             %OLDPRICE%\n                        </div>\n                        <div id=\"apishopsFormTheme5DIV_8\">\n                            %PRICE% %CYR%\n                        </div>\n                    </div>\n                    <div id=\"apishopsFormTheme5DIV_9\">\n                        <div id=\"apishopsFormTheme5DIV_10\">\n                            <form action=\"#\" id=\"apishopsFormTheme5FORM_11\" method=\"post\">\n                                <input name=\"apishopsFormCount\" type=\"hidden\" value=\"1\" id=\"apishopsFormTheme5INPUT_12\" />\n                                <input name=\"apishopsFormFio\" pattern=\".{3,}\" placeholder=\"Ваше имя\" type=\"text\" id=\"apishopsFormTheme5INPUT_13\" />\n                                <input name=\"apishopsFormPhone\" placeholder=\"Мобильный телефон\" type=\"text\" id=\"apishopsFormTheme5INPUT_14\" />\n                                <input id=\"apishopsFormTheme5INPUT_15\" name=\"apishopsFormAddress\" placeholder=\"Адрес доставки\" type=\"text\" />\n                                <input id=\"apishopsFormTheme5INPUT_15\" name=\"apishopsFormPromocode\" placeholder=\"Промокод (если есть)\" type=\"text\" />\n                                <button id=\"apishopsFormTheme5BUTTON_16\">\n                                    Заказать\n                                </button>\n                                <br>\n                                <a href=\"#\" class='%QUICKVIEW%'>Читать о товаре</a>\n                            </form>\n                        </div>\n                    </div>\n                </div>\n",
-    normal: "<link href=\"../css/apishopsForm/apishopsForm2.css\" rel=\"stylesheet\" >\n<link href=\"http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm/apishopsForm2.css\" rel=\"stylesheet\" >\n\n<form class=\"apishopsFormTheme1__ apishopsFormTheme\">\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <div class=\"apishopsFormTheme1__Info\">\n                                <div class=\"apishopsFormTheme1__Image apishopsFormImage\" style=\"display:none\"> \n                                    <img class=\"%IMG%\" height=110 src=\"\" alt=\"watch\" /> \n                                </div>\n                                <div class=\"apishopsFormTheme1__Name apishopsFormName\" style=\"display:none\">\n                                    %NAME%\n                                </div>\n                                <div class=\"apishopsFormTheme1__Price apishopsFormPrice\" style=\"display:none\">\n                                    <div class=\"price-arrow\">\n                                        <p class=\"new\">\n                                            %PRICE%\n                                            %CY%\n                                        </p>\n                                        <p class=\"old\">\n                                            вместо \n                                            <span>%OLDPRICE% %CY%</span>\n                                        </p>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <select name=\"apishopsFormCount\">\n                                <option>1</option>\n                                <option>2</option>\n                                <option>3</option>\n                                <option>4</option>\n                                <option>5</option>\n                            </select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormFio\" placeholder=\"Ваше имя\" pattern=\".{3,}\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormPhone\" placeholder=\"Контактный номер\" pattern=\".{3,}\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormAddress\" placeholder=\"Адрес доставки\" pattern=\".{3,}\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormPromocode\" placeholder=\"Промокод(если есть)\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormCity apishopsFormGroup\">\n                            <label style=\"display:block !important;\">Выберите город доставки</label>\n                            <select name=\"apishopsFormRegion\" pattern=\"^[0-9][0-9]*$\"> </select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormDelivery apishopsFormGroup\" style=\"display:none\">\n                            <label style=\"display:block !important;\">Выберите способ доставки</label>\n                            <select name=\"apishopsFormDelivery\" pattern=\"^[0-9][0-9]*$\"></select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormPayment apishopsFormGroup\" style=\"display:none\">\n                            <label style=\"display:block !important;\">Выберите способ оплаты</label>\n                            <select name=\"apishopsFormPayment\" pattern=\"^[0-9][0-9]*$\"></select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormCost apishopsFormGroup\" style=\"display:none\">\n                            <label style=\"display:block !important;\"><span name=\"apishopsFormCost\"></span>\n                            </label>\n                        </div>\n                        <input type=submit class=\"apishopsFormTheme1__ThemeButton apishopsFormTheme1__Button apishopsFormTheme1__Buy apishopsFormThemeButton\" value='Заказать'>\n                        <br>\n                        <a href=\"#\" class='%QUICKVIEW%'>Читать о товаре</a>\n                    </form>\n",
-    more: "<center>                                <button id=\"apishopsFormTheme5BUTTON_16\">\n                                    Показать ещё\n                                </button>\n                            </center>\n"
-  }, {
-    light: "<link href=\"../css/apishopsForm/apishopsForm6.css\" rel=\"stylesheet\" >\n<link href=\"http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm/apishopsForm6.css\" rel=\"stylesheet\" >\n\n\n\n            <div id=\"apishopsFormTheme6DIV_1\">\n                <div id=\"apishopsFormTheme6DIV_2\">\n                    <div id=\"apishopsFormTheme6DIV_3\">\n                        <img alt=\"\" width=\"213\" id=\"apishopsFormTheme6IMG_4\" class='%IMG%' />\n                    </div>\n                    <!-- /.img -->\n\n                    <h3 id=\"apishopsFormTheme6H3_5\">\n                        %NAME%\n                    </h3>\n                    <h4 id=\"apishopsFormTheme6H4_6\">\n                         %OLDPRICE%\n                    </h4>\n                    <p id=\"apishopsFormTheme6P_8\">\n                        %PRICE% %CYR%\n                    </p>\n                    <div id=\"apishopsFormTheme6DIV_9\">\n                        <form action=\"send.php\" id=\"apishopsFormTheme6FORM_10\" method=\"post\">\n                            <input name=\"apishopsFormCount\" type=\"hidden\" value=\"1\" id=\"apishopsFormTheme6INPUT_11\" />\n                            <input name=\"apishopsFormFio\" pattern=\".{3,}\" placeholder=\"Ваше имя\" type=\"text\" id=\"apishopsFormTheme6INPUT_12\" />\n                            <input name=\"apishopsFormPhone\" pattern=\".{3,}\" placeholder=\"Мобильный телефон\" type=\"text\" id=\"apishopsFormTheme6INPUT_13\" />\n                            <input id=\"apishopsFormTheme6INPUT_14\" name=\"apishopsFormAddress\" placeholder=\"Адрес доставки\" type=\"text\" />\n                            <input id=\"apishopsFormTheme6INPUT_14\" name=\"apishopsFormPromocode\" placeholder=\"Промокод (если есть)\" type=\"text\" />\n                            <button id=\"apishopsFormTheme6BUTTON_15\">\n                                Заказать!\n                            </button>\n                            <a href=\"#\" class='%QUICKVIEW%'>Читать о товаре</a>\n                        </form>\n                    </div>\n                </div>\n                <!-- /.item -->\n\n            </div>\n\n",
-    normal: "<link href=\"../css/apishopsForm/apishopsForm2.css\" rel=\"stylesheet\" >\n<link href=\"http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm/apishopsForm2.css\" rel=\"stylesheet\" >\n\n<form class=\"apishopsFormTheme1__ apishopsFormTheme\">\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <div class=\"apishopsFormTheme1__Info\">\n                                <div class=\"apishopsFormTheme1__Image apishopsFormImage\" style=\"display:none\"> \n                                    <img class=\"%IMG%\" height=110 src=\"\" alt=\"watch\" /> \n                                </div>\n                                <div class=\"apishopsFormTheme1__Name apishopsFormName\" style=\"display:none\">\n                                    %NAME%\n                                </div>\n                                <div class=\"apishopsFormTheme1__Price apishopsFormPrice\" style=\"display:none\">\n                                    <div class=\"price-arrow\">\n                                        <p class=\"new\">\n                                            %PRICE%\n                                            %CY%\n                                        </p>\n                                        <p class=\"old\">\n                                            вместо \n                                            <span>%OLDPRICE% %CY%</span>\n                                        </p>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <select name=\"apishopsFormCount\">\n                                <option>1</option>\n                                <option>2</option>\n                                <option>3</option>\n                                <option>4</option>\n                                <option>5</option>\n                            </select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormFio\" placeholder=\"Ваше имя\" pattern=\".{3,}\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormPhone\" placeholder=\"Контактный номер\" pattern=\".{3,}\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormAddress\" placeholder=\"Адрес доставки\" pattern=\".{3,}\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormPromocode\" placeholder=\"Промокод(если есть)\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormCity apishopsFormGroup\">\n                            <label style=\"display:block !important;\">Выберите город доставки</label>\n                            <select name=\"apishopsFormRegion\" pattern=\"^[0-9][0-9]*$\"> </select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormDelivery apishopsFormGroup\" style=\"display:none\">\n                            <label style=\"display:block !important;\">Выберите способ доставки</label>\n                            <select name=\"apishopsFormDelivery\" pattern=\"^[0-9][0-9]*$\"></select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormPayment apishopsFormGroup\" style=\"display:none\">\n                            <label style=\"display:block !important;\">Выберите способ оплаты</label>\n                            <select name=\"apishopsFormPayment\" pattern=\"^[0-9][0-9]*$\"></select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormCost apishopsFormGroup\" style=\"display:none\">\n                            <label style=\"display:block !important;\"><span name=\"apishopsFormCost\"></span>\n                            </label>\n                        </div>\n                        <input type=submit class=\"apishopsFormTheme1__ThemeButton apishopsFormTheme1__Button apishopsFormTheme1__Buy apishopsFormThemeButton\" value='Заказать'>\n                        <br>\n                        <a href=\"#\" class='%QUICKVIEW%'>Читать о товаре</a>\n                    </form>\n",
-    more: "<center>                            <button id=\"apishopsFormTheme6BUTTON_15\">\n                                Показать другие\n                            </button></center>\n"
-  }, {
-    light: "<link href=\"../css/apishopsForm/apishopsForm7.css\" rel=\"stylesheet\" >\n<link href=\"http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm/apishopsForm7.css\" rel=\"stylesheet\" >\n\n\n\n\n                <div id=\"apishopsFormTheme7DIV_1\">\n                    <div id=\"apishopsFormTheme7DIV_2\">\n                        %NAME%\n                    </div>\n                    <div id=\"apishopsFormTheme7DIV_3\">\n                        <img alt=\"watch\" width=\"170\" class='%IMG%'  id=\"apishopsFormTheme7IMG_4\" />\n                    </div>\n                    <div id=\"apishopsFormTheme7DIV_5\">\n                        <h3 id=\"apishopsFormTheme7H3_6\">\n                             <span id=\"apishopsFormTheme7SPAN_7\">%OLDPRICE% %CYR%</span>\n                        </h3>\n                        <h4 id=\"apishopsFormTheme7H4_8\">\n                            %PRICE% <span id=\"apishopsFormTheme7SPAN_9\">%CYR%</span>\n                        </h4>\n                    </div>\n                    <div id=\"apishopsFormTheme7DIV_10\">\n                        <div id=\"apishopsFormTheme7DIV_11\">\n                            <form action=\"#\" id=\"apishopsFormTheme7FORM_12\" method=\"post\">\n                                <input name=\"apishopsFormCount\" type=\"hidden\" value=\"1\" id=\"apishopsFormTheme7INPUT_13\" />\n                                <input name=\"apishopsFormFio\" pattern=\".{3,}\" placeholder=\"Ваше имя\" type=\"text\" id=\"apishopsFormTheme7INPUT_14\" />\n                                <input name=\"apishopsFormPhone\" pattern=\".{3,}\" placeholder=\"Мобильный телефон\" type=\"text\" id=\"apishopsFormTheme7INPUT_15\" />\n                                <input id=\"apishopsFormTheme7INPUT_16\" name=\"apishopsFormAddress\" placeholder=\"Адрес доставки\" type=\"text\" />\n                                <input id=\"apishopsFormTheme7INPUT_16\" name=\"apishopsFormPromocode\" placeholder=\"Промокод (если есть)\" type=\"text\" />\n                                <button id=\"apishopsFormTheme7BUTTON_17\">\n                                    купить\n                                </button>\n                                <a href=\"#\" class='%QUICKVIEW%'>Читать о товаре</a>\n                            </form>\n                        </div>\n                    </div>\n                </div>\n",
-    normal: "<link href=\"../css/apishopsForm/apishopsForm2.css\" rel=\"stylesheet\" >\n<link href=\"http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm/apishopsForm2.css\" rel=\"stylesheet\" >\n\n<form class=\"apishopsFormTheme1__ apishopsFormTheme\">\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <div class=\"apishopsFormTheme1__Info\">\n                                <div class=\"apishopsFormTheme1__Image apishopsFormImage\" style=\"display:none\"> \n                                    <img class=\"%IMG%\" height=110 src=\"\" alt=\"watch\" /> \n                                </div>\n                                <div class=\"apishopsFormTheme1__Name apishopsFormName\" style=\"display:none\">\n                                    %NAME%\n                                </div>\n                                <div class=\"apishopsFormTheme1__Price apishopsFormPrice\" style=\"display:none\">\n                                    <div class=\"price-arrow\">\n                                        <p class=\"new\">\n                                            %PRICE%\n                                            %CY%\n                                        </p>\n                                        <p class=\"old\">\n                                            вместо \n                                            <span>%OLDPRICE% %CY%</span>\n                                        </p>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <select name=\"apishopsFormCount\">\n                                <option>1</option>\n                                <option>2</option>\n                                <option>3</option>\n                                <option>4</option>\n                                <option>5</option>\n                            </select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormFio\" placeholder=\"Ваше имя\" pattern=\".{3,}\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormPhone\" placeholder=\"Контактный номер\" pattern=\".{3,}\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormAddress\" placeholder=\"Адрес доставки\" pattern=\".{3,}\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormPromocode\" placeholder=\"Промокод(если есть)\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormCity apishopsFormGroup\">\n                            <label style=\"display:block !important;\">Выберите город доставки</label>\n                            <select name=\"apishopsFormRegion\" pattern=\"^[0-9][0-9]*$\"> </select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormDelivery apishopsFormGroup\" style=\"display:none\">\n                            <label style=\"display:block !important;\">Выберите способ доставки</label>\n                            <select name=\"apishopsFormDelivery\" pattern=\"^[0-9][0-9]*$\"></select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormPayment apishopsFormGroup\" style=\"display:none\">\n                            <label style=\"display:block !important;\">Выберите способ оплаты</label>\n                            <select name=\"apishopsFormPayment\" pattern=\"^[0-9][0-9]*$\"></select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormCost apishopsFormGroup\" style=\"display:none\">\n                            <label style=\"display:block !important;\"><span name=\"apishopsFormCost\"></span>\n                            </label>\n                        </div>\n                        <input type=submit class=\"apishopsFormTheme1__ThemeButton apishopsFormTheme1__Button apishopsFormTheme1__Buy apishopsFormThemeButton\" value='Заказать'>\n                        <br>\n                        <a href=\"#\" class='%QUICKVIEW%'>Читать о товаре</a>\n                    </form>\n",
-    more: "<center><button id=\"apishopsFormTheme7BUTTON_17\">\n                                    Показать другие\n                                </button></center>\n"
-  }, {
-    light: "<link href=\"../css/apishopsForm/apishopsForm8.css\" rel=\"stylesheet\" >\n<link href=\"http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm/apishopsForm8.css\" rel=\"stylesheet\" >\n\n\n\n\n        <div id=\"apishopsFormTheme8DIV_1\">\n            <div id=\"apishopsFormTheme8DIV_2\">\n                <div id=\"apishopsFormTheme8DIV_3\">\n                    <img alt=\"\" class='%IMG%' width=\"170\" id=\"apishopsFormTheme8IMG_4\" />\n                </div>\n                <!-- /.img -->\n\n                <div id=\"apishopsFormTheme8DIV_5\">\n                    <p id=\"apishopsFormTheme8P_6\">\n                        %NAME%\n                    </p>\n                    <p id=\"apishopsFormTheme8P_7\">\n                        %PRICE% %CYR%\n                    </p>\n                    <!-- /.price -->\n\n                </div>\n                <!-- /.descr -->\n\n                <div id=\"apishopsFormTheme8DIV_8\">\n                    <form action=\"send.php\" id=\"apishopsFormTheme8FORM_9\" method=\"post\">\n                        <input name=\"apishopsFormCount\" type=\"hidden\" value=\"1\" id=\"apishopsFormTheme8INPUT_10\" />\n                        <input name=\"apishopsFormFio\" pattern=\".{3,}\" placeholder=\"Ваше имя\" type=\"text\" id=\"apishopsFormTheme8INPUT_11\" />\n                        <input name=\"apishopsFormPhone\" pattern=\".{3,}\" placeholder=\"Мобильный телефон\" type=\"text\" id=\"apishopsFormTheme8INPUT_12\" />\n                        <input id=\"apishopsFormTheme8INPUT_13\" name=\"apishopsFormAddress\" placeholder=\"Адрес доставки\" type=\"text\" />\n                        <input id=\"apishopsFormTheme8INPUT_13\" name=\"apishopsFormPromocode\" placeholder=\"Промкод (если есть)\" type=\"text\" />\n                        <button id=\"apishopsFormTheme8BUTTON_14\">\n                            ЗАКАЗАТЬ\n                        </button>\n                        <a href=\"#\" class='%QUICKVIEW%'>Читать о товаре</a>\n                    </form>\n                </div>\n            </div>\n            <!-- /.other-item -->\n\n        </div>\n",
-    normal: "<link href=\"../css/apishopsForm/apishopsForm2.css\" rel=\"stylesheet\" >\n<link href=\"http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm/apishopsForm2.css\" rel=\"stylesheet\" >\n\n<form class=\"apishopsFormTheme1__ apishopsFormTheme\">\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <div class=\"apishopsFormTheme1__Info\">\n                                <div class=\"apishopsFormTheme1__Image apishopsFormImage\" style=\"display:none\"> \n                                    <img class=\"%IMG%\" height=110 src=\"\" alt=\"watch\" /> \n                                </div>\n                                <div class=\"apishopsFormTheme1__Name apishopsFormName\" style=\"display:none\">\n                                    %NAME%\n                                </div>\n                                <div class=\"apishopsFormTheme1__Price apishopsFormPrice\" style=\"display:none\">\n                                    <div class=\"price-arrow\">\n                                        <p class=\"new\">\n                                            %PRICE%\n                                            %CY%\n                                        </p>\n                                        <p class=\"old\">\n                                            вместо \n                                            <span>%OLDPRICE% %CY%</span>\n                                        </p>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <select name=\"apishopsFormCount\">\n                                <option>1</option>\n                                <option>2</option>\n                                <option>3</option>\n                                <option>4</option>\n                                <option>5</option>\n                            </select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormFio\" placeholder=\"Ваше имя\" pattern=\".{3,}\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormPhone\" placeholder=\"Контактный номер\" pattern=\".{3,}\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormAddress\" placeholder=\"Адрес доставки\" pattern=\".{3,}\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormPromocode\" placeholder=\"Промокод(если есть)\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormCity apishopsFormGroup\">\n                            <label style=\"display:block !important;\">Выберите город доставки</label>\n                            <select name=\"apishopsFormRegion\" pattern=\"^[0-9][0-9]*$\"> </select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormDelivery apishopsFormGroup\" style=\"display:none\">\n                            <label style=\"display:block !important;\">Выберите способ доставки</label>\n                            <select name=\"apishopsFormDelivery\" pattern=\"^[0-9][0-9]*$\"></select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormPayment apishopsFormGroup\" style=\"display:none\">\n                            <label style=\"display:block !important;\">Выберите способ оплаты</label>\n                            <select name=\"apishopsFormPayment\" pattern=\"^[0-9][0-9]*$\"></select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormCost apishopsFormGroup\" style=\"display:none\">\n                            <label style=\"display:block !important;\"><span name=\"apishopsFormCost\"></span>\n                            </label>\n                        </div>\n                        <input type=submit class=\"apishopsFormTheme1__ThemeButton apishopsFormTheme1__Button apishopsFormTheme1__Buy apishopsFormThemeButton\" value='Заказать'>\n                        <br>\n                        <a href=\"#\" class='%QUICKVIEW%'>Читать о товаре</a>\n                    </form>\n",
-    more: "<center>\n                        <button id=\"apishopsFormTheme8BUTTON_14\">\n                            ДРУГИЕ ТОВАРЫ\n                        </button>\n</center>\n"
-  }, {
-    light: "<link href=\"../css/apishopsForm/apishopsForm9.css\" rel=\"stylesheet\" >\n<link href=\"http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm/apishopsForm9.css\" rel=\"stylesheet\" >\n\n                <div id=\"apishopsFormTheme9DIV_1\">\n                    <div id=\"apishopsFormTheme9DIV_2\">\n                        <img class='%IMG%' alt=\"\" id=\"apishopsFormTheme9IMG_3\" />\n                    </div>\n                    <h3 id=\"apishopsFormTheme9H3_4\">\n                        %NAME%\n                    </h3>\n                    <div id=\"apishopsFormTheme9DIV_5\">\n                    </div>\n                    <div id=\"apishopsFormTheme9DIV_6\">\n                         <span id=\"apishopsFormTheme9SPAN_7\">%PRICE% <span id=\"apishopsFormTheme9SPAN_8\">%CYR%</span></span> <span id=\"apishopsFormTheme9SPAN_9\">%OLDPRICE%  <span id=\"apishopsFormTheme9SPAN_11\">%CYR%</span></span>\n                    </div>\n                    <form id=\"apishopsFormTheme9FORM_12\" action=\"#\" method=\"post\">\n\n                        <input name=\"apishopsFormCount\" type=\"hidden\" value=\"1\" id=\"apishopsFormTheme8INPUT_10\" />\n\n                        <input type=\"text\" name=\"apishopsFormFio\" pattern=\".{3,}\" placeholder=\"Ваше имя\" id=\"apishopsFormTheme9INPUT_13\" />\n                        <input type=\"text\" name=\"apishopsFormPhone\" pattern=\".{3,}\" placeholder=\"Мобильный телефон\" id=\"apishopsFormTheme9INPUT_14\" />\n                        <input type=\"text\" name=\"apishopsFormAddress\" placeholder=\"Адрес доставки\" id=\"apishopsFormTheme9INPUT_14\" />\n                        <input type=\"text\" name=\"apishopsFormPromocode\" placeholder=\"Промкод (если есть)\" id=\"apishopsFormTheme9INPUT_14\" />\n\n                        <div id=\"apishopsFormTheme9DIV_15\">\n\n                            <button id=\"apishopsFormTheme9BUTTON_16\">\n                                Заказать\n                            </button>\n\n                                <a href=\"#\" class='%QUICKVIEW%'>Читать о товаре</a>\n\n                        </div>\n                    </form>\n                </div>\n",
-    normal: "<link href=\"../css/apishopsForm/apishopsForm2.css\" rel=\"stylesheet\" >\n<link href=\"http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm/apishopsForm2.css\" rel=\"stylesheet\" >\n\n<form class=\"apishopsFormTheme1__ apishopsFormTheme\">\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <div class=\"apishopsFormTheme1__Info\">\n                                <div class=\"apishopsFormTheme1__Image apishopsFormImage\" style=\"display:none\"> \n                                    <img class=\"%IMG%\" height=110 src=\"\" alt=\"watch\" /> \n                                </div>\n                                <div class=\"apishopsFormTheme1__Name apishopsFormName\" style=\"display:none\">\n                                    %NAME%\n                                </div>\n                                <div class=\"apishopsFormTheme1__Price apishopsFormPrice\" style=\"display:none\">\n                                    <div class=\"price-arrow\">\n                                        <p class=\"new\">\n                                            %PRICE%\n                                            %CY%\n                                        </p>\n                                        <p class=\"old\">\n                                            вместо \n                                            <span>%OLDPRICE% %CY%</span>\n                                        </p>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <select name=\"apishopsFormCount\">\n                                <option>1</option>\n                                <option>2</option>\n                                <option>3</option>\n                                <option>4</option>\n                                <option>5</option>\n                            </select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormFio\" placeholder=\"Ваше имя\" pattern=\".{3,}\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormPhone\" placeholder=\"Контактный номер\" pattern=\".{3,}\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormAddress\" placeholder=\"Адрес доставки\" pattern=\".{3,}\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group\">\n                            <input type=\"text\" name=\"apishopsFormPromocode\" placeholder=\"Промокод(если есть)\"> \n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormCity apishopsFormGroup\">\n                            <label style=\"display:block !important;\">Выберите город доставки</label>\n                            <select name=\"apishopsFormRegion\" pattern=\"^[0-9][0-9]*$\"> </select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormDelivery apishopsFormGroup\" style=\"display:none\">\n                            <label style=\"display:block !important;\">Выберите способ доставки</label>\n                            <select name=\"apishopsFormDelivery\" pattern=\"^[0-9][0-9]*$\"></select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormPayment apishopsFormGroup\" style=\"display:none\">\n                            <label style=\"display:block !important;\">Выберите способ оплаты</label>\n                            <select name=\"apishopsFormPayment\" pattern=\"^[0-9][0-9]*$\"></select>\n                        </div>\n                        <div class=\"apishopsFormTheme1__Group apishopsFormCost apishopsFormGroup\" style=\"display:none\">\n                            <label style=\"display:block !important;\"><span name=\"apishopsFormCost\"></span>\n                            </label>\n                        </div>\n                        <input type=submit class=\"apishopsFormTheme1__ThemeButton apishopsFormTheme1__Button apishopsFormTheme1__Buy apishopsFormThemeButton\" value='Заказать'>\n                        <br>\n                        <a href=\"#\" class='%QUICKVIEW%'>Читать о товаре</a>\n                    </form>\n",
-    more: "<center>                            <button id=\"apishopsFormTheme9BUTTON_16\">\n                                Ещё товары\n                            </button></center>\n"
-  }
-];
-
-apishopsFormHtml = {
-  quickView: "<div class=\"apishopsFormQuickView\">\n    <div class=\"apishopsFormQuickViewImageContainer\">\n        <img src=\"%IMGSRC%\">\n    </div>\n    <div class=\"apishopsFormQuickViewInfoContainer\">\n        <div class=\"apishopsFormQuickViewInfoContainerIn\">\n            <h2 class=\"apishopsFormQuickViewInfoContainerInTitle\">%NAME%</h2>\n\n                            <div class='apishopsFormQuickViewInfoContainerInOrder'>\n                                    <span id=\"apishopsFormQuickViewInfoContainerInSPAN_37\">%PRICE% %CYR%</span>\n                                    <span id=\"apishopsFormQuickViewInfoContainerInSPAN_49\">%OLDPRICE% %CYR%</span>\n                            </div>\n\n                            <div id=\"apishopsFormQuickViewInfoContainerInDIV_1\">\n                                <div id=\"\">\n                                     <div class=\"count_border hasCountdown\" id=\"apishopsFormQuickViewInfoContainerIn2DIV_6\">\n                                        <span id=\"apishopsFormQuickViewInfoContainerIn2SPAN_7\" class=\"countdown_row countdown_show4\">\n                                            <span id=\"apishopsFormQuickViewInfoContainerIn2SPAN_8\" class=\"countdown_section\">\n                                                <span id=\"apishopsFormQuickViewInfoContainerIn2SPAN_9\" class=\"countdown_amount\">48</span>\n                                                <br id=\"apishopsFormQuickViewInfoContainerIn2BR_10\">Дней\n                                            </span>\n                                            <span id=\"apishopsFormQuickViewInfoContainerIn2SPAN_11\" class=\"countdown_section\">\n                                                <span id=\"apishopsFormQuickViewInfoContainerIn2SPAN_12\" class=\"countdown_amount\">18</span>\n                                                <br id=\"apishopsFormQuickViewInfoContainerIn2BR_13\">Часов\n                                            </span>\n                                            <span id=\"apishopsFormQuickViewInfoContainerIn2SPAN_14\" class=\"countdown_section\">\n                                                <span id=\"apishopsFormQuickViewInfoContainerIn2SPAN_15\" class=\"countdown_amount\">21</span>\n                                                <br id=\"apishopsFormQuickViewInfoContainerIn2BR_16\">Минут\n                                            </span>\n                                            <span id=\"apishopsFormQuickViewInfoContainerIn2SPAN_17\" class=\"countdown_section\">\n                                                <span id=\"apishopsFormQuickViewInfoContainerIn2SPAN_18\" class=\"countdown_amount\">12</span>\n                                                <br id=\"apishopsFormQuickViewInfoContainerIn2BR_19\">Секунд</span>\n                                            </span>\n                                        </div>\n                                </div>\n\n                            </div>\n\n                            <some class=\"apishopsFormQuickViewInfoContainerInDescription\">%FULLDESC%</some>\n\n                            <div class='apishopsFormQuickViewInfoContainerInOrder'>\n                                <div class='bl2'>\n                                    <input type=input value='' placeholder='Ваш номер телефона'>\n                                </div>\n                                <div class='bl3'>\n                                    <input type=submit value='Заказать'>\n                                </div>\n                            </div>\n        </div>\n    </div>\n</div>\n",
-  modal: "<div class=\"apishopsModal apishopsAnimation apishopsAnimationQuickView\">\n    <div class=\"apishopsModalWindow\">\n        <div class=\"apishopsModalClose\"></div>\n        <div class=\"apishopsModalContent\"></div>\n        <div class=\"apishopsModalClose2\">\n            <a href=\"#\" class=\"underline\">закрыть окно</a>\n        </div>\n    </div>\n    <div class=\"apishopsModalOverlay\"></div>\n    <div class='apishopsModalNavigation'>\n        <div class='apishopsModalNavigationItems'>\n            div\n        </div>\n        <div class='apishopsModalNavigationNext'>\n            <!--<div class='apishopsModalNavigationTitle'>\n                часы мужские Breitling Sceleton (механика)\n            </div>\n            <div class='apishopsModalNavigationImage'>\n            </div>-->\n            <div class='apishopsModalNavigationArrow'>\n            </div>\n        </div>\n        <div class='apishopsModalNavigationPrev'>\n            <!--<div class='apishopsModalNavigationTitle'>\n                Турник в проем Iron Gym (Айрон Джим) + поддерживающие ремни\n            </div>\n            <div class='apishopsModalNavigationImage'>\n            </div>-->\n            <div class='apishopsModalNavigationArrow'>\n            </div>\n        </div>\n    </div>\n</div>\n</div>\n"
-};
 
 /*
 * Input Mask plugin for jquery
@@ -3789,6 +3443,564 @@ $(this).inputmask("mask", opts, targetScope);
 }
 return $.fn.inputmask;
 })(jQuery);
+var apishopsJSONP={
+    gates:[
+    'http://gate1.apishops.org/single.page.ajax.php?callback=?',
+    'http://template2.basing.ru/single.page.ajax.php?callback=?'],
+    processes:[],
+    checkInterval:0,
+    results:[]
+}
+
+var apishopsFormPaths={
+    rootdir:'/',
+    cssdir:'css/',
+    jsdir:'js/',
+    themesdir:'apishopsFormThemes/'
+}
+
+var apishopsFormTemplates={
+    theme:{
+        css:apishopsFormPaths.rootdir+apishopsFormPaths.cssdir+apishopsFormPaths.themesdir+'/%THEME%.css',
+        js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+apishopsFormPaths.themesdir+'/%THEME%.js'
+    },
+    modal:{
+        js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+'/apishopsFormModal.js'
+    },
+    quickview:{
+        css:apishopsFormPaths.rootdir+apishopsFormPaths.cssdir+'/apishopsFormQv.css',
+        js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+'/apishopsFormQv.js'
+    }
+}
+
+
+function apishopsFormLoadTemplates(templates, theme, successFunction, errorFunction){
+    var templates_js_loaded=0;
+
+    for(template_no in templates){
+        for(template_file_type in apishopsFormTemplates[templates[template_no]]){
+            if(apishopsFormTemplates[templates[template_no]][template_file_type]!==true)
+            {
+                var template_file=apishopsFormTemplates[templates[template_no]][template_file_type].replace("%THEME%", theme);
+
+                if(template_file_type=='css'){
+                    $('head').append( $('<link rel="stylesheet" type="text/css" />').attr('href', template_file));
+                    apishopsFormTemplates[templates[template_no]][template_file_type]=true;
+                }else{
+                    $.getScript(template_file).done(function( script, textStatus ) {
+                        templates_js_loaded++;
+                        if(templates_js_loaded==templates.length){
+                            successFunction()
+                            for(template_no in templates){
+                                apishopsFormTemplates[templates[template_no]]['js']=true;
+                            }
+                        }
+                    })
+                }
+            }else{
+                if(template_file_type=='js')
+                    templates_js_loaded++;
+                if(templates_js_loaded==templates.length)
+                    successFunction()
+            }
+        }
+    }
+}
+
+
+function apishopsFormGetJSONP(jsonp, callBackFunction){
+
+    clearInterval(apishopsJSONP.checkInterval);
+
+    jsonp.processId=String.fromCharCode(65 + Math.floor(Math.random() * 26)) + _.now();
+
+    apishopsJSONP.processes.push({jsonp:jsonp,callBackFunction:callBackFunction, processId:jsonp.processId, status:'run', retrys:0});
+
+    apishopsLog('New process #'+jsonp.processId);
+
+    $.getJSON(apishopsJSONP.gates[0], jsonp, apishopsFormCallbackJSONP);
+
+    apishopsJSONP.checkInterval=setInterval(function() {
+
+            apishopsLog('Interval 5000 ms:')
+
+            for(i in apishopsJSONP.processes){
+
+                process=apishopsJSONP.processes[i];
+                apishopsLog('Check process #'+process.processId+':');
+
+                if (process.status=='run' && process.retrys<apishopsJSONP.gates.length){
+                    apishopsLog("   Query no "+process.retrys+"("+apishopsJSONP.gates[process.retrys]+") failed");
+                    process.retrys++;
+                    $.getJSON(apishopsJSONP.gates[process.retrys], process.jsonp, apishopsFormCallbackJSONP);
+                    apishopsLog("   Sended query no "+process.retrys+"("+apishopsJSONP.gates[process.retrys]+")");
+                }else if(process.status=='run'){
+                    apishopsLog("   All retrys is failed "+process.retrys);
+                    apishopsJSONP.processes.splice(i,1);
+                }else if(process.status=='block'){
+                    apishopsLog("   Process is blocked.");
+                }
+
+                if(apishopsJSONP.processes.length==0){
+                    clearInterval(apishopsJSONP.checkInterval);
+                }
+            }
+
+    }, 10000);
+}
+
+function apishopsFormCallbackJSONP(result){
+    var processId=result.parameters.processId;
+    apishopsLog('Got process #'+processId+' result:');
+    for(i in apishopsJSONP.processes){
+        if(apishopsJSONP.processes[i].processId==processId){
+            apishopsJSONP.processes[i].status='block';
+            apishopsLog('   Exec callback function');
+            apishopsJSONP.processes[i].callBackFunction(result);
+            apishopsLog('   Remove process from queue');
+            apishopsJSONP.processes.splice(i,1);
+        }
+    }
+    if(apishopsJSONP.processes.length==0){
+        clearInterval(apishopsJSONP.checkInterval);
+    }
+}
+
+
+var apishopsParcelParamaters={};
+
+
+function apishopsFormLoadParcelParameters(params){
+
+    apishopsFormGetJSONP(
+        {
+            action: "getWSPDeliveryInfo",
+            count:params['count'],
+            siteId: params['siteId'],
+            productId: params['productId'],
+            price:params['price'],
+            paymentId:params['paymentId'],
+            deliveryId:params['deliveryId'],
+            region:params['regionId'],
+            objectId:params['objectId'],
+            jsonp: 'dataType',
+            retrys:params['retrys'],
+            charset:params['charset'],
+            lang:params['lang'],
+            callBackFunctionName:params['callBackFunctionName']
+        },
+        function(result){
+
+            var objectId=result.parameters.objectId;
+            var wpId=0;
+            var siteId=result.parameters.siteId;
+            var regionId=result.parameters.region;
+            var productId=result.parameters.productId;
+            var price=result.parameters.price;
+            var retrys=result.parameters.retrys;
+            var callBackFunctionName=result.parameters.callBackFunctionName;
+
+            if(typeof apishopsParcelParamaters[siteId]=='undefined')
+                apishopsParcelParamaters[siteId]={};
+
+            if(typeof apishopsParcelParamaters[siteId][wpId]=='undefined')
+                apishopsParcelParamaters[siteId][wpId]={};
+
+            if(typeof apishopsParcelParamaters[siteId][wpId][regionId]=='undefined')
+                apishopsParcelParamaters[siteId][wpId][regionId]={};
+
+            if(typeof apishopsParcelParamaters[siteId][wpId][regionId][productId]=='undefined')
+                apishopsParcelParamaters[siteId][wpId][regionId][productId]={};
+
+            if(typeof apishopsParcelParamaters[siteId][wpId][regionId][productId][price]=='undefined')
+                apishopsParcelParamaters[siteId][wpId][regionId][productId][price]={};
+
+            if(typeof apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['deliveries']=='undefined')
+                apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['deliveries']={};
+
+            if(typeof apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['payments']=='undefined')
+                apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['payments']={};
+
+            if(typeof apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['info']=='undefined')
+                apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['info']={};
+
+            $.each(result.data.deliveries, function () {
+                apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['deliveries'][this.value]=this.name;
+            });
+
+            $.each(result.data.payments, function () {
+                apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['payments'][this.value]=this.name;
+            });
+
+            apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['info'] = result.data.info;
+
+            result.parameters['object']=$('#'+result.parameters.objectId)
+            result.parameters['regionId']=result.parameters.region;
+
+            if(callBackFunctionName=='apishopsFormLoadDeliveryTypes')
+                apishopsFormLoadDeliveryTypes(result.parameters);
+            else if(callBackFunctionName=='apishopsFormLoadPaymentTypes')
+                apishopsFormLoadPaymentTypes(result.parameters);
+            else if(callBackFunctionName=='apishopsFormLoadPrice')
+                apishopsFormLoadPrice(result.parameters);
+         }
+    );//.fail(function() {alert("Ошибка получения списка параметров заказа")});;
+}
+
+
+
+
+function apishopsFormLoadRegions(params){
+
+    $object=$(params['object']);
+    $object.closest('.apishopsFormGroup').addClass('apishopsLoading');
+
+    if(typeof $object.attr('id')=='undefined')
+        $object.attr('id','apishopsId'+String.fromCharCode(65 + Math.floor(Math.random() * 26)) + _.now())
+
+
+    apishopsFormGetJSONP(
+        {
+            action: "getWSPRegions",
+            siteId: params['siteId'],
+            productId: params['productId'],
+            objectId:$object.attr('id'),
+            charset:params['charset'],
+            lang:params['lang'],
+            jsonp: 'dataType'
+        },
+        function(result){
+
+            $object=$('#'+result.parameters.objectId);
+
+            $object.append($('<option value="-1">Выберите регион доставки</option>'));
+
+            var topRegions = [53, 421, 92, 0];
+            $.each(result.data, function () {
+                if ($.inArray(this.id, topRegions) != -1){
+                    $object.append($('<option value="' + this.id + '">' + this.name + '</option>'));
+                }
+            });
+
+            $object.append('<optgroup label="----------------">');
+
+            $.each(result.data, function () {
+                if ($.inArray(this.id, topRegions) == -1){
+                    $object.append($('<option value="' + this.id + '">' + this.name + '</option>'));
+                }
+            });
+
+            $object.append('</optgroup>');
+
+            $object.closest('.apishopsFormGroup').removeClass('apishopsLoading').show();
+        }
+    );//.fail(function() {alert("Ошибка получения списка регионов")});
+}
+
+
+
+function apishopsFormLoadDeliveryTypes(params){
+
+    if(params['retrys']<0){
+        alert('Ошибка получения параметров доставки');
+        return false;
+    }
+
+    $object=$(params['object']);
+    $object.closest('.apishopsFormGroup').addClass('apishopsLoading');
+
+    if(typeof $object.attr('id') == 'undefined')
+        $object.attr('id','apishopsId'+String.fromCharCode(65 + Math.floor(Math.random() * 26)) + _.now());
+
+
+    try{
+        $object.empty();
+        $object.append($('<option value="-1">Выберите тип доставки</option>'));
+
+        $.each(apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['info'].items, function () {
+            var min = null;
+            var max = null;
+            $.each(this.payments, function () {
+
+                var bonus_ = 0;
+                if (params['regionId'] == '0'){
+                    bonus_ = 50;
+                } else if (params['regionId'] != '53' && params['regionId'] != '421' && params['regionId'] != '824') {
+                    if (this.paymentId == '0'){
+                        bonus_ = 100;
+                    }
+                }
+                var _sum = this.sum + bonus_;
+
+                if (min == null || _sum < min) {
+                    min = _sum;
+                }
+                if (max == null || _sum > max) {
+                    max = _sum;
+                }
+            });
+            if (min == max){
+                $object.append($('<option value="' + this.deliveryId + '">' + apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['deliveries'][this.deliveryId] + ' (' + Math.round(min*100)/100 + ' '+((params.lang==7)?'грн':'руб')+')' + '</option>'));
+            } else {
+                $object.append($('<option value="' + this.deliveryId + '">' + apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['deliveries'][this.deliveryId] + ' (' + Math.round(min*100)/100 + ' - ' + Math.round(max*100)/100 + ' '+((params.lang==7)?'грн':'руб')+')' + '</option>'));
+            }
+        });
+
+        $object.closest('.apishopsFormGroup').removeClass('apishopsLoading').show();
+    }
+    catch(err){
+        params['retrys']=params['retrys']-1;
+        params['objectId']=$object.attr('id');
+        params['callBackFunctionName']='apishopsFormLoadDeliveryTypes';
+        apishopsFormLoadParcelParameters(params);
+    }
+
+}
+
+
+
+
+function apishopsFormLoadPaymentTypes(params){
+
+    if(params['retrys']<0){
+        alert('Ошибка получения параметров оплаты');
+        return false;
+    }
+
+    $object=$(params['object']);
+    $object.closest('.apishopsFormGroup').addClass('apishopsLoading');
+
+    if(typeof $object.attr('id') == 'undefined')
+        $object.attr('id','apishopsId'+String.fromCharCode(65 + Math.floor(Math.random() * 26)) + _.now());
+
+
+    try{
+        $object.empty();
+        $.each(apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['info'].items, function () {
+            if (this.deliveryId == params['deliveryId']) {
+                $.each(this.payments, function () {
+                    var bonus_ = 0;
+                    if (params['regionId'] == '0'){
+                        bonus_ = 50;
+                    } else if (params['regionId'] != '53' && params['regionId'] != '421' && params['regionId'] != '824') {
+                        if (this.paymentId == '0'){
+                            bonus_ = 100;
+                        }
+                    }
+                    $object.append($('<option value="' + this.paymentId + '" alt="' + this.sum + '" baseSum="' + this.baseSum + '" addKgSum="' + this.addKgSum + '">' + apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['payments'][this.paymentId] + ' (доставка ' + Math.round((this.sum+bonus_)*100)/100 + ' '+((params.lang==7)?'грн':'руб')+')' + '</option>'));
+                });
+            }
+        });
+        $object.closest('.apishopsFormGroup').removeClass('apishopsLoading').show();
+    }
+    catch(err){
+        params['retrys']=params['retrys']-1;
+        params['objectId']=$object.attr('id');
+        params['callBackFunctionName']='apishopsFormLoadPaymentTypes';
+        apishopsFormLoadParcelParameters(params);
+    }
+
+}
+
+
+
+function apishopsFormLoadPrice(params){
+
+
+    if(params['retrys']<0){
+        alert('Ошибка получения параметров цены');
+        return false;
+    }
+
+    $object=$(params['object']);
+    $object.closest('.apishopsFormGroup').addClass('apishopsLoading');
+
+    if(typeof $object.attr('id') == 'undefined')
+        $object.attr('id','apishopsId'+String.fromCharCode(65 + Math.floor(Math.random() * 26)) + _.now());
+
+
+    try{
+
+        var count=1;
+        var weight=apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['info'].weight;
+        var paySum=0;
+        var baseSum=0;
+        var addKgSum=0;
+
+        $.each(apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['info'].items, function () {
+            if (this.deliveryId == params['deliveryId']) {
+                $.each(this.payments, function () {
+                    if(params['paymentId']==this.paymentId){
+                        paySum=this.sum;
+                        baseSum=this.baseSum;
+                        addKgSum=this.addKgSum;
+                    }
+                });
+            }
+        });
+
+        if(paySum>0){
+            if(weight==null)
+            {
+                $object.html(Math.round(params['price']) * params['count'] + Math.round(paySum*100)/100 + ''+((params.lang==7)?'грн':'руб')+'');
+            }else{
+                var addKgCount = 0;
+                var firstKg = false;
+                var mass = parseFloat(weight) * count;
+                while (mass > 0){
+                    mass -= 1;
+                    if (!firstKg){
+                        firstKg = true;
+                    } else {
+                        addKgCount++;
+                    }
+                }
+                var bonus_ = 0;
+                var region = params['regionId'];
+                if (region == '0'){
+                    bonus_ = 50;
+                } else if (region != '53' && region != '421' && region != '824') {
+                    if (params['paymentId'] == '0'){
+                        bonus_ = 100;
+                    }
+                }
+                $object.html((Math.round(params['price']) * params['count'] + Math.round((baseSum + addKgCount*addKgSum)*100)/100 + bonus_) + ' '+((params.lang==7)?'грн':'руб')+'')
+            }
+        } else {
+            alert('Параметры не выбраны');
+        }
+        $object.closest('.apishopsFormGroup').removeClass('apishopsLoading').show();
+    }
+    catch(err){
+        params['retrys']=params['retrys']-1;
+        params['objectId']=$object.attr('id');
+        params['callBackFunctionName']='apishopsFormLoadPaymentTypes';
+        apishopsFormLoadPrice(params);
+    }
+
+}
+
+
+
+function apishopsFormSubmit(params){
+
+    $object=$(params['object']);
+    $object.closest('.apishopsFormGroup').addClass('apishopsLoading');
+    $form=$(params['form']);
+    $form.addClass('apishopsFormLoading').append('<div class="apishopsFormLoadingText">Отправка..</div>');
+
+    if(!(typeof params['regionId']=='undefined' || typeof params['paymentId']=='undefined' || typeof params['deliveryId']=='undefined')){
+        $jsonp={
+                action: "submitOrder",
+                objectId: $object.attr('id'),
+                formId: $form.attr('id'),
+                siteId: params.siteId,
+                productId: params.productId,
+                region: params.regionId,
+                delivery: params.deliveryId,
+                payment: params.paymentId,
+                count: params.count,
+                fio: params.fio,
+                phone: params.phone,
+                promocode: params.promocode,
+                email: params.email,
+                address: params.address,
+                sourceParam: params.sourceParam,
+                sourceRef: params.sourceRef,
+                clientTimeZone: clientTimeZone,
+                successUrl: params.successUrl,
+                lang:params.lang
+        };
+    }else{
+        $jsonp={
+                action: "callingBack",
+                objectId: $object.attr('id'),
+                formId: $form.attr('id'),
+                siteId: params.siteId,
+                productId: params.productId,
+                count: params.count,
+                fio: params.fio,
+                phone: params.phone,
+                promocode: params.promocode,
+                address: params.address,
+                sourceParam: params.sourceParam,
+                sourceRef: params.sourceRef,
+                clientTimeZone: clientTimeZone,
+                successUrl: params.successUrl,
+                lang:params.lang
+        };
+    }
+
+    if(typeof $object.attr('id')=='undefined')
+        $object.attr('id','apishopsId'+String.fromCharCode(65 + Math.floor(Math.random() * 26)) + _.now())
+
+    var objDate = new Date();
+    var clientTimeZone = -objDate.getTimezoneOffset()/60;
+
+    apishopsFormGetJSONP($jsonp,function(result){
+            $object=$('#'+result.parameters.objectId);
+            $object.closest('.apishopsFormGroup').removeClass('apishopsLoading');
+            $form=$('#'+result.parameters.formId);
+            $form.removeClass('apishopsFormLoading').find(".apishopsFormLoadingText").remove()
+
+            if (result.data.error != null) {
+                alert("Возникла ошибка при оформлении заказа.\n Пожалуйста, повторите попытку через несколько минут");
+            }
+            else
+            {
+                if(result.parameters.successUrl==false || result.parameters.successUrl=='false')
+                    alert('Ваш заказ принят и будет исполнен в ближайшее время!\nЖдите звонка оператора в ближайшее время');
+                else{
+                if(typeof result.parameters.isReserve == 'undefined' || result.parameters.isReserve==0)
+                    document.location.href = result.parameters.successUrl + result.data.id+((result.data.double ==true)?'&double=true':'');
+                else
+                    document.location.href = '/finish.html?id=' + result.data.id+((result.data.double ==true)?'&double=true':'');
+                }
+            }
+        });
+}
+
+
+(function($){
+    $.fn.getStyleObject = function(){
+        var dom = this.get(0);
+        var style;
+        var returns = {};
+        if(window.getComputedStyle){
+            var camelize = function(a,b){
+                return b.toUpperCase();
+            };
+            style = window.getComputedStyle(dom, null);
+            for(var i = 0, l = style.length; i < l; i++){
+                var prop = style[i];
+                var camel = prop.replace(/\-([a-z])/g, camelize);
+                var val = style.getPropertyValue(prop);
+                if(typeof val !== 'undefined')
+                    returns[camel] = val;
+            };
+            return returns;
+        };
+        if(style = dom.currentStyle){
+            for(var prop in style){
+                if(typeof style[prop] !== 'undefined')
+                    returns[prop] = style[prop];
+            };
+            return returns;
+        };
+        return this.css();
+    }
+})(jQuery);
+
+function apishopsLog(text) {
+  if (window.console && window.console.log) {
+     window.console.log(text);
+  }
+  if (console) {
+    console.log(text);
+  }
+}
+
+
 //     Underscore.js 1.7.0
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors

@@ -1,51 +1,131 @@
-<div class="apishopsFormQuickView">
-    <div class="apishopsFormQuickViewImageContainer">
-        <img src="%IMGSRC%">
-    </div>
-    <div class="apishopsFormQuickViewInfoContainer">
-        <div class="apishopsFormQuickViewInfoContainerIn">
-            <h2 class="apishopsFormQuickViewInfoContainerInTitle">%NAME%</h2>
+<link href="../css/apishopsFormQV.css" rel="stylesheet" >
+<link href="http://img.apishops.org/SinglePageWebsites/custom/css/apishopsFormQV.css" rel="stylesheet" >
 
-                            <div class='apishopsFormQuickViewInfoContainerInOrder'>
-                                    <span id="apishopsFormQuickViewInfoContainerInSPAN_37">%PRICE% %CYR%</span>
-                                    <span id="apishopsFormQuickViewInfoContainerInSPAN_49">%OLDPRICE% %CYR%</span>
+<div class="apishopsFormQV">
+    <div class="apishopsFormQVIContainerLeft">
+        <div class='apishopsFormQVContainerMainImage'>
+            <img src="%IMGSRC%" class='apishopsFormQVMainImage'>
+        </div>
+
+        <div class="apishopsFormQVAV">
+            <div class="apishopsFormB %ALTERNATIVEVIEW%">
+                <div class="apishopsFormBTitle">
+                    Ещё фотографии:
+                </div>
+                <div class='apishopsFormBThubms'  >
+                    <a class="apishopsFormBThubm %ALTERNATIVEVIEWITEM%" href=# onclick='return false;'>
+                        <div class="apishopsFormBThubmImage">
+                            <img class='%ALTERNATIVEVIEWIMAGE%' src='http://img.apishops.org/730~-~0~16777215~11~0~35~16773120~40/1/877/877258/1800244.jpg'>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="apishopsFormQVAL">
+            <div class="apishopsFormB %ALSOLIKE%">
+                <div class="apishopsFormBTitle">
+                    Вам также может понравится:
+                </div>
+                <div class='apishopsFormBThubms'>
+                    <a class="apishopsFormBThubm %ALSOLIKEITEM%" href=#>
+                        <div class="apishopsFormBThubmImage">
+                            <img class='%ALSOLIKEIMAGE%' src='http://img.apishops.org/730~-~0~16777215~11~0~35~16773120~40/1/877/877258/1800244.jpg'>
+
+                        </div>
+                        <div class="apishopsFormBThubmName %ALSOLIKENAME%">
+                            Название товара
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="apishopsFormQVIContainerRight">
+        <div class="apishopsFormQVIContainerRightIn">
+
+
+            <div class='apishopsFormQVIContainerRightTabs'>
+                <div class='apishopsFormQVIContainerRightTabsList'>
+                    <a href=# class='apishopsFormQVIContainerRightTabsListItem apishopsFormQVIContainerRightTabsListItemSelected' onClick="$('.apishopsFormQVIContainerRightTabsListItem').removeClass('apishopsFormQVIContainerRightTabsListItemSelected'); $(this).addClass('apishopsFormQVIContainerRightTabsListItemSelected'); $('.apishopsFormQVIContainerRightTabsContent').hide();$('.apishopsFormQVIContainerRightTabs1').fadeIn();return false;"> Информация </a>
+                    <a href=#  class='apishopsFormQVIContainerRightTabsListItem' onClick="$('.apishopsFormQVIContainerRightTabsListItem').removeClass('apishopsFormQVIContainerRightTabsListItemSelected'); $(this).addClass('apishopsFormQVIContainerRightTabsListItemSelected'); $('.apishopsFormQVIContainerRightTabsContent').hide();$('.apishopsFormQVIContainerRightTabs2').fadeIn();return false;"> Другие товары </a>
+                </div>
+
+                <div class='apishopsFormQVIContainerRightTabsContent apishopsFormQVIContainerRightTabs1'>
+
+                            <h2 class="apishopsFormQVIContainerRightInTitle">
+                                %NAME%
+                                <div class='apishopsFormLabel apishopsFormLabelRed'>-%DISCOUNT%%</div>
+                            </h2>
+
+                            <div class='apishopsFormQVIContainerRightInOrder'>
+                                    <span id="apishopsFormQVIContainerRightInSPAN_37">%PRICE% %CYR%</span>
+                                    <span id="apishopsFormQVIContainerRightInSPAN_49"> %OLDPRICE% %CYR%</span>
                             </div>
 
-                            <div id="apishopsFormQuickViewInfoContainerInDIV_1">
+                            <div id="apishopsFormQVIContainerRightInDIV_1">
                                 <div id="">
-                                     <div class="count_border hasCountdown" id="apishopsFormQuickViewInfoContainerIn2DIV_6">
-                                        <span id="apishopsFormQuickViewInfoContainerIn2SPAN_7" class="countdown_row countdown_show4">
-                                            <span id="apishopsFormQuickViewInfoContainerIn2SPAN_8" class="countdown_section">
-                                                <span id="apishopsFormQuickViewInfoContainerIn2SPAN_9" class="countdown_amount">48</span>
-                                                <br id="apishopsFormQuickViewInfoContainerIn2BR_10">Дней
+                                     <div class="count_border hasCountdown" id="apishopsFormQVIContainerRightIn2DIV_6">
+                                        <span id="apishopsFormQVIContainerRightIn2SPAN_7" class="countdown_row countdown_show4">
+                                            <span id="apishopsFormQVIContainerRightIn2SPAN_11" class="countdown_section">
+                                                <span id="apishopsFormQVIContainerRightIn2SPAN_12" class="countdown_amount hours__">18</span>
+                                                <br id="apishopsFormQVIContainerRightIn2BR_13">Часов
                                             </span>
-                                            <span id="apishopsFormQuickViewInfoContainerIn2SPAN_11" class="countdown_section">
-                                                <span id="apishopsFormQuickViewInfoContainerIn2SPAN_12" class="countdown_amount">18</span>
-                                                <br id="apishopsFormQuickViewInfoContainerIn2BR_13">Часов
+                                            <span id="apishopsFormQVIContainerRightIn2SPAN_14" class="countdown_section">
+                                                <span id="apishopsFormQVIContainerRightIn2SPAN_15" class="countdown_amount minutes__">21</span>
+                                                <br id="apishopsFormQVIContainerRightIn2BR_16">Минут
                                             </span>
-                                            <span id="apishopsFormQuickViewInfoContainerIn2SPAN_14" class="countdown_section">
-                                                <span id="apishopsFormQuickViewInfoContainerIn2SPAN_15" class="countdown_amount">21</span>
-                                                <br id="apishopsFormQuickViewInfoContainerIn2BR_16">Минут
-                                            </span>
-                                            <span id="apishopsFormQuickViewInfoContainerIn2SPAN_17" class="countdown_section">
-                                                <span id="apishopsFormQuickViewInfoContainerIn2SPAN_18" class="countdown_amount">12</span>
-                                                <br id="apishopsFormQuickViewInfoContainerIn2BR_19">Секунд</span>
+                                            <span id="apishopsFormQVIContainerRightIn2SPAN_17" class="countdown_section">
+                                                <span id="apishopsFormQVIContainerRightIn2SPAN_18" class="countdown_amount seconds__">12</span>
+                                                <br id="apishopsFormQVIContainerRightIn2BR_19">Секунд</span>
                                             </span>
                                         </div>
                                 </div>
-
                             </div>
 
-                            <some class="apishopsFormQuickViewInfoContainerInDescription">%FULLDESC%</some>
+                            <some class="apishopsFormQVIContainerRightInDescription">%FULLDESC%</some>
 
-                            <div class='apishopsFormQuickViewInfoContainerInOrder'>
+                            <form class='apishopsFormQVIContainerRightInOrder'>
                                 <div class='bl2'>
-                                    <input type=input value='' placeholder='Ваш номер телефона'>
+                                    <input type=input name='phone' value='' placeholder='Ваш номер телефона'>
                                 </div>
                                 <div class='bl3'>
                                     <input type=submit value='Заказать'>
                                 </div>
-                            </div>
+                            </form>
+                </div>
+                <div class='apishopsFormQVIContainerRightTabsContent apishopsFormQVIContainerRightTabs2' style='display:none'>
+                    <div class="apishopsFormB %ALSOLIKE%">
+                        <div class='apishopsFormBThubms'>
+                            <a class="apishopsFormBThubm %ALSOLIKEITEM%" href=#>
+                                <div class="apishopsFormBThubmImage">
+                                    <img class='%ALSOLIKEIMAGE%' src='http://img.apishops.org/730~-~0~16777215~11~0~35~16773120~40/1/877/877258/1800244.jpg'>
+
+                                </div>
+                                <div class="apishopsFormBThubmName %ALSOLIKENAME%">
+                                    Название товара
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!--
+                <div class='apishopsFormQVIContainerRightSocial'>
+                    <div id="share-buttons">
+                        <a href="http://www.facebook.com/sharer.php?u=http://www.simplesharebuttons.com" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/vkontakte.png" alt="Facebook" /></a>
+                        <a href="http://www.facebook.com/sharer.php?u=http://www.simplesharebuttons.com" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" /></a>
+                        <a href="http://twitter.com/share?url=http://www.simplesharebuttons.com&text=Simple Share Buttons&hashtags=simplesharebuttons" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" /></a>
+                        <a href="https://plus.google.com/share?url=http://www.simplesharebuttons.com" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/google.png" alt="Google" /></a>
+                        – поделиться
+                    </div>
+                </div>
+                -->
         </div>
     </div>
+
+
+
+
 </div>
