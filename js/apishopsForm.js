@@ -284,7 +284,7 @@ jQuery.fn.apishopsForm=function(options)
                 productId:productId,
                 checked:1,
                 hidden_fields:settings.featured.hidden_fields,
-                lang:settings.lang,
+                lang:settings.lang
             });
         });
         settings.featured.productIdsLoaded=_.union(settings.featured.productIdsLoaded,productIdsLoading)
