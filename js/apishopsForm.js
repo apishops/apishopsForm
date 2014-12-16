@@ -3454,12 +3454,11 @@ var apishopsJSONP={
 
 
 var apishopsFormPaths={
-    rootdir:'./',
+    rootdir:'http://apishops.github.io/apishopsForm/',
     cssdir:'css/',
     jsdir:'js/',
     themesdir:'apishopsFormThemes/'
 }
-
 
 var apishopsFormTemplates={
     theme:{
