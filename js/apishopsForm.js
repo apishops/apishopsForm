@@ -41,7 +41,7 @@ jQuery.fn.apishopsForm=function(options)
             cost:'Поле стоимости заказа'
         },
         paths_:{
-            rootdir:'/',
+            rootdir:'http://apishops.github.io/apishopsForm/',,
             cssdir:'css/',
             jsdir:'js/',
             themesdir:'apishopsFormThemes'
@@ -3453,7 +3453,7 @@ var apishopsJSONP={
 }
 
 var apishopsFormPaths={
-    rootdir:'/',
+    rootdir:'http://apishops.github.io/apishopsForm/',,
     cssdir:'css/',
     jsdir:'js/',
     themesdir:'apishopsFormThemes/'
