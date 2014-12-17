@@ -15,6 +15,10 @@
   margin: 7px;
 }
 
+.apishopsFormImageWrapper {
+    width: 107px;
+}
+
 .apishopsFormTheme1__ *{
   font-family: Arial;
 }
@@ -96,7 +100,7 @@
 
 
 .apishopsFormTheme1__ .apishopsFormTheme1__Group {
-    transition: all 0.5s ease-out;        
+    transition: all 0.5s ease-out;
 }
 .apishopsFormTheme1__.apishopsFormTheme1__Inline .apishopsFormTheme1__Group {
 
@@ -109,7 +113,7 @@
     transition-duration: 0.3s;
     transition-timing-function: ease-in;
     max-height: 1000px;
-    overflow: hidden;   
+    overflow: hidden;
      opacity:1;
      visibility:visible;
 }
@@ -136,7 +140,7 @@
     display: block;
     font-size: 16px;
     font-weight: bold;
-    margin-bottom: 5px;  
+    margin-bottom: 5px;
     display:none;
 }
 
@@ -152,18 +156,18 @@
     margin: 5px;
     overflow: hidden;
     width: 100px;
-    float:left;  
+    float:left;
 }
 
 
 .apishopsFormTheme1__ .apishopsFormTheme1__Error > * {
-   color:#B94A48  
+   color:#B94A48
 }
 
-.apishopsFormTheme1__ .apishopsFormTheme1__Error > input, .apishopsFormTheme1__ .apishopsFormTheme1__Error > select {       
+.apishopsFormTheme1__ .apishopsFormTheme1__Error > input, .apishopsFormTheme1__ .apishopsFormTheme1__Error > select {
     background: none repeat scroll 0 0 rgba(254, 122, 101, 0.63) !important;
     box-shadow: 0 0 2px rgba(255, 0, 0, 0.55);
-    color: #FFFFFF !important;     
+    color: #FFFFFF !important;
 }
 
 .apishopsFormTheme1__Group.apishopsFormTheme1__Mail{
@@ -173,8 +177,8 @@
 .apishopsFormTheme1__Group.apishopsFormTheme1__Cost label{
   display:block !important;
 }
-.apishopsFormTheme1__ select {       
-    padding: 9px !important; 
+.apishopsFormTheme1__ select {
+    padding: 9px !important;
 }
 
 
@@ -240,12 +244,12 @@ text-decoration: none;
 
 
 .apishopsFormTheme1__Group.apishopsLoading{
-    position: relative; 
+    position: relative;
 }
 
 .apishopsFormTheme1__Group:after{
     transition: all 0.2s ease-out;
-    opacity:0;      
+    opacity:0;
 }
 
 
@@ -258,7 +262,7 @@ text-decoration: none;
     right: 0;
     top: 0;
     transition: all 0.2s ease-out;
-    opacity:1;   
+    opacity:1;
 }
 
 
@@ -275,7 +279,7 @@ text-decoration: none;
 }
 
 body{
-    transition: all 0.3s ease-in;   
+    transition: all 0.3s ease-in;
 }
 
 .apishopsFormTheme1__LoadingText {

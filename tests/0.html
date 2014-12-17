@@ -1,0 +1,140 @@
+<html><head>
+    <script src="../js/vendor/jquery.min.js"></script>
+    <script src="../js/apishopsForm.js"></script>
+    <link href="../css/apishopsForm.css" rel="stylesheet" >
+     <style>
+     .containerId{
+        float:left;
+     }
+.containerAdditionalItemsId {
+    border: 5px solid black;
+    clear: both;
+    text-align: center;
+}
+     </style>
+     </head>
+    <body>
+
+
+<span class="containerId" id="containerId2_3"></span>
+<span class="containerId" id="containerId3_3"></span>
+<span class="containerId" id="containerId4_3"></span>
+<span class="containerId" id="containerId5_3"></span>
+<span class="containerId" id="containerId6_3"></span>
+<span class="containerId" id="containerId7_3"></span>
+<div id="containerAdditionalItemsId_3" class='containerAdditionalItemsId'></div>
+<script>
+    $(document).ready( function() {
+
+        $('#containerId2_3').apishopsForm({
+            type:'inline', /*тип открытия [inline|modal]*/
+            debug:false, /*отладочный режим [true|false]*/
+            successUrl:false, /*url благодарственной страницы [url|false]*/
+            form:'light', /*тип формы [normal|light|jquery-selector]*/
+            displayed_containers:['price','name'],
+            theme:0,
+            siteId:147233,
+            productId:888647,
+            lang:1
+        });
+
+        $('#containerId3_3').apishopsForm({
+            type:'inline', /*тип открытия [inline|modal]*/
+            debug:false, /*отладочный режим [true|false]*/
+            successUrl:false, /*url благодарственной страницы [url|false]*/
+            form:'light', /*тип формы [normal|light|jquery-selector]*/
+            displayed_containers:['name'],
+            theme:0,
+            siteId:147233,
+            productId:888647,
+            lang:1,
+            hidden_fields:['count']
+        });
+
+        $('#containerId4_3').apishopsForm({
+            type:'inline', /*тип открытия [inline|modal]*/
+            debug:false, /*отладочный режим [true|false]*/
+            successUrl:false, /*url благодарственной страницы [url|false]*/
+            form:'light', /*тип формы [normal|light|jquery-selector]*/
+            displayed_containers:['picture','price','name'],
+            theme:0,
+            siteId:147233,
+            productId:888647,
+            lang:1,
+            hidden_fields:['count','address'],
+            displayed_containers:['picture','price','name']
+        });
+
+        $('#containerId5_3').apishopsForm({
+            type:'inline', /*тип открытия [inline|modal]*/
+            debug:false, /*отладочный режим [true|false]*/
+            successUrl:false, /*url благодарственной страницы [url|false]*/
+            form:'light', /*тип формы [normal|light|jquery-selector]*/
+            displayed_containers:['picture','price','name'],
+            theme:0,
+            siteId:147233,
+            productId:888647,
+            lang:1,
+            hidden_fields:['count','fio','address'],
+            displayed_containers:['picture','price','name'],
+            featured:{
+               container: '#containerAdditionalItemsId_3',
+               theme: 0,
+               count:3
+            }
+        });
+
+        $('#containerId6_3').apishopsForm({
+            type:'inline', /*тип открытия [inline|modal]*/
+            debug:false, /*отладочный режим [true|false]*/
+            successUrl:false, /*url благодарственной страницы [url|false]*/
+            form:'light', /*тип формы [normal|light|jquery-selector]*/
+            displayed_containers:['picture','price','name'],
+            theme:0,
+            siteId:147233,
+            productId:888647,
+            lang:1,
+            hidden_fields:['count','fio','address','promocode'],
+            displayed_containers:['picture','price','name']
+        });
+    });
+</script>
+
+
+
+
+
+ <div class="containerId" id="formContainer1">
+
+         <form method="post" id="formExample1" action="#">
+           <input type="hidden" value="1" pattern=".*" name="apishopsFormCount">
+           <input type="text" placeholder="Ваше имя" pattern=".{3,}" name="apishopsFormFio" class="name required">
+           <input type="text" placeholder="Мобильный телефон" pattern=".{3,}" name="apishopsFormPhone" class="phone required">
+           <input type="text" placeholder="Адрес доставки" pattern=".{3,}" name="apishopsFormAddress" id="" class="phone required">
+           <input type="text" placeholder="Промокод (если есть)" pattern=".*" name="apishopsFormPromocode" id="" class="phone required">
+           <button mark="submit" class="button">
+            купить
+           </button>
+           <div class="radio-toolbar">
+            <p>
+             выберите цвет:
+            </p>
+            <input type="radio" value="brown" name="radios1" id="radio1" class="radiocolor">
+            <label for="radio1">
+             <span class="input--first">
+             </span>
+            </label>
+            <input type="radio" value="black" name="radios1" id="radio2" class="radiocolor" checked="">
+            <label for="radio2">
+             <span class="input--first input--second">
+             </span>
+            </label>
+           </div>
+          </form></div>
+
+
+
+
+
+
+    </body></html>

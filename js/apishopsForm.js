@@ -447,7 +447,7 @@ jQuery.fn.apishopsForm=function(options)
 
                     var source = $(this).closest('.apishopsFormItem');
                     var styles = $(source).getStyleObject();
-                    var modal = $(apishopsFormHtml.modal).clone().appendTo('body');
+                    var modal = $(apishopsFormModal).clone().appendTo('body');
                     var modal_class='apishopsAnimationQV';
                     var modal_top=parseInt($(source).offset().top);
                     var quickview_id = $(this).attr('quickckview_id');
@@ -494,7 +494,7 @@ jQuery.fn.apishopsForm=function(options)
                     _.templateSettings = {
                       interpolate : /%(.+?)%/g
                     };
-                    var quickViewTemplate = _.template(apishopsFormHtml.quickView);
+                    var quickViewTemplate = _.template(apishopsFormQuickView);
 
                     quickViewHtml=quickViewTemplate(
                     {
@@ -3452,9 +3452,8 @@ var apishopsJSONP={
     results:[]
 }
 
-
 var apishopsFormPaths={
-    rootdir:'http://apishops.github.io/apishopsForm/',
+    rootdir:'/',
     cssdir:'css/',
     jsdir:'js/',
     themesdir:'apishopsFormThemes/'
@@ -3469,8 +3468,8 @@ var apishopsFormTemplates={
         js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+'/apishopsFormModal.js'
     },
     quickview:{
-        css:apishopsFormPaths.rootdir+apishopsFormPaths.cssdir+'/apishopsFormQv.css',
-        js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+'/apishopsFormQv.js'
+        css:apishopsFormPaths.rootdir+apishopsFormPaths.cssdir+'/apishopsFormQuickView.css',
+        js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+'/apishopsFormQuickView.js'
     }
 }
 
