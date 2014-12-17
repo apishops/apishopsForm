@@ -46,7 +46,7 @@ jQuery.fn.apishopsForm=function(options)
             jsdir:'js/',
             themesdir:'apishopsFormThemes'
         },
-        theme:1,
+        theme:0,
         forms:[],
         placements:[],
         optional_fields:['address'],
