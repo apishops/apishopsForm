@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Apishops JS API</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Description">
+        <meta name="author" content="Autor">
+
+        <!-- loading the css -->
+        <link href="http://help.basing.ru/single/assets/css/bootstrap.css" rel="stylesheet">
+        <link href="http://help.basing.ru/single/assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+        <link href="http://help.basing.ru/single/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+
+        <style type="text/css">
+        body {
+            padding-bottom: 40px;
+        }
+
+        section {padding: 60px 0 0 0;}
+        </style>
+
+        <!--[if lt IE 9]>
+          <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <!-- Various Icons (Favicon, Touch Icon,... -->
+        <link rel="shortcut icon" href="assets/img/favicon.ico">
+        <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="assets/img/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="assets/img/apple-touch-icon-114x114.png">
+
+        <!-- loading javascripts -->
+        <script src="http://help.basing.ru/single/assets/js/jquery.js"></script>
+        <script src="http://help.basing.ru/single/assets/js/bootstrap.min.js"></script>
+        <script src="http://help.basing.ru/single/assets/js/google-code-prettify/prettify.js"></script>
+
+        <!-- init javascripts -->
+        <script src="http://help.basing.ru/single/assets/js/init.js"></script>
+
+        <!-- init apishops -->
+        <script src="js/apishopsForm.js"></script>
+        <link rel="stylesheet" href="css/apishopsForm.css">
+
+    </head>
+
+
+
+    <body data-spy="scroll" data-target=".navbar" id="top">
+
+        <!-- ========================= NAVIGATION BAR >> START ========================= -->
+        <div class="navbar navbar-fixed-top navbar-inverse">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a>
+                    <a class="brand" href="#overview">Apishops JS Api</a><!-- TIP: Change this for the name of your file -->
+                    <div class="nav-collapse">
+                        <ul class="nav">
+
+                            <li><a href="#faq">Популярные вопросы и ответы (сразу)</a></li>
+
+                            <li><a href="#capability">Обзор</a></li>
+
+                            <li><a href="#installation">Инсталляция</a></li>
+
+                            <li><a href="#params">Параметры</a></li>
+
+
+                            <li><a href="#markup">Подключение своих форм</a></li>
+
+                            <li><a href="#splitdata">Отдельная подгрузка данных</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================= NAVIGATION BAR >> END ========================= -->
+
+
+
+
+
+        <!-- ========================= MAIN CONTAINER >> START ========================= -->
+        <div class="container">
+
+            <!-- ========================= SECTION: OVERVIEW >> START ========================= -->
+            <section id="overview">
+
+                <div class="hero-unit">
+                    <h1>Apishops JS API</h1>
+                    <h3>Подключаемые к страницам формы оформления заказов и обратных звонков</h3>
+                    <p>Подключение, использование и настройка.</p>
+                                    <div class="row-fluid">
+                    <div class="span6">
+                        <table width="100%">
+                            <tr>
+                                <td>Последняя версия:</td>
+                                <td>2013-11-06</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="span6">
+                        <table width="100%">
+                            <tr>
+                                <td>Предыдущая версия</td>
+                                <td>2013-10-13</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                </div>
+            </section>
+            <!-- ========================= SECTION: OVERVIEW >> END ========================= -->
+
+
+           <!-- ========================= SECTION: STYLES >> START ========================= -->
+            <section id="faq">
+                <div class="page-header">
+                    <h1>Популярные вопросы и ответы на них</h1>
+                </div>
+
+
+                <div class="row">
+                    <div class="span12">
+
+                        <h4>Как задать редирект на собственную финишную страницу?</h4>
+                        <p>По умолчанию редирект происходит на finish.jsp, для того, чтобы задать редирект на собственную страницу надо указать <code>successUrl</code> таким образом</p>
+                        <p>
+<pre class="prettyprint linenums">
+$('#container2').apishopsForm({
+type:'inline', /*тип открытия [inline|modal]*/
+form:'light', /*тип формы [normal|light|jquery-selector]*/
+siteId:10221,
+productId:632879,
+price:1017.41, /*цена товара*/
+priceRound:1017, /*округленная цена*/
+<b>successUrl:'http://sitename.ru/finish.jsp?id=', </b>
+wpId:15743307
+});
+</pre>
+
+                         </p><code>?id=</code> в <code>'http://sitename.ru/finish.jsp?id='</code> является обязательным,
+                            т.к. наш плагин добавляет к ней номер заказа и финишная страница превращается в <code>http://sitename.ru/finish.jsp?id=321321</code>.</p>
+
+
+
+
+                        <h4>Как изменить кодировку</h4>
+                        <p>В случае необходимости использования скрипта другой кодировки вы можете подключить apishopsForm.utf8.js вместо apishopsForm.js</p>
+                        <p>
+<pre class="pre-scrollable prettyprint linenums">&lt;script src=&quot;http://img.apishops.org/SinglePageWebsites/custom/js/apishopsForm.utf8.js&quot;&gt;&lt;/script&gt;</script></pre>
+
+                        </p>
+                    </div>
+
+                    <div class="span12">
+                        <h4>Куда можно спрятать код стандартной формы, что бы вывести её в Modal форме? </h4>
+                        <p>Вы можете разместить код своей формы в любой части страницы. Если тип формы в инициализации плагина задан как <code>modal</code>, плагин скопирует в себя код указанной формы и разместит его в modal окне. При этом, форма, на код которой Вы укажете сама по себе работать не будет, так как останется неинициализированной. В таком случае, чтобы задействовать эту форму на странице рекомендуем инциализировать плагин с типаом <code>inline</code>, тогда код вашей формы будет работать ещё и отдельно, не в modal окне</p>
+                    </div>
+                    <div class="span12">
+                        <h4>Где взять параметры siteId, wpId, productId</h4>
+                        <p>Для подключения и использования API вам необходимо знать <b>siteId</b>, <b>wpId</b> и <b>productId</b></p>
+                        <div class="alert alert-info"> <b>Внимание</b> Обязательно, перед использованием формы для продажи того или иного товара добавьте его в свой проект</div>
+                        <h5>1 способ. Взять параметры из сгенерированного одностраничника</h5>
+                        <p>Эти параметры генерируются системой Apishops для каждого магазина-«одностраничника» и прописываются в HTML страницы магазина следующим образом:</p>
+<code>Исходный код http://ham.apishops.ru/:</code>
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+var siteId = 3016;/*ID сайта*/
+var productId = 564022;/*ID товара*/
+var price = 899.0;/*Цена товара*/
+var priceRound = 899;/*Округленная цена товара*/
+var wpId = 9587555; /*Внутренний артикул товара*/
+var sourceParam = &quot;&quot;;
+var sourceRef = &quot;&quot;;
+&lt;/script&gt;
+</pre>
+
+
+
+                        <h5>2 способ. Взять параметры на сайта</h5>
+
+                        <div class="media clearfix">
+                          <a class="pull-left" href="http://cl.ly/image/202V3K083F2Y">
+                            <img width="250" class="thumbnail media-object" src="http://cl.ly/image/202V3K083F2Y/screenshot%202013-11-07%20%D0%B2%2005.22.56.png">
+                          </a>
+                          <div class="media-body">
+                            <b>siteId(id сайта)</b> содержится во всех URL страниц управления проектом
+                          </div>
+                        </div>
+
+                        <div class="media clearfix">
+                          <a class="pull-left" href="http://cl.ly/image/1c2x2P3I0c40">
+                            <img width="250" class="thumbnail media-object" src="http://cl.ly/image/1c2x2P3I0c40/screenshot%202013-11-07%20в%2005.05.29.png">
+                          </a>
+                          <div class="media-body">
+                            <b>productId(ID товара)</b> можно взять из кладки «Ассортимент» <a href=#>главной страницы ApiShops</a> (колонка ID)
+                          </div>
+                        </div>
+
+                        <div class="media clearfix">
+                          <a class="pull-left" href="http://cl.ly/image/110i2g2w3Q3F">
+                            <img width="250" class="thumbnail media-object" src="http://cl.ly/image/110i2g2w3Q3F/screenshot%202013-11-07%20%D0%B2%2005.18.12.png">
+                          </a>
+                          <div class="media-body">
+                            <b>wpId(внутренний артикул товара)</b> можно найти в разделе «Товары»
+                          </div>
+                        </div>
+
+                        <p></p>
+
+
+                </div>
+
+
+
+
+            </section>
+            <!-- ========================= SECTION: STYLES >> END ========================= -->
+
+
+            <!-- ========================= SECTION: MARKUP >> START ========================= -->
+            <section id="capability">
+                <div class="page-header">
+                    <h1>Обзор</h1>
+                </div>
+
+
+                <p>API позволяет подключать одну или несколько форм для оформления заказа или заказа обратного товара к любой страницы. Форм заказа может быть несколько для одного товара или сразу нескольких.</p>
+                <p>Для подключения и использования API вам необходимо знать <b>siteId</b>, <b>wpId</b> и <b>productId</b> (эти параметры генерируются системой Apishops для каждого магазина-«одностраничника» и прописываются в HTML страниц магазина) следующим образом:</p>
+<code>Исходный код http://ham.apishops.ru/:</code>
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+var siteId = 3016;/*ID сайта*/
+var productId = 564022;/*ID товара*/
+var price = 899.0;/*Цена товара*/
+var priceRound = 899;/*Округленная цена товара*/
+var wpId = 9587555; /*Внутренний артикул товара*/
+var sourceParam = &quot;&quot;;
+var sourceRef = &quot;&quot;;
+&lt;/script&gt;
+</pre>
+
+                <p>
+                <div class="alert alert-info">Настоятельно рекомендуем подключать и использовать JS и CSS с серверов Apishops. В таком случае у вас всегда будет самая свежая версия API.</div>
+                </p>
+
+                <p>После установки (см. <a href="#installation">инсталляция</a>) Вы можете подгрузить на свою страницу один из четерых типов форм:</p>
+
+                <p></p>
+
+                <hr />
+
+                <div class="row">
+                    <div class="span6">
+                        <h3>1. Modal обычной формы</h3>
+                        <p>Подгружает все возможные параметры заказа в modal-окно, которое открывается при нажатии на кнопку</p>
+                        <p>Пример:</p>
+                        <blockquote>
+        <script>
+            $(document).ready( function() {
+                $('#button1').apishopsForm({
+                        type:'modal', /*тип открытия [inline|modal]*/
+                        form:'normal', /*тип формы [normal|light|jquery-selector]*/
+                        siteId:10221,
+                        productId:632879,
+                        price:1017.41, /*цена товара*/
+                        priceRound:1017, /*округленная цена*/
+                        wpId:15743307
+                    });
+            });
+        </script>
+        <a href="#" id=button1 class="apishopsFormButton apishopsFormBuy">
+            <b>Заказать товар!</b>
+        </a>
+                        </blockquote>
+                    </div>
+
+                    <div class="span6">
+
+<pre class="prettyprint linenums">
+&lt;script&gt;
+    $(document).ready( function() {
+        $('#button1').apishopsForm({
+                type:'modal', /*тип открытия [inline|modal]*/
+                form:'normal', /*тип формы [normal|light|jquery-selector]*/
+                siteId:10221,
+                productId:632879,
+                price:1017.41, /*цена товара*/
+                priceRound:1017, /*округленная цена*/
+                wpId:15743307
+            });
+    });
+&lt;/script&gt;
+&lt;a href=&quot;#&quot; id=button1 class=&quot;apishopsFormButton apishopsFormBuy&quot;&gt;
+    &lt;b&gt;Заказать товар!&lt;/b&gt;
+&lt;/a&gt;
+</pre>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="span6">
+                        <h4>2. Modal упрощенной формы</h4>
+                        <p>Подгружает в modal окно поля необходимые для обратного звонка </p>
+                        <p>Пример:</p>
+                        <blockquote>
+
+        <script>
+            $(document).ready( function() {
+                $('#button2').apishopsForm({
+                        type:'modal', /*тип открытия [inline|modal]*/
+                        form:'light', /*тип формы [normal|light|jquery-selector]*/
+                        siteId:10221,
+                        productId:632879,
+                        price:1017.41, /*цена товара*/
+                        priceRound:1017, /*округленная цена*/
+                        wpId:15743307
+                    });
+            });
+        </script>
+        <a href="#" id=button2 class="apishopsFormButton apishopsFormBuy">
+            <b>Заказать</b>
+        </a>
+                        </blockquote>
+                    </div>
+
+                    <div class="span6">
+
+<pre class="prettyprint linenums">
+&lt;script&gt;
+    $(document).ready( function() {
+        $('#button2').apishopsForm({
+                type:'modal', /*тип открытия [inline|modal]*/
+                form:'light', /*тип формы [normal|light|jquery-selector]*/
+                siteId:10221,
+                productId:632879,
+                price:1017.41, /*цена товара*/
+                priceRound:1017, /*округленная цена*/
+                wpId:15743307
+            });
+    });
+&lt;/script&gt;
+&lt;a href=&quot;#&quot; id=button2 class=&quot;apishopsFormButton apishopsFormBuy&quot;&gt;
+    &lt;b&gt;Обратный звонок!&lt;/b&gt;
+&lt;/a&gt;
+</pre>
+                    </div>
+                </div>
+
+
+
+
+                <div class="row">
+                    <div class="span6">
+                        <h4>3. Inline обычной формы</h4>
+                        <p>Подгружает в указанный контейнер поля необходимые для заказа </p>
+                        <p>Пример:</p>
+                        <blockquote>
+
+        <script>
+            $(document).ready( function() {
+                $('#container1').apishopsForm({
+                        type:'inline', /*тип открытия [inline|modal]*/
+                        form:'normal', /*тип формы [normal|light|jquery-selector]*/
+                        siteId:10221,
+                        productId:632879,
+                        price:1017.41, /*цена товара*/
+                        priceRound:1017, /*округленная цена*/
+                        wpId:15743307
+                    });
+            });
+        </script>
+        <div id=container1>
+        </div>
+                        </blockquote>
+                    </div>
+
+                    <div class="span6">
+
+<pre class="prettyprint linenums">
+&lt;script&gt;
+    $(document).ready( function() {
+        $('#container1').apishopsForm({
+                type:'inline', /*тип открытия [inline|modal]*/
+                form:'normal', /*тип формы [normal|light|jquery-selector]*/
+                siteId:10221,
+                productId:632879,
+                price:1017.41, /*цена товара*/
+                priceRound:1017, /*округленная цена*/
+                wpId:15743307
+            });
+    });
+&lt;/script&gt;
+&lt;div id=container1&gt;
+&lt;/div&gt;
+</pre>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="span6">
+                        <h4>4. Inline упрощенной формы</h4>
+                        <p>Подгружает в указанный контейнер поля необходимые для обратного звонка </p>
+                        <p>Пример:</p>
+                        <blockquote>
+
+        <script>
+            $(document).ready( function() {
+                $('#container2').apishopsForm({
+                        type:'inline', /*тип открытия [inline|modal]*/
+                        form:'light', /*тип формы [normal|light|jquery-selector]*/
+                        siteId:10221,
+                        productId:632879,
+                        price:1017.41, /*цена товара*/
+                        priceRound:1017, /*округленная цена*/
+                        wpId:15743307
+                    });
+            });
+        </script>
+        <div id=container2>
+        </div>
+                        </blockquote>
+                    </div>
+
+                    <div class="span6">
+
+<pre class="prettyprint linenums">
+&lt;script&gt;
+    $(document).ready( function() {
+        $('#container2').apishopsForm({
+                type:'inline', /*тип открытия [inline|modal]*/
+                form:'light', /*тип формы [normal|light|jquery-selector]*/
+                siteId:10221,
+                productId:632879,
+                price:1017.41, /*цена товара*/
+                priceRound:1017, /*округленная цена*/
+                wpId:15743307
+            });
+    });
+&lt;/script&gt;
+&lt;div id=container2&gt;
+&lt;/div&gt;
+</pre>
+                    </div>
+                </div>
+
+
+
+
+
+                <hr />
+
+
+            </section>
+            <!-- ========================= SECTION: MARKUP >> END ========================= -->
+
+
+
+
+
+
+
+            <!-- ========================= SECTION: INSTALLATION >> START ========================= -->
+            <section id="installation">
+                <div class="page-header">
+                    <h1>Инсталляция <small>Как установить</small></h1>
+                </div>
+                <h2>Этапы</h2>
+                <p>Для подключения API необходимо подключить файл стилей, js файл библиотеки, и если на странице нету подключения jquery, подключить ещё jquery, а потом инициализировать одну из форм</p>
+
+                <div class="row">
+                    <div class="span3">
+
+                        <h4>1. Подключение стилей</h4>
+                    </div>
+                    <div class="span9">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Файл</th>
+                                    <th>Подключение</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>apishopsForm.css</code></td>
+                                    <td>&lt;link rel=&quot;stylesheet&quot; href=&quot;http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm.css&quot;&gt;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="span3">
+                        <h4>2. Подключение JavaScript</h4>
+                    </div>
+                    <div class="span9">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Файл</th>
+                                    <th>Подключение</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>JQuery</code></td>
+                                    <td>
+                                        <div class="alert alert-info"><strong>Внимание!</strong> Не стоит jquery подключать второй раз, если эта библиотека уже подключена ранее</div>
+                                        &lt;script src=&quot;//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>apishopsForm.js</code></td>
+                                    <td>&lt;script src=&quot;http://img.apishops.org/SinglePageWebsites/custom/js/apishopsForm.js&quot;&gt;&lt;/script&gt;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span3">
+                        <h4>3. Инициализация плагина</h4>
+                        <p>Инициализация первой формы происходит через вызов jquery плагина <code>$(..).apishopsForm({})</code>. В качестве параметров используется один объект с параметрами.</p>
+                    </div>
+                    <div class="span9">
+                        <h4>Код:</h4>
+                        <pre class="prettyprint linenums">
+$(document).ready( function() {
+    $('#container2').apishopsForm({
+            type:'inline', /*тип открытия [inline|modal]*/
+            form:'light', /*тип формы [normal|light|jquery-selector]*/
+            siteId:10221,
+            productId:632879,
+            price:1017.41, /*цена товара*/
+            priceRound:1017, /*округленная цена*/
+            wpId:15743307
+        });
+});
+                        </pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span12">
+                        <h2>Общий вид страницы</h2>
+                        <p>Вид страницы с подключенными JS и стилями, и инициализированной библиотекой</p>
+
+<pre class="prettyprint linenums">
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;!-- init jquery --&gt;
+        &lt;script src=&quot;//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+        &lt;!-- init apishops --&gt;
+        &lt;script src=&quot;http://img.apishops.org/SinglePageWebsites/custom/js/apishopsForm.js&quot;&gt;&lt;/script&gt;
+        &lt;link href=&quot;http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm.css&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;script&gt;
+            $(document).ready( function() {
+                $('#container2').apishopsForm({
+                        type:'inline', /*тип открытия [inline|modal]*/
+                        form:'light', /*тип формы [normal|light|jquery-selector]*/
+                        siteId:10221,
+                        productId:632879,
+                        price:1017.41, /*цена товара*/
+                        priceRound:1017, /*округленная цена*/
+                        wpId:15743307
+                    });
+            });
+        &lt;/script&gt;
+        &lt;div id=container2&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+                    </div>
+                </div>
+
+
+
+            </section>
+            <!-- ========================= SECTION: INSTALLATION >> END ========================= -->
+
+            <section id="params">
+                <div class="page-header">
+                    <h1>Параметры</h1>
+                    <div class="row">
+                    <div class="span3">
+                        <h4>Обязательные параметры</h4>
+                         </div><div class='span9'>
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Параметр</th>
+                                    <th>Значение по умолчанию</th>
+                                    <th>Описание</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>siteId</code></td>
+                                    <td>-</td>
+                                    <td>id сайта</td>
+                                </tr>
+                                <tr>
+                                    <td><code>productId</code></td>
+                                    <td>-</td>
+                                    <td>id товара</td>
+                                </tr>
+                                <tr>
+                                    <td><code>wpId</code></td>
+                                    <td>-</td>
+                                    <td>внутренний артикул товара</td>
+                                </tr>
+                                <tr>
+                                    <td><code>type</code></td>
+                                    <td><code>inline</code></td>
+                                    <td>Значения <code>inline</code>(размещение внутри контейнера) или <code>modal</code>(размещение в модал-окне)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>form</code></td>
+                                    <td><code>normal</code></td>
+                                    <td>Значения <code>normal</code>(обычная форма), <code>light</code>(упрощенная форма), <code>html-код</code> или <code>jquery селектор</code>. В случае <code>html-кода</code> или <code>jquery селектора</code>, которые указывает на html, который необходимо использовать, в качестве формы с полями заказа необходимо задать параметр <code>inputs</code></td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                        </div>
+                        </div>
+                    <div class="row">
+                    <div class="span3">
+                        <h4>Необязательные параметры</h4>
+                      </div><div class='span9'>
+                        <div class="alert alert-info"> <b>Внимание, продвинутый уровень!</b>Часть необязательных параметров ниже необходимы только в случае использования собственных форм с собственныим именами для полей ввода или селектов</b></div>
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Параметр</th>
+                                    <th>Значение по умолчанию</th>
+                                    <th>Описание</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                 <tr>
+                                    <td><code>successUrl</code></td>
+                                    <td><code>/finish.jsp?id=</code></td>
+                                    <td>url, по которому отпрвляется пользователь после успешной отправки заявки. В конец этого параметра добавляется id заказа.</td>
+                                </tr>
+                                <tr>
+                                    <td><code>modal</code></td>
+                                    <td><code>&lt;div class=&quot;apishopsModal apishopsAnimation apishopsSideFall&quot;&gt;&lt;div class=&quot;apishopsModalWindow&quot;&gt;&lt;div class=&quot;apishopsModalClose&quot;&gt;&lt;/div&gt;&lt;div class=&quot;apishopsModalContent&quot;&gt;&lt;/div&gt;&lt;div class=&quot;apishopsModalClose2&quot;&gt;&lt;a href=&quot;#&quot;&gt;&amp;#1079;&amp;#1072;&amp;#1082;&amp;#1088;&amp;#1099;&amp;#1090;&amp;#1100; &amp;#1086;&amp;#1082;&amp;#1085;&amp;#1086;&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;apishopsModalOverlay&quot;&gt;&lt;/div&gt;&lt;/div&gt;</code></td>
+                                    <td><code>jquery селектор</code>, или <code>html</code> код модал окна. По умолчанию задается стандартный код для modal-окна, но используя для выбора jquery селектор можно или свой html можно задавать свой код для modal окна, в котором будут размещены поля</td>
+                                </tr>
+                                <tr>
+                                    <td><code>placement</code></td>
+                                    <td><code>.apishopsModalContent</code></td>
+                                    <td>контейнер внутри модального окна, где должен размещаться контент. Необходимо задавать в том случае, когда используется свой <code>modal</code> параметр</td>
+                                </tr>
+                                <tr>
+                                    <td><code>inputs</code></td>
+                                    <td></td>
+                                    <td>Объект из параметров:
+                                                <table class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Параметр</th>
+                                                            <th>Значение по умолчанию</th>
+                                                            <th>Описание</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><code>address</code></td>
+                                                            <td><code>[name=apishopsFormAddress]</code></td>
+                                                            <td>jquery-селектор поля адреса</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><code>count</code></td>
+                                                            <td><code>[name=apishopsFormCount]</code></td>
+                                                            <td>jquery-селектор поля количества</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><code>delivery</code></td>
+                                                            <td><code>[name=apishopsFormDelivery]</code></td>
+                                                            <td>jquery-селектор поля типа доставки</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><code>email</code></td>
+                                                            <td><code>[name=apishopsFormEmail]</code></td>
+                                                            <td>jquery-селектор поля выбора типа доставки</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><code>fio</code></td>
+                                                            <td><code>[name=apishopsFormFio]</code></td>
+                                                            <td>jquery-селектор поля фио</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><code>payment</code></td>
+                                                            <td><code>[name=apishopsFormPayment]</code></td>
+                                                            <td>jquery-селектор поля выбора типа оплаты</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><code>phone</code></td>
+                                                            <td><code>[name=apishopsFormPhone]</code></td>
+                                                            <td>jquery-селектор поля номера телефона</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><code>region</code></td>
+                                                            <td><code>[name=apishopsFormRegion]</code></td>
+                                                            <td>jquery-селектор поля выбора региона</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><code>cost</code></td>
+                                                            <td><code>[name=apishopsFormCost]</code></td>
+                                                            <td>jquery-селектор контейнера, куда пишется итоговая цена</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><code>button</code></td>
+                                                            <td><code>[name=apishopsFormBuy]</code></td>
+                                                            <td>jquery-селектор контейнера или кнопки, нажатие по которой должно обрабатывать форму</td>
+                                                        </tr>
+                                                     </tbody>
+                                                 </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </div>
+            </section>
+
+
+
+            <!-- ========================= SECTION: MARKUP >> START ========================= -->
+            <section id="markup">
+                <div class="page-header">
+                    <h1>Свои формы? Нет ничего проще!</h1>
+                </div>
+                <p>Чтобы подключить наш плагин к своей форме достаточно задать своим инпутам наши "name" атрибуты apishopsFormCount, apishopsFormFio, apishopsFormPhone и apishopsFormAddress для ввода количества товаров, ФИО получателя, номера телефона и адреса получателя соотвественно</p>
+                <div class="alert alert-info"><b>Внимание</b><br>«apishopsFormCount, apishopsFormFio, apishopsFormPhone и apishopsFormAddress» — это минимальный набор инпутов, который должен быть в вашей форме. Если в форме не будет хватать одного из этих инпутов — наш плагин не подключится к вашей форме и не сможет обрабатывать заказы с этой формы.</div>
+                <div class="alert alert-info"><b>Что делать, если в вашей форме недостаточно инпутов?</b><br>Если в вашей форме недостаточно инпутв, например, не предусмотрено поле для адреса доставки, тогда вам надо добавить недостающее поле c type=hidden и name=apishopsFormAddress(если не предусмотрено поле для ввода адреса доставки). Примеры таких форм приведены ниже</div>
+
+                <hr />
+
+                <div class="row">
+                    <div class="span3">
+                        <h3>Упрощенная форма заказа (4 поля)</h3>
+                        <p>Пример формы без выбора города и способа доставки, а также метода оплаты</p>
+
+                    </div>
+
+                    <div class="span9">
+<h4>Код</h4>
+<!-- Code Block >> Start -->
+<pre class="prettyprint linenums">  &lt;div&nbsp;id=container2&gt;
+        &lt;form&nbsp;id=customForm3&nbsp;class=&quot;apishopsForm&quot;&gt;
+            &lt;h1&gt;Моя&nbsp;собственная&nbsp;форма&nbsp;заказа&lt;/h1&gt;
+            &lt;div&nbsp;class=&quot;apishopsFormGroup&nbsp;apishopsFormCount&quot;&gt;
+                &lt;label&gt;Количество&lt;/label&gt;
+                &lt;select&nbsp;name=&apos;apishopsFormCount&apos;&nbsp;pattern=&quot;^[1-9][0-9]*$&quot;&gt;
+                    &lt;option&gt;1&lt;/option&gt;
+                    &lt;option&gt;2&lt;/option&gt;
+                    &lt;option&gt;3&lt;/option&gt;
+                    &lt;option&gt;4&lt;/option&gt;
+                    &lt;option&gt;5&lt;/option&gt;
+                &lt;/select&gt;
+            &lt;/div&gt;
+            &lt;div&nbsp;class=&quot;apishopsFormGroup&nbsp;apishopsFormFio&quot;&gt;
+                &lt;label&nbsp;for=&quot;inputSuccess&quot;&gt;&nbsp;&amp;nbsp;&lt;/label&gt;
+                &lt;input&nbsp;type=&quot;text&quot;&nbsp;name=&apos;apishopsFormFio&apos;&nbsp;placeholder=&quot;ФИО&quot;&nbsp;pattern=&quot;.{3,}&quot;&gt;
+            &lt;/div&gt;
+            &lt;div&nbsp;class=&quot;apishopsFormGroup&quot;&nbsp;&gt;
+                &lt;input&nbsp;type=&quot;text&quot;&nbsp;name=&apos;apishopsFormPhone&apos;&nbsp;placeholder=&quot;+380(___)&nbsp;___&nbsp;__&nbsp;__&quot;&nbsp;pattern=&quot;.*&quot;&gt;
+            &lt;/div&gt;
+            &lt;div&nbsp;class=&quot;apishopsFormGroup&quot;&gt;
+                &lt;input&nbsp;type=&quot;text&quot;&nbsp;name=&apos;apishopsFormAddress&apos;&nbsp;placeholder=&quot;ул.Юннатов,&nbsp;д.1,&nbsp;кв.2&quot;&nbsp;pattern=&quot;.*&quot;&gt;
+            &lt;/div&gt;
+            &lt;div&nbsp;class=&quot;apishopsFormGroup&quot;&gt;
+                &lt;a&nbsp;href=&quot;#&quot;&nbsp;class=&quot;apishopsFormButton&nbsp;apishopsFormBuy&quot;&nbsp;onclick=&apos;$(this).closest(&quot;form&quot;).submit();&nbsp;return&nbsp;false;&apos;&gt;&nbsp;&lt;b&gt;Заказать&nbsp;товар!&lt;/b&gt;&nbsp;&lt;/a&gt;
+            &lt;/div&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;</pre>
+<!-- Code Block >> End -->
+<h4>Иницициализация плагина с указанием использования специальной формы</h4>
+<pre class="prettyprint linenums">
+    &lt;script&gt;
+        $(document).ready(&nbsp;function()&nbsp;{
+            $(&apos;#container2&apos;).apishopsForm({
+                type:&apos;inline&apos;,&nbsp;/*тип&nbsp;открытия&nbsp;[inline|modal]*/
+                form:&apos;#customForm3&apos;,&nbsp;/*тип&nbsp;формы&nbsp;[normal|light|jquery-selector]*/
+                siteId:38924,
+                productId:385751,
+                price:990.0,&nbsp;/*цена&nbsp;товара*/
+                priceRound:990,&nbsp;/*округленная&nbsp;цена*/
+                wpId:23023751
+            });
+&nbsp;&nbsp;&nbsp;&nbsp;    });
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/script&gt;
+</pre>
+<h4>Пример</h4>
+<div><a href='http://help.basing.ru/single/example5.html'>http://help.basing.ru/single/example3.html</a></div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="span3">
+                        <h3>Упрощенная форма заказа(3 поля для ввода)</h3>
+
+                    </div>
+
+                    <div class="span9">
+<h4>Код</h4>
+<!-- Code Block >> Start -->
+<pre class="prettyprint linenums">  &lt;div&nbsp;id=container2&gt;
+        &lt;form&nbsp;id=customForm3&nbsp;class=&quot;apishopsForm&quot;&gt;
+            &lt;h1&gt;Моя&nbsp;собственная&nbsp;форма&nbsp;заказа&lt;/h1&gt;
+            &lt;input&nbsp;type=&quot;hidden&quot;&nbsp;name=&apos;apishopsFormCount&apos;&nbsp;value=1&gt;
+            &lt;div&nbsp;class=&quot;apishopsFormGroup&nbsp;apishopsFormFio&quot;&gt;
+                &lt;label&nbsp;for=&quot;inputSuccess&quot;&gt;&nbsp;&amp;nbsp;&lt;/label&gt;
+                &lt;input&nbsp;type=&quot;text&quot;&nbsp;name=&apos;apishopsFormFio&apos;&nbsp;placeholder=&quot;ФИО&quot;&nbsp;pattern=&quot;.{3,}&quot;&gt;
+            &lt;/div&gt;
+            &lt;div&nbsp;class=&quot;apishopsFormGroup&quot;&nbsp;&gt;
+                &lt;input&nbsp;type=&quot;text&quot;&nbsp;name=&apos;apishopsFormPhone&apos;&nbsp;placeholder=&quot;+380(___)&nbsp;___&nbsp;__&nbsp;__&quot;&nbsp;pattern=&quot;.*&quot;&gt;
+            &lt;/div&gt;
+            &lt;div&nbsp;class=&quot;apishopsFormGroup&quot;&gt;
+                &lt;input&nbsp;type=&quot;text&quot;&nbsp;name=&apos;apishopsFormAddress&apos;&nbsp;placeholder=&quot;ул.Юннатов,&nbsp;д.1,&nbsp;кв.2&quot;&nbsp;pattern=&quot;.*&quot;&gt;
+            &lt;/div&gt;
+            &lt;div&nbsp;class=&quot;apishopsFormGroup&quot;&gt;
+                &lt;a&nbsp;href=&quot;#&quot;&nbsp;class=&quot;apishopsFormButton&nbsp;apishopsFormBuy&quot;&nbsp;onclick=&apos;$(this).closest(&quot;form&quot;).submit();&nbsp;return&nbsp;false;&apos;&gt;&nbsp;&lt;b&gt;Заказать&nbsp;товар!&lt;/b&gt;&nbsp;&lt;/a&gt;
+            &lt;/div&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;</pre>
+<!-- Code Block >> End -->
+<h4>Иницициализация плагина с указанием использования специальной формы</h4>
+<pre class="prettyprint linenums">
+    &lt;script&gt;
+        $(document).ready(&nbsp;function()&nbsp;{
+            $(&apos;#container2&apos;).apishopsForm({
+                type:&apos;inline&apos;,&nbsp;/*тип&nbsp;открытия&nbsp;[inline|modal]*/
+                form:&apos;#customForm3&apos;,&nbsp;/*тип&nbsp;формы&nbsp;[normal|light|jquery-selector]*/
+                siteId:38924,
+                productId:385751,
+                price:990.0,&nbsp;/*цена&nbsp;товара*/
+                priceRound:990,&nbsp;/*округленная&nbsp;цена*/
+                wpId:23023751
+            });
+&nbsp;&nbsp;&nbsp;&nbsp;    });
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/script&gt;
+</pre>
+<h4>Пример</h4>
+<div><a href='http://help.basing.ru/single/example5.html'>http://help.basing.ru/single/example4.html</a></div>
+
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="span3">
+                        <h3>Упрощенная форма заказа(2 поля для ввода)</h3>
+
+                    </div>
+
+                    <div class="span9">
+<h4>Код</h4>
+<!-- Code Block >> Start -->
+<pre class="prettyprint linenums">  &lt;div&nbsp;id=container2&gt;
+        &lt;form&nbsp;id=customForm3&nbsp;class=&quot;apishopsForm&quot;&gt;
+            &lt;h1&gt;Моя&nbsp;собственная&nbsp;форма&nbsp;заказа&lt;/h1&gt;
+            &lt;input&nbsp;type=&quot;hidden&quot;&nbsp;name=&apos;apishopsFormCount&apos;&nbsp;value=1&gt;
+            &lt;input&nbsp;type=&quot;hidden&quot;&nbsp;name=&apos;apishopsFormAddress&apos;&nbsp;value=&apos;&apos;&gt;
+            &lt;div&nbsp;class=&quot;apishopsFormGroup&nbsp;apishopsFormFio&quot;&gt;
+                &lt;label&nbsp;for=&quot;inputSuccess&quot;&gt;&nbsp;&amp;nbsp;&lt;/label&gt;
+                &lt;input&nbsp;type=&quot;text&quot;&nbsp;name=&apos;apishopsFormFio&apos;&nbsp;placeholder=&quot;ФИО&quot;&nbsp;pattern=&quot;.{3,}&quot;&gt;
+            &lt;/div&gt;
+            &lt;div&nbsp;class=&quot;apishopsFormGroup&quot;&nbsp;&gt;
+                &lt;input&nbsp;type=&quot;text&quot;&nbsp;name=&apos;apishopsFormPhone&apos;&nbsp;placeholder=&quot;+380(___)&nbsp;___&nbsp;__&nbsp;__&quot;&nbsp;pattern=&quot;.*&quot;&gt;
+            &lt;/div&gt;
+            &lt;div&nbsp;class=&quot;apishopsFormGroup&quot;&gt;
+                &lt;a&nbsp;href=&quot;#&quot;&nbsp;class=&quot;apishopsFormButton&nbsp;apishopsFormBuy&quot;&nbsp;onclick=&apos;$(this).closest(&quot;form&quot;).submit();&nbsp;return&nbsp;false;&apos;&gt;&nbsp;&lt;b&gt;Заказать&nbsp;товар!&lt;/b&gt;&nbsp;&lt;/a&gt;
+            &lt;/div&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;</pre>
+<!-- Code Block >> End -->
+<h4>Иницициализация плагина с указанием использования специальной формы</h4>
+<pre class="prettyprint linenums">
+    &lt;script&gt;
+        $(document).ready(&nbsp;function()&nbsp;{
+            $(&apos;#container2&apos;).apishopsForm({
+                type:&apos;inline&apos;,&nbsp;/*тип&nbsp;открытия&nbsp;[inline|modal]*/
+                form:&apos;#customForm3&apos;,&nbsp;/*тип&nbsp;формы&nbsp;[normal|light|jquery-selector]*/
+                siteId:38924,
+                productId:385751,
+                price:990.0,&nbsp;/*цена&nbsp;товара*/
+                priceRound:990,&nbsp;/*округленная&nbsp;цена*/
+                wpId:23023751
+            });
+&nbsp;&nbsp;&nbsp;&nbsp;    });
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/script&gt;
+</pre>
+<h4>Пример</h4>
+<div><a href='http://help.basing.ru/single/example5.html'>http://help.basing.ru/single/example5.html</a></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="span3">
+                        <h3>Стандартная форма</h3>
+                        <p>Разметка формы, используемой по умолчанию. Вы можете подредактировать её так, как вам угодно, и инициализировать её использование</p>
+
+                    </div>
+
+                    <div class="span9">
+<h4>Код</h4>
+<!-- Code Block >> Start -->
+<pre class="prettyprint linenums">
+&lt;form id=customForm3 class=&quot;apishopsForm&quot;&gt;
+        &lt;h1&gt;Форма заказа&lt;/h1&gt;
+        &lt;small&gt;Заполните пожалуйста поля&lt;/small&gt;
+        &lt;div class=&quot;apishopsFormGroup apishopsFormCount&quot;&gt;
+            &lt;label&gt;Количество&lt;/label&gt;
+            &lt;select name='apishopsFormCount' pattern=&quot;^[1-9][0-9]*$&quot;&gt;
+                &lt;option&gt;1&lt;/option&gt;
+                &lt;option&gt;2&lt;/option&gt;
+                &lt;option&gt;3&lt;/option&gt;
+                &lt;option&gt;4&lt;/option&gt;
+                &lt;option&gt;5&lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;apishopsFormGroup apishopsFormFio&quot;&gt;
+            &lt;label for=&quot;inputSuccess&quot;&gt; &amp;nbsp;&lt;/label&gt;
+            &lt;input type=&quot;text&quot; name='apishopsFormFio' placeholder=&quot;ФИО&quot; pattern=&quot;.{3,}&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;apishopsFormGroup apishopsFormMail&quot;&gt;
+            &lt;input type=&quot;text&quot; name='apishopsFormEmail' placeholder=&quot;email@email.com&quot; pattern=&quot;.*&quot;&gt;
+         &lt;/div&gt;
+        &lt;div class=&quot;apishopsFormGroup apishopsFormPhone&quot;&gt;
+            &lt;input type=&quot;text&quot; name='apishopsFormPhone' placeholder=&quot;+380(___) ___ __ __&quot; pattern=&quot;.{3,}&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;apishopsFormGroup apishopsFormAddress&quot;&gt;
+            &lt;input type=&quot;text&quot; name='apishopsFormAddress' placeholder=&quot;ул.Юннатов, д.1, кв.2&quot; pattern=&quot;.{3,}&quot;&gt;
+         &lt;/div&gt;
+
+        &lt;div class=&quot;apishopsFormGroup apishopsFormCity&quot;&gt;
+            &lt;label&gt;Выберите город доставки&lt;/label&gt;
+            &lt;select name='apishopsFormRegion' pattern=&quot;^[0-9][0-9]*$&quot;&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;apishopsFormGroup apishopsFormDelivery apishopsAnimation apishopsSlide&quot;&gt;
+            &lt;label&gt;Выберите способ доставки&lt;/label&gt;
+            &lt;select name='apishopsFormDelivery' pattern=&quot;^[0-9][0-9]*$&quot;&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;apishopsFormGroup apishopsFormPayment apishopsAnimation apishopsSlide&quot;&gt;
+            &lt;label&gt;Выберите способ оплаты&lt;/label&gt;
+            &lt;select name='apishopsFormPayment' pattern=&quot;^[0-9][0-9]*$&quot;&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;apishopsFormGroup apishopsFormCost apishopsAnimation apishopsSlide apishopsLoading&quot;&gt;
+            &lt;label&gt;&lt;span name='apishopsFormCost'&gt;&lt;/span&gt;&lt;/label&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;apishopsFormGroup&quot;&gt;
+            &lt;a href=&quot;#&quot; class=&quot;apishopsFormButton apishopsFormBuy&quot; onclick='$(this).closest(&quot;form&quot;).submit(); return false;'&gt;
+                &lt;b&gt;Заказать товар!&lt;/b&gt;
+            &lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;</pre>
+<!-- Code Block >> End -->
+<h4>Иницициализация плагина с указанием использования специальной формы</h4>
+<pre class="prettyprint linenums">
+$(document).ready( function() {
+    $('#container2').apishopsForm({
+            type:'inline', /*тип открытия [inline|modal]*/
+            form:'#customForm3', /*тип формы [normal|light|jquery-selector]*/
+            siteId:10221,
+            productId:632879,
+            price:1017.41, /*цена товара*/
+            priceRound:1017, /*округленная цена*/
+            wpId:15743307
+        });
+});
+</pre>
+
+                    </div>
+                </div>
+
+            </section>
+            <!-- ========================= SECTION: MARKUP >> END ========================= -->
+
+
+
+            <!-- ========================= SECTION: STYLES >> START ========================= -->
+            <section id="splitdata">
+                <div class="page-header">
+                    <h1>Раздельная подгрузка данных</h1>
+                </div>
+
+                <div class="alert alert-info"> <b>Внимание, продвинутый уровень!</b> Информация данного раздела предназначена для более тонкой работы и использования плагина в сложных системах. Мы специально вынесли эти функции, которые использует наше API за пределы пространтва имен плагина, чтобы можно было более точно настроить работу с системой apishops. <b>Но в большинстве случаев для работы с системой Apishops эта информация окажется избыточной</b></div>
+
+
+                <div class="row">
+                    <div class="span3">
+                        <h4>Функция подгрузки регионов в заданный select</h4>
+                        <p>Для более детального ознакомления с работой этой функции смотрите apishopsForm.js</p>
+                    </div>
+
+                    <div class="span9">
+
+<pre class="pre-scrollable prettyprint linenums">
+params={
+    object:$(region), /*объект, в который нужно загрузить список региогов для доставки товара*/
+    price:1270, /*цена товара*/
+    productId:1, /*id товара*/
+    wpId:231,   /*wpId сайта*/
+    siteId:5, /*id сайта*/
+    retrys:3 /*количество попыток, по истечению которых попытки получения данных следует прекратить*/
+};
+function apishopsFormLoadRegions(params){
+    ...
+}
+</pre>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="span3">
+                        <h4>Функция подгрузки типов доставки в select для данного товара в опредленный регион</h4>
+                        <p>Для более детального ознакомления с работой этой функции смотрите apishopsForm.js</p>
+                    </div>
+
+                    <div class="span9">
+
+<pre class="pre-scrollable prettyprint linenums">
+params={
+    object:$(object), /*объект, в который нужно загрузить список ваоиантов доставки довара товара в данный регион*/
+    regionId:1, /*id региона*/
+    price:1270, /*цена товара*/
+    productId:1, /*id товара*/
+    wpId:231,   /*wpId сайта*/
+    siteId:5, /*id сайта*/
+    retrys:3 /*количество попыток, по истечению которых попытки получения данных следует прекратить*/
+};
+function apishopsFormLoadDeliveryTypes(params){
+    ...
+}
+</pre>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="span3">
+                        <h4>Функция подгрузки типов оплаты товара в select для данного товара для опредленного типа доставки в опредленный регион</h4>
+                        <p>Для более детального ознакомления с работой этой функции смотрите apishopsForm.js</p>
+                    </div>
+
+                    <div class="span9">
+
+<pre class="pre-scrollable prettyprint linenums">
+params={
+    object:$(object), /*объект, в который нужно загрузить список ваоиантов оплаты довара товара в данный регион*/
+    regionId:1, /*id региона*/
+    deliveryId:12, /*id типа доставки*/
+    price:1270, /*цена товара*/
+    productId:1, /*id товара*/
+    wpId:231,   /*wpId сайта*/
+    siteId:5, /*id сайта*/
+    retrys:3 /*количество попыток, по истечению которых попытки получения данных следует прекратить*/
+};
+function apishopsFormLoadPaymentTypes(params){
+    ...
+}
+</pre>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="span3">
+                        <h4>Функция подгрузки итоговой цены в контейнер для данного товара, для опредленного типа доставки, для опредленного типа оплаты в опредленный регион</h4>
+                        <p>Для более детального ознакомления с работой этой функции смотрите apishopsForm.js</p>
+                    </div>
+
+                    <div class="span9">
+<pre class="pre-scrollable prettyprint linenums">
+params={
+    object:$(object), /*контейнер, в который нужно загрузить итоговую цену*/
+    regionId:1, /*id региона*/
+    paymentId:3, /*id варианта оплаты*/
+    deliveryId:12, /*id типа доставки*/
+    price:1270, /*цена товара*/
+    productId:1, /*id товара*/
+    wpId:231,   /*wpId сайта*/
+    siteId:5, /*id сайта*/
+    retrys:3 /*количество попыток, по истечению которых попытки получения данных следует прекратить*/
+};
+function apishopsFormLoadPrice(params){
+    ...
+}
+</pre>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="span3">
+                        <h4>Функция отправки заказа или заказ обратного звонка</h4>
+                        <p>Для более детального ознакомления с работой этой функции смотрите apishopsForm.js</p>
+                    </div>
+
+                    <div class="span9">
+<pre class="pre-scrollable prettyprint linenums">
+function apishopsFormSubmit(params){
+    ...
+}
+</pre>
+                    </div>
+                </div>
+
+
+            </section>
+            <!-- ========================= SECTION: STYLES >> END ========================= -->
+
+
+
+
+
+
+
+            <hr />
+
+            <footer>
+                <p>&copy; Apishops 2013</p>
+            </footer>
+
+        </div>
+        <!-- ========================= MAIN CONTAINER >> END ========================= -->
+
+
+
+
+
+    </body>
+
+</html>
