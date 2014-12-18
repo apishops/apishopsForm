@@ -1,0 +1,396 @@
+.apishopsFormConstructor {
+    padding: 20px;
+    line-height: 20px;
+    color: #333333;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+}
+.apishopsFormConstructorTypes {
+}
+.apishopsFormConstructorOptions {
+    background: url("http://img2.apishops.org/SinglePageWebsites/ApishopsForm/examples/constructor/images/bg.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    overflow: hidden;
+    background-size: 100% 100%;
+    padding-bottom: 70px;
+}
+.apishopsFormConstructorOptionsLeft, .apishopsFormConstructorOptionsCenter, .apishopsFormConstructorOptionsRight {
+    box-sizing: border-box;
+    float: left;
+    padding: 20px;
+    width: 100%;
+}
+.apishopsFormConstructorCode {
+    padding: 30px;
+}
+.apishopsFormConstructorOptionsCenter{
+    text-align: center;
+}
+
+.apishopsFormConstructor textarea, .apishopsFormConstructor input[type="text"], .apishopsFormConstructor input[type="password"], .apishopsFormConstructor input[type="datetime"], .apishopsFormConstructor input[type="datetime-local"], .apishopsFormConstructor input[type="date"], .apishopsFormConstructor input[type="month"], .apishopsFormConstructor input[type="time"], .apishopsFormConstructor input[type="week"], .apishopsFormConstructor input[type="number"], .apishopsFormConstructor input[type="email"], .apishopsFormConstructor input[type="url"], .apishopsFormConstructor input[type="search"], .apishopsFormConstructor input[type="tel"], .apishopsFormConstructor input[type="color"], .apishopsFormConstructor .uneditable-input {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+}
+
+.apishopsFormConstructor select, .apishopsFormConstructor textarea, .apishopsFormConstructor input[type="text"], .apishopsFormConstructor input[type="password"], .apishopsFormConstructor input[type="datetime"], .apishopsFormConstructor input[type="datetime-local"], .apishopsFormConstructor input[type="date"], .apishopsFormConstructor input[type="month"], .apishopsFormConstructor input[type="time"], .apishopsFormConstructor input[type="week"], input[type="number"], .apishopsFormConstructor input[type="email"], .apishopsFormConstructor input[type="url"], .apishopsFormConstructor input[type="search"], .apishopsFormConstructor input[type="tel"], .apishopsFormConstructor input[type="color"], .apishopsFormConstructor .uneditable-input {
+    border-radius: 3px;
+    color: #555555;
+    display: inline-block;
+    font-size: 14px;
+    height: 20px;
+    line-height: 20px;
+    padding: 4px 6px;
+}
+
+.apishopsFormConstructor select {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+   height: 30px;
+    line-height: 30px;
+}
+
+.apishopsFormConstructorOptionsArrowImage {
+    background: url("http://img2.apishops.org/SinglePageWebsites/ApishopsForm/examples/constructor/images/arrowimage.png") no-repeat scroll right bottom rgba(0, 0, 0, 0);
+    display: inline-block;
+    left: 25%;
+    padding-bottom: 11px;
+    padding-right: 72px;
+    position: absolute;
+    top: 25%;
+    white-space: nowrap;
+}
+
+.apishopsFormConstructorOptionsArrowCount {
+    background: url("http://img2.apishops.org/SinglePageWebsites/ApishopsForm/examples/constructor/images/arrowcount.png") no-repeat scroll left top rgba(0, 0, 0, 0);
+    display: inline-block;
+    left: 54%;
+    padding-left: 100px;
+    padding-top: 0;
+    position: absolute;
+    top: 64%;
+    white-space: nowrap;
+    z-index: 25;
+}
+
+.apishopsFormConstructorOptionsArrowPrice {
+    background: url("http://img2.apishops.org/SinglePageWebsites/ApishopsForm/examples/constructor/images/arrowprice.png") no-repeat scroll left bottom rgba(0, 0, 0, 0);
+    display: inline-block;
+    left: 54%;
+    padding-bottom: 38px;
+    padding-left: 98px;
+    position: absolute;
+    top: 34%;
+    white-space: nowrap;
+    z-index: 20;
+}
+
+.apishopsFormConstructorOptionsArrowName {
+    background: url("http://img2.apishops.org/SinglePageWebsites/ApishopsForm/examples/constructor/images/arrowname.png") no-repeat scroll left bottom rgba(0, 0, 0, 0);
+    display: inline-block;
+    left: 48%;
+    padding-bottom: 79px;
+    padding-left: 116px;
+    position: absolute;
+    top: 13%;
+    white-space: nowrap;
+}
+
+.apishopsFormConstructorOptionsArrows{
+-moz-transition:all 0.3s ease-in-out;
+-webkit-transition:all 0.3s ease-in-out;
+-o-transition:all 0.3s ease-in-out;
+-ms-transition:all 0.3s ease-in-out;
+transition:all 0.3s ease-in-out;
+}
+
+
+
+.apishopsFormConstructorOptionsCenter{
+-moz-transition:all 1s ease-in-out;
+-webkit-transition:all 1s ease-in-out;
+-o-transition:all 1s ease-in-out;
+-ms-transition:all 1s ease-in-out;
+transition:all 1s ease-in-out;
+
+}
+
+.apishopsFormConstructorOptionsArrowsHalfHidden{
+    animation:none;
+    opacity: 0.5;
+}
+
+.apishopsFormConstructorOptions:hover .apishopsFormConstructorOptionsCenter{
+    animation:none;
+    opacity: 1;
+}
+
+
+
+
+.apishopsFormConstructorOptionsHoverCardsHover:before {
+    background: url("http://img2.apishops.org/SinglePageWebsites/ApishopsForm/examples/constructor/images/colorpickup.png") no-repeat scroll right bottom rgba(0, 0, 0, 0);
+    content: "";
+    display: block;
+    height: 40px;
+    left: 0;
+    position: absolute;
+    top: -42px;
+    width: 40px;
+    z-index: 10;
+}
+
+.apishopsFormConstructorOptionsHoverCardsHover:after {
+    background: url("http://img2.apishops.org/SinglePageWebsites/ApishopsForm/examples/constructor/images/hovercardarrow.png") no-repeat scroll right bottom rgba(0, 0, 0, 0);
+    content: "";
+    display: block;
+    height: 42px;
+    left: -8px;
+    position: absolute;
+    top: -42px;
+    width: 40px;
+}
+
+
+.apishopsFormConstructorOptionsHoverCardsHover input, .apishopsFormConstructorOptionsHoverCardsHover a, .apishopsFormConstructorOptionsHoverCardsHover div {
+    display: inherit !important;
+}
+.apishopsFormConstructorOptionsHoverCardsHover {
+    display: inline-block !important;
+    padding: 7px 13px 13px !important;
+    position: absolute !important;
+    width: 246px !important;
+}
+.apishopsFormConstructorOptionsHoverCards:before {
+    background: url("http://img2.apishops.org/SinglePageWebsites/ApishopsForm/examples/constructor/images/colorpickup.png") no-repeat scroll right bottom rgba(0, 0, 0, 0);
+    content: "";
+    display: block;
+    height: 40px;
+    left: 0;
+    position: absolute;
+    top: -42px;
+    width: 40px;
+    cursor: pointer;
+}
+.apishopsFormConstructorOptionsHoverCards * {
+    display: none !important;
+}
+.apishopsFormConstructorOptionsHoverCards {
+    background: linear-gradient(to bottom, white 0%, #e3e3e3 100%) repeat scroll 0 0 white;
+    background: -webkit-linear-gradient(to bottom, white 0%, #e3e3e3 100%) repeat scroll 0 0 white;
+    background: -moz-linear-gradient(to bottom, white 0%, #e3e3e3 100%) repeat scroll 0 0 white;
+    border-radius: 4px;
+     box-shadow: 1px 1px 23px rgba(0, 0, 0, 0.68);
+    display: inline-block;
+    left: 50%;
+    padding: 0;
+    position: absolute;
+    width: 0;
+-moz-transition:opacity 0.3s ease-in-out;
+-webkit-transition:opacity 0.3s ease-in-out;
+-o-transition:opacity 0.3s ease-in-out;
+-ms-transition:opacity 0.3s ease-in-out;
+transition:opacity 0.3s ease-in-out;
+}
+
+.apishopsFormConstructorOptionsHoverCardButton{
+    left: 39%;
+    top: 102%;
+}
+
+
+.apishopsFormConstructorOptionsHoverCardsButtonSave {
+    background: none repeat scroll 0 0 #00a779;
+    border-radius: 3px;
+    color: white;
+    display: inline-block;
+    float: left;
+    font-size: 13px;
+    margin-right: 5px;
+    padding: 8px 18px;
+    width: 66px;
+}
+.apishopsFormConstructorOptionsHoverCardsButtonSave:hover {
+    color: white;
+    opacity: 0.8;
+    text-decoration: none;
+}
+.apishopsFormConstructorOptionsHoverCardsButtonCancel {
+    border-radius: 3px;
+    color: #c4431c;
+    display: inline-block;
+    float: left;
+    font-size: 13px;
+    margin: 8px 8px;
+    width: 46px;
+    text-decoration: underline;
+}
+
+.apishopsFormConstructorOptionsHoverCards div {
+    color: #8e8c8c;
+    float: left;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 21px;
+    margin-right: 0;
+    overflow: hidden;
+    width: 80px;
+}
+.apishopsFormConstructorOptionsHoverCardsHover input {
+    width: 58px;
+}
+
+.apishopsFormConstructorOptionsHoverCardForm:before {
+    left: -41px !important;
+    top: 36px;
+}
+.apishopsFormConstructorOptionsHoverCardsHover.apishopsFormConstructorOptionsHoverCardForm:after {
+    background: url("http://img2.apishops.org/SinglePageWebsites/ApishopsForm/examples/constructor/images/hovercardarrow2.png") no-repeat scroll right bottom rgba(0, 0, 0, 0) !important;
+    left: -40px;
+    top: 29px;
+}
+
+.apishopsFormConstructorContainer{
+        display: inline-block;
+
+}
+
+
+.apishopsFormConstructorLang{
+    font-size: 11px !important;
+    height: 25px !important;
+    line-height: 25px !important;
+    margin-bottom: 0px !important;
+    width: 93px !important;
+}
+
+
+.apishopsFormConstructorTypesContainer{
+    padding-bottom: 0px;
+    text-align: center;
+}
+
+
+.apishopsFormConstructorMainOptions {
+    background-attachment: scroll !important;
+    background-clip: border-box !important;
+    background-color: rgba(0, 0, 0, 0) !important;
+    background-image: url("http://img2.apishops.org/SinglePageWebsites/ApishopsForm/examples/constructor/images/optionsbg.png") !important;
+    background-origin: padding-box !important;
+    background-position: right bottom !important;
+    background-repeat: no-repeat !important;
+    background-size: 100% 100%;
+    display: inline-block;
+    padding: 12px 100px 35px 20px;
+    vertical-align: middle;
+    width: 200px;
+    position: absolute;
+}
+
+.apishopsFormConstructorOptionsLeft{
+    margin-top: 24px;
+}
+.apishopsFormConstructorTypeGroup {
+    display: inline-block;
+    margin-right: 30px;
+    text-align: center;
+}
+.apishopsFormConstructorThemeGroup{
+    display: inline-block;
+    margin-right: 15px;
+    text-align: center;
+
+}
+.apishopsFormConstructorThemeGroup img{
+    box-shadow: none !important;
+      border: solid 2px #dcdcdc;
+      margin-right: 20px;
+      cursor: pointer;
+     width: 40px;
+}
+
+.apishopsFormConstructorThemeGroup img.radio-select-img-item:hover{
+ border: solid 2px #adff2f;
+}
+.apishopsFormConstructorThemeGroup img.radio-select-img-item.item-checked{
+  border: solid 2px #b3d4fc;
+}
+
+
+
+
+.apishopsFormConstructorTypeGroup label {
+    padding-top: 5px;
+    display: block;
+}
+
+.apishopsFormConstructorAdditionalOptions {
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.46);
+    border: 1px solid #d0d9ed;
+    border-radius: 5px;
+    color: #747B8E;
+    font-size: 11px;
+    line-height: 15px;
+    padding: 10px;
+    position: absolute;
+}
+.apishopsFormConstructorAdditionalOptions .apishopsFormConstructorGroup {
+}
+.apishopsFormConstructorAdditionalOptions .apishopsFormConstructorGroup input[type="checkbox"]{
+    margin: 0px;
+
+}
+.apishopsFormConstructorAdditionalOptions .apishopsFormConstructorGroup input[type="text"] {
+    font-size: 11px;
+    height: 12px;
+    line-height: 15px;
+    margin-left: 15px;
+    width: 117px;
+}
+
+.CodeMirror {
+    border: 1px solid #d0d9ed;
+    font-size: 12px;
+}
+
+textarea[name="apishopsConstructorCode"] {
+    font-family: monospace;
+    font-size: 11px;
+    line-height: 13px;
+}.apishopsFormConstructorGroupForCode input[type=checkbox] {
+    margin: 0px;
+}
+.apishopsFormConstructorGroupForCode {
+    font-size: 11px;
+}
+
+.apishopsFormConstructorOptionsCenter form {
+    display: inline-block;
+}
+#containerAdditionalItemsId form{
+
+}
+#containerAdditionalItemsId {
+    padding-top: 50px;
+    text-align: center;
+    width: 1000px;
+}
+.apishopsFormConstructorwpIdproductId,.apishopsFormConstructorSiteId{
+    margin-left: 0 !important;
+    width: 44px !important;
+}
+
+.apishopsFormConstructordFinishUrl{
+     margin-left: 0 !important;
+}
+.apishopsFormConstructordFeatureCount{
+     margin-left: 0 !important;
+    width: 14px !important;
+}
+
+.apishopsFormConstructorGroupHr {
+    border-top: 1px solid #d0d9ed;
+    padding-top: 10px;
+}
+

@@ -41,7 +41,7 @@ jQuery.fn.apishopsForm=function(options)
             cost:'Поле стоимости заказа'
         },
         paths_:{
-            rootdir:'http://apishops.github.io/apishopsForm/',
+            rootdir:'/',
             cssdir:'css/',
             jsdir:'js/',
             themesdir:'apishopsFormThemes'
@@ -1456,8 +1456,22 @@ function apishopsFormSubmit(params){
                 if(result.parameters.successUrl==false || result.parameters.successUrl=='false')
                     alert('Ваш заказ принят и будет исполнен в ближайшее время!\nЖдите звонка оператора в ближайшее время.\n\n-----\nНомер вашего заказа #'+result.data.id);
                 else{
-                if(typeof result.parameters.isReserve == 'undefined' || result.parameters.isReserve==0)
-                    document.location.href = result.parameters.successUrl + result.data.id+((result.data.double ==true)?'&double=true':'');
+                if(typeof result.parameters.isReserve == 'undefined' || result.parameters.isReserve==0){
+                    var qpattern = /\?/im;
+                    var amppattern = /\&/im;
+                    var ipattern = /(([a-zZ-Z]+=)($|&))/im;
+
+                    if(ipattern.test(result.parameters.successUrl))
+                        result.parameters.successUrl=result.parameters.successUrl.replace(/(([a-zZ-Z]+=)($|&))/im,'$2'+result.data.id+((result.data.double ==true)?'&double=true':'')+'$3');
+                    else{
+                        if(!qpattern.test(result.parameters.successUrl))
+                            result.parameters.successUrl=result.parameters.successUrl+'?id='+result.data.id+((result.data.double ==true)?'&double=true':'');
+                        else if(!amppattern.test(result.parameters.successUrl))
+                            result.parameters.successUrl=result.parameters.successUrl+'&id='+result.data.id+((result.data.double ==true)?'&double=true':'');
+                    }
+
+                    document.location.href = result.parameters.successUrl;
+                }
                 else
                     document.location.href = '/finish.html?id=' + result.data.id+((result.data.double ==true)?'&double=true':'');
                 }
@@ -3453,7 +3467,7 @@ var apishopsJSONP={
 }
 
 var apishopsFormPaths={
-    rootdir:'http://apishops.github.io/apishopsForm/',
+    rootdir:'/',
     cssdir:'css/',
     jsdir:'js/',
     themesdir:'apishopsFormThemes/'
@@ -3485,14 +3499,14 @@ function apishopsFormLoadTemplates(templates, theme, successFunction, errorFunct
 
                 if(template_file_type=='css'){
                     $('head').append( $('<link rel="stylesheet" type="text/css" />').attr('href', template_file));
-                    apishopsFormTemplates[templates[template_no]][template_file_type]=true;
+                    //apishopsFormTemplates[templates[template_no]][template_file_type]=true;
                 }else{
                     $.getScript(template_file).done(function( script, textStatus ) {
                         templates_js_loaded++;
                         if(templates_js_loaded==templates.length){
                             successFunction()
                             for(template_no in templates){
-                                apishopsFormTemplates[templates[template_no]]['js']=true;
+                                //apishopsFormTemplates[templates[template_no]]['js']=true;
                             }
                         }
                     })

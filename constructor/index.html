@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="ru"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru"> <!--<![endif]-->
+    <head>
+        <meta charset="cp1251">
+        <title>Конструктор формы</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Description">
+        <meta name="author" content="Autor">
+        <title>Apishops JS API 2</title>
+    <link rel="stylesheet" href="../stylesheets/styles.css">
+    <link rel="stylesheet" href="../stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+        <!-- loading javascripts -->
+        <script src="../js/vendor/jquery.min.js"></script>
+        <script src="js/constructor.js"></script>
+
+
+      <!-- loading the css -->
+        <link href="css/constructor.css" rel="stylesheet">
+
+
+        <!-- init apishops -->
+        <script src="../js/apishopsForm.js"></script>
+        <link rel="stylesheet" href="../css/apishopsForm.css">
+
+
+
+        <!--colorpciker-->
+        <link rel="stylesheet" media="screen" type="text/css" href="http://img2.apishops.org/SinglePageWebsites/custom/css/colorpicker/colorpicker.css" />
+        <script type="text/javascript" src="http://img2.apishops.org/SinglePageWebsites/custom/js/colorpicker/colorpicker.js"></script>
+
+
+        <!--colorpciker-->
+        <link rel="stylesheet" media="screen" type="text/css" href="http://img2.apishops.org/SinglePageWebsites/custom/css/switchery.css" />
+        <script type="text/javascript" src="http://img2.apishops.org/SinglePageWebsites/custom/js/switchery.js"></script>
+
+        <!--radio-image-->
+        <link rel="stylesheet" media="screen" type="text/css" href="http://img2.apishops.org/SinglePageWebsites/custom/css/radio-image-select.css" />
+        <script type="text/javascript" src="http://img2.apishops.org/SinglePageWebsites/custom/js/jquery.radioImageSelect.js"></script>
+
+
+
+    </head>
+<body>
+    <div class="wrapper">
+      <header>
+        <h1>Apishops JS API 2</h1>
+        <p>Подключаемые к страницам формы оформления заказов и обратных звонков</p>
+
+        <p class="view"><a href="../index.html">Знакомство</a></p>
+        <p class="view"><a href="../installation.html">Подключение</a></p>
+        <p class="view"><a href="../params.html">Параметры</a></p>
+        <hr>
+        <p class="view"><a href="../featured.html">Рекомендуемые товары</a></p>
+        <p class="view"><a href="../themes.html">Темы</a></p>
+        <p class="view"><a href="../markup.html">Свои формы</a></p>
+        <p class="view"><a href="../splitdata.html">Отдельная подгрузка данных</a></p>
+        <hr>
+        <p class="view"><a href="../faq.html">FAQ</a></p>
+        <p class="view"><a href="constructor/">Конструктор форм</a></p>
+        <br><br>
+        <br><br>
+
+        <ul>
+          <li><a href="https://github.com/apishops/apishopsForm/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/apishops/apishopsForm">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+<div class='apishopsFormConstructor'>
+    <div class='apishopsFormConstructorTypes'>
+        <div class='apishopsFormConstructorGroup apishopsFormConstructorTypesContainer'>
+            <div class='apishopsFormConstructorTypeGroup'>
+                <input type=radio name=apishopsFormConstructorType data-image="http://img2.apishops.org/SinglePageWebsites/ApishopsForm/examples/constructor/images/apishopsFormConstructorType1.png" class='apishopsFormConstructorType apishopsFormConstructorControl' value='extended'>
+                <label for="apishopsFormConstructorType1">Расширенная</label>
+            </div>
+            <div class='apishopsFormConstructorTypeGroup'>
+                <input type=radio name=apishopsFormConstructorType data-image="http://img2.apishops.org/SinglePageWebsites/ApishopsForm/examples/constructor/images/apishopsFormConstructorType2.png" class='apishopsFormConstructorType apishopsFormConstructorControl' value='normal' checked> <label for="apishopsFormConstructorType1">Обычная</label>
+            </div>
+            <div class='apishopsFormConstructorTypeGroup'>
+                <input type=radio name=apishopsFormConstructorType data-image="http://img2.apishops.org/SinglePageWebsites/ApishopsForm/examples/constructor/images/apishopsFormConstructorType3.png" class='apishopsFormConstructorType apishopsFormConstructorControl' value='light'> <label for="apishopsFormConstructorType1">Упрощенная</label>
+            </div>
+            <!--
+            <div class='apishopsFormConstructorTypeGroup'>
+                <input type=radio name=apishopsFormConstructorType data-image="http://img2.apishops.org/SinglePageWebsites/ApishopsForm/examples/constructor/images/apishopsFormConstructorType4.png"class='apishopsFormConstructorType apishopsFormConstructorControl' value='jquery' disabled> <label for="apishopsFormConstructorType1">Собственная</label>
+            </div>-->
+        </div>
+        <div class='apishopsFormConstructorGroup' style='display:none'>
+            ...код для формы...
+        </div>
+    </div>
+    <div class="apishopsFormConstructorOptions">
+        <!--<div class='apishopsFormConstructorOptionsLeft'>-->
+
+            <div class='apishopsFormConstructorMainOptions'>
+
+                <div class='apishopsFormConstructorGroup'>
+                    <div>Тема:</div>
+                    <div class='apishopsFormConstructorMainThemeGroup'>
+
+                        <input type=radio name=apishopsFormConstructorMainTheme data-image="images/apishopsFormConstructorTheme0.png" class='apishopsFormConstructorMainTheme apishopsFormConstructorControl' value='0'>
+
+                        <input type=radio name=apishopsFormConstructorMainTheme data-image="images/apishopsFormConstructorTheme1.png" class='apishopsFormConstructorMainTheme apishopsFormConstructorControl' value='1' checked>
+                        <input type=radio name=apishopsFormConstructorMainTheme data-image="images/apishopsFormConstructorTheme2.png" class='apishopsFormConstructorMainTheme apishopsFormConstructorControl' value='2'>
+
+                        <input type=radio name=apishopsFormConstructorMainTheme data-image="images/apishopsFormConstructorTheme3.png" class='apishopsFormConstructorMainTheme apishopsFormConstructorControl' value='3'>
+
+                        <input type=radio name=apishopsFormConstructorMainTheme data-image="images/apishopsFormConstructorTheme4.png" class='apishopsFormConstructorMainTheme apishopsFormConstructorControl' value='4'>
+                        <input type=radio name=apishopsFormConstructorMainTheme data-image="images/apishopsFormConstructorTheme5.png" class='apishopsFormConstructorMainTheme apishopsFormConstructorControl' value='5'>
+                        <input type=radio name=apishopsFormConstructorMainTheme data-image="images/apishopsFormConstructorTheme6.png" class='apishopsFormConstructorMainTheme apishopsFormConstructorControl' value='6'>
+
+                        <input type=radio name=apishopsFormConstructorMainTheme data-image="images/apishopsFormConstructorTheme7.png" class='apishopsFormConstructorMainTheme apishopsFormConstructorControl' value='7'>
+                        <input type=radio name=apishopsFormConstructorMainTheme data-image="images/apishopsFormConstructorTheme8.png" class='apishopsFormConstructorMainTheme apishopsFormConstructorControl' value='8'>
+
+
+                    </div>
+                </div>
+            </div>
+        <!--</div>-->
+        <div class='apishopsFormConstructorOptionsCenter'>
+            <div class="apishopsFormConstructorContainer">
+                ...form...
+            </div>
+
+        </div>
+        <!--<div class='apishopsFormConstructorOptionsRight'>-->
+            <div class='apishopsFormConstructorAdditionalOptions'>
+                <div class='apishopsFormConstructorGroup'>
+                    <b>Дополнительные настройки:</b>
+                </div>
+                <div class='apishopsFormConstructorGroup'>
+                    <input type=checkbox class='apishopsFormConstructorIsModal apishopsFormConstructorControl' value='0'> Открывать в модальном окне
+                </div>
+                <div class='apishopsFormConstructorGroup'>
+                    <input type=checkbox checked class='apishopsFormConstructorIsShowFeature apishopsFormConstructorControl' value='0'> Показывать по <input class='apishopsFormConstructordFeatureCount apishopsFormConstructorControl' type=text value='2'> рекомендуемых товара
+                </div>
+                <div class='apishopsFormConstructorGroup'>
+                    <input type=checkbox checked class='apishopsFormConstructordIsFinish apishopsFormConstructorControl' value='0'> Переправлять на <input class='apishopsFormConstructordFinishUrl apishopsFormConstructorControl' type=text value='/finish.jsp'>
+                </div>
+                <div class='apishopsFormConstructorGroup apishopsFormConstructorGroupHr'>
+                    SiteId:
+                    <input class='apishopsFormConstructorSiteId apishopsFormConstructorControl' type=text placeholder='siteId' value='32290'>
+                    ProductId:
+                    <input class='apishopsFormConstructorwpIdproductId apishopsFormConstructorControl' type=text name=wpId placeholder='wpIdproductId' value='384562'>
+                </div>
+            </div>
+<!--
+
+            <br>-->
+
+            <div class='apishopsFormConstructorOptionsArrowImage apishopsFormConstructorOptionsArrows'>
+                Изображение <input type=checkbox class='js-switch apishopsFormConstructorShowPicture apishopsFormConstructorControl' value='1' checked>
+            </div>
+            <div class='apishopsFormConstructorOptionsArrowPrice apishopsFormConstructorOptionsArrows'>
+                <input type=checkbox class='js-switch apishopsFormConstructorShowPrice apishopsFormConstructorControl' value='1' checked> Цена в
+                <select class='apishopsFormConstructorLang apishopsFormConstructorControl'>
+                    <option value=1>рублях</option>
+                    <option value=6>гривнях</option>
+                    <option value=7>бел.рублях</option>
+                </select>
+            </div>
+            <div class='apishopsFormConstructorGroup'>
+
+            </div>
+            <div class='apishopsFormConstructorOptionsArrowName apishopsFormConstructorOptionsArrows'>
+                <input type=checkbox class='js-switch apishopsFormConstructorShowName apishopsFormConstructorControl' value='1' checked> Название товара
+            </div>
+            <div class='apishopsFormConstructorOptionsArrowCount apishopsFormConstructorOptionsArrows'>
+                <input type=checkbox class='js-switch apishopsFormConstructorShowCount apishopsFormConstructorControl' value='1' checked> Количество
+            </div>
+            <br>
+
+            <div class='apishopsFormConstructorOptionsHoverCards apishopsFormConstructorOptionsHoverCardForm'>
+                <div>
+                    Цвет формы
+                    <input type=text class='apishopsFormConstructorFormColorStart apishopsFormConstructorControl apishopsFormColorControl' placeholder='Цвет формы'>
+                </div>
+                <div>
+                Цвет формы
+                <input type=text class='apishopsFormConstructorFormColorEnd apishopsFormConstructorControl apishopsFormColorControl' placeholder='Цвет формы'>
+                </div>
+                <div>
+                Цвет текста
+                <input type=text class='apishopsFormConstructorTextColor apishopsFormConstructorControl apishopsFormColorControl' placeholder='Цвет текста'>
+                </div>
+                <a href=# class='apishopsFormConstructorOptionsHoverCardsButtonSave' onClick='apishopsFormConstructorApplyColorsForm(); return false;'>Применить</a>
+                <a href=# class='apishopsFormConstructorOptionsHoverCardsButtonCancel' onClick='apishopsFormConstructorCancelColorsForm(); return false;'>Отмена</a>
+            </div>
+
+
+            <div class='apishopsFormConstructorOptionsHoverCards apishopsFormConstructorOptionsHoverCardButton'>
+                <div>
+                Цвет кнопки
+                <input type=text class='apishopsFormConstructorButtonColorStart apishopsFormConstructorControl apishopsFormColorControl' placeholder='Цвет кнопки'>
+                </div>
+                <div>
+                Цвет кнопки
+                <input type=text class='apishopsFormConstructorButtonColorEnd apishopsFormConstructorControl apishopsFormColorControl' name=productId placeholder='Цвет кнопки'>
+            </div>
+                <a href=# class='apishopsFormConstructorOptionsHoverCardsButtonSave' onClick='apishopsFormConstructorApplyColorsButton(); return false;'>Применить</a>
+                <a href=# class='apishopsFormConstructorOptionsHoverCardsButtonCancel' onClick='apishopsFormConstructorCancelColorsButton(); return false;'>Отмена</a>
+            </div>
+
+        <!--</div>-->
+    </div>
+    <div class="apishopsFormConstructorCode">
+        <div>
+                <div class='apishopsFormConstructorGroup apishopsFormConstructorGroupForCode'>
+                <input type=checkbox name='apishopsFormConstructorName' class='apishopsFormConstructorControl apishopsFormConstructorAddJquery' value='1' > добавлять подключение JQuery
+                <input type=checkbox name='apishopsFormConstructorName' class='apishopsFormConstructorControl apishopsFormConstructorAddApishops' value='1' > добавлять подключение файлов плагина
+            </div>
+            <div class='apishopsFormConstructorGroup'>
+                <textarea style='width:100%;height:350px;' name='apishopsConstructorCode'>
+<div id="containerId"></div>
+<script>
+    $(document).ready( function() {
+        $('#containerId').apishopsForm({
+            type:'inline', /*тип открытия [inline|modal]*/
+            successUrl:'finish.jsp', /*url благодарственной страницы [url|false]*/
+            form:'light', /*тип формы [normal|light|jquery-selector]*/
+            displayed_containers:['picture','price','name'],
+            theme:1,
+            siteId:32290,/*айди сайта из панели партнера http://www.apishops.com/Webmaster/WebsiteGroup/WebsiteGroupList.jsp */
+            productId:384562, /*айди товара из ассортимента на странице http://www.apishops.com*/
+            lang:1,
+            featured:{
+               container: '#containerAdditionalItemsId',
+               count: 2
+            }
+        });
+    });
+</script>
+<div id='containerAdditionalItemsId'></div>
+
+                </textarea>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/apishops">apishops</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="../javascripts/scale.fix.js"></script>
+  </body>
+</html>

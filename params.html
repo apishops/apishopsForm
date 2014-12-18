@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Apishops JS API 2</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/apishopsForm.js"></script>
+    <link rel="stylesheet" href="css/apishopsForm.css">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Apishops JS API 2</h1>
+        <p>Подключаемые к страницам формы оформления заказов и обратных звонков</p>
+
+        <p class="view"><a href="index.html">Знакомство</a></p>
+        <p class="view"><a href="installation.html">Подключение</a></p>
+        <p class="view"><a href="params.html">Параметры</a></p>
+        <hr>
+        <p class="view"><a href="featured.html">Рекомендуемые товары</a></p>
+        <p class="view"><a href="themes.html">Темы</a></p>
+        <p class="view"><a href="markup.html">Свои формы</a></p>
+        <p class="view"><a href="splitdata.html">Отдельная подгрузка данных</a></p>
+        <hr>
+        <p class="view"><a href="faq.html">FAQ</a></p>
+        <p class="view"><a href="constructor/">Конструктор форм</a></p>
+        <br><br>
+
+        <ul>
+          <li><a href="https://github.com/apishops/apishopsForm/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/apishops/apishopsForm">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+
+      <section>
+        <div class="page-header">
+                    <h1>Параметры</h1>
+                    <div class="row">
+                      <div class="alert alert-info">Параметры, это то, что передается в фигурных скобках при инициализации плагина:</div>
+
+                        <pre class="prettyprint linenums">
+    $('...').apishopsForm(<b style='color:blue'>{
+            type:'inline', /*тип открытия [inline|modal]*/
+            form:'light', /*тип формы [normal|light|jquery-selector]*/
+            siteId:10221, /*айди сайта из панели партнера http://www.apishops.com/Webmaster/WebsiteGroup/WebsiteGroupList.jsp */
+            productId:632879, /*айди товара из ассортимента на странице http://www.apishops.com*/
+            price:1017.41, /*цена товара*/
+        }</b>);
+                        </pre>
+
+                    <div class="span3">
+                        <h2>Обязательные параметры</h2>
+                        <div class="alert alert-info">Существует всего два параметра, без которых работа плагина невозможна — siteId и productId, для всех остальных параметров плагин для своей работы будет использовать собственные значения по умолчанию </div>
+                         </div><div class='span9'>
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Параметр</th>
+                                    <th>Описание</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>siteId</code></td>
+                                    <td>айди сайта из панели партнера http://www.apishops.com/Webmaster/WebsiteGroup/WebsiteGroupList.jsp</td>
+                                </tr>
+                                <tr>
+                                    <td><code>productId</code></td>
+                                    <td>айди товара из ассортимента на странице http://www.apishops.com</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <pre class="prettyprint linenums">
+$(document).ready( function() {
+    $('#container2').apishopsForm({
+            siteId:10221, /*айди сайта из панели партнера http://www.apishops.com/Webmaster/WebsiteGroup/WebsiteGroupList.jsp */
+            productId:632879 /*айди товара из ассортимента на странице http://www.apishops.com*/
+        });
+});
+&lt;div id=container2&gt;
+&lt;/div&gt;
+                        </pre>
+                        </div>
+                        </div>
+                    <div class="row">
+
+                    <div class="span3">
+                        <h2>Необязательные параметры</h2>
+                      </div><div class='span9'>
+                        <div class="alert alert-info">Необязательные параметры, это те, для которых существуют значения по умолчанию</div>
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Параметр</th>
+                                    <th>Значение по умолчанию</th>
+                                    <th>Описание</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>type</code></td>
+                                    <td><code>inline</code></td>
+                                    <td>Значения <code>inline</code>(размещение внутри контейнера) или <code>modal</code>(размещение в модал-окне)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>form</code></td>
+                                    <td><code>normal</code></td>
+                                    <td>Значения <code>normal</code>(обычная форма), <code>light</code>(упрощенная форма), <code>html-код</code> или <code>jquery селектор</code>. В случае <code>html-кода</code> или <code>jquery селектора</code>, которые указывает на html, который необходимо использовать, в качестве формы с полями заказа необходимо задать параметр <code>inputs</code></td>
+                                </tr>
+                                 <tr>
+                                    <td><code>lang</code></td>
+                                    <td><code>1</code></td>
+                                    <td>внутренний для Apishops код страны куда будет оформлен заказа (1 — Россия, 6 — Украина, 7 – Беларусь)/td>
+                                </tr>
+                                 <tr>
+                                    <td><code>theme</code></td>
+                                    <td><code>0</code></td>
+                                    <td>порядковый номер темы (более подробно в разделе <a href="themes.html">темы</a>)</td>
+                                </tr>
+                                 <tr>
+                                    <td><code>featured</code></td>
+                                    <td><code>{}</code></td>
+                                    <td>набор параметров для отображения рекомендуемых товаров (более подробно в разделе <a href="features.html">рекомендуемые товары</a>)</td>
+                                </tr>
+                                 <tr>
+                                    <td><code>hidden_fields</code></td>
+                                    <td><code>[]</code></td>
+                                    <td>Массив из названий полей, которые не надо показывать. Доступные названия: 'address','count','delivery','email','promocode','fio','payment','phone','region','cost'. Например, чтобы спрятать поля адрес доставки и промокода, значение hidden_fields будет ['address','promocode']</td>
+                                </tr>
+                                  <tr>
+                                    <td><code>displayed_containers</code></td>
+                                    <td><code>[]</code></td>
+                                    <td>Массив из названий частей формы, которые надо показывать. Доступные значения 'picture', 'price', 'name', 'quickview'. По умолчананию контейнеры с картинкой, ценой, названием товара и ссылкой на подробное описание скрыты.</td>
+                                </tr>
+                                 <tr>
+                                    <td><code>successUrl</code></td>
+                                    <td><code>/finish.jsp?id=</code></td>
+                                    <td>url, по которому отправляется пользователь после успешной отправки заявки или false в случае, если редирект не нужен</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                </div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/apishops">apishops</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+  </body>
+</html>

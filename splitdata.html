@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Apishops JS API 2</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/apishopsForm.js"></script>
+    <link rel="stylesheet" href="css/apishopsForm.css">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Apishops JS API 2</h1>
+        <p>Подключаемые к страницам формы оформления заказов и обратных звонков</p>
+
+        <p class="view"><a href="index.html">Знакомство</a></p>
+        <p class="view"><a href="installation.html">Подключение</a></p>
+        <p class="view"><a href="params.html">Параметры</a></p>
+        <hr>
+        <p class="view"><a href="featured.html">Рекомендуемые товары</a></p>
+        <p class="view"><a href="themes.html">Темы</a></p>
+        <p class="view"><a href="markup.html">Свои формы</a></p>
+        <p class="view"><a href="splitdata.html">Отдельная подгрузка данных</a></p>
+        <hr>
+        <p class="view"><a href="faq.html">FAQ</a></p>
+        <p class="view"><a href="constructor/">Конструктор форм</a></p>
+        <br><br>
+
+        <ul>
+          <li><a href="https://github.com/apishops/apishopsForm/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/apishops/apishopsForm">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+
+      <section>
+        <div class="page-header">
+                    <h1>Раздельная подгрузка данных</h1>
+                </div>
+
+                <div class="alert alert-info"> <b>Внимание, продвинутый уровень!</b> Информация данного раздела предназначена для более тонкой работы и использования плагина в сложных системах. Мы специально вынесли эти функции, которые использует наше API за пределы пространтва имен плагина, чтобы можно было более точно настроить работу с системой apishops. <b>Но в большинстве случаев для работы с системой Apishops эта информация окажется избыточной</b></div>
+
+
+                <div class="row">
+                    <div class="span3">
+                        <h4>Функция подгрузки регионов в заданный select</h4>
+                        <p>Для более детального ознакомления с работой этой функции смотрите apishopsForm.js</p>
+                    </div>
+
+                    <div class="span9">
+
+<pre class="pre-scrollable prettyprint linenums">
+params={
+    object:$(region), /*объект, в который нужно загрузить список региогов для доставки товара*/
+    price:1270, /*цена товара*/
+    productId:1, /*id товара*/
+    wpId:231,   /*wpId сайта*/
+    siteId:5, /*id сайта*/
+    retrys:3 /*количество попыток, по истечению которых попытки получения данных следует прекратить*/
+};
+function apishopsFormLoadRegions(params){
+    ...
+}
+</pre>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="span3">
+                        <h4>Функция подгрузки типов доставки в select для данного товара в опредленный регион</h4>
+                        <p>Для более детального ознакомления с работой этой функции смотрите apishopsForm.js</p>
+                    </div>
+
+                    <div class="span9">
+
+<pre class="pre-scrollable prettyprint linenums">
+params={
+    object:$(object), /*объект, в который нужно загрузить список ваоиантов доставки довара товара в данный регион*/
+    regionId:1, /*id региона*/
+    price:1270, /*цена товара*/
+    productId:1, /*id товара*/
+    wpId:231,   /*wpId сайта*/
+    siteId:5, /*id сайта*/
+    retrys:3 /*количество попыток, по истечению которых попытки получения данных следует прекратить*/
+};
+function apishopsFormLoadDeliveryTypes(params){
+    ...
+}
+</pre>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="span3">
+                        <h4>Функция подгрузки типов оплаты товара в select для данного товара для опредленного типа доставки в опредленный регион</h4>
+                        <p>Для более детального ознакомления с работой этой функции смотрите apishopsForm.js</p>
+                    </div>
+
+                    <div class="span9">
+
+<pre class="pre-scrollable prettyprint linenums">
+params={
+    object:$(object), /*объект, в который нужно загрузить список ваоиантов оплаты довара товара в данный регион*/
+    regionId:1, /*id региона*/
+    deliveryId:12, /*id типа доставки*/
+    price:1270, /*цена товара*/
+    productId:1, /*id товара*/
+    wpId:231,   /*wpId сайта*/
+    siteId:5, /*id сайта*/
+    retrys:3 /*количество попыток, по истечению которых попытки получения данных следует прекратить*/
+};
+function apishopsFormLoadPaymentTypes(params){
+    ...
+}
+</pre>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="span3">
+                        <h4>Функция подгрузки итоговой цены в контейнер для данного товара, для опредленного типа доставки, для опредленного типа оплаты в опредленный регион</h4>
+                        <p>Для более детального ознакомления с работой этой функции смотрите apishopsForm.js</p>
+                    </div>
+
+                    <div class="span9">
+<pre class="pre-scrollable prettyprint linenums">
+params={
+    object:$(object), /*контейнер, в который нужно загрузить итоговую цену*/
+    regionId:1, /*id региона*/
+    paymentId:3, /*id варианта оплаты*/
+    deliveryId:12, /*id типа доставки*/
+    price:1270, /*цена товара*/
+    productId:1, /*id товара*/
+    wpId:231,   /*wpId сайта*/
+    siteId:5, /*id сайта*/
+    retrys:3 /*количество попыток, по истечению которых попытки получения данных следует прекратить*/
+};
+function apishopsFormLoadPrice(params){
+    ...
+}
+</pre>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="span3">
+                        <h4>Функция отправки заказа или заказ обратного звонка</h4>
+                        <p>Для более детального ознакомления с работой этой функции смотрите apishopsForm.js</p>
+                    </div>
+
+                    <div class="span9">
+<pre class="pre-scrollable prettyprint linenums">
+function apishopsFormSubmit(params){
+    ...
+}
+</pre>
+                    </div>
+                </div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/apishops">apishops</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+  </body>
+</html>
