@@ -73,6 +73,9 @@
   position: relative;
   width: 449.45388575000004px;
 }
+.apishopsFormQV * {
+  box-sizing: initial !important;
+}
 .apishopsAnimationQVL .apishopsFormQV {
   -webkit-animation: unset !important;
   animation: unset !important;

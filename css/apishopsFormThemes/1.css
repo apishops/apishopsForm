@@ -18,7 +18,9 @@
 .apishopsFormImageWrapper {
     width: 107px;
 }
-
+.apishopsFormTheme1__ .__IMG__ {
+    width: auto;
+}
 .apishopsFormTheme1__ *{
   font-family: Arial;
 }
@@ -311,5 +313,21 @@ a.__QUICKVIEW__{
 
 a.__QUICKVIEW__:hover{
     opacity: 0.7;
+}
+
+.featuredFormInsertContainer{
+  padding-bottom: 10px;
+}
+
+.featuredFormInsertContainer .featured__more{
+    padding-bottom: 0px;
+}
+
+.featuredFormInsertContainerClosest h1 {
+    color: black;
+    font-family: "Arial";
+    font-size: 40px;
+    text-align: center;
+     margin: 0.83em 0;
 }
 

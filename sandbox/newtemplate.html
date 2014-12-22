@@ -1,0 +1,107 @@
+<html><head>
+    <script src="../js/vendor/jquery.min.js"></script>
+    <script src="../js/apishopsForm.js"></script>
+    <link href="../css/apishopsForm.css" rel="stylesheet" >
+     <style>
+     .containerId{
+        float:left;
+     }
+.containerAdditionalItemsId {
+    border: 5px solid black;
+    clear: both;
+    text-align: center;
+}
+     </style>
+     </head>
+    <body>
+
+
+<span class="containerId" id="containerId2_3"></span>
+<span class="containerId" id="containerId3_3"></span>
+<span class="containerId" id="containerId4_3"></span>
+<span class="containerId" id="containerId5_3"></span>
+<span class="containerId" id="containerId6_3"></span>
+<span class="containerId" id="containerId7_3"></span>
+<div id="containerAdditionalItemsId_3" class='containerAdditionalItemsId'></div>
+
+        <script>
+        $(document).ready( function() {
+            $('#form-block1').apishopsForm({
+            type:'inline', /*тип открытия [inline|modal]*/
+            form:'#form-block1', /*тип формы [normal|light|jquery-selector]*/
+            siteId:32290,
+            productId:384562,
+            price:1110.71, /*цена товара*/
+            priceRound:1110, /*округленная цена*/
+            wpId:22055620,
+            lang:1
+            });
+        });
+        </script>
+
+
+
+
+
+<div class="form-block" id=form-block1>
+                        <div class="counter">
+                            <div class="block clearfix">
+                                <div class="bl">
+                                    <b class="days_1">0</b><b class="days_2">2</b>
+                                    <p>дней</p>
+                                </div>
+
+                                <div class="bl">
+                                    <b class="hours_1">2</b><b class="hours_2">3</b>
+                                    <p>часов</p>
+                                </div>
+
+                                <div class="bl">
+                                    <b class="minutes_1">2</b><b class="minutes_2">3</b>
+                                    <p>минут</p>
+                                </div>
+
+                                <div class="bl">
+                                    <b class="seconds_1">2</b><b class="seconds_2">3</b>
+                                    <p>секунд</p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="title"></div>
+
+                        <form action="" method="post">
+                        <div class="apishopsFormGroup apishopsFormCount">
+                            <select name="apishopsFormCount">
+                              <option value="1">1 шт.</option>
+                              <option value="2">2 шт.</option>
+                              <option value="3">3 шт.</option>
+                              <option value="4">4 шт.</option>
+                              <option value="5">5 шт.</option>
+                              <option value="6">6 шт.</option>
+                              <option value="7">7 шт.</option>
+                              <option value="8">8 шт.</option>
+                              <option value="9">9 шт.</option>
+                              <option value="10">10 шт.</option>
+                            </select>
+                        </div>
+                        <div class="apishopsFormGroup apishopsFormPhone">
+                            <input type="text" name="apishopsFormPhone" pattern=".{3,}" class="phone" placeholder="Контактный телефон"/>
+                        </div>
+                        <div class="apishopsFormGroup apishopsFormFio">
+                            <input type="text" name="apishopsFormFio" pattern=".{3,}" class="name" placeholder="Фамилия, имя"/>
+                        </div>
+                        <div class="apishopsFormGroup apishopsFormAddress">
+                            <input type="text" name="apishopsFormAddress" pattern=".{3,}" class="adress" placeholder="Адрес доставки"/>
+                        </div>
+                            <button>Заказать</button>
+                        </form>
+</div>
+
+
+
+
+
+
+    </body></html>

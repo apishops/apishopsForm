@@ -86,8 +86,8 @@ $(document).ready( function() {
 
           if(isAddApishops.is(':checked')){
             code += "<!-- init apishops -->\n";
-            code += "<script src=\"http://img.apishops.org/SinglePageWebsites/custom/js/apishopsForm2.js\"></script>\n";
-            code += "<link href=\"http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm2.css\" rel=\"stylesheet\">\n";
+            code += "<script src=\"http://img.apishops.org/SinglePageWebsites/custom/js/apishopsForm.2.js\"></script>\n";
+            code += "<link href=\"http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm.2.css\" rel=\"stylesheet\">\n";
           }
 
           if(isModalInput.is(':checked')){

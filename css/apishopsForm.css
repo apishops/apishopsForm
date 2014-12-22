@@ -54,6 +54,7 @@
     right: 0;
     top: 0;
     transition: all 0.2s ease 0s;
+
 }
 .apishopsFormItem:hover .apishopsFormImageWrapper:after {
     opacity: 1;
@@ -77,6 +78,9 @@
     z-index: 99;
     width: 88px;
     box-sizing: initial;
+
+    height: 10px;
+    line-height: 10px;
 }
 .apishopsFormItem:hover .apishopsFormImageWrapper:before {
     background: none repeat scroll 0 0 rgba(255, 255, 255, 0.33);
@@ -393,6 +397,8 @@ background: linear-gradient(to bottom, #a0ad4f 0%, #a0ad4f 100%) repeat scroll 0
 
 .featured_grid .featured_item {
   opacity: 0;
+  display: inline-block;
+  float: none;
 }
 
 .featured_grid .featured_item.animate {

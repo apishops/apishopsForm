@@ -67,11 +67,11 @@ jQuery.fn.apishopsForm=function(options)
 
    function init(object){
 
-        settings.object=object;
-
+        settings.object=($(settings.form).selector==$(object).selector)?object.wrap('<some></some>').parent():object;
         settings.type=(settings.type=='inline' && $(settings.object).is("input,button,a"))?'modal':settings.type;
+        settings.theme=(typeof settings.featured == 'undefined' || typeof settings.featured.theme == 'undefined')?settings.theme:settings.featured.theme;
 
-        if(settings.form=='normal' || settings.form=='light'){
+        if(settings.form=='normal' || settings.form=='light' || typeof settings.featured != 'undefined'){
             apishopsFormLoadTemplates(['modal','theme','quickview'],settings.theme,
                 function(result){
                     start()
@@ -80,7 +80,7 @@ jQuery.fn.apishopsForm=function(options)
                     //alert(':((')
                 })
         }else{
-            start();
+            start()
         }
    }
 
@@ -117,7 +117,7 @@ jQuery.fn.apishopsForm=function(options)
         if(typeof settings.productId == 'undefined' || settings.productId<=0)
             alert('settings.productId должен быть указан и не равен 0')
 
-        if(_.isUndefined(apishopsFormThemeLight))
+        if((settings.form=='normal' || settings.form=='light') && typeof apishopsFormThemeLight=='undefined')
             alert('Простите, но темы #'+settings.theme+' (параметр "$(...).apishopsForm({..theme:'+settings.theme+'..}) нет');
 
         if(settings.form!='normal' && settings.form!='light' && settings.checked!=true){
@@ -3499,14 +3499,14 @@ function apishopsFormLoadTemplates(templates, theme, successFunction, errorFunct
 
                 if(template_file_type=='css'){
                     $('head').append( $('<link rel="stylesheet" type="text/css" />').attr('href', template_file));
-                    //apishopsFormTemplates[templates[template_no]][template_file_type]=true;
+                    apishopsFormTemplates[templates[template_no]][template_file_type]=true;
                 }else{
                     $.getScript(template_file).done(function( script, textStatus ) {
                         templates_js_loaded++;
                         if(templates_js_loaded==templates.length){
                             successFunction()
                             for(template_no in templates){
-                                //apishopsFormTemplates[templates[template_no]]['js']=true;
+                                apishopsFormTemplates[templates[template_no]]['js']=true;
                             }
                         }
                     })
