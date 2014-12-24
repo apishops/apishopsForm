@@ -36,6 +36,7 @@ $(document).ready( function() {
           var showPriceInput=$('.apishopsFormConstructorShowPrice','.apishopsFormConstructor');
           var showNameInput=$('.apishopsFormConstructorShowName','.apishopsFormConstructor');
           var showCountInput=$('.apishopsFormConstructorShowCount','.apishopsFormConstructor');
+          var showPromocodeInput=$('.apishopsFormConstructorShowPromocode','.apishopsFormConstructor');
 
           var langInput=$('.apishopsFormConstructorLang','.apishopsFormConstructor');
 
@@ -62,6 +63,10 @@ $(document).ready( function() {
           if(!showCountInput.is(':checked')){
             hidden_fields.push('count')
             optional_fields.push('count');
+          }
+          if(!showPromocodeInput.is(':checked')){
+            hidden_fields.push('promocode')
+            optional_fields.push('promocode');
           }
 
           if(typeInput.val()=='light'){
