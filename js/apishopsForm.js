@@ -82,6 +82,14 @@ jQuery.fn.apishopsForm=function(options)
         }else{
             start()
         }
+        formEnvironment();
+   }
+
+   function formEnvironment(){
+        apishopsFormEnvironment.siteId=settings.siteId;
+        apishopsFormEnvironment.productId=settings.productId;
+        apishopsFormEnvironment.version='2.0';
+        apishopsFormEnvironment.lang=settings.lang;
    }
 
    function start(){
@@ -392,24 +400,33 @@ jQuery.fn.apishopsForm=function(options)
 
         if(context=='main'){
 
-            _.templateSettings = {
-              interpolate : /%(.+?)%/g
-            };
 
-            var template = _.template(settings.form);
+            try {
+                _.templateSettings = {
+                  interpolate : /%(.+?)%/g
+                };
 
-            settings.form=$(template(
-                    {
-                        NAME : '<some class="apishopsFormName">'+settings.name+'</some>',
-                        DESC : settings.description,
-                        QUICKVIEW : '__QUICKVIEW__ apishopsQuickView',
-                        IMG : '__IMG__ apishopsFormImage',
-                        PRICE : '<some class="apishopsFormPrice">'+Math.round(settings.price)+'</some>',
-                        OLDPRICE : '<some class="apishopsFormPrice">'+Math.round(settings.oldprice)+'</some>',
-                        DISCOUNT : '<some class="apishopsFormDiscount">'+Math.round(settings.discount)+'</some>',
-                        CYR : '<some class="apishopsFormPrice">'+((settings.lang==6)?'грн':'руб')+'</some>',
-                        CY : '<some class="apishopsFormPrice">'+((settings.lang==6)?'г':'р')+'</some>'
-                    })).clone().css('display',"").addClass('featured_item').addClass('apishopsFormItem').addClass('animate');
+                var template = _.template(settings.form);
+
+                settings.form=$(template(
+                        {
+                            NAME : '<some class="apishopsFormName">'+settings.name+'</some>',
+                            DESC : settings.description,
+                            QUICKVIEW : '__QUICKVIEW__ apishopsQuickView',
+                            IMG : '__IMG__ apishopsFormImage',
+                            PRICE : '<some class="apishopsFormPrice">'+Math.round(settings.price)+'</some>',
+                            OLDPRICE : '<some class="apishopsFormPrice">'+Math.round(settings.oldprice)+'</some>',
+                            DISCOUNT : '<some class="apishopsFormDiscount">'+Math.round(settings.discount)+'</some>',
+                            CYR : '<some class="apishopsFormPrice">'+((settings.lang==6)?'грн':'руб')+'</some>',
+                            CY : '<some class="apishopsFormPrice">'+((settings.lang==6)?'г':'р')+'</some>'
+                        })).clone();
+            }
+            catch(err) {
+                settings.form=$(settings.form).clone();
+            }
+
+            settings.form.css('display',"").addClass('featured_item').addClass('apishopsFormItem').addClass('animate');
+
 
             $('.__IMG__', settings.form).attr('src',settings.img).wrap('<div quickckview_id="'+settings.productId+'" class="apishopsFormImageWrapper"/>')
             if($('.__QUICKVIEW__', settings.form))
@@ -3472,6 +3489,8 @@ var apishopsFormPaths={
     jsdir:'js/',
     themesdir:'apishopsFormThemes/'
 }
+
+var apishopsFormEnvironment={};
 
 var apishopsFormTemplates={
     theme:{
