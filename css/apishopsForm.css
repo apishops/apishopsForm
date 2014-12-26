@@ -35,6 +35,11 @@
                 box-sizing: padding-box;
             }
 
+            .apishopsModal.apishopsAnimation.wide{
+                opacity:1;
+                visibility:visible;
+            }
+
 
 
 

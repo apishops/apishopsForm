@@ -71,7 +71,10 @@ jQuery.fn.apishopsForm=function(options)
         settings.type=(settings.type=='inline' && $(settings.object).is("input,button,a"))?'modal':settings.type;
         settings.theme=(typeof settings.featured == 'undefined' || typeof settings.featured.theme == 'undefined')?settings.theme:settings.featured.theme;
 
-        if(settings.form=='normal' || settings.form=='light' || typeof settings.featured != 'undefined'){
+        if(settings.form=='normal' ||
+            settings.form=='light' ||
+            (typeof settings.featured != 'undefined' && typeof settings.featured.form != 'undefined' && (settings.featured.form=='normal' || settings.featured.form=='light'))
+            ){
             apishopsFormLoadTemplates(['modal','theme','quickview'],settings.theme,
                 function(result){
                     start()
@@ -141,7 +144,6 @@ jQuery.fn.apishopsForm=function(options)
                     inputs_tmp[index]=$input;
             }
             if(typeof inputs_tmp['fio']=='undefined'  || typeof inputs_tmp['phone']=='undefined'  || typeof inputs_tmp['address']=='undefined'  || typeof inputs_tmp['count']=='undefined' ){
-                //alert(1)
                 settings.form='light';
             }
             else if((typeof inputs_tmp['region']!= 'undefined') && (typeof inputs_tmp['count']=='undefined' || typeof inputs_tmp['cost']=='undefined' || typeof inputs_tmp['region']=='undefined' || typeof inputs_tmp['delivery']=='undefined'  || typeof inputs_tmp['payment']=='undefined')){
@@ -256,6 +258,7 @@ jQuery.fn.apishopsForm=function(options)
                     $(settings.featured.container).hide();
                 if(settings.featured.containerClosest != 'undefined')
                     $(settings.featured.containerClosest).hide();
+                $('.__apishopsFormFeaturedFormMoreButton__').hide();
                 apishopsFormGetJSONP($jsonp,function(result){
                     if(!_.isUndefined(result.data) && _.isArray(result.data) && !_.isEmpty(result.data)){
                             settings.featured.productIds=result.data;
@@ -323,12 +326,13 @@ jQuery.fn.apishopsForm=function(options)
              * - скрываем контейнер, на который ссылаемся
              * - проверяем наличие полей для ввода
              */
+
             if(settings.form=='normal'){
-                settings.form=apishopsFormThemeNormal;
+                settings.form=typeof apishopsFormThemeNormal!='undefined'?apishopsFormThemeNormal:'';
                 settings.form_type='normal';
             }
             else if(settings.form=='light'){
-                settings.form=apishopsFormThemeLight;
+                settings.form=typeof apishopsFormThemeLight!='undefined'?apishopsFormThemeLight:'';
                 settings.form_type='light';
             }
             else{
@@ -1470,27 +1474,34 @@ function apishopsFormSubmit(params){
             }
             else
             {
-                if(result.parameters.successUrl==false || result.parameters.successUrl=='false')
-                    alert('Ваш заказ принят и будет исполнен в ближайшее время!\nЖдите звонка оператора в ближайшее время.\n\n-----\nНомер вашего заказа #'+result.data.id);
-                else{
-                if(typeof result.parameters.isReserve == 'undefined' || result.parameters.isReserve==0){
-                    var qpattern = /\?/im;
-                    var amppattern = /\&/im;
-                    var ipattern = /(([a-zZ-Z]+=)($|&))/im;
-
-                    if(ipattern.test(result.parameters.successUrl))
-                        result.parameters.successUrl=result.parameters.successUrl.replace(/(([a-zZ-Z]+=)($|&))/im,'$2'+result.data.id+((result.data.double ==true)?'&double=true':'')+'$3');
-                    else{
-                        if(!qpattern.test(result.parameters.successUrl))
-                            result.parameters.successUrl=result.parameters.successUrl+'?id='+result.data.id+((result.data.double ==true)?'&double=true':'');
-                        else if(!amppattern.test(result.parameters.successUrl))
-                            result.parameters.successUrl=result.parameters.successUrl+'&id='+result.data.id+((result.data.double ==true)?'&double=true':'');
-                    }
-
-                    document.location.href = result.parameters.successUrl;
+                if(result.parameters.successUrl==false || result.parameters.successUrl=='false'){
+                    //alert('Ваш заказ принят и будет исполнен в ближайшее время!\nЖдите звонка оператора в ближайшее время.\n\n-----\nНомер вашего заказа #'+result.data.id);
+                    $(apishopsFormModal).clone().appendTo('body');
+                    /**  modal.addClass('in').addClass(modal_class).css('display','block').children('.apishopsModalWindow').
+                        css('top',modal_top).
+                        css('left',$(source).offset().left).
+                        css('width',$(source).outerWidth()).
+                        css('height',$(source).outerHeight()).css('position','absolute');  */
                 }
-                else
-                    document.location.href = '/finish.html?id=' + result.data.id+((result.data.double ==true)?'&double=true':'');
+                else{
+                    if(typeof result.parameters.isReserve == 'undefined' || result.parameters.isReserve==0){
+                        var qpattern = /\?/im;
+                        var amppattern = /\&/im;
+                        var ipattern = /(([a-zZ-Z]+=)($|&))/im;
+
+                        if(ipattern.test(result.parameters.successUrl))
+                            result.parameters.successUrl=result.parameters.successUrl.replace(/(([a-zZ-Z]+=)($|&))/im,'$2'+result.data.id+((result.data.double ==true)?'&double=true':'')+'$3');
+                        else{
+                            if(!qpattern.test(result.parameters.successUrl))
+                                result.parameters.successUrl=result.parameters.successUrl+'?id='+result.data.id+((result.data.double ==true)?'&double=true':'');
+                            else if(!amppattern.test(result.parameters.successUrl))
+                                result.parameters.successUrl=result.parameters.successUrl+'&id='+result.data.id+((result.data.double ==true)?'&double=true':'');
+                        }
+
+                        document.location.href = result.parameters.successUrl;
+                    }
+                    else
+                        document.location.href = '/finish.html?id=' + result.data.id+((result.data.double ==true)?'&double=true':'');
                 }
             }
         });
@@ -3510,19 +3521,29 @@ var apishopsFormTemplates={
 function apishopsFormLoadTemplates(templates, theme, successFunction, errorFunction){
     var templates_js_loaded=0;
 
+    apishopsLog('Templates:'+theme+' '+templates_js_loaded+'/'+templates.length);
+
     for(template_no in templates){
         for(template_file_type in apishopsFormTemplates[templates[template_no]]){
+
+
+
+            if(template_file_type=='css'){
+                var template_file=apishopsFormTemplates[templates[template_no]][template_file_type].replace("%THEME%", theme);
+                $('head').append( $('<link rel="stylesheet" type="text/css" />').attr('href', template_file));
+                //apishopsFormTemplates[templates[template_no]][template_file_type]=true;
+                apishopsLog('Templates:'+theme+' - '+templates[template_no]+','+template_file_type+' == true '+templates_js_loaded+'/'+templates.length);
+            }
+
             if(apishopsFormTemplates[templates[template_no]][template_file_type]!==true)
             {
                 var template_file=apishopsFormTemplates[templates[template_no]][template_file_type].replace("%THEME%", theme);
 
-                if(template_file_type=='css'){
-                    $('head').append( $('<link rel="stylesheet" type="text/css" />').attr('href', template_file));
-                    apishopsFormTemplates[templates[template_no]][template_file_type]=true;
-                }else{
+                if(template_file_type=='js'){
                     $.getScript(template_file).done(function( script, textStatus ) {
                         templates_js_loaded++;
                         if(templates_js_loaded==templates.length){
+                            apishopsLog('Templates success:'+theme+' '+templates_js_loaded+'/'+templates.length);
                             successFunction()
                             for(template_no in templates){
                                 apishopsFormTemplates[templates[template_no]]['js']=true;
@@ -3530,7 +3551,9 @@ function apishopsFormLoadTemplates(templates, theme, successFunction, errorFunct
                         }
                     })
                 }
-            }else{
+            }
+            else
+            {
                 if(template_file_type=='js')
                     templates_js_loaded++;
                 if(templates_js_loaded==templates.length)
