@@ -20,6 +20,28 @@
                 visibility:visible;
             }
 
+            .apishopsModal.apishopsAnimation.successModal .apishopsModalWindow{
+                top:100px;
+                left: 100px;
+                right: 100px;
+                width: initial;
+                border-radius: 10px;
+                padding: 50px;
+                z-index: 99999;
+                position: fixed;
+            }
+
+            .apishopsModal.apishopsAnimation.successModal .apishopsModalContent{
+              text-align: left;
+            }
+
+            .apishopsModal.apishopsAnimation.successModal *{
+              font-family: Arial;
+            }
+            .apishopsModal.apishopsAnimation.successModal h1{
+              line-height: 100%;
+            }
+
             .apishopsModalWindow {
                 background: none repeat scroll 0 0 white;
                 border-radius: 3px 3px 3px 3px;
@@ -35,10 +57,28 @@
                 box-sizing: padding-box;
             }
 
-            .apishopsModal.apishopsAnimation.wide{
-                opacity:1;
-                visibility:visible;
+            .apishopsModal.apishopsAnimation.successModal .additionalProducts a {
+                color: #0095ff;
             }
+
+            .apishopsModal.apishopsAnimation.successModal .apishopsModalClose2 {
+              display: block;
+
+            }
+
+            .apishopsModal.apishopsAnimation.successModal .apishopsModalClose2 a{
+                border: 2px solid;
+                border-radius: 25px;
+                color: rgb(94, 92, 92);
+                display: inline-block;
+                line-height: 20px;
+                padding: 11px 25px 9px 25px;
+                text-decoration: none;
+                margin: 30px 0px 0px;
+                font-size: 15px;
+            }
+
+
 
 
 

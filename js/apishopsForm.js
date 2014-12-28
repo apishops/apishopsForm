@@ -67,15 +67,21 @@ jQuery.fn.apishopsForm=function(options)
 
    function init(object){
 
-        settings.object=($(settings.form).selector==$(object).selector)?object.wrap('<some></some>').parent():object;
+        settings.object=($(settings.form).selector==$(object).selector && $(settings.form).selector!='')?object.wrap('<some></some>').parent():object;
         settings.type=(settings.type=='inline' && $(settings.object).is("input,button,a"))?'modal':settings.type;
         settings.theme=(typeof settings.featured == 'undefined' || typeof settings.featured.theme == 'undefined')?settings.theme:settings.featured.theme;
 
-        if(settings.form=='normal' ||
-            settings.form=='light' ||
-            (typeof settings.featured != 'undefined' && typeof settings.featured.form != 'undefined' && (settings.featured.form=='normal' || settings.featured.form=='light'))
-            ){
-            apishopsFormLoadTemplates(['modal','theme','quickview'],settings.theme,
+        if(settings.form=='normal' || settings.form=='light' || typeof settings.featured != 'undefined'){
+
+            var templatesList=['modal','quickview'];
+
+            if(settings.form=='normal' || settings.form=='light')
+                templatesList.push('theme');
+
+            if(typeof settings.featured != 'undefined' && typeof settings.featured.form != 'undefined' && (settings.featured.form=='normal' || settings.featured.form=='light'))
+                templatesList.push('theme');
+
+            apishopsFormLoadTemplates(_.uniq(templatesList),settings.theme,
                 function(result){
                     start()
                 },
@@ -259,6 +265,7 @@ jQuery.fn.apishopsForm=function(options)
                 if(settings.featured.containerClosest != 'undefined')
                     $(settings.featured.containerClosest).hide();
                 $('.__apishopsFormFeaturedFormMoreButton__').hide();
+
                 apishopsFormGetJSONP($jsonp,function(result){
                     if(!_.isUndefined(result.data) && _.isArray(result.data) && !_.isEmpty(result.data)){
                             settings.featured.productIds=result.data;
@@ -267,6 +274,7 @@ jQuery.fn.apishopsForm=function(options)
                                 $(settings.featured.container).show();
                             if(typeof settings.featured.containerClosest != 'undefined')
                                 $(settings.featured.containerClosest).show();
+                            $('.__apishopsFormFeaturedFormMoreButton__').show();
                             construct('featured');
                             spawnChilds()
                             bind('featured');
@@ -488,7 +496,7 @@ jQuery.fn.apishopsForm=function(options)
                     }
 
                     var foundCurrent=false;
-                    $.each($('.__QUICKVIEW__'), function( index, value ) {
+                    $.each($('.__QUICKVIEW__:visible'), function( index, value ) {
                         if($(value).attr('quickckview_id')==quickview_id && current_quickview_id!=quickview_id){
                             prev_quickview_id=current_quickview_id;
                         }
@@ -810,6 +818,7 @@ jQuery.fn.apishopsForm=function(options)
                                     productId:settings.productId,
                                     siteId:settings.siteId,
                                     lang:lang,
+                                    charset:settings.charset,
                                     successUrl:settings.successUrl,
                                     sourceRef:getSource("sourceRef"),
                                     sourceParam:getSource("sourceParam")
@@ -852,6 +861,7 @@ jQuery.fn.apishopsForm=function(options)
                                     sourceParam:getSource("sourceParam"),
                                     productId:settings.productId,
                                     siteId:settings.siteId,
+                                    charset:settings.charset,
                                     lang:lang
                                 };
                                 apishopsFormSubmit(params);
@@ -1435,6 +1445,7 @@ function apishopsFormSubmit(params){
                 sourceRef: params.sourceRef,
                 clientTimeZone: clientTimeZone,
                 successUrl: params.successUrl,
+                charset:params.charset,
                 lang:params.lang
         };
     }else{
@@ -1453,6 +1464,7 @@ function apishopsFormSubmit(params){
                 sourceRef: params.sourceRef,
                 clientTimeZone: clientTimeZone,
                 successUrl: params.successUrl,
+                charset:params.charset,
                 lang:params.lang
         };
     }
@@ -1475,13 +1487,42 @@ function apishopsFormSubmit(params){
             else
             {
                 if(result.parameters.successUrl==false || result.parameters.successUrl=='false'){
-                    //alert('Ваш заказ принят и будет исполнен в ближайшее время!\nЖдите звонка оператора в ближайшее время.\n\n-----\nНомер вашего заказа #'+result.data.id);
-                    $(apishopsFormModal).clone().appendTo('body');
-                    /**  modal.addClass('in').addClass(modal_class).css('display','block').children('.apishopsModalWindow').
-                        css('top',modal_top).
-                        css('left',$(source).offset().left).
-                        css('width',$(source).outerWidth()).
-                        css('height',$(source).outerHeight()).css('position','absolute');  */
+
+                    var successModal=$(apishopsFormModal).clone().appendTo('body').addClass('in').addClass('successModal').show();
+                    var successModalWindow=successModal.find('.apishopsModalWindow');
+                    var successModalOverlay=successModal.find('.apishopsModalOverlay');
+                    var successModalClose=successModal.find('.apishopsModalClose');
+                    var successModalClose2=successModal.find('.apishopsModalClose2');
+                    var successContent=successModal.find('.apishopsModalContent')
+                    var successHtml='<h2 style="font-size: 45px;margin:0px;">Поздравляем!</h2><div>Ваш заказ #<b>'+result.data.id+'</b> принят и ожидает подтверждения.<br><div class="text">Скоро Вам позвонит оператор и уточнит все детали.<br></div><div class="merchant_grid"><div class="merchant_grid_cell"><div class="additionalProducts"></div></div><div class="merchant_grid_cell merhcnaht_grid_cell_propose"><div class="merchant_block merchant_block1"><img style="height: 35px; margin-bottom: 11px;" src="http://internetcompany.ru/data/apishops/card.png"><br><a href="https://apishops.internetcompany.ru/?id='+result.data.id+'&site_id='+result.parameters.siteId+'">Вы можете сразу оплатить заказ банковской картой, тогда вы получите <b class="bonus">5% скидку</b>!<div class="button">Оплатить</div></a> </div></div>';
+                    var successFilesCharsetSuffix=(result.parameters.charset=='utf8')?'.utf8':'';
+
+                    $('head').append( $('<link rel="stylesheet" type="text/css" />').attr('href', 'http://img2.apishops.org/SinglePageWebsites/custom/css/apishopsAdditionalProductForm.css'));
+                    $('head').append( $('<link rel="stylesheet" type="text/css" />').attr('href', 'http://internetcompany.ru/data/apishops/merchant.css'));
+                    /*litle hack for old css replacement*/
+                    $("link[href$='apishopsForm.css']").attr('href','http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm.2.css')
+
+                    successContent.html(successHtml);
+                    successModalClose2.find('a').html('Продолжить покупки');
+
+                    $(successModalOverlay).bind('click', function(event){
+                        successModal.remove();
+                    });
+
+                    $(successModalClose).bind('click', function(event){
+                        successModal.remove();
+                    });
+
+                    $(successModalClose2).bind('click', function(event){
+                        successModal.remove();
+                    });
+
+                    $.getScript('http://img2.apishops.org/SinglePageWebsites/custom/js/apishopsAdditionalProductForm'+successFilesCharsetSuffix+'.js').done(function( script, textStatus ) {
+                        $(".additionalProducts").apishopsAdditionalProductForm({siteId: result.parameters.siteId, orderId: result.data.id});
+                    })
+
+
+
                 }
                 else{
                     if(typeof result.parameters.isReserve == 'undefined' || result.parameters.isReserve==0){
