@@ -3587,7 +3587,7 @@ function apishopsFormLoadTemplates(templates, theme, successFunction, errorFunct
                             apishopsLog('Templates success:'+theme+' '+templates_js_loaded+'/'+templates.length);
                             successFunction()
                             for(template_no in templates){
-                                apishopsFormTemplates[templates[template_no]]['js']=true;
+                                //apishopsFormTemplates[templates[template_no]]['js']=true;
                             }
                         }
                     })

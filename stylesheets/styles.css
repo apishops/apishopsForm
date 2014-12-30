@@ -182,6 +182,7 @@ footer {
     padding: 11px;
     position: fixed;
     width: 200px;
+    display: none;
 }
 
 @media print, screen and (max-width: 960px) {

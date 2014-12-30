@@ -25,7 +25,9 @@
         <p class="view"><a href="installation.html">Подключение</a></p>
         <p class="view"><a href="params.html">Параметры</a></p>
         <hr>
-        <p class="view"><a href="featured.html">Рекомендуемые товары</a></p>
+        <p class="view">Рекомендуемые товары</p>
+        <p class="view" style='padding-left:20px;font-size:12px;'>В собственным лендингах</p>
+        <p class="view" style='padding-left:20px;font-size:12px;'><a href="featured2.html">В лендингах ApiShops</a></p>
         <p class="view"><a href="themes.html">Темы</a></p>
         <p class="view"><a href="markup.html">Свои формы</a></p>
         <p class="view"><a href="splitdata.html">Отдельная подгрузка данных</a></p>
@@ -42,11 +44,88 @@
 
       <section>
         <div class="page-header">
-                    <h1>Рекомендуемые товары</h1>
+                    <h1>Подключение рекомендуемых товаров к собственным страницам</h1>
                     <div class="row">
-                      <p class="alert alert-info">В новой версии плагина мы добавили возможность отображения рекомендуемых от Apishops товаров. Если вы зададите параметр featured равным "{ container: '#featureconatiner', count:3 }", то в контейнере #featureconatiner наш плагин аккуратно разместит три рекомендуемых товара, а по умолчанию наш плагин не показывает рекомендуемые товары.</p>
+                      <p class="alert alert-info">В новой версии нашего плагина мы добавили возможность отображения рекомендуемых от Apishops товаров. И если вы уже используете нашу форму и добавите к параметрам инициализации ещё и параметр <code>featured</code> равным <code>{ container: '#featureconatiner', count:3 }</code>, то в контейнере <code>#featureconatiner</code> наш плагин разместит три рекомендуемых товара. </p>
 
-                      <p class="alert alert-info">Чтобы разнообразить внешний вид форм мы добавили 8 разных тем (более подробно в разделе <a href="themes.html">темы</a>), и поэтому, если в задать номер темы №3 , то внешний вид форм с рекомендуемыми товарами будет несколько иным</p>
+                      <!--<p class="alert alert-info">Чтобы разнообразить внешний вид форм существует 8 разных тем (<a href="themes.html">раздел темы</a>), и поэтому, если в задать номер темы №3, то внешний вид форм с рекомендуемыми товарами будет несколько иным</p>-->
+
+                      <p>
+                          Для отображения блока рекомендуемых товаров, к <a href="installation.html">стандартной инициализации</a> плагина нужно добавить всего один обязательный параметр <code>featured.container</code>, и он укажет нашему плагину где должны расположиться рекомендуемы товары. <br><br>Пример:
+<pre class="prettyprint linenums">
+&lt;script&gt;
+        $(&#x27;#containerid&#x27;).apishopsForm({
+            type:&#x27;inline&#x27;, /*&#x442;&#x438;&#x43F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x442;&#x438;&#x44F; [inline|modal]*/
+            form:&#x27;light&#x27;, /*&#x442;&#x438;&#x43F; &#x444;&#x43E;&#x440;&#x43C;&#x44B; [normal|light|jquery-selector]*/
+            siteId:147233, /*айди сайта из панели партнера http://www.apishops.com/Webmaster/WebsiteGroup/WebsiteGroupList.jsp */
+            productId:888647,/*айди товара из ассортимента на странице http://www.apishops.com*/
+            <b style='color:#1E6FD0'>featured:{
+               container: &#x27;#featureconatiner&#x27;, /*контейнер для размещения в нем рекомендуемых товаров*/
+            }</b>
+        });
+&lt;/script&gt;
+&lt;div id=containerid&gt;
+    Контейнер для размещения основного товара
+&lt;/div&gt;
+<b style='color:#1E6FD0'>
+&lt;div id=featureconatiner&gt;
+    Контейнер для размещения рекомендуемых товаров
+&lt;/div&gt;</b>
+</pre>
+                      </p>
+
+                      Внимание: по умолчанию(без паарметров featured) плагин не показывает блок рекомендуемых товары.<br><br>
+
+                      <h3>
+                          Параметры для настройки блока рекомендуемых товаров:
+                      </h3>
+
+                          <table class="table table-bordered table-striped">
+                              <thead>
+                                  <tr>
+                                      <th>Параметр</th>
+                                      <th>Значение по умолчанию</th>
+                                      <th>Описание</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td><code>container</code></td>
+                                      <td>-</td>
+                                      <td><code>jquery селектор</code> для контейнера, в котором нужно разместить рекомендуемые товары (если рекомендуемых товаров нет, то этот контейнер скрывается)</td>
+                                  </tr>
+                                  <tr>
+                                      <td><code>containerClosest</code></td>
+                                      <td>-</td>
+                                      <td><code>jquery селектор</code> который необходимо скрыть, если рекомендуемых товаров нет (может использоваться для загаловков)</td>
+                                  </tr>
+                                  <tr>
+                                      <td><code>form</code></td>
+                                      <td><code>normal</code></td>
+                                      <td>Значения <code>normal</code>(обычная форма), <code>light</code>(упрощенная форма), <code>html-код</code> или <code>jquery селектор</code></td>
+                                  </tr>
+                                  <tr>
+                                      <td><code>count</code></td>
+                                      <td>2</td>
+                                      <td>Значения <code>inline</code>(размещение внутри контейнера) или <code>modal</code>(размещение в модал-окне)</td>
+                                  </tr>
+                                  <tr>
+                                      <td><code>more</code></td>
+                                      <td>-</td>
+                                      <td><code>jquery селектор</code> для кнопки «показать ещё» (кнопка скрывается, если рекомендуемых товаров нет)</td>
+                                  </tr>
+                                   <tr>
+                                      <td><code>successUrl</code></td>
+                                      <td><code>/finish.jsp?id=</code></td>
+                                      <td>url, по которому отправляется пользователь после успешной отправки заявки или false в случае, если редирект не нужен</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+
+                      <h2>
+                          Примеры:
+                      </h2>
+
 
 <pre class="prettyprint linenums">
 &#x3C;script src=&#x22;//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js&#x22;&#x3E;&#x3C;/script&#x3E;

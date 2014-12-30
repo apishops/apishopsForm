@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Apishops JS API 2</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/apishopsForm.js"></script>
+    <link rel="stylesheet" href="css/apishopsForm.css">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Apishops JS API 2</h1>
+        <p>Подключаемые к страницам формы оформления заказов и обратных звонков</p>
+
+        <p class="view"><a href="index.html">Знакомство</a></p>
+        <p class="view"><a href="installation.html">Подключение</a></p>
+        <p class="view"><a href="params.html">Параметры</a></p>
+        <hr>
+        <p class="view">Рекомендуемые товары</p>
+        <p class="view" style='padding-left:20px;font-size:12px;'><a href="featured.html">В собственным лендингах</a></p>
+        <p class="view" style='padding-left:20px;font-size:12px;'>В лендингах ApiShops</p>
+        <p class="view"><a href="themes.html">Темы</a></p>
+        <p class="view"><a href="markup.html">Свои формы</a></p>
+        <p class="view"><a href="splitdata.html">Отдельная подгрузка данных</a></p>
+        <hr>
+        <p class="view"><a href="faq.html">FAQ</a></p>
+        <p class="view"><a href="constructor/">Конструктор форм</a></p>
+        <br><br>
+
+        <ul>
+          <li><a href="https://github.com/apishops/apishopsForm/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/apishops/apishopsForm">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+
+      <section>
+        <div class="page-header">
+                    <h1>Регулировка блока рекомендованых товаров в готовых лендингах</h1>
+                    <div class="row">
+                      <p class="alert alert-info">Блоки рекомендованных товаров в готовых лендингах работают по тому же принципу, который описан в <a href="featured.html">разделе подключения блока к собственным страницам</a>. Т.е. во всех шаблонах обязательно присуствуют:
+                      <ul>
+                        <li>Инициализации плагина для подключения форм с <a href="featured.html">параметрами</a> , которые можно редактировать(<a href=http://cl.ly/image/1F1D0P001k3i>скриншот</a>)</li>
+                        <li>Включенный параметр <code>featured.container</code>, указывающий на контейнер для размещения рек.товаров (как правило <code>.__apishopsFormFeaturedFormContainer__</code>(<a href=http://cl.ly/image/1b1a1C2a3h2I>скриншот</a>) или <code>#featuredFormInsertContainer</code> (<a href=http://cl.ly/image/3d0J1J0I252E>скриншот</a>))</li>
+                        <li>Контейнер, в котором размещаются рек.товары (<a href=http://cl.ly/image/300K1e1r3h3x>скриншот</a>)</li>
+                      </ul>
+                      </p>
+                      <h2>С блоком можно производить следующие манипуляции:<h2>
+
+                      <h3><a href=# onClick='$(this).parent().next().toggle(); return false;'>+ Изменить положение блока</a></h3>
+                      <p style='display:none'>
+                          Чтобы поменять местоположение блока, необходимо знать, на какой контейнер указывает параметр <code>featured.container</code>
+                          <img src=http://cl.ly/image/051A1Z0j0J3l/download/screenshot%202014-12-30%20%D0%B2%2016.29.09.png><br>
+                          , затем найти этот блок в HTML шаблоне<br>
+                          <img src=http://cl.ly/image/3X1R003B2N0m/download/screenshot%202014-12-30%20%D0%B2%2016.32.29.png><br>
+                          и перенести его в то место шаблона, которое вы находите нужным
+                      </p>
+
+                      <h3><a href=# onClick='$(this).parent().next().toggle(); return false;'>+ Изменить количество отображаемых товаров</a></h3>
+                      <p  style='display:none'>
+                          Чтобы изменить количество отображаемых товаров, необходимо найти в шаблоне параметр <code>featured</code>
+                          <img src=http://cl.ly/image/423F3X2d0r0P/download/screenshot%202014-12-30%20%D0%B2%2016.44.12.png><br>
+                          , и добавить параметр featured.count, равный желаемому количеству отображаемых товаров<br>
+                          <img src=http://cl.ly/image/0S3z181F0W12/download/screenshot%202014-12-30%20%D0%B2%2016.44.32.png><br>
+                      </p>
+
+                      <h3><a href=# onClick='$(this).parent().next().toggle(); return false;'>+ Изменить тему блока </a></h3>
+                      <p  style='display:none'>
+                          Чтобы поменять тему для отображаемых товаров, необходимо найти в шаблоне параметр <code>featured</code><br>
+                          <http://cl.ly/image/2h2L2j3O1U3Y/download/screenshot%202014-12-30%20%D0%B2%2016.52.24.png><br>
+                          , и установить параметр <code>featured.theme</code>, равный порядковому номеру одной из наших <a href="themes.html">тем</a>, а параметр <code>featured.form</code> равный <code>light</code> <br>
+                          <img src=http://cl.ly/image/1e253j2o3r0x/download/screenshot%202014-12-30%20%D0%B2%2016.56.09.png>
+                      </p>
+
+                      <h3><a href=# onClick='$(this).parent().next().toggle(); return false;'>+ Настроить стили внешнего вида блока</a></h3>
+                      <div style='display:none'>
+                          Чтобы настроить внешний вид блока необходимо знать, что во всех лендингах ApiShops блоки рекомендуемых товаров формируются двумя способами: на основе доступных в конструкторе тем(если в шаблоне можно найти <code>#featuredFormInsertContainer</code>) или на основе HTML кода блока в шаблоне (если в шаблоне можной найти <code>__apishopsFormFeaturedFormContainer__</code>). <br>
+                          <ul>
+                            <li><h4>Для изменения внешнего вида блоков блоков, которые формируются на основе тем</h4> необходимо найти параметр <code>featured.theme</code> в шаблоне<br><img src=http://cl.ly/image/3F2y2e1E3f27/download/screenshot%202014-12-30%20%D0%B2%2017.09.42.png><br>выбрать эту тему в конструкторе и с помощью иконок <img src=http://cl.ly/image/2P0H3g1h2Q15/download/screenshot%202014-12-30%20%D0%B2%2017.16.11.png>настроить внешний вид — в нижней части экрана конструктор сгенерирует необходимые стили <br><img style='width:100%' src=http://cl.ly/image/0u3E2D1Y1A3m/download/screenshot%202014-12-30%20%D0%B2%2017.13.37.png></br> которые вам останется всего лишь вставить в CSS шаблон лендингах</li>
+                            <li><h4>Стили для блоков, которые формируются на основе HTML кода эти блоков в шаблоне</h4> заданы в CSS шаблоне лендинга и там же легко находятся и редактируются, как и внешний вид других частей шаблона</li>
+                          </ul>
+                      </div>
+
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/apishops">apishops</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+  </body>
+</html>
