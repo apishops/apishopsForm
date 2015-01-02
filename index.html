@@ -54,7 +54,7 @@
 
                 <div class="row">
                     <div class="span6">
-                        <h2>Обычная форма</h2>
+                        <h2>Упрощенная форма</h2>
                         <p>Подгружает в указанный контейнер поля необходимые для заказа </p>
 
                         <blockquote>
@@ -63,7 +63,7 @@
             $(document).ready( function() {
                 $('#container1').apishopsForm({
                         type:'inline', /*тип открытия [inline|modal]*/
-                        form:'normal', /*тип формы [normal|light|jquery-selector]*/
+                        form:'light', /*тип формы [normal|light|jquery-selector]*/
                         siteId:10221,
                         productId:632879,
                         price:1017.41 /*цена товара*/
@@ -85,7 +85,7 @@
     $(document).ready( function() {
         $('#container1').apishopsForm({
                 type:'inline', /*тип открытия [inline|modal]*/
-                form:'normal', /*тип формы [normal|light|jquery-selector]*/
+                form:'light', /*тип формы [normal|light|jquery-selector]*/
                 siteId:10221, /*айди сайта из панели партнера http://www.apishops.com/Webmaster/WebsiteGroup/WebsiteGroupList.jsp */
                 productId:632879, /*айди товара из ассортимента на странице http://www.apishops.com*/
                 price:1017.41 /*цена товара*/
@@ -100,7 +100,7 @@
 
                 <div class="row">
                     <div class="span6">
-                        <h2>Обычная форма с информацией о товаре</h2>
+                        <h2>Упрощенная форма с информацией о товаре</h2>
                         <p>Подгружает в указанный контейнер поля необходимые для заказа </p>
 
                         <blockquote>
@@ -109,7 +109,7 @@
             $(document).ready( function() {
                 $('#container11').apishopsForm({
                         type:'inline', /*тип открытия [inline|modal]*/
-                        form:'normal', /*тип формы [normal|light|jquery-selector]*/
+                        form:'light', /*тип формы [normal|light|jquery-selector]*/
                         siteId:10221, /*айди сайта из панели партнера http://www.apishops.com/Webmaster/WebsiteGroup/WebsiteGroupList.jsp */
                         productId:632879, /*айди товара из ассортимента на странице http://www.apishops.com*/
                         displayed_containers:['picture','price','name'],
@@ -132,7 +132,7 @@
     $(document).ready( function() {
         $('#container11').apishopsForm({
                 type:'inline', /*тип открытия [inline|modal]*/
-                form:'normal', /*тип формы [normal|light|jquery-selector]*/
+                form:'light', /*тип формы [normal|light|jquery-selector]*/
                 siteId:10221,
                 productId:632879,
                 displayed_containers:['picture','price','name'],
@@ -153,7 +153,7 @@
 
                 <div class="row">
                     <div class="span6">
-                        <h2>Обычная форма с информацией о товаре и блок рекомендуемых товаров</h2>
+                        <h2>Упрощенная форма с информацией о товаре и блок рекомендуемых товаров</h2>
                         <p>Подгружает в указанный контейнер поля необходимые для заказа </p>
 
                         <blockquote>
@@ -162,7 +162,7 @@
             $(document).ready( function() {
                 $('#container11_').apishopsForm({
                         type:'inline', /*тип открытия [inline|modal]*/
-                        form:'normal', /*тип формы [normal|light|jquery-selector]*/
+                        form:'light', /*тип формы [normal|light|jquery-selector]*/
                         siteId:10221, /*айди сайта из панели партнера http://www.apishops.com/Webmaster/WebsiteGroup/WebsiteGroupList.jsp */
                         productId:632879, /*айди товара из ассортимента на странице http://www.apishops.com*/
                         displayed_containers:['picture','price','name'],
@@ -191,7 +191,7 @@
     $(document).ready( function() {
         $('#container11_').apishopsForm({
                 type:'inline', /*тип открытия [inline|modal]*/
-                form:'normal', /*тип формы [normal|light|jquery-selector]*/
+                form:'light', /*тип формы [normal|light|jquery-selector]*/
                 siteId:10221, /*айди сайта из панели партнера http://www.apishops.com/Webmaster/WebsiteGroup/WebsiteGroupList.jsp */
                 productId:632879, /*айди товара из ассортимента на странице http://www.apishops.com*/
                 displayed_containers:['picture','price','name'],
@@ -214,101 +214,10 @@
 
 
 
-                <div class="row">
-                    <div class="span6">
-                        <h2>Упрощенная форма</h2>
-                        <p>Подгружает в указанный контейнер поля необходимые для обратного звонка </p>
-
-                        <blockquote>
-
-        <script>
-            $(document).ready( function() {
-                $('#container2').apishopsForm({
-                        type:'inline', /*тип открытия [inline|modal]*/
-                        form:'light', /*тип формы [normal|light|jquery-selector]*/
-                        siteId:10221, /*айди сайта из панели партнера http://www.apishops.com/Webmaster/WebsiteGroup/WebsiteGroupList.jsp */
-                        productId:632879, /*айди товара из ассортимента на странице http://www.apishops.com*/
-                        price:1017.41 /*цена товара*/
-                    });
-            });
-        </script>
-        <div id=container2>
-        </div>
-                        </blockquote>
-                    </div>
-
-                    <div class="span6">
-<pre class="prettyprint linenums">
-&#x3C;script src=&#x22;//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js&#x22;&#x3E;&#x3C;/script&#x3E;
-&#x3C;script src=&#x22;http://img.apishops.org/SinglePageWebsites/custom/js/apishopsForm2.js&#x22;&#x3E;&#x3C;/script&#x3E;
-&#x3C;link rel=&#x22;stylesheet&#x22; href=&#x22;http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm2.css&#x22;&#x3E;
-&lt;script&gt;
-    $(document).ready( function() {
-        $('#container2').apishopsForm({
-                type:'inline', /*тип открытия [inline|modal]*/
-                form:'light', /*тип формы [normal|light|jquery-selector]*/
-                siteId:10221, /*айди сайта из панели партнера http://www.apishops.com/Webmaster/WebsiteGroup/WebsiteGroupList.jsp */
-                productId:632879, /*айди товара из ассортимента на странице http://www.apishops.com*/
-                price:1017.41 /*цена товара*/
-            });
-    });
-&lt;/script&gt;
-&lt;div id=container2&gt;
-&lt;/div&gt;
-</pre>
-                    </div>
-                </div>
 
 
 
 
-                <div class="row">
-                    <div class="span6">
-                        <h2>Упрощенная форма с информацией о товаре</h2>
-                        <p>Подгружает в указанный контейнер поля необходимые для обратного звонка </p>
-
-                        <blockquote>
-
-        <script>
-            $(document).ready( function() {
-                $('#container21').apishopsForm({
-                        type:'inline', /*тип открытия [inline|modal]*/
-                        form:'light', /*тип формы [normal|light|jquery-selector]*/
-                        siteId:10221, /*айди сайта из панели партнера http://www.apishops.com/Webmaster/WebsiteGroup/WebsiteGroupList.jsp */
-                        productId:632879, /*айди товара из ассортимента на странице http://www.apishops.com*/
-                        displayed_containers:['picture','price','name'],
-                        price:1017.41 /*цена товара*/
-                    });
-            });
-        </script>
-        <div id=container21>
-        </div>
-                        </blockquote>
-                    </div>
-
-                    <div class="span6">
-
-<pre class="prettyprint linenums">
-&#x3C;script src=&#x22;//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js&#x22;&#x3E;&#x3C;/script&#x3E;
-&#x3C;script src=&#x22;http://img.apishops.org/SinglePageWebsites/custom/js/apishopsForm2.js&#x22;&#x3E;&#x3C;/script&#x3E;
-&#x3C;link rel=&#x22;stylesheet&#x22; href=&#x22;http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm2.css&#x22;&#x3E;
-&lt;script&gt;
-    $(document).ready( function() {
-        $('#container21').apishopsForm({
-                type:'inline', /*тип открытия [inline|modal]*/
-                form:'light', /*тип формы [normal|light|jquery-selector]*/
-                siteId:10221, /*айди сайта из панели партнера http://www.apishops.com/Webmaster/WebsiteGroup/WebsiteGroupList.jsp */
-                productId:632879, /*айди товара из ассортимента на странице http://www.apishops.com*/
-                displayed_containers:['picture','price','name'],
-                price:1017.41 /*цена товара*/
-            });
-    });
-&lt;/script&gt;
-&lt;div id=container21&gt;
-&lt;/div&gt;
-</pre>
-                    </div>
-                </div>
 
 
 
