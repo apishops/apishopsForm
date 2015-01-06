@@ -1,7 +1,7 @@
-<html><head>  
+<html><head>
     <script src="../js/vendor/jquery.min.js"></script>
-    <script src="../js/apishopsForm.js"></script>
-    <link href="../css/apishopsForm.css" rel="stylesheet" >
+    <script src="../js/apishopsForm.github.js"></script>
+    <link href="../css/apishopsForm.github.css" rel="stylesheet" >
      <style>
      .containerId{
         float:left;
@@ -14,7 +14,7 @@
      </style>
      </head>
     <body>
-    
+
 
 <span class="containerId" id="containerId2_3"></span>
 <span class="containerId" id="containerId3_3"></span>
@@ -36,7 +36,7 @@
             siteId:147233,
             productId:888647,
             lang:1
-        }); 
+        });
 
         $('#containerId3_3').apishopsForm({
             type:'inline', /*тип открытия [inline|modal]*/
@@ -49,7 +49,7 @@
             productId:888647,
             lang:1,
             hidden_fields:['count']
-        });  
+        });
 
         $('#containerId4_3').apishopsForm({
             type:'inline', /*тип открытия [inline|modal]*/
@@ -63,8 +63,8 @@
             lang:1,
             hidden_fields:['count','address'],
             displayed_containers:['picture','price','name']
-        });   
-        
+        });
+
         $('#containerId5_3').apishopsForm({
             type:'inline', /*тип открытия [inline|modal]*/
             debug:false, /*отладочный режим [true|false]*/
@@ -76,13 +76,13 @@
             productId:888647,
             lang:1,
             hidden_fields:['count','fio','address'],
-            displayed_containers:['picture','price','name'],           
+            displayed_containers:['picture','price','name'],
             featured:{
                container: '#containerAdditionalItemsId_3',
                theme: 3,
                count:2
             }
-        });   
+        });
 
         $('#containerId6_3').apishopsForm({
             type:'inline', /*тип открытия [inline|modal]*/
@@ -96,7 +96,7 @@
             lang:1,
             hidden_fields:['count','fio','address','promocode'],
             displayed_containers:['picture','price','name']
-        });                         
+        });
     });
 </script>
 
@@ -105,7 +105,7 @@
 
 
  <div class="containerId" id="formContainer1">
-          
+
          <form method="post" id="formExample1" action="#">
            <input type="hidden" value="1" pattern=".*" name="apishopsFormCount">
            <input type="text" placeholder="Ваше имя" pattern=".{3,}" name="apishopsFormFio" class="name required">
@@ -134,7 +134,7 @@
 
 
 
-    
+
 
 
     </body></html>

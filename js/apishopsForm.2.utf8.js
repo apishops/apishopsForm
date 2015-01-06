@@ -41,7 +41,7 @@ jQuery.fn.apishopsForm=function(options)
             cost:'Поле стоимости заказа'
         },
         paths_:{
-            rootdir:'http://apishops.github.io/apishopsForm/',
+            rootdir:'http://img2.apishops.org/SinglePageWebsites/custom/',
             cssdir:'css/',
             jsdir:'js/',
             themesdir:'apishopsFormThemes'
@@ -56,6 +56,7 @@ jQuery.fn.apishopsForm=function(options)
         productId:632879,
         price:0,
         lang:1,
+        gift:'auto',
         checked:false,
         charset:'utf8',
         successUrl:'/finish.jsp?id='
@@ -302,6 +303,7 @@ jQuery.fn.apishopsForm=function(options)
                 siteId:settings.siteId,
                 productId:productId,
                 checked:1,
+                gift:false,
                 hidden_fields:settings.featured.hidden_fields,
                 lang:settings.lang
             });
@@ -658,6 +660,90 @@ jQuery.fn.apishopsForm=function(options)
                         modal.children('.apishopsModalWindow').css('left','').css('width','auto');
                     },100)
             });
+
+
+            /*
+                Подгрузка подарков
+            */
+            try {
+                if(typeof settings.gift !='undefined' && settings.gift!='false' && $('.giftitems').length==0 && settings.gift!=false && (settings.gift=='auto' || settings.gift>0)){
+                    apishopsFormGetJSONP({
+                        action: "getProductInfo",
+                        productId: settings.productId,
+                        siteId: settings.siteId,
+                        charset:settings.charset,
+                        lang: settings.lang
+                        },function(result){
+                            settings.wpId=result.data.wpId;
+
+                            apishopsFormGetJSONP(
+                                {
+                                    action: "getPresentsForProductId",
+                                    siteId: settings.siteId,
+                                    wpId: settings.wpId,
+                                    charset:settings.charset,
+                                    lang:settings.lang,
+                                    jsonp:'dataType'
+                                },
+                                function(result){
+                                    if(settings.gift=='auto')
+                                        settings.gift=1;
+
+                                    if(typeof result.data.presents!=='undefined' && result.data.presents.length>0)
+                                    {
+                                        settings.gifts=result.data.presents;
+                                        apishopsFormLoadTemplates(['gift'],settings.gift,
+                                            function(result){
+                                                if(typeof apishopsFormGifts !='undefined' && typeof settings.inputs['phone']=='object'){
+
+                                                    _.templateSettings = {
+                                                      interpolate : /%(.+?)%/g
+                                                    };
+                                                    var apishopsFormGiftsTemplate = _.template(apishopsFormGifts);
+
+                                                    apishopsFormGiftsHtml=apishopsFormGiftsTemplate(
+                                                    {
+                                                        GIFTNAME1 : (typeof settings.gifts[0] !='undefined' && typeof settings.gifts[0]['name']!='undefined')?settings.gifts[0]['name']:'',
+                                                        GIFTDESC1 : (typeof settings.gifts[0] !='undefined' && typeof settings.gifts[0]['text']!='undefined')?settings.gifts[0]['text']:'',
+                                                        GIFTIMAGE1 : (typeof settings.gifts[0] !='undefined' && typeof settings.gifts[0]['picture']!='undefined')?settings.gifts[0]['picture']:'',
+
+                                                        GIFTNAME2 : (typeof settings.gifts[1] !='undefined' && typeof settings.gifts[1]['name']!='undefined')?settings.gifts[1]['name']:'',
+                                                        GIFTDESC2 : (typeof settings.gifts[1] !='undefined' && typeof settings.gifts[1]['text']!='undefined')?settings.gifts[1]['text']:'',
+                                                        GIFTIMAGE2 : (typeof settings.gifts[1] !='undefined' && typeof settings.gifts[1]['picture']!='undefined')?settings.gifts[1]['picture']:'',
+
+                                                        GIFTSCLASS1 : (typeof settings.gifts[1] !='undefined')?'':'apishopsFormGiftItemOnce',
+                                                        GIFTSCLASS2 : (typeof settings.gifts[1] !='undefined')?'':'apishopsFormGiftItemHidden'
+                                                    });
+
+                                                    apishopsFormGiftsObject=$(apishopsFormGiftsHtml);
+
+                                                    var form=settings.inputs['phone'].closest('form');
+                                                    var inputWidth=form.find('input[type=text]').outerWidth();
+                                                    var buttonWidth=form.find('input[type=submit],input[type=button],button').outerWidth();
+                                                    var giftWidth=0;
+                                                    if(buttonWidth<inputWidth){
+                                                        giftWidth=buttonWidth;
+                                                    }else{
+                                                        giftWidth=inputWidth;
+                                                    }
+
+                                                    apishopsFormGiftsObject.css('width',giftWidth);
+
+                                                    form.append(apishopsFormGiftsObject);
+                                                }
+                                            },
+                                            function(result){
+                                                //alert(':((')
+                                            });
+                                    }
+                                });
+                        });
+                }
+            }
+            catch(err) {
+
+            }
+
         }else{
 
         }
@@ -869,6 +955,9 @@ jQuery.fn.apishopsForm=function(options)
                         event.preventDefault();
                     });
                 }
+
+
+
             }else{
 
 
@@ -3536,9 +3625,10 @@ var apishopsJSONP={
 }
 
 var apishopsFormPaths={
-    rootdir:'http://apishops.github.io/apishopsForm/',
+    rootdir:'http://img2.apishops.org/SinglePageWebsites/custom/',
     cssdir:'css/',
     jsdir:'js/',
+    giftsdir:'apishopsFormGifts/',
     themesdir:'apishopsFormThemes/'
 }
 
@@ -3548,6 +3638,10 @@ var apishopsFormTemplates={
     theme:{
         css:apishopsFormPaths.rootdir+apishopsFormPaths.cssdir+apishopsFormPaths.themesdir+'/%THEME%.css',
         js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+apishopsFormPaths.themesdir+'/%THEME%.js'
+    },
+    gift:{
+        css:apishopsFormPaths.rootdir+apishopsFormPaths.cssdir+apishopsFormPaths.giftsdir+'/%THEME%.css',
+        js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+apishopsFormPaths.giftsdir+'/%THEME%.js'
     },
     modal:{
         js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+'/apishopsFormModal.js'
@@ -3587,7 +3681,7 @@ function apishopsFormLoadTemplates(templates, theme, successFunction, errorFunct
                             apishopsLog('Templates success:'+theme+' '+templates_js_loaded+'/'+templates.length);
                             successFunction()
                             for(template_no in templates){
-                                //apishopsFormTemplates[templates[template_no]]['js']=true;
+                                apishopsFormTemplates[templates[template_no]]['js']=true;
                             }
                         }
                     })

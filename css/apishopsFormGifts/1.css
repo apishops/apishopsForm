@@ -1,0 +1,126 @@
+.apishopsFormGift{
+    background: url('http://apishops.github.io/apishopsForm/images/apishopsFormGifts/1/gift.png');
+    background-size: 100% 100%;
+    border-radius: 11px;
+    box-shadow:         5px 13px 13px 0px rgba(0,0,0,0.23), inset 0px -3px 0px 1px rgba(0,0,0,0.12);
+    margin: 22px 0 0px;
+    position: relative;
+    padding-left: 100px;
+    height: 70px;
+    box-sizing: border-box;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+
+}
+
+.apishopsFormGiftHoverCard{
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.9);
+    border-radius: 7px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.33);
+    color: black;
+    font-family: Arial;
+    font-size: 11px;
+    left: 0;
+    line-height: 18px;
+
+    position: absolute;
+    right: 0;
+    text-align: left;
+    z-index: 10000;
+    opacity: 0;
+    display: block;
+    transition: 0.5s all;
+    top: 200px;
+}
+
+.apishopsFormGiftHoverCard .apishopsFormGiftHoverCardTitle {
+    background: none repeat scroll 0 0 #e3e6ef;
+    color: #3e445c;
+    font-size: 17px;
+    font-weight: bold;
+    padding: 11px 20px 5px;
+    text-align: center;
+}
+.apishopsFormGiftHoverCard .apishopsFormGiftHoverCardTitleSmall {
+    font-size: 12px;
+    font-weight: normal;
+    opacity: 0.6;
+    padding: 2px;
+}
+.apishopsFormGiftHoverCard .apishopsFormGiftHoverCardContent{
+    padding: 15px 10px;
+}
+
+.apishopsFormGift:hover .apishopsFormGiftHoverCard{
+    top: 77px;
+    opacity: 1;
+    display: block;
+}
+
+.apishopsFormGift:after{
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: url('http://apishops.github.io/apishopsForm/images/apishopsFormGifts/1/gift-confetti.gif');
+    background-size: cover;
+}
+.apishopsFormGiftTitle{
+    background: url('http://apishops.github.io/apishopsForm/images/apishopsFormGifts/1/gift-title.png');
+    display: inline-block;
+    width: 100px;
+    height: 87px;
+    position: absolute;
+    left: 4px;
+    top: -8px;
+}
+
+.apishopsFormGiftItem{
+    display: inline-block;
+    position: relative;
+    padding-top: 44px;
+    width: 60px;
+}
+
+.apishopsFormGiftItemHidden{
+    display: none;
+}
+
+.apishopsFormGiftItemOnce{
+    width: 120px;
+}
+
+.apishopsFormGiftItemImage{
+    border-radius: 50%;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.43);
+    height: 60px;
+    left: 0px;
+    position: absolute;
+    top: -18px;
+    width: 60px;
+
+}
+
+.apishopsFormGiftItemOnce .apishopsFormGiftItemImage{
+ left: 30px;
+}
+
+.apishopsFormGiftItemTitle{
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: bold;
+    color: #FFFFFF;
+    line-height: 12px;
+    /* Брелок KeyFinder: */
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.50);
+    height: 24px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.apishopsFormGiftItemOnce .apishopsFormGiftItemTitle{
+
+}
