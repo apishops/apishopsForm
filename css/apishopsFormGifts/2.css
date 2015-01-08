@@ -1,3 +1,9 @@
+.apishopsGift{
+    display: block;
+    text-align: center;
+    width: 100% !important;
+}
+
 .apishopsFormGift{
     background: url('http://apishops.github.io/apishopsForm/images/apishopsFormGifts/2/gift.png');
     background-size: 100% 100%;

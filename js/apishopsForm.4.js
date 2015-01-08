@@ -130,7 +130,7 @@ jQuery.fn.apishopsForm=function(options)
         }
 
         if(settings.object.length==0)
-            alert('Ошибка формы:\n $("'+settings.object.selector+'") к которому подключается форма  "$("'+object.selector+'").apishopsForm(..)" не найден. Проверьте, пожалуйста, код');
+            alert('Ошибка формы:\n $("'+settings.object.selector+'") к которому подключается форма  "$("'+settings.object.selector+'").apishopsForm(..)" не найден. Проверьте, пожалуйста, код');
 
         if(typeof settings.productId == 'undefined' || settings.productId<=0)
             alert('settings.productId должен быть указан и не равен 0')
@@ -388,7 +388,6 @@ jQuery.fn.apishopsForm=function(options)
                         //settings.form.remove()
                         return false;
                     }
-
                     settings.oldprice=parseInt(result.data.price)*1.72;
                     settings.discount=20;
 
@@ -397,7 +396,7 @@ jQuery.fn.apishopsForm=function(options)
                     //if(typeof result.data.images != 'undefined')
                         settings.images=[result.data.img,result.data.img]
                     if(typeof result.data.name != 'undefined')
-                        settings.name=result.data.name
+                        settings.name=result.data.name.replace(/^(.{17}[^\s]*).*/, "$1")
                     if(typeof result.data.discount != 'undefined')
                         settings.discount=result.data.discount
                     if(typeof result.data.shorDescription != 'undefined')
@@ -877,7 +876,11 @@ jQuery.fn.apishopsForm=function(options)
                                     if(!new RegExp($(value).attr('pattern')).test($(value).val())  || new RegExp('[<>]').test($(value).val())){
                                             $(value).closest('.apishopsFormGroup').addClass('apishopsFormError');
                                             error+=' - '+settings.inputs_[index]+'\n';
-                                    }else{
+                                    }
+                                    else if(index=='phone' && new RegExp('[_]').test($(value).val())){
+                                            error+='— Поле телефона: допустимы только цифры, знак плюс, скобки и дефисы';
+                                    }
+                                    else{
                                         $(value).closest('.apishopsFormGroup').removeClass('apishopsFormError');
                                     }
                             }
@@ -923,7 +926,11 @@ jQuery.fn.apishopsForm=function(options)
                                     if(!new RegExp($(value).attr('pattern')).test($(value).val())  || new RegExp('[<>]').test($(value).val())){
                                             $(value).closest('.apishopsFormGroup').addClass('apishopsFormError');
                                             error+=' - '+settings.inputs_[index]+'\n';
-                                    }else{
+                                    }
+                                    else if(index=='phone' && new RegExp('[_]').test($(value).val())){
+                                            error+='— Поле телефона: допустимы только цифры, знак плюс, скобки и дефисы';
+                                    }
+                                    else{
                                         $(value).closest('.apishopsFormGroup').removeClass('apishopsFormError');
                                     }
                             }
