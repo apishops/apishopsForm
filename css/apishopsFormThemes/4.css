@@ -30,7 +30,7 @@
          url('http://edarmani_web.apishops.ru/css/fonts/fuelShark_web/clearsans-regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
-} 
+}
 
 @font-face {
     font-family: 'intro_regular';
@@ -258,7 +258,7 @@
     border-right-color: rgb(51, 51, 51);
     border-top-color: rgb(51, 51, 51);
     color: rgb(51, 51, 51);
-    display: inline-block;
+    display: inline-block !important;
     font-family: clear_sansregular;
     font-size: 17px;
     line-height: 23.7999992370605px;
@@ -266,7 +266,7 @@
     margin-top: 45px;
     outline-color: rgb(51, 51, 51);
     text-align: center;
-    width: 170px;
+    width: 250px;
     -webkit-perspective-origin: 85px 57.5px;
     perspective-origin: 85px 57.5px;
     -webkit-transform-origin: 85px 57.5px;
@@ -723,7 +723,6 @@
     padding-top: 0px;
     text-shadow: rgba(0, 0, 0, 0.360784) 0px -1px 0px;
     text-transform: uppercase;
-    width: 223px;
     -webkit-perspective-origin: 111.5px 23px;
     perspective-origin: 111.5px 23px;
     -webkit-transform-origin: 111.5px 23px;
@@ -753,7 +752,7 @@ a.__QUICKVIEW__{
     margin-top: 20px;
     display: inline-block;
     border-bottom: 1px dotted;
-    text-decoration: none;    
+    text-decoration: none;
 }
 
 a.__QUICKVIEW__:hover{

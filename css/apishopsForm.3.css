@@ -29,6 +29,7 @@
                 padding: 50px;
                 z-index: 99999;
                 position: fixed;
+                overflow: auto;
             }
 
             .apishopsModal.apishopsAnimation.successModal .apishopsModalContent{
@@ -88,6 +89,19 @@
     display: inline-block;
     position: relative;
     overflow: hidden;
+    height: 200px;
+    width: 100%;
+
+    background-position: center center;
+    background-size: cover;
+    box-sizing: border-box;
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+}
+
+.apishopsFormImageWrapper img {
+    height: 100% !important;
+    width: initial !important;
 }
 .apishopsFormImageWrapper:after {
     background: none repeat scroll 0 0 rgba(45, 45, 45, 0.43);
@@ -489,6 +503,58 @@ background: linear-gradient(to bottom, #a0ad4f 0%, #a0ad4f 100%) repeat scroll 0
     display: none;
 }
 
+
+
+@media (max-width: 767px) {
+.apishopsModal.apishopsAnimation.successModal .apishopsModalWindow{
+        bottom: 10px;
+        left: 10px;
+        padding: 30px;
+        right: 10px;
+        top: 10px;
+    }
+
+    .apishopsModal.apishopsAnimation.successModal .apishopsModalWindow *{
+        font-size: 13px;
+    }
+
+    .apishopsModal.apishopsAnimation.successModal .apishopsModalWindow h1 {
+        font-size: 20px;
+    }
+
+    .apishopsModal.apishopsAnimation.successModal .apishopsModalWindow h2 {
+        font-size: 20px !important;
+        margin: 8px 0 !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+    .apishopsModal.apishopsAnimation.successModal .apishopsModalWindow{
+        bottom: 10px;
+        left: 10px;
+        padding: 30px;
+        right: 10px;
+        top: 10px;
+    }
+
+    .apishopsModal.apishopsAnimation.successModal .apishopsModalWindow *{
+        font-size: 16px;
+    }
+
+    .apishopsModal.apishopsAnimation.successModal .apishopsModalWindow h1 {
+        font-size: 25px;
+    }
+
+    .apishopsModal.apishopsAnimation.successModal .apishopsModalWindow h2 {
+        font-size: 25px !important;
+    }
+
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+
+
+}
 
 
 

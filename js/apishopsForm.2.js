@@ -426,7 +426,7 @@ jQuery.fn.apishopsForm=function(options)
                             NAME : '<some class="apishopsFormName">'+settings.name+'</some>',
                             DESC : settings.description,
                             QUICKVIEW : '__QUICKVIEW__ apishopsQuickView',
-                            IMG : '__IMG__ apishopsFormImage',
+                            IMG : '__IMG__',
                             PRICE : '<some class="apishopsFormPrice">'+Math.round(settings.price)+'</some>',
                             OLDPRICE : '<some class="apishopsFormPrice">'+Math.round(settings.oldprice)+'</some>',
                             DISCOUNT : '<some class="apishopsFormDiscount">'+Math.round(settings.discount)+'</some>',
@@ -441,7 +441,11 @@ jQuery.fn.apishopsForm=function(options)
             settings.form.css('display',"").addClass('featured_item').addClass('apishopsFormItem').addClass('animate');
 
 
-            $('.__IMG__', settings.form).attr('src',settings.img).wrap('<div quickckview_id="'+settings.productId+'" class="apishopsFormImageWrapper"/>')
+            /*
+            background-image: url("http://img.apishops.org/669~-~0~16777215~11~0~35~16773120~40/1/794/794422/1838101.jpg");
+            'src',
+             */
+            $('.__IMG__', settings.form).hide().wrap('<div quickckview_id="'+settings.productId+'" class="apishopsFormImageWrapper apishopsFormImage" style="background-image:url(\''+settings.img+'\')"/>')
             if($('.__QUICKVIEW__', settings.form))
             $('.__QUICKVIEW__', settings.form).attr('quickckview_id',settings.productId).attr('name',settings.name).attr('discount',settings.discount).attr('src',settings.img)
 
@@ -454,13 +458,24 @@ jQuery.fn.apishopsForm=function(options)
                 if(typeof $container !='undefined' && $container.length && typeof  settings.displayed_containers!='undefined' && _.indexOf(settings.displayed_containers, index)>=0)
                 {
                     apishopsLog(index + ": " + value );
-                    $container.show().attr('style','none')
-                    $container.parent().show().attr('style','none')
+                    //$container.show().attr('style','none')
+                    if(index!='picture')
+                        $container.show()
+                    else{
+                        $container.show().parent().show();//.attr('style','none')
+                        $container.parent().css('display','initial');/*FIX FOR INLINE IMG CONTAINERS*/
+                    }
                     apishopsLog(index + ": " + value );
                 }else{
-                    $container.hide();
+                    if(index!='picture')
+                        $container.hide();
+                    else{
+                        $container.hide().parent().hide();
+                        //$container.parent().parent().hide();
+                    }
                 }
             });
+
 
             for(index in settings.inputs){
                 value=settings.inputs[index];
@@ -1590,7 +1605,7 @@ function apishopsFormSubmit(params){
                     var successModalClose=successModal.find('.apishopsModalClose');
                     var successModalClose2=successModal.find('.apishopsModalClose2');
                     var successContent=successModal.find('.apishopsModalContent')
-                    var successHtml='<h2 style="font-size: 45px;margin:0px;">Поздравляем!</h2><div>Ваш заказ #<b>'+result.data.id+'</b> принят и ожидает подтверждения.<br><div class="text">Скоро Вам позвонит оператор и уточнит все детали.<br></div><div class="merchant_grid"><div class="merchant_grid_cell"><div class="additionalProducts"></div></div><div class="merchant_grid_cell merhcnaht_grid_cell_propose"><div class="merchant_block merchant_block1"><img style="height: 35px; margin-bottom: 11px;" src="http://internetcompany.ru/data/apishops/card.png"><br><a href="https://apishops.internetcompany.ru/?id='+result.data.id+'&site_id='+result.parameters.siteId+'">Вы можете сразу оплатить заказ банковской картой, тогда вы получите <b class="bonus">5% скидку</b>!<div class="button">Оплатить</div></a> </div></div>';
+                    var successHtml='<h2 style="font-size: 45px;margin:0px;">Поздравляем!</h2><div>Ваш заказ #<b>'+result.data.id+'</b> принят и ожидает подтверждения.<br><div class="text">Скоро Вам позвонит оператор и уточнит все детали.<br></div><div class="merchant_grid"><div class="merchant_grid_cell"><div class="additionalProducts"></div></div><div class="merchant_grid_cell merhcnaht_grid_cell_propose"><div class="merchant_block merchant_block1"><img style="height: 35px; margin-bottom: 11px;" src="http://internetcompany.ru/data/apishops/card.png"><br><a href="https://apishops.internetcompany.ru/?id='+result.data.id+'&site_id='+result.parameters.siteId+'">Оплачивайте банковской картой и получайте <b class="bonus">5% скидку!</b><div class="button">Оплатить</div></a> </div></div>';
                     var successFilesCharsetSuffix=(result.parameters.charset=='utf8')?'.utf8':'';
 
                     $('head').append( $('<link rel="stylesheet" type="text/css" />').attr('href', 'http://img2.apishops.org/SinglePageWebsites/custom/css/apishopsAdditionalProductForm.css'));

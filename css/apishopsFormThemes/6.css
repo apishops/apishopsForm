@@ -378,7 +378,7 @@
     border-right-color: rgb(30, 30, 30);
     border-top-color: rgb(30, 30, 30);
     color: rgb(30, 30, 30);
-    display: inline-block;
+    display: inline-block !important;
     font-family: Conv_PFDinTextCondPro-Light;
     font-size: 16px;
     line-height: 22.3999996185303px;
