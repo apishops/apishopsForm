@@ -311,6 +311,8 @@ jQuery.fn.apishopsForm=function(options)
         settings.featured.productIdsLoaded=_.union(settings.featured.productIdsLoaded,productIdsLoading)
         if(_.isEmpty(_.difference(settings.featured.productIds, settings.featured.productIdsLoaded)))
             $(settings.featured.more).fadeOut();
+        if(typeof settings.featured.max!='undefined' && settings.featured.max!=0 && settings.featured.max<=settings.featured.productIdsLoaded.length)
+            $(settings.featured.more).fadeOut();
    }
 
    /**
