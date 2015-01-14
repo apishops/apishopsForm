@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Apishops</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/apishopsForm.github.js"></script>
+    <link rel="stylesheet" href="css/apishopsForm.github.css">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <form action='http://gate1.apishops.org/single.page.ajax.php' method=get>
+
+    <input name='action' value='callingBack' type=hidden >
+    <input name='count' value='1' type=hidden >
+    <input name='charset' value='cp1251' type=hidden >
+    <input name='fio' value='' type=hidden>
+
+    <input name='siteId' value='' type=text placeholder='siteId'> (ex:309549) <br>
+    <input name='productId' value='' type=text placeholder='productId'> (ex:719436)<br>
+    <input name='phone' value='' type=text placeholder='phone'> (ex:000-00-00) <br>
+    <input name='promocode' value='' type=hidden >
+    <input name='address' value='' type=hidden >
+    <input  type=submit value='Отправить заказ'>
+
+
+
+</form>
+
+
+  </body>
+</html>

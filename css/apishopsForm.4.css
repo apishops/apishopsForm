@@ -187,6 +187,7 @@
             .apishopsAnimation.apishopsSideFall.in .apishopsModalWindow{
               -webkit-transform: scale(1) translate(0%) translateZ(0px) rotate(0deg);
                       transform: scale(1) translate(0%) translateZ(0px) rotate(0deg); box-sizing: border-box;
+              z-index: 999999;
             }
 
             /*3dFlip*/
