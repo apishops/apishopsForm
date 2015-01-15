@@ -24,6 +24,7 @@
                 top:100px;
                 left: 100px;
                 right: 100px;
+                width: auto;
                 width: initial;
                 border-radius: 10px;
                 padding: 50px;
@@ -101,6 +102,7 @@
 
 .apishopsFormImageWrapper img {
     height: 100% !important;
+    width: auto !important;
     width: initial !important;
 }
 .apishopsFormImageWrapper:after {
@@ -136,6 +138,7 @@
     transition: all 0.4s ease 0s;
     z-index: 99;
     width: 88px;
+    box-sizing: auto;
     box-sizing: initial;
 
     height: 10px;
@@ -507,6 +510,11 @@ background: linear-gradient(to bottom, #a0ad4f 0%, #a0ad4f 100%) repeat scroll 0
 
 
 @media (max-width: 767px) {
+
+    body{
+        background-color: orange;
+    }
+
 .apishopsModal.apishopsAnimation.successModal .apishopsModalWindow{
         bottom: 10px;
         left: 10px;
@@ -530,6 +538,10 @@ background: linear-gradient(to bottom, #a0ad4f 0%, #a0ad4f 100%) repeat scroll 0
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
+
+    body{
+        background-color: red;
+    }
 
     .apishopsModal.apishopsAnimation.successModal .apishopsModalWindow{
         bottom: 10px;
