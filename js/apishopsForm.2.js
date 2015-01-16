@@ -68,8 +68,8 @@ jQuery.fn.apishopsForm=function(options)
 
    function init(object){
 
-        settings.object=($(settings.form).selector==$(object).selector && $(settings.form).selector!='')?object.wrap('<some></some>').parent():object;
-        settings.type=(settings.type=='inline' && $(settings.object).is("input,button,a"))?'modal':settings.type;
+        settings.object=(jQuery(settings.form).selector==jQuery(object).selector && jQuery(settings.form).selector!='')?object.wrap('<some></some>').parent():object;
+        settings.type=(settings.type=='inline' && jQuery(settings.object).is("input,button,a"))?'modal':settings.type;
         settings.theme=(typeof settings.featured == 'undefined' || typeof settings.featured.theme == 'undefined')?settings.theme:settings.featured.theme;
 
         if(settings.form=='normal' || settings.form=='light' || typeof settings.featured != 'undefined'){
@@ -82,7 +82,7 @@ jQuery.fn.apishopsForm=function(options)
             if(typeof settings.featured != 'undefined' && typeof settings.featured.form != 'undefined' && (settings.featured.form=='normal' || settings.featured.form=='light'))
                 templatesList.push('theme');
 
-            apishopsFormLoadTemplates(_.uniq(templatesList),settings.theme,
+            apishopsFormLoadTemplates(_.uniq(templatesList),settings.charset, settings.theme,
                 function(result){
                     start()
                 },
@@ -119,34 +119,34 @@ jQuery.fn.apishopsForm=function(options)
    {
 
         if(settings.form!='normal' && settings.form!='light'){
-            $form=$(settings.form);
+            $form=jQuery(settings.form);
             var inputs_tmp={};
             for(index in settings.inputs){
                 value=settings.inputs[index];
-                $input=$(value,$form);
+                $input=jQuery(value,$form);
                 if($input.length &&  typeof $input !='undefined')
                     inputs_tmp[index]=$input;
             }
         }
 
         if(settings.object.length==0)
-            alert('Ошибка формы:\n $("'+settings.object.selector+'") к которому подключается форма  "$("'+settings.object.selector+'").apishopsForm(..)" не найден. Проверьте, пожалуйста, код');
+            alert('Ошибка формы:\n jQuery("'+settings.object.selector+'") к которому подключается форма  "jQuery("'+settings.object.selector+'").apishopsForm(..)" не найден. Проверьте, пожалуйста, код');
 
         if(typeof settings.productId == 'undefined' || settings.productId<=0)
             alert('settings.productId должен быть указан и не равен 0')
 
         if((settings.form=='normal' || settings.form=='light') && typeof apishopsFormThemeLight=='undefined')
-            alert('Простите, но темы #'+settings.theme+' (параметр "$(...).apishopsForm({..theme:'+settings.theme+'..}) нет');
+            alert('Простите, но темы #'+settings.theme+' (параметр "jQuery(...).apishopsForm({..theme:'+settings.theme+'..}) нет');
 
         if(settings.form!='normal' && settings.form!='light' && settings.checked!=true){
 
             settings.displayed_containers=[]
-            $form=$(settings.form);
+            $form=jQuery(settings.form);
             $html=$form.html()
             var inputs_tmp={};
             for(index in settings.inputs){
                 value=settings.inputs[index];
-                $input=$(value,$form);
+                $input=jQuery(value,$form);
                 if($input.length &&  typeof $input !='undefined')
                     inputs_tmp[index]=$input;
             }
@@ -157,8 +157,8 @@ jQuery.fn.apishopsForm=function(options)
                 //alert(2)
                 settings.form='normal';
             }else{
-                $(settings.form).hide();
-                settings.form=$('<div>').append($(settings.form).clone()).html()
+                jQuery(settings.form).hide();
+                settings.form=jQuery('<div>').append(jQuery(settings.form).clone()).html()
             }
             /**
              * Создаем для пользовательских форм свои
@@ -195,12 +195,12 @@ jQuery.fn.apishopsForm=function(options)
             }else{
                 if(settings.featured.form!='normal' && settings.featured.form!='light'){
                     settings.featured.displayed_containers=[]
-                    $form=$(settings.featured.form);
+                    $form=jQuery(settings.featured.form);
                     $html=$form.html()
                     var inputs_tmp={};
                     for(index in settings.inputs){
                         value=settings.inputs[index];
-                        $input=$(value,$form);
+                        $input=jQuery(value,$form);
                         if($input.length &&  typeof $input !='undefined')
                             inputs_tmp[index]=$input;
                     }
@@ -227,8 +227,8 @@ jQuery.fn.apishopsForm=function(options)
                         //alert(4)
                         settings.featured.form='normal';
                     }else{
-                        $(settings.featured.form).hide();
-                        settings.featured.form=$('<div>').append($(settings.featured.form).clone()).html()
+                        jQuery(settings.featured.form).hide();
+                        settings.featured.form=jQuery('<div>').append(jQuery(settings.featured.form).clone()).html()
                     }
                 }
             }
@@ -239,12 +239,12 @@ jQuery.fn.apishopsForm=function(options)
             if(typeof settings.featured.hidden_fields == 'undefined')
                 settings.featured.hidden_fields=settings.hidden_fields;
 
-            if(typeof settings.featured.container == 'undefined' || $(settings.featured.container).length==0){
+            if(typeof settings.featured.container == 'undefined' || jQuery(settings.featured.container).length==0){
                 alert('Контейнер "'+settings.featured.container+'"(параметр featured{..container:""..}), в котором будут размещаться формы для заказа дополнительных товаров не задан или не может быть найден')
                 delete settings.featured;
             }
 
-            if(settings.featured.form!='normal' && settings.featured.form!='light' && !_.isUndefined(settings.featured.more) && _.isEmpty($(settings.featured.more))){
+            if(settings.featured.form!='normal' && settings.featured.form!='light' && !_.isUndefined(settings.featured.more) && _.isEmpty(jQuery(settings.featured.more))){
                 alert('Параметр featured{...more:""..} ("'+settings.featured.more+'"), который будет использоваться для кнопки подгрузки других товаров в вашей собственной форме необходимо задать');
                 delete  settings.featured;
             }
@@ -262,20 +262,20 @@ jQuery.fn.apishopsForm=function(options)
         if(!_.isUndefined(settings.featured)){
             if(_.isUndefined(settings.featured.productIds) || !_.isArray(settings.featured.productIds) || _.isEmpty(settings.featured.productIds)){
                 if(settings.featured.container != 'undefined')
-                    $(settings.featured.container).hide();
+                    jQuery(settings.featured.container).hide();
                 if(settings.featured.containerClosest != 'undefined')
-                    $(settings.featured.containerClosest).hide();
-                $('.__apishopsFormFeaturedFormMoreButton__').hide();
+                    jQuery(settings.featured.containerClosest).hide();
+                jQuery('.__apishopsFormFeaturedFormMoreButton__').hide();
 
                 apishopsFormGetJSONP($jsonp,function(result){
                     if(!_.isUndefined(result.data) && _.isArray(result.data) && !_.isEmpty(result.data)){
                             settings.featured.productIds=result.data;
                             settings.featured.productIdsLoaded=[];
                             if(typeof settings.featured.container != 'undefined')
-                                $(settings.featured.container).show();
+                                jQuery(settings.featured.container).show();
                             if(typeof settings.featured.containerClosest != 'undefined')
-                                $(settings.featured.containerClosest).show();
-                            $('.__apishopsFormFeaturedFormMoreButton__').show();
+                                jQuery(settings.featured.containerClosest).show();
+                            jQuery('.__apishopsFormFeaturedFormMoreButton__').show();
                             construct('featured');
                             spawnChilds()
                             bind('featured');
@@ -294,7 +294,7 @@ jQuery.fn.apishopsForm=function(options)
 
         var productIdsLoading=_.first(_.difference(settings.featured.productIds, settings.featured.productIdsLoaded),settings.featured.count)
         _.each(productIdsLoading, function(productId){
-            $(settings.featured.container).apishopsForm({
+            jQuery(settings.featured.container).apishopsForm({
                 type:'inline',
                 successUrl:false,
                 form:settings.featured.form,
@@ -310,9 +310,9 @@ jQuery.fn.apishopsForm=function(options)
         });
         settings.featured.productIdsLoaded=_.union(settings.featured.productIdsLoaded,productIdsLoading)
         if(_.isEmpty(_.difference(settings.featured.productIds, settings.featured.productIdsLoaded)))
-            $(settings.featured.more).fadeOut();
+            jQuery(settings.featured.more).fadeOut();
         if(typeof settings.featured.max!='undefined' && settings.featured.max!=0 && settings.featured.max<=settings.featured.productIdsLoaded.length)
-            $(settings.featured.more).fadeOut();
+            jQuery(settings.featured.more).fadeOut();
    }
 
    /**
@@ -348,19 +348,19 @@ jQuery.fn.apishopsForm=function(options)
                 settings.form_type='light';
             }
             else{
-                //$(settings.form).hide();
-                //settings.form=$('<div>').append($(settings.form).clone()).html()
-                settings.form_type=$(settings.inputs['region'],$(settings.form)).length==0?'light':'normal';
+                //jQuery(settings.form).hide();
+                //settings.form=jQuery('<div>').append(jQuery(settings.form).clone()).html()
+                settings.form_type=jQuery(settings.inputs['region'],jQuery(settings.form)).length==0?'light':'normal';
 
             }
         }else{
             if(settings.featured.form=='normal' || settings.featured.form=='light')
                 settings.featured.more=apishopsFormThemeMore;
 
-            if(!_.isUndefined(settings.featured.more) && !_.isEmpty($(settings.featured.more)))
-                settings.featured.more=$('<div>').addClass('featured__more').append($(settings.featured.more)).appendTo(settings.featured.container)
+            if(!_.isUndefined(settings.featured.more) && !_.isEmpty(jQuery(settings.featured.more)))
+                settings.featured.more=jQuery('<div>').addClass('featured__more').append(jQuery(settings.featured.more)).appendTo(settings.featured.container)
 
-            settings.featured.container=$('<div>').addClass('featured__in').addClass('featured_grid').prependTo($(settings.featured.container))
+            settings.featured.container=jQuery('<div>').addClass('featured__in').addClass('featured_grid').prependTo(jQuery(settings.featured.container))
         }
    }
 
@@ -423,7 +423,7 @@ jQuery.fn.apishopsForm=function(options)
 
                 var template = _.template(settings.form);
 
-                settings.form=$(template(
+                settings.form=jQuery(template(
                         {
                             NAME : '<some class="apishopsFormName">'+settings.name+'</some>',
                             DESC : settings.description,
@@ -437,7 +437,7 @@ jQuery.fn.apishopsForm=function(options)
                         })).clone();
             }
             catch(err) {
-                settings.form=$(settings.form).clone();
+                settings.form=jQuery(settings.form).clone();
             }
 
             settings.form.css('display',"").addClass('featured_item').addClass('apishopsFormItem').addClass('animate');
@@ -447,15 +447,16 @@ jQuery.fn.apishopsForm=function(options)
             background-image: url("http://img.apishops.org/669~-~0~16777215~11~0~35~16773120~40/1/794/794422/1838101.jpg");
             'src',
              */
-            $('.__IMG__', settings.form).hide().wrap('<div quickckview_id="'+settings.productId+'" class="apishopsFormImageWrapper apishopsFormImage" style="background-image:url(\''+settings.img+'\')"/>')
-            if($('.__QUICKVIEW__', settings.form))
-            $('.__QUICKVIEW__', settings.form).attr('quickckview_id',settings.productId).attr('name',settings.name).attr('discount',settings.discount).attr('src',settings.img)
+            jQuery('.__IMG__', settings.form).hide().wrap('<div quickckview_id="'+settings.productId+'" class="apishopsFormImageWrapper apishopsFormImage" style="background-image:url(\''+settings.img+'\')"/>')
+            jQuery('body').append('<style>.apishopsFormImageWrapper:before{content: "Подробнее" !important;}</style>')
+            if(jQuery('.__QUICKVIEW__', settings.form))
+            jQuery('.__QUICKVIEW__', settings.form).attr('quickckview_id',settings.productId).attr('name',settings.name).attr('discount',settings.discount).attr('src',settings.img)
 
             settings.placement.append(settings.form);
 
             $.each( settings.containers, function( index, value ) {
                 value=settings.containers[index];
-                $container=$(value,settings.form);
+                $container=jQuery(value,settings.form);
                 apishopsLog(index + ": " + value +'?'+settings.displayed_containers+' is '+ _.indexOf(settings.displayed_containers, index));
                 if(typeof $container !='undefined' && $container.length && typeof  settings.displayed_containers!='undefined' && _.indexOf(settings.displayed_containers, index)>=0)
                 {
@@ -481,61 +482,61 @@ jQuery.fn.apishopsForm=function(options)
 
             for(index in settings.inputs){
                 value=settings.inputs[index];
-                $input=$(value,settings.form);
+                $input=jQuery(value,settings.form);
                 if($input.length &&  typeof $input !='undefined' && typeof  settings.hidden_fields!='undefined' && _.indexOf(settings.hidden_fields, index)>=0)
                 {
                     $input.hide();
                 }
             }
 
-            $('.apishopsFormImageWrapper,.__QUICKVIEW__',settings.form).bind('click', function(event){
+            jQuery('.apishopsFormImageWrapper,.__QUICKVIEW__',settings.form).bind('click', function(event){
 
                     event.preventDefault();
 
-                    var source = $(this).closest('.apishopsFormItem');
-                    var styles = $(source).getStyleObject();
-                    var modal = $(apishopsFormModal).clone().appendTo('body');
+                    var source = jQuery(this).closest('.apishopsFormItem');
+                    var styles = jQuery(source).getStyleObject();
+                    var modal = jQuery(apishopsFormModal).clone().appendTo('body');
                     var modal_class='apishopsAnimationQV';
-                    var modal_top=parseInt($(source).offset().top);
-                    var quickview_id = $(this).attr('quickckview_id');
+                    var modal_top=parseInt(jQuery(source).offset().top);
+                    var quickview_id = jQuery(this).attr('quickckview_id');
                     var prev_quickview_id=0;
                     var next_quickview_id=0;
                     var current_quickview_id=0;
                     var quickviews={};
 
-                    if($(this).hasClass('__QUICKVIEWPREV__') || $(this).hasClass('__QUICKVIEWNEXT__')){
-                        if($(this).hasClass('__QUICKVIEWNEXT__'))
+                    if(jQuery(this).hasClass('__QUICKVIEWPREV__') || jQuery(this).hasClass('__QUICKVIEWNEXT__')){
+                        if(jQuery(this).hasClass('__QUICKVIEWNEXT__'))
                             modal_class='apishopsAnimationQVL';
-                        else if($(this).hasClass('__QUICKVIEWPREV__'))
+                        else if(jQuery(this).hasClass('__QUICKVIEWPREV__'))
                             modal_class='apishopsAnimationQVR';
-                        $(this).removeClass('__QUICKVIEWPREV__').removeClass('__QUICKVIEWNEXT__')
-                        modal_top=parseInt($(this).attr('top'));
-                        $(this).attr('top','');
+                        jQuery(this).removeClass('__QUICKVIEWPREV__').removeClass('__QUICKVIEWNEXT__')
+                        modal_top=parseInt(jQuery(this).attr('top'));
+                        jQuery(this).attr('top','');
                     }
 
                     var foundCurrent=false;
-                    $.each($('.__QUICKVIEW__:visible'), function( index, value ) {
-                        if($(value).attr('quickckview_id')==quickview_id && current_quickview_id!=quickview_id){
+                    $.each(jQuery('.__QUICKVIEW__:visible'), function( index, value ) {
+                        if(jQuery(value).attr('quickckview_id')==quickview_id && current_quickview_id!=quickview_id){
                             prev_quickview_id=current_quickview_id;
                         }
                         if(current_quickview_id==quickview_id){
-                            next_quickview_id=$(value).attr('quickckview_id')
+                            next_quickview_id=jQuery(value).attr('quickckview_id')
                         }
-                        current_quickview_id=$(value).attr('quickckview_id');
+                        current_quickview_id=jQuery(value).attr('quickckview_id');
                         quickviews[current_quickview_id]=value;
                     });
                     //alert(prev_quickview_id+'<-'+quickview_id+'->'+next_quickview_id)
 
                     modal.addClass('in').addClass(modal_class).css('display','block').children('.apishopsModalWindow').
                     css('top',modal_top).
-                    css('left',$(source).offset().left).
-                    css('width',$(source).outerWidth()).
-                    css('height',$(source).outerHeight()).css('position','absolute');
+                    css('left',jQuery(source).offset().left).
+                    css('width',jQuery(source).outerWidth()).
+                    css('height',jQuery(source).outerHeight()).css('position','absolute');
 
                     if(!_.isEmpty(quickviews)){
-                        $('.apishopsModalNavigation',modal).show();
-                        $('.apishopsModalNavigationNextClosest',modal).css('top',modal_top)
-                        $('.apishopsModalNavigationPrevClosest',modal).css('top',modal_top)
+                        jQuery('.apishopsModalNavigation',modal).show();
+                        jQuery('.apishopsModalNavigationNextClosest',modal).css('top',modal_top)
+                        jQuery('.apishopsModalNavigationPrevClosest',modal).css('top',modal_top)
                     }
 
                     _.templateSettings = {
@@ -566,51 +567,51 @@ jQuery.fn.apishopsForm=function(options)
                         ALSOLIKEDISCOUNT : settings.discount
                     });
 
-                    $('.apishopsModalContent',modal).html(quickViewHtml);
+                    jQuery('.apishopsModalContent',modal).html(quickViewHtml);
 
                     var totalInserted=0;
                     $.each(settings.images, function( index, value ) {
                         totalInserted++;
-                        var item=$('.__ALTERNATIVEVIEWITEM__:first-child',modal).clone();
+                        var item=jQuery('.__ALTERNATIVEVIEWITEM__:first-child',modal).clone();
                         item.find('.__ALTERNATIVEVIEWIMAGE__').attr('src',value);
                         item.insertAfter( ".__ALTERNATIVEVIEWITEM__:first-child",modal);
-                        $(item).bind('mouseover', function(event){
-                            $('.apishopsFormQVContainerMainImage').attr('src',$(this).attr('src'));
-                            $('.apishopsFormBThubm').removeClass('apishopsFormBThubmSelected');
-                            $(this).addClass('apishopsFormBThubmSelected');
+                        jQuery(item).bind('mouseover', function(event){
+                            jQuery('.apishopsFormQVContainerMainImage').attr('src',jQuery(this).attr('src'));
+                            jQuery('.apishopsFormBThubm').removeClass('apishopsFormBThubmSelected');
+                            jQuery(this).addClass('apishopsFormBThubmSelected');
                         });
                     });
-                    $('.__ALTERNATIVEVIEWITEM__:first-child',modal).remove();
-                    if(totalInserted==0) $('.__ALTERNATIVEVIEW__',modal).remove();
+                    jQuery('.__ALTERNATIVEVIEWITEM__:first-child',modal).remove();
+                    if(totalInserted==0) jQuery('.__ALTERNATIVEVIEW__',modal).remove();
 
                     var iter=0;
-                    $.each($('.__ALSOLIKE__',modal), function( index, alsolike ) {
+                    $.each(jQuery('.__ALSOLIKE__',modal), function( index, alsolike ) {
                         var totalInserted=0;
                         var finded_quickview_id=0;
                         $.each(_.shuffle(quickviews), function( index, value ) {
                             if(index!=quickview_id && index!=0){
                                 totalInserted++;
-                                var item=$('.__ALSOLIKEITEM__:first-child',alsolike).clone();
-                                item.find('.__ALSOLIKEIMAGE__').attr('src',$(value).attr('src'));
-                                item.find('.__ALSOLIKENAME__').html($(value).attr('name').substring(0, 23)+'...');
-                                item.insertAfter($(".__ALSOLIKEITEM__:first-child",alsolike));
+                                var item=jQuery('.__ALSOLIKEITEM__:first-child',alsolike).clone();
+                                item.find('.__ALSOLIKEIMAGE__').attr('src',jQuery(value).attr('src'));
+                                item.find('.__ALSOLIKENAME__').html(jQuery(value).attr('name').substring(0, 23)+'...');
+                                item.insertAfter(jQuery(".__ALSOLIKEITEM__:first-child",alsolike));
                                 //quickckview_id
-                                $(item).bind('click', function(event){
+                                jQuery(item).bind('click', function(event){
                                     event.preventDefault();
-                                    $(modal).remove();
-                                    $(quickviews[$(value).attr('quickckview_id')]).addClass('__QUICKVIEWNEXT__').attr('top',modal_top).click();
+                                    jQuery(modal).remove();
+                                    jQuery(quickviews[jQuery(value).attr('quickckview_id')]).addClass('__QUICKVIEWNEXT__').attr('top',modal_top).click();
                                 });
                             }else{
                                 finded_quickview_id=index;
                             }
                         });
-                        $('.__ALSOLIKEITEM__:first-child',alsolike).remove();
+                        jQuery('.__ALSOLIKEITEM__:first-child',alsolike).remove();
                         if(totalInserted==0)
-                            $(alsolike).remove();
+                            jQuery(alsolike).remove();
                         iter++;
                     });
 
-                    var phone_input=$('input[name=phone]',modal);
+                    var phone_input=jQuery('input[name=phone]',modal);
                     if(settings.lang==6)
                         phone_input.inputmask("+380(99)999-99-99");
                     else if(settings.lang==1)
@@ -618,7 +619,7 @@ jQuery.fn.apishopsForm=function(options)
                     else if(settings.lang==7)
                         phone_input.inputmask("+375(99)999-99-99");
 
-                    $('form',modal).submit(function(event) {
+                    jQuery('form',modal).submit(function(event) {
                         event.preventDefault();
                         if(phone_input.val().length<=5)
                             alert('Номер телефона должен быть не менее 5 символов')
@@ -634,7 +635,7 @@ jQuery.fn.apishopsForm=function(options)
                                 successUrl:false,
                                 sourceRef:getSource("sourceRef"),
                                 sourceParam:getSource("sourceParam"),
-                                productId:$(quickviews[current_quickview_id]).attr('quickckview_id'),
+                                productId:jQuery(quickviews[current_quickview_id]).attr('quickckview_id'),
                                 siteId:settings.siteId,
                                 lang:settings.lang
                             };
@@ -643,30 +644,30 @@ jQuery.fn.apishopsForm=function(options)
                     });
 
                     if(prev_quickview_id==0)
-                        $('.apishopsModalNavigationPrevClosest',modal).hide();
+                        jQuery('.apishopsModalNavigationPrevClosest',modal).hide();
                     else{
-                        $('.apishopsModalNavigationPrev',modal).css('background-image','url('+$(quickviews[prev_quickview_id]).attr('src')+')')
-                        $($('.apishopsModalNavigationPrevClosest',modal)).bind('click', function(event){
+                        jQuery('.apishopsModalNavigationPrev',modal).css('background-image','url('+jQuery(quickviews[prev_quickview_id]).attr('src')+')')
+                        jQuery(jQuery('.apishopsModalNavigationPrevClosest',modal)).bind('click', function(event){
                             modal.remove();
-                            $(quickviews[prev_quickview_id]).addClass('__QUICKVIEWPREV__').attr('top',modal_top).click();
+                            jQuery(quickviews[prev_quickview_id]).addClass('__QUICKVIEWPREV__').attr('top',modal_top).click();
                         });
                     }
 
                     if(next_quickview_id==0)
-                        $('.apishopsModalNavigationNextClosest',modal).hide();
+                        jQuery('.apishopsModalNavigationNextClosest',modal).hide();
                     else{
-                        $('.apishopsModalNavigationNext',modal).css('background-image','url('+$(quickviews[next_quickview_id]).attr('src')+')')
-                        $($('.apishopsModalNavigationNextClosest',modal)).bind('click', function(event){
+                        jQuery('.apishopsModalNavigationNext',modal).css('background-image','url('+jQuery(quickviews[next_quickview_id]).attr('src')+')')
+                        jQuery(jQuery('.apishopsModalNavigationNextClosest',modal)).bind('click', function(event){
                             modal.remove();
-                            $(quickviews[next_quickview_id]).addClass('__QUICKVIEWNEXT__').attr('top',modal_top).click();
+                            jQuery(quickviews[next_quickview_id]).addClass('__QUICKVIEWNEXT__').attr('top',modal_top).click();
                         });
                     }
 
-                    $($('.apishopsModalOverlay',modal)).bind('click', function(event){
+                    jQuery(jQuery('.apishopsModalOverlay',modal)).bind('click', function(event){
                         modal.remove();
                     });
 
-                    $($('.apishopsModalClose',modal)).bind('click', function(event){
+                    jQuery(jQuery('.apishopsModalClose',modal)).bind('click', function(event){
                         modal.remove();
                     });
 
@@ -682,7 +683,7 @@ jQuery.fn.apishopsForm=function(options)
                 Подгрузка подарков
             */
             try {
-                if(typeof settings.gift !='undefined' && settings.gift!='false' && $('.giftitems').length==0 && settings.gift!=false && (settings.gift=='auto' || settings.gift>0)){
+                if(typeof settings.gift !='undefined' && settings.gift!='false' && jQuery('.giftitems').length==0 && settings.gift!=false && (settings.gift=='auto' || settings.gift>0)){
                     apishopsFormGetJSONP({
                         action: "getProductInfo",
                         productId: settings.productId,
@@ -708,7 +709,7 @@ jQuery.fn.apishopsForm=function(options)
                                     if(typeof result.data.presents!=='undefined' && result.data.presents.length>0)
                                     {
                                         settings.gifts=result.data.presents;
-                                        apishopsFormLoadTemplates(['gift'],settings.gift,
+                                        apishopsFormLoadTemplates(['gift'],settings.charset, settings.gift,
                                             function(result){
                                                 if(typeof apishopsFormGifts !='undefined' && typeof settings.inputs['phone']=='object'){
 
@@ -723,16 +724,18 @@ jQuery.fn.apishopsForm=function(options)
                                                         GIFTNAME1 : (typeof settings.gifts[0] !='undefined' && typeof settings.gifts[0]['name']!='undefined')?settings.gifts[0]['name']:'',
                                                         GIFTDESC1 : (typeof settings.gifts[0] !='undefined' && typeof settings.gifts[0]['text']!='undefined')?settings.gifts[0]['text']:'',
                                                         GIFTIMAGE1 : (typeof settings.gifts[0] !='undefined' && typeof settings.gifts[0]['picture']!='undefined')?settings.gifts[0]['picture']:'',
+                                                        GIFTSTYLE1 : (typeof settings.gifts[0] !='undefined' && typeof settings.gifts[0]['picture']!='undefined')?'':'display:none;',
 
                                                         GIFTNAME2 : (typeof settings.gifts[1] !='undefined' && typeof settings.gifts[1]['name']!='undefined')?settings.gifts[1]['name']:'',
                                                         GIFTDESC2 : (typeof settings.gifts[1] !='undefined' && typeof settings.gifts[1]['text']!='undefined')?settings.gifts[1]['text']:'',
                                                         GIFTIMAGE2 : (typeof settings.gifts[1] !='undefined' && typeof settings.gifts[1]['picture']!='undefined')?settings.gifts[1]['picture']:'',
+                                                        GIFTSTYLE2 : (typeof settings.gifts[1] !='undefined' && typeof settings.gifts[1]['picture']!='undefined')?'':'display:none;',
 
                                                         GIFTSCLASS1 : (typeof settings.gifts[1] !='undefined')?'':'apishopsFormGiftItemOnce',
                                                         GIFTSCLASS2 : (typeof settings.gifts[1] !='undefined')?'':'apishopsFormGiftItemHidden'
                                                     });
 
-                                                    settings.apishopsGiftsObject=$(settings.apishopsFormGiftsHtml);
+                                                    settings.apishopsGiftsObject=jQuery(settings.apishopsFormGiftsHtml);
                                                     settings.apishopsFormGiftsObject=settings.apishopsGiftsObject.find('.apishopsFormGift');
                                                     settings.apishopsFormGiftsHoverCardObject=settings.apishopsGiftsObject.find('.apishopsFormGiftHoverCard');
 
@@ -753,15 +756,15 @@ jQuery.fn.apishopsForm=function(options)
                                                     if(settings.apishopsFormGiftsHoverCardObject.length>0 && settings.apishopsFormGiftsObject.length>0){
 
                                                         settings.apishopsFormGiftsHoverCardObject.css('top',settings.apishopsFormGiftsObject.offset().top);
-                                                        $('body').append(settings.apishopsFormGiftsHoverCardObject);
+                                                        jQuery('body').append(settings.apishopsFormGiftsHoverCardObject);
 
-                                                        $(settings.apishopsFormGiftsObject).mouseover(function() {
+                                                        jQuery(settings.apishopsFormGiftsObject).mouseover(function() {
                                                             settings.apishopsFormGiftsHoverCardObject.addClass('apishopsFormGiftHoverCardActive')
                                                             settings.apishopsFormGiftsHoverCardObject.css('width',settings.apishopsFormGiftsObject.outerWidth());
                                                             settings.apishopsFormGiftsHoverCardObject.css('left',settings.apishopsFormGiftsObject.offset().left);
                                                             settings.apishopsFormGiftsHoverCardObject.css('top',settings.apishopsFormGiftsObject.offset().top);
                                                         });
-                                                        $(settings.apishopsFormGiftsObject).mouseout(function() {
+                                                        jQuery(settings.apishopsFormGiftsObject).mouseout(function() {
                                                             settings.apishopsFormGiftsHoverCardObject.removeClass('apishopsFormGiftHoverCardActive')
                                                         });
                                                     }
@@ -794,7 +797,7 @@ jQuery.fn.apishopsForm=function(options)
 
                 for(index in settings.inputs){
                     value=settings.inputs[index];
-                    $input=$(value,settings.form);
+                    $input=jQuery(value,settings.form);
                     if($input.length &&  typeof $input !='undefined')
                         inputs_tmp[index]=$input;
                 };
@@ -818,25 +821,25 @@ jQuery.fn.apishopsForm=function(options)
                 (исключения — инпуты без pattern или с нулевым pattern)
                 */
                 $.each(settings.inputs, function(index, value){
-                    if($(value).is('input[type=text]') && typeof $(value).attr('pattern')!='undefined' && $(value).attr('pattern')!='')
-                        $(value).bind({
+                    if(jQuery(value).is('input[type=text]') && typeof jQuery(value).attr('pattern')!='undefined' && jQuery(value).attr('pattern')!='')
+                        jQuery(value).bind({
                               change: function() {
-                                    if(!new RegExp($(value).attr('pattern')).test($(value).val()))
-                                        $(value).closest('.apishopsFormGroup').addClass('apishopsFormError');
+                                    if(!new RegExp(jQuery(value).attr('pattern')).test(jQuery(value).val()))
+                                        jQuery(value).closest('.apishopsFormGroup').addClass('apishopsFormError');
                               },
                               keyup: function() {
-                                    if(new RegExp($(value).attr('pattern')).test($(value).val()))
-                                        $(value).closest('.apishopsFormGroup').removeClass('apishopsFormError');
+                                    if(new RegExp(jQuery(value).attr('pattern')).test(jQuery(value).val()))
+                                        jQuery(value).closest('.apishopsFormGroup').removeClass('apishopsFormError');
                               }
                           });
 
-                    if($(value).is('select') && typeof $(value).attr('pattern')!='undefined' && $(value).attr('pattern')!='')
-                        $(value).bind({
+                    if(jQuery(value).is('select') && typeof jQuery(value).attr('pattern')!='undefined' && jQuery(value).attr('pattern')!='')
+                        jQuery(value).bind({
                               change: function() {
-                                    if(!new RegExp($(value).attr('pattern')).test($(value).val()))
-                                        $(value).closest('.apishopsFormGroup').addClass('apishopsFormError');
+                                    if(!new RegExp(jQuery(value).attr('pattern')).test(jQuery(value).val()))
+                                        jQuery(value).closest('.apishopsFormGroup').addClass('apishopsFormError');
                                     else
-                                        $(value).closest('.apishopsFormGroup').removeClass('apishopsFormError');
+                                        jQuery(value).closest('.apishopsFormGroup').removeClass('apishopsFormError');
                               }
                           });
                 });
@@ -858,7 +861,7 @@ jQuery.fn.apishopsForm=function(options)
                             lang=(typeof settings['lang']!='undefined')?settings['lang']:'1';
                             params={
                                 object:settings.inputs['delivery'],
-                                regionId:$(this).val(),
+                                regionId:jQuery(this).val(),
                                 price:settings.price,
                                 productId:settings.productId,
                                 siteId:settings.siteId,
@@ -874,7 +877,7 @@ jQuery.fn.apishopsForm=function(options)
                             lang=(typeof settings['lang']!='undefined')?settings['lang']:'1';
                             params={
                                 object:settings.inputs['payment'],
-                                deliveryId:$(this).val(),
+                                deliveryId:jQuery(this).val(),
                                 regionId:settings.inputs['region'].val(),
                                 price:settings.price,
                                 productId:settings.productId,
@@ -893,7 +896,7 @@ jQuery.fn.apishopsForm=function(options)
                                 object:settings.inputs['cost'],
                                 deliveryId:settings.inputs['delivery'].val(),
                                 regionId:settings.inputs['region'].val(),
-                                paymentId:$(this).val(),
+                                paymentId:jQuery(this).val(),
                                 price:settings.price,
                                 productId:settings.productId,
                                 siteId:settings.siteId,
@@ -904,20 +907,20 @@ jQuery.fn.apishopsForm=function(options)
                           apishopsFormLoadPrice(params)
                     });
 
-                    $(settings.form).submit(function(event) {
+                    jQuery(settings.form).submit(function(event) {
                         var error='';
                         event.preventDefault();
                         $.each(settings.inputs, function(index, value){
-                            if($(value) && typeof $(value) !='undefined' && typeof $(value).attr('pattern')!='undefined' && $(value).attr('pattern')!=''  && _.indexOf(settings.hidden_fields, index)<0  && _.indexOf(settings.optional_fields, index)<0)  {
-                                    if(!new RegExp($(value).attr('pattern')).test($(value).val())  || new RegExp('[<>]').test($(value).val())){
-                                            $(value).closest('.apishopsFormGroup').addClass('apishopsFormError');
+                            if(jQuery(value) && typeof jQuery(value) !='undefined' && typeof jQuery(value).attr('pattern')!='undefined' && jQuery(value).attr('pattern')!=''  && _.indexOf(settings.hidden_fields, index)<0  && _.indexOf(settings.optional_fields, index)<0)  {
+                                    if(!new RegExp(jQuery(value).attr('pattern')).test(jQuery(value).val())  || new RegExp('[<>]').test(jQuery(value).val())){
+                                            jQuery(value).closest('.apishopsFormGroup').addClass('apishopsFormError');
                                             error+=' - '+settings.inputs_[index]+'\n';
                                     }
-                                    else if(index=='phone' && new RegExp('[_]').test($(value).val())){
+                                    else if(index=='phone' && new RegExp('[_]').test(jQuery(value).val())){
                                             error+='— Поле телефона: допустимы только цифры, знак плюс, скобки и дефисы';
                                     }
                                     else{
-                                        $(value).closest('.apishopsFormGroup').removeClass('apishopsFormError');
+                                        jQuery(value).closest('.apishopsFormGroup').removeClass('apishopsFormError');
                                     }
                             }
                         });
@@ -954,20 +957,20 @@ jQuery.fn.apishopsForm=function(options)
                     });
                 }else{
 
-                    $(settings.form).submit(function(event) {
+                    jQuery(settings.form).submit(function(event) {
                         var error='';
                         event.preventDefault();
                         $.each(settings.inputs, function(index, value){
-                            if($(value) && typeof $(value) !='undefined' && typeof $(value).attr('pattern')!='undefined' && $(value).attr('pattern')!='' && _.indexOf(settings.hidden_fields, index)<0 && _.indexOf(settings.optional_fields, index)<0)  {
-                                    if(!new RegExp($(value).attr('pattern')).test($(value).val())  || new RegExp('[<>]').test($(value).val())){
-                                            $(value).closest('.apishopsFormGroup').addClass('apishopsFormError');
+                            if(jQuery(value) && typeof jQuery(value) !='undefined' && typeof jQuery(value).attr('pattern')!='undefined' && jQuery(value).attr('pattern')!='' && _.indexOf(settings.hidden_fields, index)<0 && _.indexOf(settings.optional_fields, index)<0)  {
+                                    if(!new RegExp(jQuery(value).attr('pattern')).test(jQuery(value).val())  || new RegExp('[<>]').test(jQuery(value).val())){
+                                            jQuery(value).closest('.apishopsFormGroup').addClass('apishopsFormError');
                                             error+=' - '+settings.inputs_[index]+'\n';
                                     }
-                                    else if(index=='phone' && new RegExp('[_]').test($(value).val())){
+                                    else if(index=='phone' && new RegExp('[_]').test(jQuery(value).val())){
                                             error+='— Поле телефона: допустимы только цифры, знак плюс, скобки и дефисы';
                                     }
                                     else{
-                                        $(value).closest('.apishopsFormGroup').removeClass('apishopsFormError');
+                                        jQuery(value).closest('.apishopsFormGroup').removeClass('apishopsFormError');
                                     }
                             }
                         });
@@ -1037,9 +1040,9 @@ jQuery.fn.apishopsForm=function(options)
         seconds=seconds.toString();
 
 
-        $('.hours__').html(hours.charAt(0) + hours.charAt(1));
-        $('.minutes__').html(minutes.charAt(0) + minutes.charAt(1));
-        $('.seconds__').html(seconds.charAt(0) + seconds.charAt(1));
+        jQuery('.hours__').html(hours.charAt(0) + hours.charAt(1));
+        jQuery('.minutes__').html(minutes.charAt(0) + minutes.charAt(1));
+        jQuery('.seconds__').html(seconds.charAt(0) + seconds.charAt(1));
 
         setTimeout(startTimer, 1000);
     }
@@ -1115,37 +1118,37 @@ jQuery.fn.apishopsForm=function(options)
 
 
    function modalInit(){
-            settings.modal=$(settings.placement,$(settings.modal)).length?$(settings.modal):$(settings.modal__);
+            settings.modal=jQuery(settings.placement,jQuery(settings.modal)).length?jQuery(settings.modal):jQuery(settings.modal__);
 
-            $('body').append(settings.modal);
+            jQuery('body').append(settings.modal);
 
-            $(settings.object).click(function(event) {
+            jQuery(settings.object).click(function(event) {
                 event.preventDefault();
                 modalShow();
             });
 
-            $('.apishopsModalClose',settings.modal).click(function(event) {
+            jQuery('.apishopsModalClose',settings.modal).click(function(event) {
                 event.preventDefault();
                 modalHide();
             });
 
-            $('.apishopsModalClose2',settings.modal).click(function(event) {
+            jQuery('.apishopsModalClose2',settings.modal).click(function(event) {
                 event.preventDefault();
                 modalHide();
             });
 
-            $('.apishopsModalOverlay',settings.modal).click(function(event) {
+            jQuery('.apishopsModalOverlay',settings.modal).click(function(event) {
                 event.preventDefault();
                 modalHide();
             });
 
-            return $(settings.placement,settings.modal);
+            return jQuery(settings.placement,settings.modal);
     }
 
     function modalShow(){
             settings.modal.css('display','block');
             window.setTimeout( function(){
-                settings.modal.addClass('in').children('.apishopsModalWindow').css('top',$(this).scrollTop()+100)
+                settings.modal.addClass('in').children('.apishopsModalWindow').css('top',jQuery(this).scrollTop()+100)
             },100);
     }
 
@@ -2096,7 +2099,7 @@ keypressEvent.call(input, undefined, true, charCode.charCodeAt(0), false, true, 
 if (writeOut) {
 var keypressResult = opts.onKeyPress.call(this, undefined, getBuffer(), 0, opts);
 handleOnKeyResult(input, keypressResult);
-writeBuffer(input, getBuffer(), $(input).is(":focus") ? seekNext(getLastValidPosition(0)) : undefined);
+writeBuffer(input, getBuffer(), jQuery(input).is(":focus") ? seekNext(getLastValidPosition(0)) : undefined);
 }
 }
 function escapeRegex(str) {
@@ -2134,10 +2137,10 @@ begin = TranslatePosition(begin);
 end = TranslatePosition(end);
 end = (typeof end == 'number') ? end : begin;
 //store caret for multi scope
-var data = $(npt).data('_inputmask') || {};
+var data = jQuery(npt).data('_inputmask') || {};
 data["caret"] = { "begin": begin, "end": end };
-$(npt).data('_inputmask', data);
-if (!$(npt).is(":visible")) {
+jQuery(npt).data('_inputmask', data);
+if (!jQuery(npt).is(":visible")) {
 return;
 }
 npt.scrollLeft = npt.scrollWidth;
@@ -2153,8 +2156,8 @@ range.moveStart('character', begin);
 range.select();
 }
 } else {
-var data = $(npt).data('_inputmask');
-if (!$(npt).is(":visible") && data && data["caret"] != undefined) {
+var data = jQuery(npt).data('_inputmask');
+if (!jQuery(npt).is(":visible") && data && data["caret"] != undefined) {
 begin = data["caret"]["begin"];
 end = data["caret"]["end"];
 } else if (npt.setSelectionRange) {
@@ -2256,7 +2259,7 @@ return elem;
 };
 $.valHooks[type] = {
 get: function (elem) {
-var $elem = $(elem);
+var $elem = jQuery(elem);
 if ($elem.data('_inputmask')) {
 if ($elem.data('_inputmask')['opts'].autoUnmask)
 return $elem.inputmask('unmaskedvalue');
@@ -2271,7 +2274,7 @@ return result != bufferTemplate ? result : '';
 } else return valueGet(elem);
 },
 set: function (elem, value) {
-var $elem = $(elem), inputData = $elem.data('_inputmask'), result;
+var $elem = jQuery(elem), inputData = $elem.data('_inputmask'), result;
 if (inputData) {
 result = valueSet(elem, $.isFunction(inputData['opts'].onBeforeMask) ? (inputData['opts'].onBeforeMask.call(el, value, inputData['opts']) || value) : value);
 $elem.triggerHandler('setvalue.inputmask');
@@ -2285,23 +2288,23 @@ inputmaskpatch: true
 }
 }
 function getter() {
-var $self = $(this), inputData = $(this).data('_inputmask');
+var $self = jQuery(this), inputData = jQuery(this).data('_inputmask');
 if (inputData) {
 return inputData['opts'].autoUnmask ? $self.inputmask('unmaskedvalue') : (valueGet.call(this) != getBufferTemplate().join('') ? valueGet.call(this) : '');
 } else return valueGet.call(this);
 }
 function setter(value) {
-var inputData = $(this).data('_inputmask');
+var inputData = jQuery(this).data('_inputmask');
 if (inputData) {
 valueSet.call(this, $.isFunction(inputData['opts'].onBeforeMask) ? (inputData['opts'].onBeforeMask.call(el, value, inputData['opts']) || value) : value);
-$(this).triggerHandler('setvalue.inputmask');
+jQuery(this).triggerHandler('setvalue.inputmask');
 } else {
 valueSet.call(this, value);
 }
 }
 function InstallNativeValueSetFallback(npt) {
-$(npt).bind("mouseenter.inputmask", function (event) {
-var $input = $(this), input = this, value = input._valueGet();
+jQuery(npt).bind("mouseenter.inputmask", function (event) {
+var $input = jQuery(this), input = this, value = input._valueGet();
 if (value != "" && value != getBuffer().join('')) {
 valueSet.call(this, $.isFunction(opts.onBeforeMask) ? (opts.onBeforeMask.call(el, value, opts) || value) : value);
 $input.trigger("setvalue");
@@ -2420,7 +2423,7 @@ caret(input, keyResult.caret || caretPos.begin, keyResult.caret || caretPos.end)
 function keydownEvent(e) {
 //Safari 5.1.x - modal dialog fires keypress twice workaround
 skipKeyPressEvent = false;
-var input = this, $input = $(input), k = e.keyCode, pos = caret(input);
+var input = this, $input = jQuery(input), k = e.keyCode, pos = caret(input);
 //backspace, delete, and escape get special treatment
 if (k == $.inputmask.keyCode.BACKSPACE || k == $.inputmask.keyCode.DELETE || (iphone && k == 127) || (e.ctrlKey && k == 88 && !isInputEventSupported("cut"))) { //backspace/delete
 e.preventDefault(); //stop default action but allow propagation
@@ -2468,7 +2471,7 @@ function keypressEvent(e, checkval, k, writeOut, strict, ndx) {
 //Safari 5.1.x - modal dialog fires keypress twice workaround
 if (k == undefined && skipKeyPressEvent) return false;
 skipKeyPressEvent = true;
-var input = this, $input = $(input);
+var input = this, $input = jQuery(input);
 e = e || window.event;
 var k = checkval ? k : (e.which || e.charCode || e.keyCode);
 if (checkval !== true && (!(e.ctrlKey && e.altKey) && (e.ctrlKey || e.metaKey || ignorable))) {
@@ -2545,7 +2548,7 @@ handleOnKeyResult(input, keypressResult, currentCaretPos);
 }
 }
 function keyupEvent(e) {
-var $input = $(this), input = this, k = e.keyCode, buffer = getBuffer();
+var $input = jQuery(this), input = this, k = e.keyCode, buffer = getBuffer();
 var currentCaretPos = caret(input);
 var keyupResult = opts.onKeyUp.call(this, e, buffer, currentCaretPos.begin, opts);
 handleOnKeyResult(input, keyupResult, currentCaretPos);
@@ -2567,7 +2570,7 @@ if (skipInputEvent === true && e.type == "input") {
 skipInputEvent = false;
 return true;
 }
-var input = this, $input = $(input), inputValue = input._valueGet(), caretPos = caret(input);
+var input = this, $input = jQuery(input), inputValue = input._valueGet(), caretPos = caret(input);
 //paste event for IE8 and lower I guess ;-)
 if (e.type == "propertychange" && input._valueGet().length <= getMaskLength()) {
 return true;
@@ -2618,7 +2621,7 @@ checkVal(input, false, false);
 var forwardPosition = getMaskSet()["p"];
 writeBuffer(input, getBuffer(), opts.numericInput ? seekPrevious(forwardPosition) : forwardPosition);
 if (isComplete(getBuffer()) === true)
-$(input).trigger("complete");
+jQuery(input).trigger("complete");
 e.preventDefault();
 }
 function compositionupdateEvent(e) { //fix for special latin-charset FF/Linux
@@ -2637,7 +2640,7 @@ writeBuffer(input, getBuffer(), opts.numericInput ? seekPrevious(forwardPosition
 return false;
 }
 function mask(el) {
-$el = $(el);
+$el = jQuery(el);
 if ($el.is(":input") && isInputTypeSupported($el.attr("type"))) {
 //store tests & original buffer in the input element - used to get the unmasked value
 $el.data('_inputmask', {
@@ -2678,14 +2681,14 @@ $el.trigger("setvalue");
 }, 0);
 });
 $el.bind("mouseenter.inputmask", function () {
-var $input = $(this), input = this;
+var $input = jQuery(this), input = this;
 if (!$input.is(":focus") && opts.showMaskOnHover) {
 if (input._valueGet() != getBuffer().join('')) {
 writeBuffer(input, getBuffer());
 }
 }
 }).bind("blur.inputmask", function () {
-var $input = $(this), input = this;
+var $input = jQuery(this), input = this;
 if ($input.data('_inputmask')) {
 var nptValue = input._valueGet(), buffer = getBuffer();
 firstClick = true;
@@ -2714,7 +2717,7 @@ writeBuffer(input, buffer);
 }
 }
 }).bind("focus.inputmask", function (e) {
-var $input = $(this), input = this, nptValue = input._valueGet();
+var $input = jQuery(this), input = this, nptValue = input._valueGet();
 if (opts.showMaskOnFocus && (!opts.showMaskOnHover || (opts.showMaskOnHover && nptValue == ''))) {
 if (input._valueGet() != getBuffer().join('')) {
 writeBuffer(input, getBuffer(), seekNext(getLastValidPosition()));
@@ -2722,7 +2725,7 @@ writeBuffer(input, getBuffer(), seekNext(getLastValidPosition()));
 }
 valueOnFocus = getBuffer().join('');
 }).bind("mouseleave.inputmask", function () {
-var $input = $(this), input = this;
+var $input = jQuery(this), input = this;
 if (opts.clearMaskOnLostFocus) {
 if (!$input.is(":focus") && input._valueGet() != $input.attr("placeholder")) {
 if (input._valueGet() == getBufferTemplate().join('') || input._valueGet() == '')
@@ -2733,7 +2736,7 @@ clearOptionalTail(input);
 }
 }
 }).bind("click.inputmask", function () {
-var $input = $(this), input = this;
+var $input = jQuery(this), input = this;
 if ($input.is(":focus")) {
 var selectedCaret = caret(input);
 if (selectedCaret.begin == selectedCaret.end) {
@@ -2765,7 +2768,7 @@ if ((opts.clearMaskOnLostFocus || opts.clearIncomplete) && input._valueGet() == 
 input._valueSet('');
 }).bind('cut.inputmask', function (e) {
 skipInputEvent = true; //stop inutFallback
-var input = this, $input = $(input), pos = caret(input);
+var input = this, $input = jQuery(input), pos = caret(input);
 handleRemove(input, $.inputmask.keyCode.DELETE, pos);
 var keypressResult = opts.onKeyPress.call(this, e, getBuffer(), getMaskSet()["p"], opts);
 handleOnKeyResult(input, keypressResult, { begin: getMaskSet()["p"], end: getMaskSet()["p"] });
@@ -2822,7 +2825,7 @@ installEventRuler(el);
 if (actionObj != undefined) {
 switch (actionObj["action"]) {
 case "isComplete":
-$el = $(actionObj["el"]);
+$el = jQuery(actionObj["el"]);
 maskset = $el.data('_inputmask')['maskset'];
 opts = $el.data('_inputmask')['opts'];
 return isComplete(actionObj["buffer"]);
@@ -2837,7 +2840,7 @@ valueOnFocus = getBuffer().join('');
 mask(actionObj["el"]);
 break;
 case "format":
-$el = $({});
+$el = jQuery({});
 $el.data('_inputmask', {
 'maskset': maskset,
 'opts': opts,
@@ -2857,7 +2860,7 @@ metadata: $el.inputmask("getmetadata")
 }
 return isRTL ? getBuffer().slice().reverse().join('') : getBuffer().join('');
 case "isValid":
-$el = $({});
+$el = jQuery({});
 $el.data('_inputmask', {
 'maskset': maskset,
 'opts': opts,
@@ -2876,13 +2879,13 @@ if (isMask(lmib)) break;
 buffer.splice(rl, lmib + 1 - rl);
 return isComplete(buffer) && actionObj["value"] == buffer.join('');
 case "getemptymask":
-$el = $(actionObj["el"]);
+$el = jQuery(actionObj["el"]);
 maskset = $el.data('_inputmask')['maskset'];
 opts = $el.data('_inputmask')['opts'];
 return getBufferTemplate();
 case "remove":
 var el = actionObj["el"];
-$el = $(el);
+$el = jQuery(el);
 maskset = $el.data('_inputmask')['maskset'];
 opts = $el.data('_inputmask')['opts'];
 //writeout the unmaskedvalue
@@ -2917,7 +2920,7 @@ el._valueSet = undefined;
 }
 break;
 case "getmetadata":
-$el = $(actionObj["el"]);
+$el = jQuery(actionObj["el"]);
 maskset = $el.data('_inputmask')['maskset'];
 opts = $el.data('_inputmask')['opts'];
 if ($.isArray(maskset["metadata"])) {
@@ -3024,7 +3027,7 @@ $.fn.inputmask = function (fn, options, targetScope, targetData, msk) {
 targetScope = targetScope || maskScope;
 targetData = targetData || "_inputmask";
 function importAttributeOptions(npt, opts, importedOptionsContainer) {
-var $npt = $(npt);
+var $npt = jQuery(npt);
 if ($npt.data("inputmask-alias")) {
 resolveAlias($npt.data("inputmask-alias"), {}, opts);
 }
@@ -3056,13 +3059,13 @@ return this.each(function () {
 targetScope({ "action": "mask", "el": this }, $.extend(true, {}, maskset), importAttributeOptions(this, opts));
 });
 case "unmaskedvalue":
-var $input = $(this);
+var $input = jQuery(this);
 if ($input.data(targetData)) {
 return targetScope({ "action": "unmaskedvalue", "$input": $input });
 } else return $input.val();
 case "remove":
 return this.each(function () {
-var $input = $(this);
+var $input = jQuery(this);
 if ($input.data(targetData)) {
 targetScope({ "action": "remove", "el": this });
 }
@@ -3117,7 +3120,7 @@ targetScope({ "action": "mask", "el": this }, $.extend(true, {}, maskset), impor
 } else if (fn == undefined) {
 //look for data-inputmask atribute - the attribute should only contain optipns
 return this.each(function () {
-var attrOptions = $(this).attr("data-inputmask");
+var attrOptions = jQuery(this).attr("data-inputmask");
 if (attrOptions && attrOptions != "") {
 try {
 attrOptions = attrOptions.replace(new RegExp("'", "g"), '"');
@@ -3127,16 +3130,16 @@ opts = $.extend(true, {}, $.inputmask.defaults, dataoptions);
 opts = importAttributeOptions(this, opts);
 resolveAlias(opts.alias, dataoptions, opts);
 opts.alias = undefined;
-$(this).inputmask("mask", opts, targetScope);
+jQuery(this).inputmask("mask", opts, targetScope);
 } catch (ex) { } //need a more relax parseJSON
 }
-if ($(this).attr("data-inputmask-mask") || $(this).attr("data-inputmask-alias")) {
+if (jQuery(this).attr("data-inputmask-mask") || jQuery(this).attr("data-inputmask-alias")) {
 opts = $.extend(true, {}, $.inputmask.defaults, {});
 var dataOptions = {};
 opts = importAttributeOptions(this, opts, dataOptions);
 resolveAlias(opts.alias, dataOptions, opts);
 opts.alias = undefined;
-$(this).inputmask("mask", opts, targetScope);
+jQuery(this).inputmask("mask", opts, targetScope);
 }
 });
 }
@@ -3169,23 +3172,23 @@ var apishopsParcelParamaters={};
 var apishopsFormTemplates={
     theme:{
         css:apishopsFormPaths.rootdir+apishopsFormPaths.cssdir+apishopsFormPaths.themesdir+'/%THEME%.css',
-        js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+apishopsFormPaths.themesdir+'/%THEME%.js'
+        js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+apishopsFormPaths.themesdir+'/%THEME%%CHARSETSUFFIX%.js'
     },
     gift:{
         css:apishopsFormPaths.rootdir+apishopsFormPaths.cssdir+apishopsFormPaths.giftsdir+'/%THEME%.css',
-        js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+apishopsFormPaths.giftsdir+'/%THEME%.js'
+        js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+apishopsFormPaths.giftsdir+'/%THEME%%CHARSETSUFFIX%.js'
     },
     modal:{
-        js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+'/apishopsFormModal.js'
+        js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+'/apishopsFormModal%CHARSETSUFFIX%.js'
     },
     quickview:{
         css:apishopsFormPaths.rootdir+apishopsFormPaths.cssdir+'/apishopsFormQuickView.css',
-        js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+'/apishopsFormQuickView.js'
+        js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+'/apishopsFormQuickView%CHARSETSUFFIX%.js'
     }
 }
 
 
-function apishopsFormLoadTemplates(templates, theme, successFunction, errorFunction){
+function apishopsFormLoadTemplates(templates, charset, theme, successFunction, errorFunction){
     var templates_js_loaded=0;
 
     apishopsLog('Templates:'+theme+' '+templates_js_loaded+'/'+templates.length);
@@ -3193,18 +3196,16 @@ function apishopsFormLoadTemplates(templates, theme, successFunction, errorFunct
     for(template_no in templates){
         for(template_file_type in apishopsFormTemplates[templates[template_no]]){
 
-
-
             if(template_file_type=='css'){
-                var template_file=apishopsFormTemplates[templates[template_no]][template_file_type].replace("%THEME%", theme);
-                $('head').append( $('<link rel="stylesheet" type="text/css" />').attr('href', template_file));
+                var template_file=apishopsFormTemplates[templates[template_no]][template_file_type].replace("%THEME%", theme).replace("%CHARSETSUFFIX%",(charset=='utf8'?'.utf8':''));
+                jQuery('head').append( jQuery('<link rel="stylesheet" type="text/css" />').attr('href', template_file));
                 //apishopsFormTemplates[templates[template_no]][template_file_type]=true;
                 apishopsLog('Templates:'+theme+' - '+templates[template_no]+','+template_file_type+' == true '+templates_js_loaded+'/'+templates.length);
             }
 
             if(apishopsFormTemplates[templates[template_no]][template_file_type]!==true)
             {
-                var template_file=apishopsFormTemplates[templates[template_no]][template_file_type].replace("%THEME%", theme);
+                var template_file=apishopsFormTemplates[templates[template_no]][template_file_type].replace("%THEME%", theme).replace("%CHARSETSUFFIX%",(charset=='utf8'?'.utf8':''));
 
                 if(template_file_type=='js'){
                     $.getScript(template_file).done(function( script, textStatus ) {
@@ -3357,7 +3358,7 @@ function apishopsFormLoadParcelParameters(params){
 
             apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['info'] = result.data.info;
 
-            result.parameters['object']=$('#'+result.parameters.objectId)
+            result.parameters['object']=jQuery('#'+result.parameters.objectId)
             result.parameters['regionId']=result.parameters.region;
 
             if(callBackFunctionName=='apishopsFormLoadDeliveryTypes')
@@ -3375,7 +3376,7 @@ function apishopsFormLoadParcelParameters(params){
 
 function apishopsFormLoadRegions(params){
 
-    $object=$(params['object']);
+    $object=jQuery(params['object']);
     $object.closest('.apishopsFormGroup').addClass('apishopsLoading');
 
     if(typeof $object.attr('id')=='undefined')
@@ -3394,14 +3395,14 @@ function apishopsFormLoadRegions(params){
         },
         function(result){
 
-            $object=$('#'+result.parameters.objectId);
+            $object=jQuery('#'+result.parameters.objectId);
 
-            $object.append($('<option value="-1">Выберите регион доставки</option>'));
+            $object.append(jQuery('<option value="-1">Выберите регион доставки</option>'));
 
             var topRegions = [53, 421, 92, 0];
             $.each(result.data, function () {
                 if ($.inArray(this.id, topRegions) != -1){
-                    $object.append($('<option value="' + this.id + '">' + this.name + '</option>'));
+                    $object.append(jQuery('<option value="' + this.id + '">' + this.name + '</option>'));
                 }
             });
 
@@ -3409,7 +3410,7 @@ function apishopsFormLoadRegions(params){
 
             $.each(result.data, function () {
                 if ($.inArray(this.id, topRegions) == -1){
-                    $object.append($('<option value="' + this.id + '">' + this.name + '</option>'));
+                    $object.append(jQuery('<option value="' + this.id + '">' + this.name + '</option>'));
                 }
             });
 
@@ -3429,7 +3430,7 @@ function apishopsFormLoadDeliveryTypes(params){
         return false;
     }
 
-    $object=$(params['object']);
+    $object=jQuery(params['object']);
     $object.closest('.apishopsFormGroup').addClass('apishopsLoading');
 
     if(typeof $object.attr('id') == 'undefined')
@@ -3438,7 +3439,7 @@ function apishopsFormLoadDeliveryTypes(params){
 
     try{
         $object.empty();
-        $object.append($('<option value="-1">Выберите тип доставки</option>'));
+        $object.append(jQuery('<option value="-1">Выберите тип доставки</option>'));
 
         $.each(apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['info'].items, function () {
             var min = null;
@@ -3463,9 +3464,9 @@ function apishopsFormLoadDeliveryTypes(params){
                 }
             });
             if (min == max){
-                $object.append($('<option value="' + this.deliveryId + '">' + apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['deliveries'][this.deliveryId] + ' (' + Math.round(min*100)/100 + ' '+((params.lang==7)?'грн':'руб')+')' + '</option>'));
+                $object.append(jQuery('<option value="' + this.deliveryId + '">' + apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['deliveries'][this.deliveryId] + ' (' + Math.round(min*100)/100 + ' '+((params.lang==7)?'грн':'руб')+')' + '</option>'));
             } else {
-                $object.append($('<option value="' + this.deliveryId + '">' + apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['deliveries'][this.deliveryId] + ' (' + Math.round(min*100)/100 + ' - ' + Math.round(max*100)/100 + ' '+((params.lang==7)?'грн':'руб')+')' + '</option>'));
+                $object.append(jQuery('<option value="' + this.deliveryId + '">' + apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['deliveries'][this.deliveryId] + ' (' + Math.round(min*100)/100 + ' - ' + Math.round(max*100)/100 + ' '+((params.lang==7)?'грн':'руб')+')' + '</option>'));
             }
         });
 
@@ -3490,7 +3491,7 @@ function apishopsFormLoadPaymentTypes(params){
         return false;
     }
 
-    $object=$(params['object']);
+    $object=jQuery(params['object']);
     $object.closest('.apishopsFormGroup').addClass('apishopsLoading');
 
     if(typeof $object.attr('id') == 'undefined')
@@ -3510,7 +3511,7 @@ function apishopsFormLoadPaymentTypes(params){
                             bonus_ = 100;
                         }
                     }
-                    $object.append($('<option value="' + this.paymentId + '" alt="' + this.sum + '" baseSum="' + this.baseSum + '" addKgSum="' + this.addKgSum + '">' + apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['payments'][this.paymentId] + ' (доставка ' + Math.round((this.sum+bonus_)*100)/100 + ' '+((params.lang==7)?'грн':'руб')+')' + '</option>'));
+                    $object.append(jQuery('<option value="' + this.paymentId + '" alt="' + this.sum + '" baseSum="' + this.baseSum + '" addKgSum="' + this.addKgSum + '">' + apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['payments'][this.paymentId] + ' (доставка ' + Math.round((this.sum+bonus_)*100)/100 + ' '+((params.lang==7)?'грн':'руб')+')' + '</option>'));
                 });
             }
         });
@@ -3535,7 +3536,7 @@ function apishopsFormLoadPrice(params){
         return false;
     }
 
-    $object=$(params['object']);
+    $object=jQuery(params['object']);
     $object.closest('.apishopsFormGroup').addClass('apishopsLoading');
 
     if(typeof $object.attr('id') == 'undefined')
@@ -3610,9 +3611,9 @@ function apishopsFormIsIe () {
 
 function apishopsFormSubmit(params){
 
-    $object=$(params['object']);
+    $object=jQuery(params['object']);
     $object.closest('.apishopsFormGroup').addClass('apishopsLoading');
-    $form=$(params['form']);
+    $form=jQuery(params['form']);
     $form.addClass('apishopsFormLoading').append('<div class="apishopsFormLoadingText">Отправка..</div>');
 
     if(!(typeof params['regionId']=='undefined' || typeof params['paymentId']=='undefined' || typeof params['deliveryId']=='undefined')){
@@ -3666,9 +3667,9 @@ function apishopsFormSubmit(params){
     var clientTimeZone = -objDate.getTimezoneOffset()/60;
 
     apishopsFormGetJSONP($jsonp,function(result){
-            $object=$('#'+result.parameters.objectId);
+            $object=jQuery('#'+result.parameters.objectId);
             $object.closest('.apishopsFormGroup').removeClass('apishopsLoading');
-            $form=$('#'+result.parameters.formId);
+            $form=jQuery('#'+result.parameters.formId);
             $form.removeClass('apishopsFormLoading').find(".apishopsFormLoadingText").remove()
 
             if (result.data.error != null) {
@@ -3676,40 +3677,45 @@ function apishopsFormSubmit(params){
             }
             else
             {
-                if((result.parameters.successUrl==false || result.parameters.successUrl=='false') && !apishopsFormIsIe()){
+                if(result.parameters.successUrl==false || result.parameters.successUrl=='false'){
 
-                    var successModal=$(apishopsFormModal).clone().appendTo('body').addClass('in').addClass('successModal').show();
-                    var successModalWindow=successModal.find('.apishopsModalWindow');
-                    var successModalOverlay=successModal.find('.apishopsModalOverlay');
-                    var successModalClose=successModal.find('.apishopsModalClose');
-                    var successModalClose2=successModal.find('.apishopsModalClose2');
-                    var successContent=successModal.find('.apishopsModalContent')
-                    var successHtml='<h2 style="font-size: 45px;margin:0px;">Поздравляем!</h2><div>Ваш заказ #<b>'+result.data.id+'</b> принят и ожидает подтверждения.<br><div class="text">Скоро Вам позвонит оператор и уточнит все детали.<br></div><div class="merchant_grid"><div class="merchant_grid_cell"><div class="additionalProducts"></div></div><div class="merchant_grid_cell merhcnaht_grid_cell_propose"><div class="merchant_block merchant_block1"><img style="height: 35px; margin-bottom: 11px;" src="http://internetcompany.ru/data/apishops/card.png"><br><a href="https://apishops.internetcompany.ru/?id='+result.data.id+'&site_id='+result.parameters.siteId+'">Оплачивайте банковской картой и получайте <b class="bonus">5% скидку!</b><div class="button">Оплатить</div></a> </div></div>';
-                    var successFilesCharsetSuffix=(result.parameters.charset=='utf8')?'.utf8':'';
+                    if(!apishopsFormIsIe())
+                    {
+                        var successModal=jQuery(apishopsFormModal).clone().appendTo('body').addClass('in').addClass('successModal').show();
+                        var successModalWindow=successModal.find('.apishopsModalWindow');
+                        var successModalOverlay=successModal.find('.apishopsModalOverlay');
+                        var successModalClose=successModal.find('.apishopsModalClose');
+                        var successModalClose2=successModal.find('.apishopsModalClose2');
+                        var successContent=successModal.find('.apishopsModalContent')
+                        var successHtml='<h2 style="font-size: 45px;margin:0px;">Поздравляем!</h2><div>Ваш заказ #<b>'+result.data.id+'</b> принят и ожидает подтверждения.<br><div class="text">Скоро Вам позвонит оператор и уточнит все детали.<br></div><div class="merchant_grid"><div class="merchant_grid_cell"><div class="additionalProducts"></div></div><div class="merchant_grid_cell merhcnaht_grid_cell_propose"><div class="merchant_block merchant_block1"><img style="height: 35px; margin-bottom: 11px;" src="http://internetcompany.ru/data/apishops/card.png"><br><a href="https://apishops.internetcompany.ru/?id='+result.data.id+'&site_id='+result.parameters.siteId+'">Оплачивайте банковской картой и получайте <b class="bonus">5% скидку!</b><div class="button">Оплатить</div></a> </div></div>';
+                        var successFilesCharsetSuffix=(result.parameters.charset=='utf8')?'.utf8':'';
 
-                    $('head').append( $('<link rel="stylesheet" type="text/css" />').attr('href', 'http://img2.apishops.org/SinglePageWebsites/custom/css/apishopsAdditionalProductForm.css'));
-                    $('head').append( $('<link rel="stylesheet" type="text/css" />').attr('href', 'http://internetcompany.ru/data/apishops/merchant.css'));
-                    /*litle hack for old css replacement*/
-                    $("link[href$='apishopsForm.css']").attr('href','http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm.2.css')
+                        jQuery('head').append( jQuery('<link rel="stylesheet" type="text/css" />').attr('href', 'http://img2.apishops.org/SinglePageWebsites/custom/css/apishopsAdditionalProductForm.css'));
+                        jQuery('head').append( jQuery('<link rel="stylesheet" type="text/css" />').attr('href', 'http://internetcompany.ru/data/apishops/merchant.css'));
+                        /*litle hack for old css replacement*/
+                        jQuery("link[href$='apishopsForm.css']").attr('href','http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm.2.css')
 
-                    successContent.html(successHtml);
-                    successModalClose2.find('a').html('Продолжить покупки');
+                        successContent.html(successHtml);
+                        successModalClose2.find('a').html('Продолжить покупки');
 
-                    $(successModalOverlay).bind('click', function(event){
-                        successModal.remove();
-                    });
+                        jQuery(successModalOverlay).bind('click', function(event){
+                            successModal.remove();
+                        });
 
-                    $(successModalClose).bind('click', function(event){
-                        successModal.remove();
-                    });
+                        jQuery(successModalClose).bind('click', function(event){
+                            successModal.remove();
+                        });
 
-                    $(successModalClose2).bind('click', function(event){
-                        successModal.remove();
-                    });
+                        jQuery(successModalClose2).bind('click', function(event){
+                            successModal.remove();
+                        });
 
-                    $.getScript('http://img2.apishops.org/SinglePageWebsites/custom/js/apishopsAdditionalProductForm'+successFilesCharsetSuffix+'.js').done(function( script, textStatus ) {
-                        $(".additionalProducts").apishopsAdditionalProductForm({siteId: result.parameters.siteId, orderId: result.data.id});
-                    })
+                        $.getScript('http://img2.apishops.org/SinglePageWebsites/custom/js/apishopsAdditionalProductForm'+successFilesCharsetSuffix+'.js').done(function( script, textStatus ) {
+                            jQuery(".additionalProducts").apishopsAdditionalProductForm({siteId: result.parameters.siteId, orderId: result.data.id});
+                        })
+                    }else{
+                        alert('Ваш заказ #<b>'+result.data.id+'</b> принят и ожидает подтверждения.<br><div class="text">Скоро Вам позвонит оператор и уточнит все детали');
+                    }
 
 
 

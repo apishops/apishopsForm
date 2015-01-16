@@ -17,7 +17,7 @@
 
 .apishopsFormImageWrapper {
     width: 107px;
-    height: 111px;
+    height: 111px !important;
     -webkit-transform: none;
     -ms-transform: none;
     transform: none;
@@ -151,6 +151,7 @@
     display:none;
 }
 
+
 .apishopsFormTheme1__Image{
     background-position: center center;
     background-repeat: no-repeat;
@@ -160,7 +161,7 @@
     cursor: pointer;
     display: block;
     height: 110px;
-    margin: 5px;
+    margin: 5px 5px 5px 29px;
     overflow: hidden;
     width: 100px;
     float:left;
