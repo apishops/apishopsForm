@@ -715,9 +715,10 @@ jQuery.fn.apishopsForm=function(options)
                                                     _.templateSettings = {
                                                       interpolate : /%(.+?)%/g
                                                     };
-                                                    var apishopsFormGiftsTemplate = _.template(apishopsFormGifts);
 
-                                                    apishopsFormGiftsHtml=apishopsFormGiftsTemplate(
+                                                    settings.apishopsFormGiftsTemplate = _.template(apishopsFormGifts);
+
+                                                    settings.apishopsFormGiftsHtml=settings.apishopsFormGiftsTemplate(
                                                     {
                                                         GIFTNAME1 : (typeof settings.gifts[0] !='undefined' && typeof settings.gifts[0]['name']!='undefined')?settings.gifts[0]['name']:'',
                                                         GIFTDESC1 : (typeof settings.gifts[0] !='undefined' && typeof settings.gifts[0]['text']!='undefined')?settings.gifts[0]['text']:'',
@@ -731,7 +732,9 @@ jQuery.fn.apishopsForm=function(options)
                                                         GIFTSCLASS2 : (typeof settings.gifts[1] !='undefined')?'':'apishopsFormGiftItemHidden'
                                                     });
 
-                                                    apishopsFormGiftsObject=$(apishopsFormGiftsHtml);
+                                                    settings.apishopsGiftsObject=$(settings.apishopsFormGiftsHtml);
+                                                    settings.apishopsFormGiftsObject=settings.apishopsGiftsObject.find('.apishopsFormGift');
+                                                    settings.apishopsFormGiftsHoverCardObject=settings.apishopsGiftsObject.find('.apishopsFormGiftHoverCard');
 
                                                     var form=settings.inputs['phone'].closest('form');
                                                     var inputWidth=form.find('input[type=text]').outerWidth();
@@ -743,9 +746,24 @@ jQuery.fn.apishopsForm=function(options)
                                                         giftWidth=inputWidth;
                                                     }
 
-                                                    apishopsFormGiftsObject.css('width',giftWidth);
+                                                    settings.apishopsGiftsObject.css('width',giftWidth);
 
-                                                    form.append(apishopsFormGiftsObject);
+                                                    form.append(settings.apishopsGiftsObject);
+
+                                                    if(settings.apishopsFormGiftsHoverCardObject.length>0 && settings.apishopsFormGiftsObject.length>0){
+
+                                                        settings.apishopsFormGiftsHoverCardObject.css('top',settings.apishopsFormGiftsObject.offset().top);
+                                                        $('body').append(settings.apishopsFormGiftsHoverCardObject);
+
+                                                        $(settings.apishopsFormGiftsObject).mouseover(function() {
+                                                            settings.apishopsFormGiftsHoverCardObject.addClass('apishopsFormGiftHoverCardActive')
+                                                            settings.apishopsFormGiftsHoverCardObject.css('width',settings.apishopsFormGiftsObject.outerWidth());
+                                                            settings.apishopsFormGiftsHoverCardObject.css('left',settings.apishopsFormGiftsObject.offset().left);
+                                                        });
+                                                        $(settings.apishopsFormGiftsObject).mouseout(function() {
+                                                            settings.apishopsFormGiftsHoverCardObject.removeClass('apishopsFormGiftHoverCardActive')
+                                                        });
+                                                    }
                                                 }
                                             },
                                             function(result){
@@ -757,7 +775,7 @@ jQuery.fn.apishopsForm=function(options)
                 }
             }
             catch(err) {
-
+                alert(err);
             }
 
         }else{
@@ -4176,6 +4194,9 @@ function apishopsFormSubmit(params){
 }
 
 
+
+
+
 (function($){
     $.fn.getStyleObject = function(){
         var dom = this.get(0);
@@ -4207,12 +4228,17 @@ function apishopsFormSubmit(params){
 })(jQuery);
 
 function apishopsLog(text) {
-  if (window.console && window.console.log) {
-     window.console.log(text);
-  }
-  if (console) {
-    console.log(text);
-  }
+    try {
+        if (window.console && window.console.log) {
+            window.console.log(text);
+        }
+        if (console) {
+            console.log(text);
+        }
+    }
+    catch(err) {
+
+    }
 }
 
 
