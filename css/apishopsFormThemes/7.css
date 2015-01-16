@@ -10,6 +10,7 @@
     -webkit-perspective-origin: 672px 289px;
     perspective-origin: 672px 289px;
     -webkit-transform-origin: 672px 289px;
+    -ms-transform-origin: 672px 289px;
     transform-origin: 672px 289px;
     font: normal normal normal normal 16px/normal Times;
 }/*#apishopsFormTheme8SECTION_15*/
@@ -25,6 +26,7 @@
     -webkit-perspective-origin: 480px 289px;
     perspective-origin: 480px 289px;
     -webkit-transform-origin: 480px 289px;
+    -ms-transform-origin: 480px 289px;
     transform-origin: 480px 289px;
     font: normal normal normal normal 16px/normal Times;
     margin: 0px 192px;
@@ -41,6 +43,7 @@
     -webkit-perspective-origin: 144.5px 215px;
     perspective-origin: 144.5px 215px;
     -webkit-transform-origin: 144.5px 215px;
+    -ms-transform-origin: 144.5px 215px;
     transform-origin: 144.5px 215px;
     font: normal normal normal normal 16px/normal Times;
     margin: 5px;
@@ -57,6 +60,7 @@
     -webkit-perspective-origin: 0.5px 0px;
     perspective-origin: 0.5px 0px;
     -webkit-transform-origin: 0.5px 0px;
+    -ms-transform-origin: 0.5px 0px;
     transform-origin: 0.5px 0px;
     content: ' ';
     font: normal normal normal normal 16px/normal Times;
@@ -85,6 +89,7 @@
     -webkit-perspective-origin: 144.5px 215px;
     perspective-origin: 144.5px 215px;
     -webkit-transform-origin: 144.5px 215px;
+    -ms-transform-origin: 144.5px 215px;
     transform-origin: 144.5px 215px;
     border: 4px solid rgb(236, 236, 236);
     border-top: 4px solid rgb(236, 236, 236);
@@ -109,6 +114,7 @@
     -webkit-perspective-origin: 140.5px 9px;
     perspective-origin: 140.5px 9px;
     -webkit-transform-origin: 140.5px 9px;
+    -ms-transform-origin: 140.5px 9px;
     transform-origin: 140.5px 9px;
     font: normal normal normal normal 16px/normal Times;
     margin: 40px 0px 0px;
@@ -123,6 +129,7 @@
     -webkit-perspective-origin: 85px 0px;
     perspective-origin: 85px 0px;
     -webkit-transform-origin: 85px 0px;
+    -ms-transform-origin: 85px 0px;
     transform-origin: 85px 0px;
     font: normal normal normal normal 16px/normal Times;
 }/*#apishopsFormTheme8IMG_4*/
@@ -138,6 +145,7 @@
     -webkit-perspective-origin: 140.5px 34px;
     perspective-origin: 140.5px 34px;
     -webkit-transform-origin: 140.5px 34px;
+    -ms-transform-origin: 140.5px 34px;
     transform-origin: 140.5px 34px;
     font: normal normal normal normal 16px/normal Conv_Palem-nm;
     margin: 20px 0px 25px;
@@ -154,6 +162,7 @@
     -webkit-perspective-origin: 140.5px 10.5px;
     perspective-origin: 140.5px 10.5px;
     -webkit-transform-origin: 140.5px 10.5px;
+    -ms-transform-origin: 140.5px 10.5px;
     transform-origin: 140.5px 10.5px;
     font: normal normal normal normal 23px/normal Conv_Palem-nm;
     margin: 0px;
@@ -176,6 +185,7 @@
     -webkit-perspective-origin: 140.5px 13.5px;
     perspective-origin: 140.5px 13.5px;
     -webkit-transform-origin: 140.5px 13.5px;
+    -ms-transform-origin: 140.5px 13.5px;
     transform-origin: 140.5px 13.5px;
     border: 0px none rgb(24, 24, 24);
     border-top: 0px none rgb(24, 24, 24);
@@ -197,6 +207,7 @@
     -webkit-perspective-origin: 140.5px 115.5px;
     perspective-origin: 140.5px 115.5px;
     -webkit-transform-origin: 140.5px 115.5px;
+    -ms-transform-origin: 140.5px 115.5px;
     transform-origin: 140.5px 115.5px;
     font: normal normal normal normal 16px/normal Times;
 }/*#apishopsFormTheme8DIV_8*/
@@ -211,6 +222,7 @@
     -webkit-perspective-origin: 140.5px 115.5px;
     perspective-origin: 140.5px 115.5px;
     -webkit-transform-origin: 140.5px 115.5px;
+    -ms-transform-origin: 140.5px 115.5px;
     transform-origin: 140.5px 115.5px;
     font: normal normal normal normal 16px/normal Times;
     margin: 0px;
@@ -252,6 +264,7 @@
     -webkit-perspective-origin: 50% 50%;
     perspective-origin: 50% 50%;
     -webkit-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
     transform-origin: 50% 50%;
     background: rgb(119, 179, 255) linear-gradient(to top, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 99.22%, rgb(255, 255, 255) 100%) repeat scroll 0% 0% / auto padding-box padding-box;
     border: 1px solid rgba(204, 204, 204, 0.592157);
@@ -304,6 +317,7 @@
     -webkit-perspective-origin: 111px 22.5px;
     perspective-origin: 111px 22.5px;
     -webkit-transform-origin: 111px 22.5px;
+    -ms-transform-origin: 111px 22.5px;
     transform-origin: 111px 22.5px;
     background: rgb(119, 179, 255) linear-gradient(to top, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 99.22%, rgb(255, 255, 255) 100%) repeat scroll 0% 0% / auto padding-box padding-box;
     border: 1px solid rgba(204, 204, 204, 0.592157);
@@ -356,6 +370,7 @@
     -webkit-perspective-origin: 111px 22.5px;
     perspective-origin: 111px 22.5px;
     -webkit-transform-origin: 111px 22.5px;
+    -ms-transform-origin: 111px 22.5px;
     transform-origin: 111px 22.5px;
     background: rgb(119, 179, 255) linear-gradient(to top, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 99.22%, rgb(255, 255, 255) 100%) repeat scroll 0% 0% / auto padding-box padding-box;
     border: 1px solid rgba(204, 204, 204, 0.592157);
@@ -405,6 +420,7 @@
     -webkit-perspective-origin: 111.5px 23px;
     perspective-origin: 111.5px 23px;
     -webkit-transform-origin: 111.5px 23px;
+    -ms-transform-origin: 111.5px 23px;
     transform-origin: 111.5px 23px;
     background: rgb(183, 89, 111) none repeat scroll 0% 0% / auto padding-box border-box;
     border: 0px none rgb(255, 255, 255);

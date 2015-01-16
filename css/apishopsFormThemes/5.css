@@ -65,6 +65,7 @@
     -webkit-perspective-origin: 672px 337px;
     perspective-origin: 672px 337px;
     -webkit-transform-origin: 672px 337px;
+    -ms-transform-origin: 672px 337px;
     transform-origin: 672px 337px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -99,6 +100,7 @@
     -webkit-perspective-origin: 482.5px 287px;
     perspective-origin: 482.5px 287px;
     -webkit-transform-origin: 482.5px 287px;
+    -ms-transform-origin: 482.5px 287px;
     transform-origin: 482.5px 287px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -132,6 +134,7 @@
     -webkit-perspective-origin: 482.5px 234px;
     perspective-origin: 482.5px 234px;
     -webkit-transform-origin: 482.5px 234px;
+    -ms-transform-origin: 482.5px 234px;
     transform-origin: 482.5px 234px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -163,6 +166,7 @@
     -webkit-perspective-origin: 160.828125px 234px;
     perspective-origin: 160.828125px 234px;
     -webkit-transform-origin: 160.828125px 234px;
+    -ms-transform-origin: 160.828125px 234px;
     transform-origin: 160.828125px 234px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -207,6 +211,7 @@
     -webkit-perspective-origin: 145.828125px 234px;
     perspective-origin: 145.828125px 234px;
     -webkit-transform-origin: 145.828125px 234px;
+    -ms-transform-origin: 145.828125px 234px;
     transform-origin: 145.828125px 234px;
     border: 5px solid rgb(191, 28, 43);
     border-top: 5px solid rgb(191, 28, 43);
@@ -238,6 +243,7 @@
     -webkit-perspective-origin: 115.828125px 10px;
     perspective-origin: 115.828125px 10px;
     -webkit-transform-origin: 115.828125px 10px;
+    -ms-transform-origin: 115.828125px 10px;
     transform-origin: 115.828125px 10px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -267,6 +273,7 @@
     -webkit-perspective-origin: 106.5px 0px;
     perspective-origin: 106.5px 0px;
     -webkit-transform-origin: 106.5px 0px;
+    -ms-transform-origin: 106.5px 0px;
     transform-origin: 106.5px 0px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -297,6 +304,7 @@
     -webkit-perspective-origin: 115.828125px 11.5px;
     perspective-origin: 115.828125px 11.5px;
     -webkit-transform-origin: 115.828125px 11.5px;
+    -ms-transform-origin: 115.828125px 11.5px;
     transform-origin: 115.828125px 11.5px;
     border: 0px none rgb(24, 24, 24);
     border-top: 0px none rgb(24, 24, 24);
@@ -328,6 +336,7 @@
     -webkit-perspective-origin: 115.828125px 9.5px;
     perspective-origin: 115.828125px 9.5px;
     -webkit-transform-origin: 115.828125px 9.5px;
+    -ms-transform-origin: 115.828125px 9.5px;
     transform-origin: 115.828125px 9.5px;
     border: 0px none rgb(102, 102, 102);
     border-top: 0px none rgb(102, 102, 102);
@@ -382,6 +391,7 @@
     -webkit-perspective-origin: 115.828125px 41px;
     perspective-origin: 115.828125px 41px;
     -webkit-transform-origin: 115.828125px 41px;
+    -ms-transform-origin: 115.828125px 41px;
     transform-origin: 115.828125px 41px;
     border: 0px none rgb(24, 24, 24);
     border-top: 0px none rgb(24, 24, 24);
@@ -410,6 +420,7 @@
     -webkit-perspective-origin: 115.828125px 102px;
     perspective-origin: 115.828125px 102px;
     -webkit-transform-origin: 115.828125px 102px;
+    -ms-transform-origin: 115.828125px 102px;
     transform-origin: 115.828125px 102px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -438,6 +449,7 @@
     -webkit-perspective-origin: 115.828125px 102px;
     perspective-origin: 115.828125px 102px;
     -webkit-transform-origin: 115.828125px 102px;
+    -ms-transform-origin: 115.828125px 102px;
     transform-origin: 115.828125px 102px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -483,6 +495,7 @@
     -webkit-perspective-origin: 50% 50%;
     perspective-origin: 50% 50%;
     -webkit-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
     transform-origin: 50% 50%;
     border: 1px solid rgba(204, 204, 204, 0.592157);
     border-top: 1px solid rgba(204, 204, 204, 0.592157);
@@ -528,6 +541,7 @@
     -webkit-perspective-origin: 115.828125px 17.5px;
     perspective-origin: 115.828125px 17.5px;
     -webkit-transform-origin: 115.828125px 17.5px;
+    -ms-transform-origin: 115.828125px 17.5px;
     transform-origin: 115.828125px 17.5px;
     border: 1px solid rgba(204, 204, 204, 0.592157);
     border-top: 1px solid rgba(204, 204, 204, 0.592157);
@@ -573,6 +587,7 @@
     -webkit-perspective-origin: 115.828125px 17.5px;
     perspective-origin: 115.828125px 17.5px;
     -webkit-transform-origin: 115.828125px 17.5px;
+    -ms-transform-origin: 115.828125px 17.5px;
     transform-origin: 115.828125px 17.5px;
     border: 1px solid rgba(204, 204, 204, 0.592157);
     border-top: 1px solid rgba(204, 204, 204, 0.592157);
@@ -617,6 +632,7 @@
     -webkit-perspective-origin: 115.828125px 26.5px;
     perspective-origin: 115.828125px 26.5px;
     -webkit-transform-origin: 115.828125px 26.5px;
+    -ms-transform-origin: 115.828125px 26.5px;
     transform-origin: 115.828125px 26.5px;
     background: rgb(126, 166, 65) none repeat scroll 0% 0% / auto padding-box border-box;
     border: 0px none rgb(255, 255, 255);

@@ -19,6 +19,7 @@
     width: 107px;
     height: 111px;
     -webkit-transform: none;
+    -ms-transform: none;
     transform: none;
 }
 .apishopsFormTheme1__ .__IMG__ {

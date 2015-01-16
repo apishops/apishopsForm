@@ -97,6 +97,7 @@
     background-size: cover;
     box-sizing: border-box;
     -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
     transform: scale(0.9);
 }
 
@@ -157,29 +158,34 @@
             /* superScaled */
             .apishopsAnimation.apishopsSuperScaled .apishopsModalWindow{
               -webkit-transform: scale(2);
+                  -ms-transform: scale(2);
                       transform: scale(2);
               transition: -webkit-transform 0.2s ease-out;
               transition: transform 0.2s ease-out;
             }
             .apishopsAnimation.apishopsSuperScaled.in .apishopsModalWindow{
               -webkit-transform: scale(1);
+                  -ms-transform: scale(1);
                       transform: scale(1);
             }
 
             .apishopsAnimation.apishopsLetMeIn .apishopsModalWindow{
               -webkit-transform: scale(2);
+                  -ms-transform: scale(2);
                       transform: scale(2);
               transition: -webkit-transform 0.2s ease-out;
               transition: transform 0.2s ease-out;
             }
             .apishopsAnimation.apishopsLetMeIn.in .apishopsModalWindow{
               -webkit-transform: scale(1);
+                  -ms-transform: scale(1);
                       transform: scale(1);
             }
 
             /*sideFall*/
             .apishopsAnimation.apishopsSideFall .apishopsModalWindow{
               -webkit-transform: scale(2) translate(30%) translateZ(600px) rotate(10deg);
+                  -ms-transform: scale(2) translate(30%) translateZ(600px) rotate(10deg);
                       transform: scale(2) translate(30%) translateZ(600px) rotate(10deg);
               -webkit-transform-style: preserve-3d;
                   -ms-transform-style: preserve-3d;
@@ -189,6 +195,7 @@
             }
             .apishopsAnimation.apishopsSideFall.in .apishopsModalWindow{
               -webkit-transform: scale(1) translate(0%) translateZ(0px) rotate(0deg);
+                  -ms-transform: scale(1) translate(0%) translateZ(0px) rotate(0deg);
                       transform: scale(1) translate(0%) translateZ(0px) rotate(0deg); box-sizing: border-box;
               z-index: 999999;
             }
@@ -196,6 +203,7 @@
             /*3dFlip*/
             .apishopsAnimation.apishopsFlip .apishopsModalWindow{
               -webkit-transform: rotateY(-76deg);
+                  -ms-transform: rotateY(-76deg);
                       transform: rotateY(-76deg);
               -webkit-transform-style: preserve-3d;
                   -ms-transform-style: preserve-3d;
@@ -206,6 +214,7 @@
             }
             .apishopsAnimation.apishopsFlip.in .apishopsModalWindow{
               -webkit-transform: rotateY(0deg);
+                  -ms-transform: rotateY(0deg);
                       transform: rotateY(0deg);
               opacity:1;
             }
@@ -233,6 +242,7 @@
     text-indent: 100%;
     top: 10px;
     -webkit-transform: rotate(0);
+    -ms-transform: rotate(0);
     transform: rotate(0);
     transition: -webkit-transform 0.3s ease 0s, visibility 0s ease 0.3s;
     transition: transform 0.3s ease 0s, visibility 0s ease 0.3s;
@@ -256,14 +266,17 @@
 }
 .apishopsModalClose:before {
     -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
 .apishopsModalClose:after {
     -webkit-transform: rotate(135deg);
+    -ms-transform: rotate(135deg);
     transform: rotate(135deg);
 }
 .apishopsModalClose:hover {
     -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
     transform: scale(1.2);
 }
 

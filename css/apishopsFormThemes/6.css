@@ -190,6 +190,7 @@
     -webkit-perspective-origin: 672px 2937px;
     perspective-origin: 672px 2937px;
     -webkit-transform-origin: 672px 2937px;
+    -ms-transform-origin: 672px 2937px;
     transform-origin: 672px 2937px;
     border: 0px none rgb(30, 30, 30);
     border-top: 0px none rgb(30, 30, 30);
@@ -216,6 +217,7 @@
     -webkit-perspective-origin: 672px 2450px;
     perspective-origin: 672px 2450px;
     -webkit-transform-origin: 672px 2450px;
+    -ms-transform-origin: 672px 2450px;
     transform-origin: 672px 2450px;
     border: 0px none rgb(30, 30, 30);
     border-top: 0px none rgb(30, 30, 30);
@@ -244,6 +246,7 @@
     -webkit-perspective-origin: 672px 343px;
     perspective-origin: 672px 343px;
     -webkit-transform-origin: 672px 343px;
+    -ms-transform-origin: 672px 343px;
     transform-origin: 672px 343px;
     border: 0px none rgb(30, 30, 30);
     border-top: 0px none rgb(30, 30, 30);
@@ -275,6 +278,7 @@
     -webkit-perspective-origin: 500px 293.5px;
     perspective-origin: 500px 293.5px;
     -webkit-transform-origin: 500px 293.5px;
+    -ms-transform-origin: 500px 293.5px;
     transform-origin: 500px 293.5px;
     border: 0px none rgb(30, 30, 30);
     border-top: 0px none rgb(30, 30, 30);
@@ -321,6 +325,7 @@
     -webkit-perspective-origin: 150px 293.5px;
     perspective-origin: 150px 293.5px;
     -webkit-transform-origin: 150px 293.5px;
+    -ms-transform-origin: 150px 293.5px;
     transform-origin: 150px 293.5px;
     background: rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box padding-box;
     border: 2px solid rgb(229, 229, 229);
@@ -360,6 +365,7 @@
     -webkit-perspective-origin: 148px 35px;
     perspective-origin: 148px 35px;
     -webkit-transform-origin: 148px 35px;
+    -ms-transform-origin: 148px 35px;
     transform-origin: 148px 35px;
     border: 0px none rgb(30, 30, 30);
     border-top: 0px none rgb(30, 30, 30);
@@ -390,6 +396,7 @@
     -webkit-perspective-origin: 90px 37.5px;
     perspective-origin: 90px 37.5px;
     -webkit-transform-origin: 90px 37.5px;
+    -ms-transform-origin: 90px 37.5px;
     transform-origin: 90px 37.5px;
     border: 0px none rgb(30, 30, 30);
     border-top: 0px none rgb(30, 30, 30);
@@ -418,6 +425,7 @@
     -webkit-perspective-origin: 85px 37.5px;
     perspective-origin: 85px 37.5px;
     -webkit-transform-origin: 85px 37.5px;
+    -ms-transform-origin: 85px 37.5px;
     transform-origin: 85px 37.5px;
     border: 0px none rgb(30, 30, 30);
     border-top: 0px none rgb(30, 30, 30);
@@ -448,6 +456,7 @@
     -webkit-perspective-origin: 140px 47.5px;
     perspective-origin: 140px 47.5px;
     -webkit-transform-origin: 140px 47.5px;
+    -ms-transform-origin: 140px 47.5px;
     transform-origin: 140px 47.5px;
     background: rgba(0, 0, 0, 0) url(http://img2.apishops.org/SinglePageWebsites/custom/images/aquapel_web/form-price_bg1.png) no-repeat scroll 0% 0% / auto padding-box border-box;
     border: 0px none rgb(30, 30, 30);
@@ -480,6 +489,7 @@
     -webkit-perspective-origin: 140px 12.5px;
     perspective-origin: 140px 12.5px;
     -webkit-transform-origin: 140px 12.5px;
+    -ms-transform-origin: 140px 12.5px;
     transform-origin: 140px 12.5px;
     border: 0px none rgb(30, 30, 30);
     border-top: 0px none rgb(30, 30, 30);
@@ -539,6 +549,7 @@
     -webkit-perspective-origin: 59px 0.5px;
     perspective-origin: 59px 0.5px;
     -webkit-transform-origin: 59px 0.5px;
+    -ms-transform-origin: 59px 0.5px;
     transform-origin: 59px 0.5px;
     content: '';
     border: ;
@@ -571,6 +582,7 @@
     -webkit-perspective-origin: 140px 12.5px;
     perspective-origin: 140px 12.5px;
     -webkit-transform-origin: 140px 12.5px;
+    -ms-transform-origin: 140px 12.5px;
     transform-origin: 140px 12.5px;
     border: 0px none rgb(255, 255, 255);
     border-top: 0px none rgb(255, 255, 255);
@@ -620,6 +632,7 @@
     -webkit-perspective-origin: 148px 130.5px;
     perspective-origin: 148px 130.5px;
     -webkit-transform-origin: 148px 130.5px;
+    -ms-transform-origin: 148px 130.5px;
     transform-origin: 148px 130.5px;
     border: 0px none rgb(30, 30, 30);
     border-top: 0px none rgb(30, 30, 30);
@@ -647,6 +660,7 @@
     -webkit-perspective-origin: 148px 130.5px;
     perspective-origin: 148px 130.5px;
     -webkit-transform-origin: 148px 130.5px;
+    -ms-transform-origin: 148px 130.5px;
     transform-origin: 148px 130.5px;
     border: 0px none rgb(30, 30, 30);
     border-top: 0px none rgb(30, 30, 30);
@@ -676,6 +690,7 @@
     -webkit-perspective-origin: 148px 130.5px;
     perspective-origin: 148px 130.5px;
     -webkit-transform-origin: 148px 130.5px;
+    -ms-transform-origin: 148px 130.5px;
     transform-origin: 148px 130.5px;
     border: 0px none rgb(30, 30, 30);
     border-top: 0px none rgb(30, 30, 30);
@@ -717,6 +732,7 @@
     -webkit-perspective-origin: 50% 50%;
     perspective-origin: 50% 50%;
     -webkit-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
     transform-origin: 50% 50%;
     background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box padding-box;
     border: 2px solid rgb(229, 229, 229);
@@ -760,6 +776,7 @@
     -webkit-perspective-origin: 125px 25px;
     perspective-origin: 125px 25px;
     -webkit-transform-origin: 125px 25px;
+    -ms-transform-origin: 125px 25px;
     transform-origin: 125px 25px;
     background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box padding-box;
     border: 2px solid rgb(229, 229, 229);
@@ -803,6 +820,7 @@
     -webkit-perspective-origin: 125px 25px;
     perspective-origin: 125px 25px;
     -webkit-transform-origin: 125px 25px;
+    -ms-transform-origin: 125px 25px;
     transform-origin: 125px 25px;
     background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box padding-box;
     border: 2px solid rgb(229, 229, 229);
@@ -855,6 +873,7 @@
     -webkit-perspective-origin: 110.5px 35.5px;
     perspective-origin: 110.5px 35.5px;
     -webkit-transform-origin: 110.5px 35.5px;
+    -ms-transform-origin: 110.5px 35.5px;
     transform-origin: 110.5px 35.5px;
     background: rgb(168, 208, 69) linear-gradient(rgb(189, 229, 89) 0%, rgb(99, 149, 19) 60%, rgb(99, 149, 19) 100%) repeat scroll 0% 0% / 100% padding-box padding-box;
     border: 0px none rgb(255, 255, 255);

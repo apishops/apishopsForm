@@ -215,6 +215,7 @@
     -webkit-perspective-origin: 739px 381.5px;
     perspective-origin: 739px 381.5px;
     -webkit-transform-origin: 739px 381.5px;
+    -ms-transform-origin: 739px 381.5px;
     transform-origin: 739px 381.5px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -249,6 +250,7 @@
     -webkit-perspective-origin: 500px 344px;
     perspective-origin: 500px 344px;
     -webkit-transform-origin: 500px 344px;
+    -ms-transform-origin: 500px 344px;
     transform-origin: 500px 344px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -280,6 +282,7 @@
     -webkit-perspective-origin: 500px 292.5px;
     perspective-origin: 500px 292.5px;
     -webkit-transform-origin: 500px 292.5px;
+    -ms-transform-origin: 500px 292.5px;
     transform-origin: 500px 292.5px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -313,6 +316,7 @@
     -webkit-perspective-origin: 166.65625px 292.5px;
     perspective-origin: 166.65625px 292.5px;
     -webkit-transform-origin: 166.65625px 292.5px;
+    -ms-transform-origin: 166.65625px 292.5px;
     transform-origin: 166.65625px 292.5px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -353,6 +357,7 @@
     -webkit-perspective-origin: 151.65625px 292.5px;
     perspective-origin: 151.65625px 292.5px;
     -webkit-transform-origin: 151.65625px 292.5px;
+    -ms-transform-origin: 151.65625px 292.5px;
     transform-origin: 151.65625px 292.5px;
     background: rgba(0, 0, 0, 0) linear-gradient(rgba(255, 255, 255, 0.4), rgba(245, 245, 249, 0.4)) repeat scroll 0% 0% / 100% padding-box padding-box;
     border: 0px none rgb(51, 51, 51);
@@ -385,6 +390,7 @@
     -webkit-perspective-origin: 129.65625px 95.5px;
     perspective-origin: 129.65625px 95.5px;
     -webkit-transform-origin: 129.65625px 95.5px;
+    -ms-transform-origin: 129.65625px 95.5px;
     transform-origin: 129.65625px 95.5px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -413,6 +419,7 @@
     -webkit-perspective-origin: 92.5px 92.5px;
     perspective-origin: 92.5px 92.5px;
     -webkit-transform-origin: 92.5px 92.5px;
+    -ms-transform-origin: 92.5px 92.5px;
     transform-origin: 92.5px 92.5px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -443,6 +450,7 @@
     -webkit-perspective-origin: 129.65625px 11.5px;
     perspective-origin: 129.65625px 11.5px;
     -webkit-transform-origin: 129.65625px 11.5px;
+    -ms-transform-origin: 129.65625px 11.5px;
     transform-origin: 129.65625px 11.5px;
     border: 0px none rgb(63, 63, 63);
     border-top: 0px none rgb(63, 63, 63);
@@ -477,6 +485,7 @@
     -webkit-perspective-origin: 70px 8.5px;
     perspective-origin: 70px 8.5px;
     -webkit-transform-origin: 70px 8.5px;
+    -ms-transform-origin: 70px 8.5px;
     transform-origin: 70px 8.5px;
     background: rgba(0, 0, 0, 0) url("http://img2.apishops.org/SinglePageWebsites/custom/images/spanatural_adaptive/wave.png") repeat-x scroll 50% 50% / auto padding-box border-box;
     border: 0px none rgb(51, 51, 51);
@@ -506,6 +515,7 @@
     -webkit-perspective-origin: 129.65625px 27.5px;
     perspective-origin: 129.65625px 27.5px;
     -webkit-transform-origin: 129.65625px 27.5px;
+    -ms-transform-origin: 129.65625px 27.5px;
     transform-origin: 129.65625px 27.5px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -536,6 +546,7 @@
 
     perspective-origin: 63.53125px 27.5px;
     -webkit-transform-origin: 63.53125px 27.5px;
+    -ms-transform-origin: 63.53125px 27.5px;
     transform-origin: 63.53125px 27.5px;
     border: 0px none rgb(140, 137, 183);
     border-top: 0px none rgb(140, 137, 183);
@@ -586,6 +597,7 @@
     -webkit-perspective-origin: 63.53125px 17px;
     perspective-origin: 63.53125px 17px;
     -webkit-transform-origin: 63.53125px 17px;
+    -ms-transform-origin: 63.53125px 17px;
     transform-origin: 63.53125px 17px;
     background: transparent !important;
     border: 0px none rgb(209, 208, 224);
@@ -660,6 +672,7 @@
     -webkit-perspective-origin: 129.65625px 104.5px;
     perspective-origin: 129.65625px 104.5px;
     -webkit-transform-origin: 129.65625px 104.5px;
+    -ms-transform-origin: 129.65625px 104.5px;
     transform-origin: 129.65625px 104.5px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -704,6 +717,7 @@
     -webkit-perspective-origin: 129.65625px 26px;
     perspective-origin: 129.65625px 26px;
     -webkit-transform-origin: 129.65625px 26px;
+    -ms-transform-origin: 129.65625px 26px;
     transform-origin: 129.65625px 26px;
     background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box padding-box;
     border: 1px solid rgb(230, 230, 230);
@@ -739,6 +753,7 @@
     -webkit-perspective-origin: 129.65625px 38.5px;
     perspective-origin: 129.65625px 38.5px;
     -webkit-transform-origin: 129.65625px 38.5px;
+    -ms-transform-origin: 129.65625px 38.5px;
     transform-origin: 129.65625px 38.5px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -784,6 +799,7 @@
     -webkit-perspective-origin: 129.65625px 31px;
     perspective-origin: 129.65625px 31px;
     -webkit-transform-origin: 129.65625px 31px;
+    -ms-transform-origin: 129.65625px 31px;
     transform-origin: 129.65625px 31px;
     background: rgb(240, 158, 177) linear-gradient(rgba(255, 255, 255, 0.298039) 23.08%, rgba(0, 0, 0, 0.298039) 123.08%) repeat scroll 0% 0% / 100% padding-box padding-box;
     border: 0px none rgb(140, 91, 102);
@@ -819,6 +835,7 @@
     -webkit-perspective-origin: 110.203125px 0px;
     perspective-origin: 110.203125px 0px;
     -webkit-transform-origin: 110.203125px 0px;
+    -ms-transform-origin: 110.203125px 0px;
     transform-origin: 110.203125px 0px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);

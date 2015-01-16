@@ -73,6 +73,7 @@
     -webkit-perspective-origin: 672px 3415px;
     perspective-origin: 672px 3415px;
     -webkit-transform-origin: 672px 3415px;
+    -ms-transform-origin: 672px 3415px;
     transform-origin: 672px 3415px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -99,6 +100,7 @@
     -webkit-perspective-origin: 672px 3415px;
     perspective-origin: 672px 3415px;
     -webkit-transform-origin: 672px 3415px;
+    -ms-transform-origin: 672px 3415px;
     transform-origin: 672px 3415px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -125,6 +127,7 @@
     -webkit-perspective-origin: 672px 374px;
     perspective-origin: 672px 374px;
     -webkit-transform-origin: 672px 374px;
+    -ms-transform-origin: 672px 374px;
     transform-origin: 672px 374px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -155,6 +158,7 @@
     -webkit-perspective-origin: 480px 344.5px;
     perspective-origin: 480px 344.5px;
     -webkit-transform-origin: 480px 344.5px;
+    -ms-transform-origin: 480px 344.5px;
     transform-origin: 480px 344.5px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -197,6 +201,7 @@
     -webkit-perspective-origin: 136.5px 274.5px;
     perspective-origin: 136.5px 274.5px;
     -webkit-transform-origin: 136.5px 274.5px;
+    -ms-transform-origin: 136.5px 274.5px;
     transform-origin: 136.5px 274.5px;
     background: rgb(255, 255, 255) linear-gradient(rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%) repeat scroll 0% 0% / 100% padding-box padding-box;
     border: 0px none rgb(51, 51, 51);
@@ -237,6 +242,7 @@
     -webkit-perspective-origin: 136.5px 3px;
     perspective-origin: 136.5px 3px;
     -webkit-transform-origin: 136.5px 3px;
+    -ms-transform-origin: 136.5px 3px;
     transform-origin: 136.5px 3px;
     content: '';
     border: ;
@@ -270,6 +276,7 @@
     -webkit-perspective-origin: 85px 57.5px;
     perspective-origin: 85px 57.5px;
     -webkit-transform-origin: 85px 57.5px;
+    -ms-transform-origin: 85px 57.5px;
     transform-origin: 85px 57.5px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -298,6 +305,7 @@
     -webkit-perspective-origin: 85px 55px;
     perspective-origin: 85px 55px;
     -webkit-transform-origin: 85px 55px;
+    -ms-transform-origin: 85px 55px;
     transform-origin: 85px 55px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -324,6 +332,7 @@
     -webkit-perspective-origin: 136.5px 46.5px;
     perspective-origin: 136.5px 46.5px;
     -webkit-transform-origin: 136.5px 46.5px;
+    -ms-transform-origin: 136.5px 46.5px;
     transform-origin: 136.5px 46.5px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -352,6 +361,7 @@
     -webkit-perspective-origin: 0.5px 0px;
     perspective-origin: 0.5px 0px;
     -webkit-transform-origin: 0.5px 0px;
+    -ms-transform-origin: 0.5px 0px;
     transform-origin: 0.5px 0px;
     content: ' ';
     border: 0px none rgb(51, 51, 51);
@@ -379,6 +389,7 @@
     -webkit-perspective-origin: 136.5px 13px;
     perspective-origin: 136.5px 13px;
     -webkit-transform-origin: 136.5px 13px;
+    -ms-transform-origin: 136.5px 13px;
     transform-origin: 136.5px 13px;
     border: 0px none rgb(24, 24, 24);
     border-top: 0px none rgb(24, 24, 24);
@@ -405,6 +416,7 @@
     -webkit-perspective-origin: 136.5px 11.5px;
     perspective-origin: 136.5px 11.5px;
     -webkit-transform-origin: 136.5px 11.5px;
+    -ms-transform-origin: 136.5px 11.5px;
     transform-origin: 136.5px 11.5px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -454,6 +466,7 @@
     -webkit-perspective-origin: 136.5px 14.5px;
     perspective-origin: 136.5px 14.5px;
     -webkit-transform-origin: 136.5px 14.5px;
+    -ms-transform-origin: 136.5px 14.5px;
     transform-origin: 136.5px 14.5px;
     border: 0px none rgb(24, 24, 24);
     border-top: 0px none rgb(24, 24, 24);
@@ -482,6 +495,7 @@
     -webkit-perspective-origin: 136.5px 115.5px;
     perspective-origin: 136.5px 115.5px;
     -webkit-transform-origin: 136.5px 115.5px;
+    -ms-transform-origin: 136.5px 115.5px;
     transform-origin: 136.5px 115.5px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -509,6 +523,7 @@
     -webkit-perspective-origin: 136.5px 115.5px;
     perspective-origin: 136.5px 115.5px;
     -webkit-transform-origin: 136.5px 115.5px;
+    -ms-transform-origin: 136.5px 115.5px;
     transform-origin: 136.5px 115.5px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -537,6 +552,7 @@
     -webkit-perspective-origin: 136.5px 115.5px;
     perspective-origin: 136.5px 115.5px;
     -webkit-transform-origin: 136.5px 115.5px;
+    -ms-transform-origin: 136.5px 115.5px;
     transform-origin: 136.5px 115.5px;
     border: 0px none rgb(51, 51, 51);
     border-top: 0px none rgb(51, 51, 51);
@@ -583,6 +599,7 @@
     -webkit-perspective-origin: 50% 50%;
     perspective-origin: 50% 50%;
     -webkit-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
     transform-origin: 50% 50%;
     border: 1px solid rgba(204, 204, 204, 0.592157);
     border-top: 1px solid rgba(204, 204, 204, 0.592157);
@@ -630,6 +647,7 @@
     -webkit-perspective-origin: 111px 22.5px;
     perspective-origin: 111px 22.5px;
     -webkit-transform-origin: 111px 22.5px;
+    -ms-transform-origin: 111px 22.5px;
     transform-origin: 111px 22.5px;
     border: 1px solid rgba(204, 204, 204, 0.592157);
     border-top: 1px solid rgba(204, 204, 204, 0.592157);
@@ -677,6 +695,7 @@
     -webkit-perspective-origin: 111px 22.5px;
     perspective-origin: 111px 22.5px;
     -webkit-transform-origin: 111px 22.5px;
+    -ms-transform-origin: 111px 22.5px;
     transform-origin: 111px 22.5px;
     border: 1px solid rgba(204, 204, 204, 0.592157);
     border-top: 1px solid rgba(204, 204, 204, 0.592157);
@@ -726,6 +745,7 @@
     -webkit-perspective-origin: 111.5px 23px;
     perspective-origin: 111.5px 23px;
     -webkit-transform-origin: 111.5px 23px;
+    -ms-transform-origin: 111.5px 23px;
     transform-origin: 111.5px 23px;
     background: rgb(239, 173, 15) none repeat scroll 0% 0% / auto padding-box padding-box;
     border: 0px none rgb(255, 255, 255);
