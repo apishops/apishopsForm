@@ -3603,6 +3603,10 @@ function apishopsFormLoadPrice(params){
 
 }
 
+function apishopsFormIsIe () {
+  var myNav = navigator.userAgent.toLowerCase();
+  return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
+}
 
 function apishopsFormSubmit(params){
 
@@ -3672,7 +3676,7 @@ function apishopsFormSubmit(params){
             }
             else
             {
-                if(result.parameters.successUrl==false || result.parameters.successUrl=='false'){
+                if((result.parameters.successUrl==false || result.parameters.successUrl=='false') && !apishopsFormIsIe()){
 
                     var successModal=$(apishopsFormModal).clone().appendTo('body').addClass('in').addClass('successModal').show();
                     var successModalWindow=successModal.find('.apishopsModalWindow');

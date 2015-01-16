@@ -20,6 +20,13 @@
 
 }
 
+.apishopsFormGiftHoverCardActive{
+    opacity: 1 !important;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)" !important;
+    filter: alpha(opacity=100) !important;
+    display: block;
+    margin-top: 80px !important;
+}
 .apishopsFormGiftHoverCard{
     background: none repeat scroll 0 0 rgba(255, 255, 255, 0.9);
     border-radius: 7px;
@@ -27,17 +34,17 @@
     color: black;
     font-family: Arial;
     font-size: 11px;
-    left: 0;
     line-height: 18px;
-
     position: absolute;
-    right: 0;
     text-align: left;
     z-index: 10000;
     opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
     display: block;
     transition: 0.5s all;
     top: 200px;
+    margin-top: 150px;
 }
 
 .apishopsFormGiftHoverCard .apishopsFormGiftHoverCardTitle {
