@@ -759,6 +759,7 @@ jQuery.fn.apishopsForm=function(options)
                                                             settings.apishopsFormGiftsHoverCardObject.addClass('apishopsFormGiftHoverCardActive')
                                                             settings.apishopsFormGiftsHoverCardObject.css('width',settings.apishopsFormGiftsObject.outerWidth());
                                                             settings.apishopsFormGiftsHoverCardObject.css('left',settings.apishopsFormGiftsObject.offset().left);
+                                                            settings.apishopsFormGiftsHoverCardObject.css('top',settings.apishopsFormGiftsObject.offset().top);
                                                         });
                                                         $(settings.apishopsFormGiftsObject).mouseout(function() {
                                                             settings.apishopsFormGiftsHoverCardObject.removeClass('apishopsFormGiftHoverCardActive')
