@@ -47,6 +47,7 @@
     transition: 0.5s all;
     top: 200px;
     margin-top: 150px;
+    z-index: 999999;
 }
 
 .apishopsFormGiftHoverCard .apishopsFormGiftHoverCardTitle {

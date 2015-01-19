@@ -454,7 +454,7 @@ jQuery.fn.apishopsForm=function(options)
 
             settings.placement.append(settings.form);
 
-            $.each( settings.containers, function( index, value ) {
+            jQuery.each( settings.containers, function( index, value ) {
                 value=settings.containers[index];
                 $container=jQuery(value,settings.form);
                 apishopsLog(index + ": " + value +'?'+settings.displayed_containers+' is '+ _.indexOf(settings.displayed_containers, index));
@@ -515,7 +515,7 @@ jQuery.fn.apishopsForm=function(options)
                     }
 
                     var foundCurrent=false;
-                    $.each(jQuery('.__QUICKVIEW__:visible'), function( index, value ) {
+                    jQuery.each(jQuery('.__QUICKVIEW__:visible'), function( index, value ) {
                         if(jQuery(value).attr('quickckview_id')==quickview_id && current_quickview_id!=quickview_id){
                             prev_quickview_id=current_quickview_id;
                         }
@@ -570,7 +570,7 @@ jQuery.fn.apishopsForm=function(options)
                     jQuery('.apishopsModalContent',modal).html(quickViewHtml);
 
                     var totalInserted=0;
-                    $.each(settings.images, function( index, value ) {
+                    jQuery.each(settings.images, function( index, value ) {
                         totalInserted++;
                         var item=jQuery('.__ALTERNATIVEVIEWITEM__:first-child',modal).clone();
                         item.find('.__ALTERNATIVEVIEWIMAGE__').attr('src',value);
@@ -585,10 +585,10 @@ jQuery.fn.apishopsForm=function(options)
                     if(totalInserted==0) jQuery('.__ALTERNATIVEVIEW__',modal).remove();
 
                     var iter=0;
-                    $.each(jQuery('.__ALSOLIKE__',modal), function( index, alsolike ) {
+                    jQuery.each(jQuery('.__ALSOLIKE__',modal), function( index, alsolike ) {
                         var totalInserted=0;
                         var finded_quickview_id=0;
-                        $.each(_.shuffle(quickviews), function( index, value ) {
+                        jQuery.each(_.shuffle(quickviews), function( index, value ) {
                             if(index!=quickview_id && index!=0){
                                 totalInserted++;
                                 var item=jQuery('.__ALSOLIKEITEM__:first-child',alsolike).clone();
@@ -820,7 +820,7 @@ jQuery.fn.apishopsForm=function(options)
                 Подсветка инпутов с ошибками
                 (исключения — инпуты без pattern или с нулевым pattern)
                 */
-                $.each(settings.inputs, function(index, value){
+                jQuery.each(settings.inputs, function(index, value){
                     if(jQuery(value).is('input[type=text]') && typeof jQuery(value).attr('pattern')!='undefined' && jQuery(value).attr('pattern')!='')
                         jQuery(value).bind({
                               change: function() {
@@ -910,7 +910,7 @@ jQuery.fn.apishopsForm=function(options)
                     jQuery(settings.form).submit(function(event) {
                         var error='';
                         event.preventDefault();
-                        $.each(settings.inputs, function(index, value){
+                        jQuery.each(settings.inputs, function(index, value){
                             if(jQuery(value) && typeof jQuery(value) !='undefined' && typeof jQuery(value).attr('pattern')!='undefined' && jQuery(value).attr('pattern')!=''  && _.indexOf(settings.hidden_fields, index)<0  && _.indexOf(settings.optional_fields, index)<0)  {
                                     if(!new RegExp(jQuery(value).attr('pattern')).test(jQuery(value).val())  || new RegExp('[<>]').test(jQuery(value).val())){
                                             jQuery(value).closest('.apishopsFormGroup').addClass('apishopsFormError');
@@ -960,7 +960,7 @@ jQuery.fn.apishopsForm=function(options)
                     jQuery(settings.form).submit(function(event) {
                         var error='';
                         event.preventDefault();
-                        $.each(settings.inputs, function(index, value){
+                        jQuery.each(settings.inputs, function(index, value){
                             if(jQuery(value) && typeof jQuery(value) !='undefined' && typeof jQuery(value).attr('pattern')!='undefined' && jQuery(value).attr('pattern')!='' && _.indexOf(settings.hidden_fields, index)<0 && _.indexOf(settings.optional_fields, index)<0)  {
                                     if(!new RegExp(jQuery(value).attr('pattern')).test(jQuery(value).val())  || new RegExp('[<>]').test(jQuery(value).val())){
                                             jQuery(value).closest('.apishopsFormGroup').addClass('apishopsFormError');
@@ -1181,7 +1181,7 @@ jQuery.fn.apishopsForm=function(options)
 * Version: 0.0.0
 */
 (function ($) {
-if ($.fn.inputmask === undefined) {
+if (jQuery.fn.inputmask === undefined) {
 //helper functions
 function isInputEventSupported(eventName) {
 var el = document.createElement('input'),
@@ -1208,8 +1208,8 @@ function resolveAlias(aliasStr, options, opts) {
 var aliasDefinition = opts.aliases[aliasStr];
 if (aliasDefinition) {
 if (aliasDefinition.alias) resolveAlias(aliasDefinition.alias, undefined, opts); //alias is another alias
-$.extend(true, opts, aliasDefinition); //merge alias definition in the options
-$.extend(true, opts, options); //reapply extra given options
+jQuery.extend(true, opts, aliasDefinition); //merge alias definition in the options
+jQuery.extend(true, opts, options); //reapply extra given options
 return true;
 }
 return false;
@@ -1412,8 +1412,8 @@ if (opts.repeat > 0 || opts.repeat == "*" || opts.repeat == "+") {
 var repeatStart = opts.repeat == "*" ? 0 : (opts.repeat == "+" ? 1 : opts.repeat);
 mask = opts.groupmarker.start + mask + opts.groupmarker.end + opts.quantifiermarker.start + repeatStart + "," + opts.repeat + opts.quantifiermarker.end;
 }
-if ($.inputmask.masksCache[mask] == undefined) {
-$.inputmask.masksCache[mask] = {
+if (jQuery.inputmask.masksCache[mask] == undefined) {
+jQuery.inputmask.masksCache[mask] = {
 "mask": mask,
 "maskToken": analyseMask(mask),
 "validPositions": {},
@@ -1423,17 +1423,17 @@ $.inputmask.masksCache[mask] = {
 "metadata": metadata
 };
 }
-return $.extend(true, {}, $.inputmask.masksCache[mask]);
+return jQuery.extend(true, {}, jQuery.inputmask.masksCache[mask]);
 }
 }
-if ($.isFunction(opts.mask)) { //allow mask to be a preprocessing fn - should return a valid mask
+if (jQuery.isFunction(opts.mask)) { //allow mask to be a preprocessing fn - should return a valid mask
 opts.mask = opts.mask.call(this, opts);
 }
-if ($.isArray(opts.mask)) {
+if (jQuery.isArray(opts.mask)) {
 if (multi) { //remove me
 ms = [];
-$.each(opts.mask, function (ndx, msk) {
-if (msk["mask"] != undefined && !$.isFunction(msk["mask"])) {
+jQuery.each(opts.mask, function (ndx, msk) {
+if (msk["mask"] != undefined && !jQuery.isFunction(msk["mask"])) {
 ms.push(generateMask(msk["mask"].toString(), msk));
 } else {
 ms.push(generateMask(msk.toString(), msk));
@@ -1442,10 +1442,10 @@ ms.push(generateMask(msk.toString(), msk));
 } else {
 opts.keepStatic = opts.keepStatic == undefined ? true : opts.keepStatic; //enable by default when passing multiple masks when the option is not explicitly specified
 var altMask = "(";
-$.each(opts.mask, function (ndx, msk) {
+jQuery.each(opts.mask, function (ndx, msk) {
 if (altMask.length > 1)
 altMask += ")|(";
-if (msk["mask"] != undefined && !$.isFunction(msk["mask"])) {
+if (msk["mask"] != undefined && !jQuery.isFunction(msk["mask"])) {
 altMask += msk["mask"].toString();
 } else {
 altMask += msk.toString();
@@ -1456,7 +1456,7 @@ ms = generateMask(altMask, opts.mask);
 }
 } else {
 if (opts.mask) {
-if (opts.mask["mask"] != undefined && !$.isFunction(opts.mask["mask"])) {
+if (opts.mask["mask"] != undefined && !jQuery.isFunction(opts.mask["mask"])) {
 ms = generateMask(opts.mask["mask"].toString(), opts.mask);
 } else {
 ms = generateMask(opts.mask.toString(), opts.mask);
@@ -1545,7 +1545,7 @@ return lastValidPosition;
 function setValidPosition(pos, validTest, fromSetValid) {
 if (opts.insertMode && getMaskSet()["validPositions"][pos] != undefined && fromSetValid == undefined) {
 //reposition & revalidate others
-var positionsClone = $.extend(true, {}, getMaskSet()["validPositions"]), lvp = getLastValidPosition(), i;
+var positionsClone = jQuery.extend(true, {}, getMaskSet()["validPositions"]), lvp = getLastValidPosition(), i;
 for (i = pos; i <= lvp; i++) { //clear selection
 delete getMaskSet()["validPositions"][i];
 }
@@ -1566,7 +1566,7 @@ valid = valid && (isValid(j, t["input"], true, true) !== false);
 if (!valid) break;
 }
 if (!valid) {
-getMaskSet()["validPositions"] = $.extend(true, {}, positionsClone);
+getMaskSet()["validPositions"] = jQuery.extend(true, {}, positionsClone);
 return false;
 }
 } else
@@ -1654,7 +1654,7 @@ var optionalToken = match;
 match = ResolveTestFromToken(match, ndxInitializer, loopNdx, quantifierRecurse);
 if (match) {
 var latestMatch = matches[matches.length - 1]["match"];
-var isFirstMatch = $.inArray(latestMatch, optionalToken.matches) == 0;
+var isFirstMatch = jQuery.inArray(latestMatch, optionalToken.matches) == 0;
 if (isFirstMatch) {
 insertStop = true; //insert a stop for non greedy
 }
@@ -1683,7 +1683,7 @@ var altMatch = maltMatches[ndx1];
 for (var ndx2 = 0; ndx2 < malternateMatches.length; ndx2++) {
 var altMatch2 = malternateMatches[ndx2];
 //verify equality
-if (altMatch.match.mask == altMatch2.match.mask && (typeof altIndex != "string" || $.inArray(altMatch.locator[loopNdxCnt].toString(), altIndexArr) != -1)) {
+if (altMatch.match.mask == altMatch2.match.mask && (typeof altIndex != "string" || jQuery.inArray(altMatch.locator[loopNdxCnt].toString(), altIndexArr) != -1)) {
 maltMatches.splice(ndx1, 1);
 altMatch2.locator[loopNdxCnt] = altMatch2.locator[loopNdxCnt] + "," + altMatch.locator[loopNdxCnt];
 altMatch2.alternation = loopNdxCnt; //we pass the alternation index => used in determineLastRequiredPosition
@@ -1694,14 +1694,14 @@ break;
 malternateMatches = malternateMatches.concat(maltMatches);
 }
 if (typeof altIndex == "string") { //filter matches
-malternateMatches = $.map(malternateMatches, function (lmnt, ndx) {
+malternateMatches = jQuery.map(malternateMatches, function (lmnt, ndx) {
 if (isFinite(ndx)) {
 var altLocArr = lmnt.locator[loopNdxCnt].toString().split(",");
 var mamatch;
 lmnt.locator[loopNdxCnt] = undefined;
 lmnt.alternation = undefined;
 for (var alndx = 0; alndx < altLocArr.length; alndx++) {
-mamatch = $.inArray(altLocArr[alndx], altIndexArr) != -1;
+mamatch = jQuery.inArray(altLocArr[alndx], altIndexArr) != -1;
 if (mamatch) { //rebuild the locator with valid entries
 if (lmnt.locator[loopNdxCnt] != undefined) {
 lmnt.locator[loopNdxCnt] += ",";
@@ -1726,13 +1726,13 @@ if (match) return true;
 var qt = match;
 opts.greedy = opts.greedy && isFinite(qt.quantifier.max); //greedy must be off when * or + is used (always!!)
 for (var qndx = (ndxInitializer.length > 0 && quantifierRecurse !== true) ? ndxInitializer.shift() : 0; (qndx < (isNaN(qt.quantifier.max) ? qndx + 1 : qt.quantifier.max)) && testPos <= pos; qndx++) {
-var tokenGroup = maskToken.matches[$.inArray(qt, maskToken.matches) - 1];
+var tokenGroup = maskToken.matches[jQuery.inArray(qt, maskToken.matches) - 1];
 match = handleMatch(tokenGroup, [qndx].concat(loopNdx), true);
 if (match) {
 //get latest match
 var latestMatch = matches[matches.length - 1]["match"];
 latestMatch.optionalQuantifier = qndx > (qt.quantifier.min - 1);
-var isFirstMatch = $.inArray(latestMatch, tokenGroup.matches) == 0;
+var isFirstMatch = jQuery.inArray(latestMatch, tokenGroup.matches) == 0;
 if (isFirstMatch) { //search for next possible match
 if (qndx > (qt.quantifier.min - 1)) {
 insertStop = true;
@@ -1792,7 +1792,7 @@ break;
 }
 if (matches.length == 0 || insertStop)
 matches.push({ "match": { fn: null, cardinality: 0, optionality: true, casing: null, def: "" }, "locator": [] });
-getMaskSet()['tests'][pos] = $.extend(true, [], matches); //set a clone to prevent overwriting some props
+getMaskSet()['tests'][pos] = jQuery.extend(true, [], matches); //set a clone to prevent overwriting some props
 //console.log(pos + " - " + JSON.stringify(matches));
 return getMaskSet()['tests'][pos];
 }
@@ -1842,7 +1842,7 @@ function checkAlternationMatch(altArr1, altArr2) {
 var altArrC = opts.greedy ? altArr2 : altArr2.slice(0, 1),
 isMatch = false;
 for (var alndx = 0; alndx < altArr1.length; alndx++) {
-if ($.inArray(altArr1[alndx], altArrC) != -1) {
+if (jQuery.inArray(altArr1[alndx], altArrC) != -1) {
 isMatch = true;
 break;
 }
@@ -1853,7 +1853,7 @@ function isValid(pos, c, strict, fromSetValid) { //strict true ~ no correction o
 strict = strict === true; //always set a value to strict to prevent possible strange behavior in the extensions
 function _isValid(position, c, strict, fromSetValid) {
 var rslt = false;
-$.each(getTests(position), function (ndx, tst) {
+jQuery.each(getTests(position), function (ndx, tst) {
 var test = tst["match"];
 var loopend = c ? 1 : 0, chrs = '', buffer = getBuffer();
 for (var i = test.cardinality; i > loopend; i--) {
@@ -1885,14 +1885,14 @@ return false;//breakout if refreshFromBuffer && nothing to insert
 }
 validatedPos = rslt.pos != undefined ? rslt.pos : position;
 if (validatedPos != position) {
-rslt = $.extend(rslt, isValid(validatedPos, elem, true)); //revalidate new position strict
+rslt = jQuery.extend(rslt, isValid(validatedPos, elem, true)); //revalidate new position strict
 return false;
 }
 } else if (rslt !== true && rslt.pos != undefined && rslt["pos"] != position) { //their is a position offset
 validatedPos = rslt["pos"];
 refreshFromBuffer(position, validatedPos);
 if (validatedPos != position) {
-rslt = $.extend(rslt, isValid(validatedPos, elem, true)); //revalidate new position strict
+rslt = jQuery.extend(rslt, isValid(validatedPos, elem, true)); //revalidate new position strict
 return false;
 }
 }
@@ -1902,15 +1902,15 @@ return false; //breakout if nothing to insert
 if (ndx > 0) {
 resetMaskSet(true);
 }
-if (!setValidPosition(validatedPos, $.extend({}, tst, { "input": casing(elem, test) }), fromSetValid))
+if (!setValidPosition(validatedPos, jQuery.extend({}, tst, { "input": casing(elem, test) }), fromSetValid))
 rslt = false;
-return false; //break from $.each
+return false; //break from jQuery.each
 }
 });
 return rslt;
 }
 function alternate(pos, c, strict, fromSetValid) {
-var validPsClone = $.extend(true, {}, getMaskSet()["validPositions"]),
+var validPsClone = jQuery.extend(true, {}, getMaskSet()["validPositions"]),
 lastAlt,
 alternation;
 //find last alternation
@@ -1956,7 +1956,7 @@ var isValidRslt = isValid(pos, c, strict, fromSetValid);
 opts.keepStatic = !opts.keepStatic; //enable keepStatic on getMaskLength
 if (!isValidRslt) {
 resetMaskSet();
-getMaskSet()["validPositions"] = $.extend(true, {}, validPsClone);
+getMaskSet()["validPositions"] = jQuery.extend(true, {}, validPsClone);
 } else
 return isValidRslt;
 }
@@ -1988,7 +1988,7 @@ bestMatch = activeTest;
 }
 //console.log(bestMatch.locator);
 }
-setValidPosition(ps, $.extend({}, bestMatch, { "input": bestMatch["match"].def }), true)
+setValidPosition(ps, jQuery.extend({}, bestMatch, { "input": bestMatch["match"].def }), true)
 }
 }
 }
@@ -2076,7 +2076,7 @@ caret(input, caretPos);
 }
 function getPlaceholder(pos, test) {
 test = test || getTest(pos);
-var placeholder = $.isFunction(test["placeholder"]) ? test["placeholder"].call(this, opts) : test["placeholder"];
+var placeholder = jQuery.isFunction(test["placeholder"]) ? test["placeholder"].call(this, opts) : test["placeholder"];
 return placeholder != undefined ? placeholder : (test["fn"] == null ? test["def"] : opts.placeholder.charAt(pos % opts.placeholder.length));
 }
 function checkVal(input, writeOut, strict, nptvl) {
@@ -2087,9 +2087,9 @@ var staticInput = getBufferTemplate().slice(0, seekNext(-1)).join(''), matches =
 if (matches && matches.length > 1) {
 inputValue.splice(0, staticInput.length);
 }
-$.each(inputValue, function (ndx, charCode) {
+jQuery.each(inputValue, function (ndx, charCode) {
 var lvp = getLastValidPosition();
-if ($.inArray(charCode, getBufferTemplate().slice(lvp + 1, getMaskSet()["p"])) == -1 || strict) {
+if (jQuery.inArray(charCode, getBufferTemplate().slice(lvp + 1, getMaskSet()["p"])) == -1 || strict) {
 keypressEvent.call(input, undefined, true, charCode.charCodeAt(0), false, strict, strict ? ndx : getMaskSet()["p"]);
 strict = strict || (ndx > 0 && ndx > getMaskSet()["p"]);
 } else {
@@ -2103,7 +2103,7 @@ writeBuffer(input, getBuffer(), jQuery(input).is(":focus") ? seekNext(getLastVal
 }
 }
 function escapeRegex(str) {
-return $.inputmask.escapeRegex.call(this, str);
+return jQuery.inputmask.escapeRegex.call(this, str);
 }
 function unmaskedvalue($input) {
 if ($input.data('_inputmask') && !$input.hasClass('hasDatepicker')) {
@@ -2115,7 +2115,7 @@ umValue.push(vps[pndx]["input"]);
 }
 var unmaskedValue = (isRTL ? umValue.reverse() : umValue).join('');
 var bufferValue = (isRTL ? getBuffer().slice().reverse() : getBuffer()).join('');
-if ($.isFunction(opts.onUnMask)) {
+if (jQuery.isFunction(opts.onUnMask)) {
 unmaskedValue = (opts.onUnMask.call($input, bufferValue, unmaskedValue, opts) || unmaskedValue);
 }
 return unmaskedValue;
@@ -2180,14 +2180,14 @@ ndxIntlzr = lvTest != undefined ? lvTest["locator"].slice() : undefined, testPos
 for (pos = lvp + 1; pos < buffer.length; pos++) {
 testPos = getTestTemplate(pos, ndxIntlzr, pos - 1);
 ndxIntlzr = testPos["locator"].slice();
-positions[pos] = $.extend(true, {}, testPos);
+positions[pos] = jQuery.extend(true, {}, testPos);
 }
 var lvTestAltArr = lvTest && lvTest.alternation != undefined ? lvTest["locator"][lvTest.alternation].split(",") : [];
 for (pos = bl - 1; pos > lvp; pos--) {
 testPos = positions[pos]["match"];
 if ((testPos.optionality ||
 testPos.optionalQuantifier ||
-(lvTest && lvTest.alternation != undefined && positions[pos]["locator"][lvTest.alternation] != undefined && $.inArray(positions[pos]["locator"][lvTest.alternation].toString(), lvTestAltArr) != -1))
+(lvTest && lvTest.alternation != undefined && positions[pos]["locator"][lvTest.alternation] != undefined && jQuery.inArray(positions[pos]["locator"][lvTest.alternation].toString(), lvTestAltArr) != -1))
 && buffer[pos] == getPlaceholder(pos, testPos)) {
 bl--;
 } else break;
@@ -2196,7 +2196,7 @@ return returnDefinition ? { "l": bl, "def": positions[bl] ? positions[bl]["match
 }
 function clearOptionalTail(input) {
 var buffer = getBuffer(), tmpBuffer = buffer.slice();
-if ($.isFunction(opts.postProcessOnBlur))
+if (jQuery.isFunction(opts.postProcessOnBlur))
 opts.postProcessOnBlur.call(input, tmpBuffer, opts);
 else {
 var rl = determineLastRequiredPosition(), lmib = tmpBuffer.length - 1;
@@ -2208,7 +2208,7 @@ tmpBuffer.splice(rl, lmib + 1 - rl);
 writeBuffer(input, tmpBuffer);
 }
 function isComplete(buffer) { //return true / false / undefined (repeat *)
-if ($.isFunction(opts.isComplete)) return opts.isComplete.call($el, buffer, opts);
+if (jQuery.isFunction(opts.isComplete)) return opts.isComplete.call($el, buffer, opts);
 if (opts.repeat == "*") return undefined;
 var complete = false, lrp = determineLastRequiredPosition(true), aml = seekPrevious(lrp["l"]), lvp = getLastValidPosition();
 if (lvp == aml) {
@@ -2230,9 +2230,9 @@ return isRTL ? (begin - end) > 1 || ((begin - end) == 1 && opts.insertMode) :
 (end - begin) > 1 || ((end - begin) == 1 && opts.insertMode);
 }
 function installEventRuler(npt) {
-var events = $._data(npt).events;
-$.each(events, function (eventType, eventHandlers) {
-$.each(eventHandlers, function (ndx, eventHandler) {
+var events = jQuery._data(npt).events;
+jQuery.each(events, function (eventType, eventHandlers) {
+jQuery.each(eventHandlers, function (ndx, eventHandler) {
 if (eventHandler.namespace == "inputmask") {
 if (eventHandler.type != "setvalue") {
 var handler = eventHandler.handler;
@@ -2251,13 +2251,13 @@ function patchValueProperty(npt) {
 var valueGet;
 var valueSet;
 function PatchValhook(type) {
-if ($.valHooks[type] == undefined || $.valHooks[type].inputmaskpatch != true) {
-var valueGet = $.valHooks[type] && $.valHooks[type].get ? $.valHooks[type].get : function (elem) { return elem.value; };
-var valueSet = $.valHooks[type] && $.valHooks[type].set ? $.valHooks[type].set : function (elem, value) {
+if (jQuery.valHooks[type] == undefined || jQuery.valHooks[type].inputmaskpatch != true) {
+var valueGet = jQuery.valHooks[type] && jQuery.valHooks[type].get ? jQuery.valHooks[type].get : function (elem) { return elem.value; };
+var valueSet = jQuery.valHooks[type] && jQuery.valHooks[type].set ? jQuery.valHooks[type].set : function (elem, value) {
 elem.value = value;
 return elem;
 };
-$.valHooks[type] = {
+jQuery.valHooks[type] = {
 get: function (elem) {
 var $elem = jQuery(elem);
 if ($elem.data('_inputmask')) {
@@ -2276,7 +2276,7 @@ return result != bufferTemplate ? result : '';
 set: function (elem, value) {
 var $elem = jQuery(elem), inputData = $elem.data('_inputmask'), result;
 if (inputData) {
-result = valueSet(elem, $.isFunction(inputData['opts'].onBeforeMask) ? (inputData['opts'].onBeforeMask.call(el, value, inputData['opts']) || value) : value);
+result = valueSet(elem, jQuery.isFunction(inputData['opts'].onBeforeMask) ? (inputData['opts'].onBeforeMask.call(el, value, inputData['opts']) || value) : value);
 $elem.triggerHandler('setvalue.inputmask');
 } else {
 result = valueSet(elem, value);
@@ -2296,7 +2296,7 @@ return inputData['opts'].autoUnmask ? $self.inputmask('unmaskedvalue') : (valueG
 function setter(value) {
 var inputData = jQuery(this).data('_inputmask');
 if (inputData) {
-valueSet.call(this, $.isFunction(inputData['opts'].onBeforeMask) ? (inputData['opts'].onBeforeMask.call(el, value, inputData['opts']) || value) : value);
+valueSet.call(this, jQuery.isFunction(inputData['opts'].onBeforeMask) ? (inputData['opts'].onBeforeMask.call(el, value, inputData['opts']) || value) : value);
 jQuery(this).triggerHandler('setvalue.inputmask');
 } else {
 valueSet.call(this, value);
@@ -2306,13 +2306,13 @@ function InstallNativeValueSetFallback(npt) {
 jQuery(npt).bind("mouseenter.inputmask", function (event) {
 var $input = jQuery(this), input = this, value = input._valueGet();
 if (value != "" && value != getBuffer().join('')) {
-valueSet.call(this, $.isFunction(opts.onBeforeMask) ? (opts.onBeforeMask.call(el, value, opts) || value) : value);
+valueSet.call(this, jQuery.isFunction(opts.onBeforeMask) ? (opts.onBeforeMask.call(el, value, opts) || value) : value);
 $input.trigger("setvalue");
 }
 });
 //!! the bound handlers are executed in the order they where bound
 //reorder the events - the mouseenter event is internally mapped to the mouseover event
-var events = $._data(npt).events;
+var events = jQuery._data(npt).events;
 var handlers = events["mouseover"];
 if (handlers) {
 var ourHandler = handlers[handlers.length - 1];
@@ -2385,19 +2385,19 @@ keypressEvent.call(input, undefined, true, validInputs.pop().charCodeAt(0), fals
 }
 }
 if (opts.numericInput || isRTL) {
-if (k == $.inputmask.keyCode.BACKSPACE)
-k = $.inputmask.keyCode.DELETE;
-else if (k == $.inputmask.keyCode.DELETE)
-k = $.inputmask.keyCode.BACKSPACE;
+if (k == jQuery.inputmask.keyCode.BACKSPACE)
+k = jQuery.inputmask.keyCode.DELETE;
+else if (k == jQuery.inputmask.keyCode.DELETE)
+k = jQuery.inputmask.keyCode.BACKSPACE;
 if (isRTL) {
 var pend = pos.end;
 pos.end = pos.begin;
 pos.begin = pend;
 }
 }
-if (k == $.inputmask.keyCode.BACKSPACE && pos.end - pos.begin <= 1)
+if (k == jQuery.inputmask.keyCode.BACKSPACE && pos.end - pos.begin <= 1)
 pos.begin = seekPrevious(pos.begin);
-else if (k == $.inputmask.keyCode.DELETE && pos.begin == pos.end)
+else if (k == jQuery.inputmask.keyCode.DELETE && pos.begin == pos.end)
 pos.end++;
 stripValidPositions(pos.begin, pos.end);
 generalize(); //revert the alternation
@@ -2425,7 +2425,7 @@ function keydownEvent(e) {
 skipKeyPressEvent = false;
 var input = this, $input = jQuery(input), k = e.keyCode, pos = caret(input);
 //backspace, delete, and escape get special treatment
-if (k == $.inputmask.keyCode.BACKSPACE || k == $.inputmask.keyCode.DELETE || (iphone && k == 127) || (e.ctrlKey && k == 88 && !isInputEventSupported("cut"))) { //backspace/delete
+if (k == jQuery.inputmask.keyCode.BACKSPACE || k == jQuery.inputmask.keyCode.DELETE || (iphone && k == 127) || (e.ctrlKey && k == 88 && !isInputEventSupported("cut"))) { //backspace/delete
 e.preventDefault(); //stop default action but allow propagation
 if (k == 88) valueOnFocus = getBuffer().join('');
 handleRemove(input, k, pos);
@@ -2435,27 +2435,27 @@ $input.trigger('cleared');
 if (opts.showTooltip) { //update tooltip
 $input.prop("title", getMaskSet()["mask"]);
 }
-} else if (k == $.inputmask.keyCode.END || k == $.inputmask.keyCode.PAGE_DOWN) { //when END or PAGE_DOWN pressed set position at lastmatch
+} else if (k == jQuery.inputmask.keyCode.END || k == jQuery.inputmask.keyCode.PAGE_DOWN) { //when END or PAGE_DOWN pressed set position at lastmatch
 setTimeout(function () {
 var caretPos = seekNext(getLastValidPosition());
 if (!opts.insertMode && caretPos == getMaskLength() && !e.shiftKey) caretPos--;
 caret(input, e.shiftKey ? pos.begin : caretPos, caretPos);
 }, 0);
-} else if ((k == $.inputmask.keyCode.HOME && !e.shiftKey) || k == $.inputmask.keyCode.PAGE_UP) { //Home or page_up
+} else if ((k == jQuery.inputmask.keyCode.HOME && !e.shiftKey) || k == jQuery.inputmask.keyCode.PAGE_UP) { //Home or page_up
 caret(input, 0, e.shiftKey ? pos.begin : 0);
-} else if (k == $.inputmask.keyCode.ESCAPE || (k == 90 && e.ctrlKey)) { //escape && undo
+} else if (k == jQuery.inputmask.keyCode.ESCAPE || (k == 90 && e.ctrlKey)) { //escape && undo
 checkVal(input, true, false, valueOnFocus.split(''));
 $input.click();
-} else if (k == $.inputmask.keyCode.INSERT && !(e.shiftKey || e.ctrlKey)) { //insert
+} else if (k == jQuery.inputmask.keyCode.INSERT && !(e.shiftKey || e.ctrlKey)) { //insert
 opts.insertMode = !opts.insertMode;
 caret(input, !opts.insertMode && pos.begin == getMaskLength() ? pos.begin - 1 : pos.begin);
 } else if (opts.insertMode == false && !e.shiftKey) {
-if (k == $.inputmask.keyCode.RIGHT) {
+if (k == jQuery.inputmask.keyCode.RIGHT) {
 setTimeout(function () {
 var caretPos = caret(input);
 caret(input, caretPos.begin);
 }, 0);
-} else if (k == $.inputmask.keyCode.LEFT) {
+} else if (k == jQuery.inputmask.keyCode.LEFT) {
 setTimeout(function () {
 var caretPos = caret(input);
 caret(input, isRTL ? caretPos.begin + 1 : caretPos.begin - 1);
@@ -2465,7 +2465,7 @@ caret(input, isRTL ? caretPos.begin + 1 : caretPos.begin - 1);
 var currentCaretPos = caret(input);
 var keydownResult = opts.onKeyDown.call(this, e, getBuffer(), currentCaretPos.begin, opts);
 handleOnKeyResult(input, keydownResult, currentCaretPos);
-ignorable = $.inArray(k, opts.ignorables) != -1;
+ignorable = jQuery.inArray(k, opts.ignorables) != -1;
 }
 function keypressEvent(e, checkval, k, writeOut, strict, ndx) {
 //Safari 5.1.x - modal dialog fires keypress twice workaround
@@ -2484,8 +2484,8 @@ var pos = checkval ? { begin: ndx, end: ndx } : caret(input), forwardPosition, c
 //should we clear a possible selection??
 var isSlctn = isSelection(pos.begin, pos.end);
 if (isSlctn) {
-getMaskSet()["undoPositions"] = $.extend(true, {}, getMaskSet()["validPositions"]); //init undobuffer for recovery when not valid
-handleRemove(input, $.inputmask.keyCode.DELETE, pos);
+getMaskSet()["undoPositions"] = jQuery.extend(true, {}, getMaskSet()["validPositions"]); //init undobuffer for recovery when not valid
+handleRemove(input, jQuery.inputmask.keyCode.DELETE, pos);
 if (!opts.insertMode) { //preserve some space
 opts.insertMode = !opts.insertMode;
 setValidPosition(pos.begin, strict);
@@ -2552,7 +2552,7 @@ var $input = jQuery(this), input = this, k = e.keyCode, buffer = getBuffer();
 var currentCaretPos = caret(input);
 var keyupResult = opts.onKeyUp.call(this, e, buffer, currentCaretPos.begin, opts);
 handleOnKeyResult(input, keyupResult, currentCaretPos);
-if (k == $.inputmask.keyCode.TAB && opts.showMaskOnFocus) {
+if (k == jQuery.inputmask.keyCode.TAB && opts.showMaskOnFocus) {
 if ($input.is(":focus") && input._valueGet().length == 0) {
 resetMaskSet();
 buffer = getBuffer();
@@ -2581,7 +2581,7 @@ inputValue = inputValue.substr(0, caretPos.begin) + window.clipboardData.getData
 inputValue = inputValue.substr(0, caretPos.begin) + e.originalEvent.clipboardData.getData('text/plain') + inputValue.substr(caretPos.end, inputValue.length);;
 }
 }
-var pasteValue = $.isFunction(opts.onBeforePaste) ? (opts.onBeforePaste.call(input, inputValue, opts) || inputValue) : inputValue;
+var pasteValue = jQuery.isFunction(opts.onBeforePaste) ? (opts.onBeforePaste.call(input, inputValue, opts) || inputValue) : inputValue;
 checkVal(input, true, false, isRTL ? pasteValue.split('').reverse() : pasteValue.split(''));
 $input.click();
 if (isComplete(getBuffer()) === true)
@@ -2606,7 +2606,7 @@ caretPos = caret(input);
 if ((getBuffer().length - currentValue.length) == 1 && currentValue.charAt(caretPos.begin) != getBuffer()[caretPos.begin]
 && currentValue.charAt(caretPos.begin + 1) != getBuffer()[caretPos.begin]
 && !isMask(caretPos.begin)) {
-e.keyCode = $.inputmask.keyCode.BACKSPACE;
+e.keyCode = jQuery.inputmask.keyCode.BACKSPACE;
 keydownEvent.call(input, e);
 }
 e.preventDefault();
@@ -2629,7 +2629,7 @@ skipInputEvent = true; //stop inutFallback
 var input = this;
 setTimeout(function () {
 caret(input, caret(input).begin - 1);
-var keypress = $.Event("keypress");
+var keypress = jQuery.Event("keypress");
 keypress.which = e.originalEvent.data.charCodeAt(0);
 skipKeyPressEvent = false;
 ignorable = false;
@@ -2740,8 +2740,8 @@ var $input = jQuery(this), input = this;
 if ($input.is(":focus")) {
 var selectedCaret = caret(input);
 if (selectedCaret.begin == selectedCaret.end) {
-if (opts.radixFocus && opts.radixPoint != "" && $.inArray(opts.radixPoint, getBuffer()) != -1 && (firstClick || getBuffer().join('') == getBufferTemplate().join(''))) {
-caret(input, $.inArray(opts.radixPoint, getBuffer()));
+if (opts.radixFocus && opts.radixPoint != "" && jQuery.inArray(opts.radixPoint, getBuffer()) != -1 && (firstClick || getBuffer().join('') == getBufferTemplate().join(''))) {
+caret(input, jQuery.inArray(opts.radixPoint, getBuffer()));
 firstClick = false;
 } else {
 var clickPosition = isRTL ? TranslatePosition(selectedCaret.begin) : selectedCaret.begin,
@@ -2769,7 +2769,7 @@ input._valueSet('');
 }).bind('cut.inputmask', function (e) {
 skipInputEvent = true; //stop inutFallback
 var input = this, $input = jQuery(input), pos = caret(input);
-handleRemove(input, $.inputmask.keyCode.DELETE, pos);
+handleRemove(input, jQuery.inputmask.keyCode.DELETE, pos);
 var keypressResult = opts.onKeyPress.call(this, e, getBuffer(), getMaskSet()["p"], opts);
 handleOnKeyResult(input, keypressResult, { begin: getMaskSet()["p"], end: getMaskSet()["p"] });
 if (input._valueGet() == getBufferTemplate().join(''))
@@ -2793,7 +2793,7 @@ $el.bind("input.inputmask", mobileInputEvent);
 }
 patchValueProperty(el);
 //apply mask
-var initialValue = $.isFunction(opts.onBeforeMask) ? (opts.onBeforeMask.call(el, el._valueGet(), opts) || el._valueGet()) : el._valueGet();
+var initialValue = jQuery.isFunction(opts.onBeforeMask) ? (opts.onBeforeMask.call(el, el._valueGet(), opts) || el._valueGet()) : el._valueGet();
 checkVal(el, true, false, initialValue.split(''));
 valueOnFocus = getBuffer().join('');
 // Wrap document.activeElement in a try/catch block since IE9 throw "Unspecified error" if document.activeElement is undefined when we are in an IFrame.
@@ -2849,7 +2849,7 @@ $el.data('_inputmask', {
 if (opts.numericInput) {
 isRTL = true;
 }
-var valueBuffer = ($.isFunction(opts.onBeforeMask) ? (opts.onBeforeMask.call($el, actionObj["value"], opts) || actionObj["value"]) : actionObj["value"]).split('');
+var valueBuffer = (jQuery.isFunction(opts.onBeforeMask) ? (opts.onBeforeMask.call($el, actionObj["value"], opts) || actionObj["value"]) : actionObj["value"]).split('');
 checkVal($el, false, false, isRTL ? valueBuffer.reverse() : valueBuffer);
 opts.onKeyPress.call(this, undefined, getBuffer(), 0, opts);
 if (actionObj["metadata"]) {
@@ -2923,7 +2923,7 @@ case "getmetadata":
 $el = jQuery(actionObj["el"]);
 maskset = $el.data('_inputmask')['maskset'];
 opts = $el.data('_inputmask')['opts'];
-if ($.isArray(maskset["metadata"])) {
+if (jQuery.isArray(maskset["metadata"])) {
 //find last alternation
 var alternation, lvp = getLastValidPosition();
 for (var firstAlt = lvp; firstAlt >= 0; firstAlt--) {
@@ -2940,7 +2940,7 @@ return maskset["metadata"];
 }
 }
 }
-$.inputmask = {
+jQuery.inputmask = {
 //options default
 defaults: {
 placeholder: "_",
@@ -2950,27 +2950,27 @@ groupmarker: { start: "(", end: ")" },
 alternatormarker: "|",
 escapeChar: "\\",
 mask: null,
-oncomplete: $.noop, //executes when the mask is complete
-onincomplete: $.noop, //executes when the mask is incomplete and focus is lost
-oncleared: $.noop, //executes when the mask is cleared
+oncomplete: jQuery.noop, //executes when the mask is complete
+onincomplete: jQuery.noop, //executes when the mask is incomplete and focus is lost
+oncleared: jQuery.noop, //executes when the mask is cleared
 repeat: 0, //repetitions of the mask: * ~ forever, otherwise specify an integer
 greedy: true, //true: allocated buffer for the mask and repetitions - false: allocate only if needed
-autoUnmask: false, //automatically unmask when retrieving the value with $.fn.val or value if the browser supports __lookupGetter__ or getOwnPropertyDescriptor
+autoUnmask: false, //automatically unmask when retrieving the value with jQuery.fn.val or value if the browser supports __lookupGetter__ or getOwnPropertyDescriptor
 removeMaskOnSubmit: false, //remove the mask before submitting the form.
 clearMaskOnLostFocus: true,
 insertMode: true, //insert the input or overwrite the input
 clearIncomplete: false, //clear the incomplete input on blur
 aliases: {}, //aliases definitions => see jquery.inputmask.extensions.js
 alias: null,
-onKeyUp: $.noop, //callback to implement autocomplete on certain keys for example
-onKeyPress: $.noop, //callback to implement autocomplete on certain keys for example
-onKeyDown: $.noop, //callback to implement autocomplete on certain keys for example
+onKeyUp: jQuery.noop, //callback to implement autocomplete on certain keys for example
+onKeyPress: jQuery.noop, //callback to implement autocomplete on certain keys for example
+onKeyDown: jQuery.noop, //callback to implement autocomplete on certain keys for example
 onBeforeMask: undefined, //executes before masking the initial value to allow preprocessing of the initial value. args => initialValue, opts => return processedValue
 onBeforePaste: undefined, //executes before masking the pasted value to allow preprocessing of the pasted value. args => pastedValue, opts => return processedValue
 onUnMask: undefined, //executes after unmasking to allow postprocessing of the unmaskedvalue. args => maskedValue, unmaskedValue, opts
 showMaskOnFocus: true, //show the mask-placeholder when the input has focus
 showMaskOnHover: true, //show the mask-placeholder when hovering the empty input
-onKeyValidation: $.noop, //executes on every key-press with the result of isValid. Params: result, opts
+onKeyValidation: jQuery.noop, //executes on every key-press with the result of isValid. Params: result, opts
 skipOptionalPartCharacter: " ", //a character which can be used to skip an optional part of a mask
 showTooltip: false, //show the activemask as tooltip
 numericInput: false, //numericInput input direction style (input shifts to the left while holding the caret position)
@@ -3013,17 +3013,17 @@ var specials = ['/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\'
 return str.replace(new RegExp('(\\' + specials.join('|\\') + ')', 'gim'), '\\$1');
 },
 format: function (value, options, metadata) {
-var opts = $.extend(true, {}, $.inputmask.defaults, options);
+var opts = jQuery.extend(true, {}, jQuery.inputmask.defaults, options);
 resolveAlias(opts.alias, options, opts);
 return maskScope({ "action": "format", "value": value, "metadata": metadata }, generateMaskSet(opts), opts);
 },
 isValid: function (value, options) {
-var opts = $.extend(true, {}, $.inputmask.defaults, options);
+var opts = jQuery.extend(true, {}, jQuery.inputmask.defaults, options);
 resolveAlias(opts.alias, options, opts);
 return maskScope({ "action": "isValid", "value": value }, generateMaskSet(opts), opts);
 }
 };
-$.fn.inputmask = function (fn, options, targetScope, targetData, msk) {
+jQuery.fn.inputmask = function (fn, options, targetScope, targetData, msk) {
 targetScope = targetScope || maskScope;
 targetData = targetData || "_inputmask";
 function importAttributeOptions(npt, opts, importedOptionsContainer) {
@@ -3046,7 +3046,7 @@ importedOptionsContainer[option] = opts[option];
 }
 return opts;
 }
-var opts = $.extend(true, {}, $.inputmask.defaults, options),
+var opts = jQuery.extend(true, {}, jQuery.inputmask.defaults, options),
 maskset;
 if (typeof fn === "string") {
 switch (fn) {
@@ -3056,7 +3056,7 @@ resolveAlias(opts.alias, options, opts);
 maskset = generateMaskSet(opts, targetScope !== maskScope);
 if (maskset == undefined) { return this; }
 return this.each(function () {
-targetScope({ "action": "mask", "el": this }, $.extend(true, {}, maskset), importAttributeOptions(this, opts));
+targetScope({ "action": "mask", "el": this }, jQuery.extend(true, {}, maskset), importAttributeOptions(this, opts));
 });
 case "unmaskedvalue":
 var $input = jQuery(this);
@@ -3088,13 +3088,13 @@ return targetScope({ "action": "getmetadata", "el": this });
 else return undefined;
 case "_detectScope":
 resolveAlias(opts.alias, options, opts);
-if (msk != undefined && !resolveAlias(msk, options, opts) && $.inArray(msk, ["mask", "unmaskedvalue", "remove", "getemptymask", "hasMaskedValue", "isComplete", "getmetadata", "_detectScope"]) == -1) {
+if (msk != undefined && !resolveAlias(msk, options, opts) && jQuery.inArray(msk, ["mask", "unmaskedvalue", "remove", "getemptymask", "hasMaskedValue", "isComplete", "getmetadata", "_detectScope"]) == -1) {
 opts.mask = msk;
 }
-if ($.isFunction(opts.mask)) {
+if (jQuery.isFunction(opts.mask)) {
 opts.mask = opts.mask.call(this, opts);
 }
-return $.isArray(opts.mask);
+return jQuery.isArray(opts.mask);
 default:
 resolveAlias(opts.alias, options, opts);
 //check if the fn is an alias
@@ -3106,16 +3106,16 @@ opts.mask = fn;
 maskset = generateMaskSet(opts, targetScope !== maskScope);
 if (maskset == undefined) { return this; }
 return this.each(function () {
-targetScope({ "action": "mask", "el": this }, $.extend(true, {}, maskset), importAttributeOptions(this, opts));
+targetScope({ "action": "mask", "el": this }, jQuery.extend(true, {}, maskset), importAttributeOptions(this, opts));
 });
 }
 } else if (typeof fn == "object") {
-opts = $.extend(true, {}, $.inputmask.defaults, fn);
+opts = jQuery.extend(true, {}, jQuery.inputmask.defaults, fn);
 resolveAlias(opts.alias, fn, opts); //resolve aliases
 maskset = generateMaskSet(opts, targetScope !== maskScope);
 if (maskset == undefined) { return this; }
 return this.each(function () {
-targetScope({ "action": "mask", "el": this }, $.extend(true, {}, maskset), importAttributeOptions(this, opts));
+targetScope({ "action": "mask", "el": this }, jQuery.extend(true, {}, maskset), importAttributeOptions(this, opts));
 });
 } else if (fn == undefined) {
 //look for data-inputmask atribute - the attribute should only contain optipns
@@ -3124,9 +3124,9 @@ var attrOptions = jQuery(this).attr("data-inputmask");
 if (attrOptions && attrOptions != "") {
 try {
 attrOptions = attrOptions.replace(new RegExp("'", "g"), '"');
-var dataoptions = $.parseJSON("{" + attrOptions + "}");
-$.extend(true, dataoptions, options);
-opts = $.extend(true, {}, $.inputmask.defaults, dataoptions);
+var dataoptions = jQuery.parseJSON("{" + attrOptions + "}");
+jQuery.extend(true, dataoptions, options);
+opts = jQuery.extend(true, {}, jQuery.inputmask.defaults, dataoptions);
 opts = importAttributeOptions(this, opts);
 resolveAlias(opts.alias, dataoptions, opts);
 opts.alias = undefined;
@@ -3134,7 +3134,7 @@ jQuery(this).inputmask("mask", opts, targetScope);
 } catch (ex) { } //need a more relax parseJSON
 }
 if (jQuery(this).attr("data-inputmask-mask") || jQuery(this).attr("data-inputmask-alias")) {
-opts = $.extend(true, {}, $.inputmask.defaults, {});
+opts = jQuery.extend(true, {}, jQuery.inputmask.defaults, {});
 var dataOptions = {};
 opts = importAttributeOptions(this, opts, dataOptions);
 resolveAlias(opts.alias, dataOptions, opts);
@@ -3145,7 +3145,7 @@ jQuery(this).inputmask("mask", opts, targetScope);
 }
 };
 }
-return $.fn.inputmask;
+return jQuery.fn.inputmask;
 })(jQuery);
 var apishopsJSONP={
     gates:[
@@ -3208,7 +3208,7 @@ function apishopsFormLoadTemplates(templates, charset, theme, successFunction, e
                 var template_file=apishopsFormTemplates[templates[template_no]][template_file_type].replace("%THEME%", theme).replace("%CHARSETSUFFIX%",(charset=='utf8'?'.utf8':''));
 
                 if(template_file_type=='js'){
-                    $.getScript(template_file).done(function( script, textStatus ) {
+                    jQuery.getScript(template_file).done(function( script, textStatus ) {
                         templates_js_loaded++;
                         if(templates_js_loaded==templates.length){
                             apishopsLog('Templates success:'+theme+' '+templates_js_loaded+'/'+templates.length);
@@ -3242,7 +3242,7 @@ function apishopsFormGetJSONP(jsonp, callBackFunction){
 
     apishopsLog('New process #'+jsonp.processId);
 
-    $.getJSON(apishopsJSONP.gates[0], jsonp, apishopsFormCallbackJSONP);
+    jQuery.getJSON(apishopsJSONP.gates[0], jsonp, apishopsFormCallbackJSONP);
 
     apishopsJSONP.checkInterval=setInterval(function() {
 
@@ -3256,7 +3256,7 @@ function apishopsFormGetJSONP(jsonp, callBackFunction){
                 if (process.status=='run' && process.retrys<apishopsJSONP.gates.length){
                     apishopsLog("   Query no "+process.retrys+"("+apishopsJSONP.gates[process.retrys]+") failed");
                     process.retrys++;
-                    $.getJSON(apishopsJSONP.gates[process.retrys], process.jsonp, apishopsFormCallbackJSONP);
+                    jQuery.getJSON(apishopsJSONP.gates[process.retrys], process.jsonp, apishopsFormCallbackJSONP);
                     apishopsLog("   Sended query no "+process.retrys+"("+apishopsJSONP.gates[process.retrys]+")");
                 }else if(process.status=='run'){
                     apishopsLog("   All retrys is failed "+process.retrys);
@@ -3348,11 +3348,11 @@ function apishopsFormLoadParcelParameters(params){
             if(typeof apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['info']=='undefined')
                 apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['info']={};
 
-            $.each(result.data.deliveries, function () {
+            jQuery.each(result.data.deliveries, function () {
                 apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['deliveries'][this.value]=this.name;
             });
 
-            $.each(result.data.payments, function () {
+            jQuery.each(result.data.payments, function () {
                 apishopsParcelParamaters[siteId][wpId][regionId][productId][price]['payments'][this.value]=this.name;
             });
 
@@ -3400,16 +3400,16 @@ function apishopsFormLoadRegions(params){
             $object.append(jQuery('<option value="-1">Выберите регион доставки</option>'));
 
             var topRegions = [53, 421, 92, 0];
-            $.each(result.data, function () {
-                if ($.inArray(this.id, topRegions) != -1){
+            jQuery.each(result.data, function () {
+                if (jQuery.inArray(this.id, topRegions) != -1){
                     $object.append(jQuery('<option value="' + this.id + '">' + this.name + '</option>'));
                 }
             });
 
             $object.append('<optgroup label="----------------">');
 
-            $.each(result.data, function () {
-                if ($.inArray(this.id, topRegions) == -1){
+            jQuery.each(result.data, function () {
+                if (jQuery.inArray(this.id, topRegions) == -1){
                     $object.append(jQuery('<option value="' + this.id + '">' + this.name + '</option>'));
                 }
             });
@@ -3441,10 +3441,10 @@ function apishopsFormLoadDeliveryTypes(params){
         $object.empty();
         $object.append(jQuery('<option value="-1">Выберите тип доставки</option>'));
 
-        $.each(apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['info'].items, function () {
+        jQuery.each(apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['info'].items, function () {
             var min = null;
             var max = null;
-            $.each(this.payments, function () {
+            jQuery.each(this.payments, function () {
 
                 var bonus_ = 0;
                 if (params['regionId'] == '0'){
@@ -3500,9 +3500,9 @@ function apishopsFormLoadPaymentTypes(params){
 
     try{
         $object.empty();
-        $.each(apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['info'].items, function () {
+        jQuery.each(apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['info'].items, function () {
             if (this.deliveryId == params['deliveryId']) {
-                $.each(this.payments, function () {
+                jQuery.each(this.payments, function () {
                     var bonus_ = 0;
                     if (params['regionId'] == '0'){
                         bonus_ = 50;
@@ -3551,9 +3551,9 @@ function apishopsFormLoadPrice(params){
         var baseSum=0;
         var addKgSum=0;
 
-        $.each(apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['info'].items, function () {
+        jQuery.each(apishopsParcelParamaters[params['siteId']][0][params['regionId']][params['productId']][params['price']]['info'].items, function () {
             if (this.deliveryId == params['deliveryId']) {
-                $.each(this.payments, function () {
+                jQuery.each(this.payments, function () {
                     if(params['paymentId']==this.paymentId){
                         paySum=this.sum;
                         baseSum=this.baseSum;
@@ -3710,7 +3710,7 @@ function apishopsFormSubmit(params){
                             successModal.remove();
                         });
 
-                        $.getScript('http://img2.apishops.org/SinglePageWebsites/custom/js/apishopsAdditionalProductForm'+successFilesCharsetSuffix+'.js').done(function( script, textStatus ) {
+                        jQuery.getScript('http://img2.apishops.org/SinglePageWebsites/custom/js/apishopsAdditionalProductForm'+successFilesCharsetSuffix+'.js').done(function( script, textStatus ) {
                             jQuery(".additionalProducts").apishopsAdditionalProductForm({siteId: result.parameters.siteId, orderId: result.data.id});
                         })
                     }else{
@@ -3748,7 +3748,7 @@ function apishopsFormSubmit(params){
 
 
 (function($){
-    $.fn.getStyleObject = function(){
+    jQuery.fn.getStyleObject = function(){
         var dom = this.get(0);
         var style;
         var returns = {};

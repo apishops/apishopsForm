@@ -20,6 +20,7 @@ $(document).ready( function() {
           var wpIdproductIdInput=$('.apishopsFormConstructorwpIdproductId','.apishopsFormConstructor');
 
           var isModalInput=$('.apishopsFormConstructorIsModal','.apishopsFormConstructor');
+          var isUtf8Input=$('.apishopsFormConstructorIsUtf8','.apishopsFormConstructor');
 
 
           var isAddJquery=$('.apishopsFormConstructorAddJquery');
@@ -91,7 +92,11 @@ $(document).ready( function() {
 
           if(isAddApishops.is(':checked')){
             code += "<!-- init apishops -->\n";
-            code += "<script src=\"http://img.apishops.org/SinglePageWebsites/custom/js/apishopsForm.2.js\"></script>\n";
+            if(!isUtf8Input.is(':checked'))
+              code += "<script src=\"http://img.apishops.org/SinglePageWebsites/custom/js/apishopsForm.2.js\"></script>\n";
+            else
+              code += "<script src=\"http://img.apishops.org/SinglePageWebsites/custom/js/apishopsForm.2.utf8.js\"></script>\n";
+
             code += "<link href=\"http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm.2.css\" rel=\"stylesheet\">\n";
           }
 
