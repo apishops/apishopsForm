@@ -917,7 +917,7 @@ jQuery.fn.apishopsForm=function(options)
                                             error+=' - '+settings.inputs_[index]+'\n';
                                     }
                                     else if(index=='phone' && new RegExp('[_]').test(jQuery(value).val())){
-                                            error+='— Поле телефона: допустимы только цифры, знак плюс, скобки и дефисы';
+                                            error+='Поле телефона: допустимы только цифры, знак плюс, скобки и дефисы';
                                     }
                                     else{
                                         jQuery(value).closest('.apishopsFormGroup').removeClass('apishopsFormError');
@@ -967,7 +967,7 @@ jQuery.fn.apishopsForm=function(options)
                                             error+=' - '+settings.inputs_[index]+'\n';
                                     }
                                     else if(index=='phone' && new RegExp('[_]').test(jQuery(value).val())){
-                                            error+='— Поле телефона: допустимы только цифры, знак плюс, скобки и дефисы';
+                                            error+='Поле телефона: допустимы только цифры, знак плюс, скобки и дефисы';
                                     }
                                     else{
                                         jQuery(value).closest('.apishopsFormGroup').removeClass('apishopsFormError');
