@@ -2,7 +2,7 @@
 
             .apishopsModal{
                 display: none;
-                z-index: 4000;
+                z-index: 999999;
             }
             .apishopsModal {
                 display: none;
@@ -20,8 +20,8 @@
                 visibility:visible;
             }
 
-            .apishopsModal.apishopsAnimation.successModal .apishopsModalWindow{
-                top:100px;
+            .apishopsModal.apishopsAnimation .apishopsModalWindow{
+                top:100px !important;
                 left: 100px;
                 right: 100px;
                 width: auto;
@@ -33,14 +33,24 @@
                 overflow: auto;
             }
 
-            .apishopsModal.apishopsAnimation.successModal .apishopsModalContent{
+            .apishopsModal.apishopsAnimation .apishopsModalWindow.apishopsModalWindowSmall{
+                bottom: initial !important;
+                left: 50%;
+                margin-left: -250px;
+                max-width: 500px;
+                padding: 20px;
+                right: initial;
+                top: 100px !important;
+            }
+
+            .apishopsModal.apishopsAnimation .apishopsModalContent{
               text-align: left;
             }
 
-            .apishopsModal.apishopsAnimation.successModal *{
+            .apishopsModal.apishopsAnimation *{
               font-family: Arial;
             }
-            .apishopsModal.apishopsAnimation.successModal h1{
+            .apishopsModal.apishopsAnimation h1{
               line-height: 100%;
             }
 
@@ -59,16 +69,16 @@
                 box-sizing: padding-box;
             }
 
-            .apishopsModal.apishopsAnimation.successModal .additionalProducts a {
+            .apishopsModal.apishopsAnimation .additionalProducts a {
                 color: #0095ff;
             }
 
-            .apishopsModal.apishopsAnimation.successModal .apishopsModalClose2 {
+            .apishopsModal.apishopsAnimation .apishopsModalClose2 {
               display: block;
 
             }
 
-            .apishopsModal.apishopsAnimation.successModal .apishopsModalClose2 a{
+            .apishopsModal.apishopsAnimation .apishopsModalClose2 a{
                 border: 2px solid;
                 border-radius: 25px;
                 color: rgb(94, 92, 92);
@@ -155,69 +165,6 @@
 
 
 
-            /* superScaled */
-            .apishopsAnimation.apishopsSuperScaled .apishopsModalWindow{
-              -webkit-transform: scale(2);
-                  -ms-transform: scale(2);
-                      transform: scale(2);
-              transition: -webkit-transform 0.2s ease-out;
-              transition: transform 0.2s ease-out;
-            }
-            .apishopsAnimation.apishopsSuperScaled.in .apishopsModalWindow{
-              -webkit-transform: scale(1);
-                  -ms-transform: scale(1);
-                      transform: scale(1);
-            }
-
-            .apishopsAnimation.apishopsLetMeIn .apishopsModalWindow{
-              -webkit-transform: scale(2);
-                  -ms-transform: scale(2);
-                      transform: scale(2);
-              transition: -webkit-transform 0.2s ease-out;
-              transition: transform 0.2s ease-out;
-            }
-            .apishopsAnimation.apishopsLetMeIn.in .apishopsModalWindow{
-              -webkit-transform: scale(1);
-                  -ms-transform: scale(1);
-                      transform: scale(1);
-            }
-
-            /*sideFall*/
-            .apishopsAnimation.apishopsSideFall .apishopsModalWindow{
-              -webkit-transform: scale(2) translate(30%) translateZ(600px) rotate(10deg);
-                  -ms-transform: scale(2) translate(30%) translateZ(600px) rotate(10deg);
-                      transform: scale(2) translate(30%) translateZ(600px) rotate(10deg);
-              -webkit-transform-style: preserve-3d;
-                  -ms-transform-style: preserve-3d;
-                      transform-style: preserve-3d;
-              transition: -webkit-transform 0.2s ease-out;
-              transition: transform 0.2s ease-out; box-sizing: border-box;
-            }
-            .apishopsAnimation.apishopsSideFall.in .apishopsModalWindow{
-              -webkit-transform: scale(1) translate(0%) translateZ(0px) rotate(0deg);
-                  -ms-transform: scale(1) translate(0%) translateZ(0px) rotate(0deg);
-                      transform: scale(1) translate(0%) translateZ(0px) rotate(0deg); box-sizing: border-box;
-              z-index: 999999;
-            }
-
-            /*3dFlip*/
-            .apishopsAnimation.apishopsFlip .apishopsModalWindow{
-              -webkit-transform: rotateY(-76deg);
-                  -ms-transform: rotateY(-76deg);
-                      transform: rotateY(-76deg);
-              -webkit-transform-style: preserve-3d;
-                  -ms-transform-style: preserve-3d;
-                      transform-style: preserve-3d;
-              transition: -webkit-transform 0.2s ease-out;
-              transition: transform 0.2s ease-out;
-               opacity:0;
-            }
-            .apishopsAnimation.apishopsFlip.in .apishopsModalWindow{
-              -webkit-transform: rotateY(0deg);
-                  -ms-transform: rotateY(0deg);
-                      transform: rotateY(0deg);
-              opacity:1;
-            }
 
 
             .apishopsModalOverlay {
@@ -527,23 +474,23 @@ background: linear-gradient(to bottom, #a0ad4f 0%, #a0ad4f 100%) repeat scroll 0
 
 @media (max-width: 767px) {
 
-.apishopsModal.apishopsAnimation.successModal .apishopsModalWindow{
+.apishopsModal.apishopsAnimation .apishopsModalWindow{
         bottom: 10px;
         left: 10px;
         padding: 30px;
         right: 10px;
-        top: 10px;
+        top: 10px !important;
     }
 
-    .apishopsModal.apishopsAnimation.successModal .apishopsModalWindow *{
+    .apishopsModal.apishopsAnimation .apishopsModalWindow *{
         font-size: 13px;
     }
 
-    .apishopsModal.apishopsAnimation.successModal .apishopsModalWindow h1 {
+    .apishopsModal.apishopsAnimation .apishopsModalWindow h1 {
         font-size: 20px;
     }
 
-    .apishopsModal.apishopsAnimation.successModal .apishopsModalWindow h2 {
+    .apishopsModal.apishopsAnimation .apishopsModalWindow h2 {
         font-size: 20px !important;
         margin: 8px 0 !important;
     }
@@ -552,23 +499,23 @@ background: linear-gradient(to bottom, #a0ad4f 0%, #a0ad4f 100%) repeat scroll 0
 @media (min-width: 768px) and (max-width: 991px) {
 
 
-    .apishopsModal.apishopsAnimation.successModal .apishopsModalWindow{
+    .apishopsModal.apishopsAnimation .apishopsModalWindow{
         bottom: 10px;
         left: 10px;
         padding: 30px;
         right: 10px;
-        top: 10px;
+        top: 10px  !important;
     }
 
-    .apishopsModal.apishopsAnimation.successModal .apishopsModalWindow *{
+    .apishopsModal.apishopsAnimation .apishopsModalWindow *{
         font-size: 16px;
     }
 
-    .apishopsModal.apishopsAnimation.successModal .apishopsModalWindow h1 {
+    .apishopsModal.apishopsAnimation .apishopsModalWindow h1 {
         font-size: 25px;
     }
 
-    .apishopsModal.apishopsAnimation.successModal .apishopsModalWindow h2 {
+    .apishopsModal.apishopsAnimation .apishopsModalWindow h2 {
         font-size: 25px !important;
     }
 
