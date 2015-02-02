@@ -9,7 +9,7 @@
 .apishopsFormCallback {
     -webkit-animation: 2s ease-out 0s normal none infinite running callbackApishops;
     animation: 2s ease-out 0s normal none infinite running callbackApishops;
-    background: url("http://127.0.0.1:9000/images/apishopsFormCallback/1/phone-symbol.png") no-repeat scroll center center #478cea;
+    background: url("http://apishops.github.io/apishopsForm/images/apishopsFormCallback/1/phone-symbol.png") no-repeat scroll center center #478cea;
     border-radius: 50%;
     box-shadow: -12px -7px 16px #0371a4 inset;
     cursor: pointer;
