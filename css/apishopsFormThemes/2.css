@@ -423,3 +423,7 @@ a.__QUICKVIEW__{
 a.__QUICKVIEW__:hover{
     opacity: 0.7;
 }
+
+.apishopsModal .apishopsFormTheme3____item {
+    border: 0 none;
+}

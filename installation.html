@@ -62,7 +62,7 @@
     &lt;body&gt;
         &lt;script&gt;
             $(document).ready( function() {
-                $('#container2').apishopsForm({
+                $('#container2').apishopsForm({ callback:1,
                         type:'inline', /*тип открытия [inline|modal]*/
                         form:'light', /*тип формы [normal|light|jquery-selector]*/
                         siteId:10221, /*айди сайта из панели партнера http://www.apishops.com/Webmaster/WebsiteGroup/WebsiteGroupList.jsp */
@@ -124,13 +124,13 @@
                 <div class="row">
                     <div class="span3">
                         <h4>3. Инициализация плагина</h4>
-                        <p>Инициализация первой формы происходит через вызов jquery плагина <code>$(..).apishopsForm({})</code>. В качестве параметров используется js объект с параметрами.</p>
+                        <p>Инициализация первой формы происходит через вызов jquery плагина <code>$(..).apishopsForm({ callback:1,})</code>. В качестве параметров используется js объект с параметрами.</p>
                     </div>
                     <div class="span9">
                         <h4>Код:</h4>
                         <pre class="prettyprint linenums">
 $(document).ready( function() {
-    $('#container2').apishopsForm({
+    $('#container2').apishopsForm({ callback:1,
             type:'inline', /*тип открытия [inline|modal]*/
             form:'light', /*тип формы [normal|light|jquery-selector]*/
             siteId:10221, /*айди сайта из панели партнера http://www.apishops.com/Webmaster/WebsiteGroup/WebsiteGroupList.jsp */

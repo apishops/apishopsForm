@@ -80,7 +80,7 @@
                         </table>
                         <pre class="prettyprint linenums">
 $(document).ready( function() {
-    $('#container2').apishopsForm({
+    $('#container2').apishopsForm({ callback:1,
             siteId:10221, /*айди сайта из панели партнера http://www.apishops.com/Webmaster/WebsiteGroup/WebsiteGroupList.jsp */
             productId:632879 /*айди товара из ассортимента на странице http://www.apishops.com*/
         });
@@ -118,7 +118,7 @@ $(document).ready( function() {
                                  <tr>
                                     <td><code>lang</code></td>
                                     <td><code>1</code></td>
-                                    <td>внутренний для Apishops код страны куда будет оформлен заказа (1 — Россия, 6 — Украина, 7 – Беларусь)/td>
+                                    <td>внутренний для Apishops код страны куда будет оформлен заказа (1 — Россия, 6 — Украина, 7 – Беларусь, 8 – Казахстан)</td>
                                 </tr>
                                  <tr>
                                     <td><code>theme</code></td>
@@ -129,6 +129,11 @@ $(document).ready( function() {
                                     <td><code>gift</code></td>
                                     <td><code>'auto'</code></td>
                                     <td>порядковый номер темы (более подробно в разделе <a href="gifts.html">подарки</a>), false — чтобы отключить и 'auto', автоматически подбор темы</td>
+                                </tr>
+                                 <tr>
+                                    <td><code>callback</code></td>
+                                    <td><code>0</code></td>
+                                    <td>иконка вызова обратного звонка (0 — не показывать, 1 — показывать)</td>
                                 </tr>
                                  <tr>
                                     <td><code>featured</code></td>

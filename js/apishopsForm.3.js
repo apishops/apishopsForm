@@ -252,6 +252,8 @@ jQuery.fn.apishopsForm=function(options)
    }
 
 
+
+
    function spawn(){
 
         $jsonp={
@@ -325,7 +327,7 @@ jQuery.fn.apishopsForm=function(options)
 
         if(context=='main'){
 
-            settings.placement=(settings.type=='modal')?modalInit():settings.object
+            settings.placement=(settings.type=='modal')?apishopsFormModalInit(settings.object,['small','hide-close2','init']):settings.object
             settings.oldprice=0;
             settings.discount=0;
             settings.name='';
@@ -782,7 +784,7 @@ jQuery.fn.apishopsForm=function(options)
                                                         });
 
                                                         jQuery(settings.apishopsFormGiftsObject).click(function() {
-                                                            apishopsFormModalInit(settings.apishopsFormGiftsModal,'normal')
+                                                            var apishopsFormGiftModalWindow=apishopsFormModalInit(settings.apishopsFormGiftsModal,['big'])
                                                         });
                                                     }
 
@@ -815,11 +817,10 @@ jQuery.fn.apishopsForm=function(options)
                     $apishopsFormCallbackIcon=jQuery(apishopsFormCallbackIcon);
                     $apishopsFormCallbackIcon.appendTo('body');
                     $apishopsFormCallbackIcon.click(function() {
-                        var apishopsFormCallbackWindow= apishopsFormModalInit(apishopsFormCallbackText,'small');
+                        var apishopsFormCallbackWindow= apishopsFormModalInit(apishopsFormCallbackText,['normal','hide-close2']);
                         var apishopsFormCallbackForm=apishopsFormCallbackWindow.find('form');
                         var apishopsFormCallbackPhone=apishopsFormCallbackWindow.find('[name=apishopsFormPhone]');
                         var apishopsFormCallbackClose2=apishopsFormCallbackWindow.find('.apishopsModalClose2');
-                        apishopsFormCallbackClose2.hide();
                         try {
                             if(settings.lang==6)
                                 apishopsFormCallbackPhone.inputmask("+380(99)999-99-99");
@@ -1191,51 +1192,6 @@ jQuery.fn.apishopsForm=function(options)
     }
 
 
-
-   function modalInit(){
-            settings.modal=jQuery(settings.placement,jQuery(settings.modal)).length?jQuery(settings.modal):jQuery(settings.modal__);
-
-
-            settings.modal.find('.apishopsModalWindow').addClass('apishopsModalWindowSmall');
-
-            jQuery('body').append(settings.modal);
-
-            jQuery(settings.object).click(function(event) {
-                event.preventDefault();
-                modalShow();
-            });
-
-            jQuery('.apishopsModalClose',settings.modal).click(function(event) {
-                event.preventDefault();
-                modalHide();
-            });
-
-            jQuery('.apishopsModalClose2',settings.modal).click(function(event) {
-                event.preventDefault();
-                modalHide();
-            });
-
-            jQuery('.apishopsModalOverlay',settings.modal).click(function(event) {
-                event.preventDefault();
-                modalHide();
-            });
-
-            return jQuery(settings.placement,settings.modal);
-    }
-
-    function modalShow(){
-            settings.modal.css('display','block');
-            window.setTimeout( function(){
-                settings.modal.addClass('in').children('.apishopsModalWindow').css('top',jQuery(this).scrollTop()+100)
-            },100);
-    }
-
-    function modalHide(){
-            settings.modal.removeClass('in');
-            window.setTimeout( function(){
-                settings.modal.css('display','none')
-            },100);
-    }
 
     function log(text) {
       //if (window.console) {
@@ -3691,39 +3647,77 @@ function apishopsFormIsIe () {
   return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
 }
 
-function apishopsFormModalInit(apishopsFormVariableHtml,type){
+function apishopsFormModalInit(apishopsFormVariableObject,parameters){
+
+        //onclick
 
         /*litle hack for old css replacement*/
         jQuery("link[href$='apishopsForm.css']").attr('href','http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm.2.css')
 
-        var apishopsFormVariableModal=jQuery(apishopsFormModal).clone().appendTo('body').addClass('in').addClass('apishopsFormVariableModal').show();
+        var apishopsFormVariableModal=jQuery(apishopsFormModal).clone().appendTo('body');
         var apishopsFormVariableModalWindow=apishopsFormVariableModal.find('.apishopsModalWindow').css('z-index','3999');
         var apishopsFormVariableModalOverlay=apishopsFormVariableModal.find('.apishopsModalOverlay').css('z-index','3998');
         var apishopsFormVariableModalClose=apishopsFormVariableModal.find('.apishopsModalClose');
         var apishopsFormVariableModalClose2=apishopsFormVariableModal.find('.apishopsModalClose2');
         var apishopsFormVariableContent=apishopsFormVariableModal.find('.apishopsModalContent')
+        var apishopsFormVairableHtml=jQuery('html');
 
-        if(type=='small'){
+        if(_.contains(parameters,'small')){
             apishopsFormVariableModalWindow.addClass('apishopsModalWindowSmall');
+        }
+        if(_.contains(parameters,'normal')){
+            apishopsFormVariableModalWindow.addClass('apishopsModalWindowNormal');
+        }
+        if(_.contains(parameters,'big')){
+            apishopsFormVariableModalWindow.addClass('apishopsModalWindowBig');
+        }
+        if(_.contains(parameters,'hide-close2')){
             apishopsFormVariableModalClose2.hide();
         }
 
-        apishopsFormVariableContent.html(apishopsFormVariableHtml);
         apishopsFormVariableModalClose2.find('a').html('Продолжить покупки');
 
+        if(_.contains(parameters,'init')){
+            jQuery(apishopsFormVariableObject).bind('click', function(event){
+                event.preventDefault();
+                apishopsFormVairableHtml.addClass('apishopsModalHtml');
+                apishopsFormVariableModal.show();
+            });
+        }
+        else{
+            apishopsFormVairableHtml.addClass('apishopsModalHtml');
+            apishopsFormVariableModal.show();
+            apishopsFormVariableContent.html(apishopsFormVariableObject);
+        }
+
         jQuery(apishopsFormVariableModalOverlay).bind('click', function(event){
-            apishopsFormVariableModal.remove();
+            if(_.contains(parameters,'init'))
+                apishopsFormVariableModal.hide();
+            else
+                apishopsFormVariableModal.remove();
+            apishopsFormVairableHtml.removeClass('apishopsModalHtml');
         });
 
         jQuery(apishopsFormVariableModalClose).bind('click', function(event){
-            apishopsFormVariableModal.remove();
+            if(_.contains(parameters,'init'))
+                apishopsFormVariableModal.hide();
+            else
+                apishopsFormVariableModal.remove();
+            apishopsFormVairableHtml.removeClass('apishopsModalHtml');
         });
 
         jQuery(apishopsFormVariableModalClose2).bind('click', function(event){
-            apishopsFormVariableModal.remove();
+            if(_.contains(parameters,'init'))
+                apishopsFormVariableModal.hide();
+            else
+                apishopsFormVariableModal.remove();
+            apishopsFormVairableHtml.removeClass('apishopsModalHtml');
         });
 
-        return apishopsFormVariableModalWindow;
+        if(_.contains(parameters,'init'))
+            return apishopsFormVariableContent;
+        else
+            return apishopsFormVariableModalWindow;
 }
 
 
@@ -3805,7 +3799,7 @@ function apishopsFormSubmit(params){
                         jQuery('head').append( jQuery('<link rel="stylesheet" type="text/css" />').attr('href', 'http://img2.apishops.org/SinglePageWebsites/custom/css/apishopsAdditionalProductForm.css'));
                         jQuery('head').append( jQuery('<link rel="stylesheet" type="text/css" />').attr('href', 'http://internetcompany.ru/data/apishops/merchant.css'));
 
-                        apishopsFormModalInit(successHtml,'normal');
+                        apishopsFormModalInit(successHtml,['big']);
 
                         jQuery.getScript('http://img2.apishops.org/SinglePageWebsites/custom/js/apishopsAdditionalProductForm'+successFilesCharsetSuffix+'.js').done(function( script, textStatus ) {
                             jQuery(".additionalProducts").apishopsAdditionalProductForm({siteId: result.parameters.siteId, orderId: result.data.id});

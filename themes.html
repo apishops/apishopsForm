@@ -64,7 +64,7 @@
 &#x3C;link rel=&#x22;stylesheet&#x22; href=&#x22;http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm.2.css&#x22;&#x3E;
 &lt;script&gt;
 
-        $(&#x27;#containerid&#x27;).apishopsForm({
+        $(&#x27;#containerid&#x27;).apishopsForm({ callback:1,
             type:&#x27;inline&#x27;, /*&#x442;&#x438;&#x43F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x442;&#x438;&#x44F; [inline|modal]*/
             debug:false, /*&#x43E;&#x442;&#x43B;&#x430;&#x434;&#x43E;&#x447;&#x43D;&#x44B;&#x439; &#x440;&#x435;&#x436;&#x438;&#x43C; [true|false]*/
             successUrl:false, /*url &#x431;&#x43B;&#x430;&#x433;&#x43E;&#x434;&#x430;&#x440;&#x441;&#x442;&#x432;&#x435;&#x43D;&#x43D;&#x43E;&#x439; &#x441;&#x442;&#x440;&#x430;&#x43D;&#x438;&#x446;&#x44B; [url|false]*/
@@ -82,7 +82,7 @@
 
 <script>
     $(document).ready( function() {
-        $('#containerid').apishopsForm({
+        $('#containerid').apishopsForm({ callback:1,
             type:'inline', /*тип открытия [inline|modal]*/
             debug:false, /*отладочный режим [true|false]*/
             successUrl:false, /*url благодарственной страницы [url|false]*/

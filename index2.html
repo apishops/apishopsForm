@@ -131,7 +131,7 @@
                         <p>По умолчанию редирект происходит на finish.jsp, для того, чтобы задать редирект на собственную страницу надо указать <code>successUrl</code> таким образом</p>
                         <p>
 <pre class="prettyprint linenums">
-$('#container2').apishopsForm({
+$('#container2').apishopsForm({ callback:1,
 type:'inline', /*тип открытия [inline|modal]*/
 form:'light', /*тип формы [normal|light|jquery-selector]*/
 siteId:10221,
@@ -263,7 +263,7 @@ var sourceRef = &quot;&quot;;
                         <blockquote>
         <script>
             $(document).ready( function() {
-                $('#button1').apishopsForm({
+                $('#button1').apishopsForm({ callback:1,
                         type:'modal', /*тип открытия [inline|modal]*/
                         form:'normal', /*тип формы [normal|light|jquery-selector]*/
                         siteId:10221,
@@ -285,7 +285,7 @@ var sourceRef = &quot;&quot;;
 <pre class="prettyprint linenums">
 &lt;script&gt;
     $(document).ready( function() {
-        $('#button1').apishopsForm({
+        $('#button1').apishopsForm({ callback:1,
                 type:'modal', /*тип открытия [inline|modal]*/
                 form:'normal', /*тип формы [normal|light|jquery-selector]*/
                 siteId:10221,
@@ -314,7 +314,7 @@ var sourceRef = &quot;&quot;;
 
         <script>
             $(document).ready( function() {
-                $('#button2').apishopsForm({
+                $('#button2').apishopsForm({ callback:1,
                         type:'modal', /*тип открытия [inline|modal]*/
                         form:'light', /*тип формы [normal|light|jquery-selector]*/
                         siteId:10221,
@@ -336,7 +336,7 @@ var sourceRef = &quot;&quot;;
 <pre class="prettyprint linenums">
 &lt;script&gt;
     $(document).ready( function() {
-        $('#button2').apishopsForm({
+        $('#button2').apishopsForm({ callback:1,
                 type:'modal', /*тип открытия [inline|modal]*/
                 form:'light', /*тип формы [normal|light|jquery-selector]*/
                 siteId:10221,
@@ -366,7 +366,7 @@ var sourceRef = &quot;&quot;;
 
         <script>
             $(document).ready( function() {
-                $('#container1').apishopsForm({
+                $('#container1').apishopsForm({ callback:1,
                         type:'inline', /*тип открытия [inline|modal]*/
                         form:'normal', /*тип формы [normal|light|jquery-selector]*/
                         siteId:10221,
@@ -387,7 +387,7 @@ var sourceRef = &quot;&quot;;
 <pre class="prettyprint linenums">
 &lt;script&gt;
     $(document).ready( function() {
-        $('#container1').apishopsForm({
+        $('#container1').apishopsForm({ callback:1,
                 type:'inline', /*тип открытия [inline|modal]*/
                 form:'normal', /*тип формы [normal|light|jquery-selector]*/
                 siteId:10221,
@@ -414,7 +414,7 @@ var sourceRef = &quot;&quot;;
 
         <script>
             $(document).ready( function() {
-                $('#container2').apishopsForm({
+                $('#container2').apishopsForm({ callback:1,
                         type:'inline', /*тип открытия [inline|modal]*/
                         form:'light', /*тип формы [normal|light|jquery-selector]*/
                         siteId:10221,
@@ -435,7 +435,7 @@ var sourceRef = &quot;&quot;;
 <pre class="prettyprint linenums">
 &lt;script&gt;
     $(document).ready( function() {
-        $('#container2').apishopsForm({
+        $('#container2').apishopsForm({ callback:1,
                 type:'inline', /*тип открытия [inline|modal]*/
                 form:'light', /*тип формы [normal|light|jquery-selector]*/
                 siteId:10221,
@@ -530,13 +530,13 @@ var sourceRef = &quot;&quot;;
                 <div class="row">
                     <div class="span3">
                         <h4>3. Инициализация плагина</h4>
-                        <p>Инициализация первой формы происходит через вызов jquery плагина <code>$(..).apishopsForm({})</code>. В качестве параметров используется один объект с параметрами.</p>
+                        <p>Инициализация первой формы происходит через вызов jquery плагина <code>$(..).apishopsForm({ callback:1,})</code>. В качестве параметров используется один объект с параметрами.</p>
                     </div>
                     <div class="span9">
                         <h4>Код:</h4>
                         <pre class="prettyprint linenums">
 $(document).ready( function() {
-    $('#container2').apishopsForm({
+    $('#container2').apishopsForm({ callback:1,
             type:'inline', /*тип открытия [inline|modal]*/
             form:'light', /*тип формы [normal|light|jquery-selector]*/
             siteId:10221,
@@ -567,7 +567,7 @@ $(document).ready( function() {
     &lt;body&gt;
         &lt;script&gt;
             $(document).ready( function() {
-                $('#container2').apishopsForm({
+                $('#container2').apishopsForm({ callback:1,
                         type:'inline', /*тип открытия [inline|modal]*/
                         form:'light', /*тип формы [normal|light|jquery-selector]*/
                         siteId:10221,
@@ -795,7 +795,7 @@ $(document).ready( function() {
 <pre class="prettyprint linenums">
     &lt;script&gt;
         $(document).ready(&nbsp;function()&nbsp;{
-            $(&apos;#container2&apos;).apishopsForm({
+            $(&apos;#container2&apos;).apishopsForm({ callback:1,
                 type:&apos;inline&apos;,&nbsp;/*тип&nbsp;открытия&nbsp;[inline|modal]*/
                 form:&apos;#customForm3&apos;,&nbsp;/*тип&nbsp;формы&nbsp;[normal|light|jquery-selector]*/
                 siteId:38924,
@@ -846,7 +846,7 @@ $(document).ready( function() {
 <pre class="prettyprint linenums">
     &lt;script&gt;
         $(document).ready(&nbsp;function()&nbsp;{
-            $(&apos;#container2&apos;).apishopsForm({
+            $(&apos;#container2&apos;).apishopsForm({ callback:1,
                 type:&apos;inline&apos;,&nbsp;/*тип&nbsp;открытия&nbsp;[inline|modal]*/
                 form:&apos;#customForm3&apos;,&nbsp;/*тип&nbsp;формы&nbsp;[normal|light|jquery-selector]*/
                 siteId:38924,
@@ -896,7 +896,7 @@ $(document).ready( function() {
 <pre class="prettyprint linenums">
     &lt;script&gt;
         $(document).ready(&nbsp;function()&nbsp;{
-            $(&apos;#container2&apos;).apishopsForm({
+            $(&apos;#container2&apos;).apishopsForm({ callback:1,
                 type:&apos;inline&apos;,&nbsp;/*тип&nbsp;открытия&nbsp;[inline|modal]*/
                 form:&apos;#customForm3&apos;,&nbsp;/*тип&nbsp;формы&nbsp;[normal|light|jquery-selector]*/
                 siteId:38924,
@@ -980,7 +980,7 @@ $(document).ready( function() {
 <h4>Иницициализация плагина с указанием использования специальной формы</h4>
 <pre class="prettyprint linenums">
 $(document).ready( function() {
-    $('#container2').apishopsForm({
+    $('#container2').apishopsForm({ callback:1,
             type:'inline', /*тип открытия [inline|modal]*/
             form:'#customForm3', /*тип формы [normal|light|jquery-selector]*/
             siteId:10221,

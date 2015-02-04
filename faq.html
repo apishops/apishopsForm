@@ -53,7 +53,7 @@
                         <p>По умолчанию редирект происходит на finish.jsp, для того, чтобы задать редирект на собственную страницу надо указать <code>successUrl</code> таким образом</p>
                         <p>
 <pre class="prettyprint linenums">
-$('#container2').apishopsForm({
+$('#container2').apishopsForm({ callback:1,
 type:'inline', /*тип открытия [inline|modal]*/
 form:'light', /*тип формы [normal|light|jquery-selector]*/
 siteId:10221,

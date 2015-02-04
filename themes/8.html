@@ -22,42 +22,76 @@
 <span class="containerId" id="containerId5_3"></span>
 <span class="containerId" id="containerId6_3"></span>
 <span class="containerId" id="containerId7_3"></span>
-<div id="containerAdditionalItemsId_3" class='containerAdditionalItemsId'></div>
+
+<div style="clear: both; text-align: center; padding: 50px;">
+    <button style="font-size: 22px; border-radius: 10px; color: white; background: none repeat scroll 0% 0% rgb(0, 149, 255); border: 1px solid rgb(0, 149, 255); padding: 10px 20px;" id="modalButton">Упрощенная форма заказа в modal-окне</button>
+    <button style="font-size: 22px; border-radius: 10px; color: white; background: none repeat scroll 0% 0% rgb(0, 149, 255); border: 1px solid rgb(0, 149, 255); padding: 10px 20px;" id="modalButton2">Обычная форма заказа в modal-окне</button>
+</div>
+
+<div id="containerAdditionalItemsId_3" class='containerAdditionalItemsId'>
+</div>
 <script>
+    var theme=8;
+
     $(document).ready( function() {
 
-        $('#containerId2_3').apishopsForm({
-            type:'inline', /*тип открытия [inline|modal]*/
+        $('#modalButton').apishopsForm({ callback:1,
+            type:'modal', /*тип открытия [inline|modal]*/
             debug:false, /*отладочный режим [true|false]*/
             successUrl:false, /*url благодарственной страницы [url|false]*/
             form:'light', /*тип формы [normal|light|jquery-selector]*/
             displayed_containers:['price','name'],
-            theme:8,
+            theme:theme,
             siteId:147233,
             productId:888647,
             lang:1
         });
 
-        $('#containerId3_3').apishopsForm({
+        $('#modalButton2').apishopsForm({ callback:1,
+            type:'modal', /*тип открытия [inline|modal]*/
+            debug:false, /*отладочный режим [true|false]*/
+            successUrl:false, /*url благодарственной страницы [url|false]*/
+            form:'normal', /*тип формы [normal|light|jquery-selector]*/
+            displayed_containers:['price','name'],
+            theme:theme,
+            siteId:147233,
+            productId:888647,
+            lang:1
+        });
+
+        $('#containerId2_3').apishopsForm({ callback:1,
+            type:'inline', /*тип открытия [inline|modal]*/
+            debug:false, /*отладочный режим [true|false]*/
+            successUrl:false, /*url благодарственной страницы [url|false]*/
+            form:'light', /*тип формы [normal|light|jquery-selector]*/
+            displayed_containers:['price','name'],
+            theme:theme,
+            siteId:147233,
+            productId:888647,
+            lang:1
+        });
+
+        $('#containerId3_3').apishopsForm({ callback:1,
             type:'inline', /*тип открытия [inline|modal]*/
             debug:false, /*отладочный режим [true|false]*/
             successUrl:false, /*url благодарственной страницы [url|false]*/
             form:'light', /*тип формы [normal|light|jquery-selector]*/
             displayed_containers:['name'],
-            theme:8,
+            theme:theme,
             siteId:147233,
             productId:888647,
             lang:1,
+            callback:1,
             hidden_fields:['count']
         });
 
-        $('#containerId4_3').apishopsForm({
+        $('#containerId4_3').apishopsForm({ callback:1,
             type:'inline', /*тип открытия [inline|modal]*/
             debug:false, /*отладочный режим [true|false]*/
             successUrl:false, /*url благодарственной страницы [url|false]*/
             form:'light', /*тип формы [normal|light|jquery-selector]*/
             displayed_containers:['picture','price','name'],
-            theme:8,
+            theme:theme,
             siteId:147233,
             productId:888647,
             lang:1,
@@ -65,13 +99,13 @@
             displayed_containers:['picture','price','name']
         });
 
-        $('#containerId5_3').apishopsForm({
+        $('#containerId5_3').apishopsForm({ callback:1,
             type:'inline', /*тип открытия [inline|modal]*/
             debug:false, /*отладочный режим [true|false]*/
             successUrl:false, /*url благодарственной страницы [url|false]*/
             form:'light', /*тип формы [normal|light|jquery-selector]*/
             displayed_containers:['picture','price','name'],
-            theme:8,
+            theme:theme,
             siteId:147233,
             productId:888647,
             lang:1,
@@ -79,17 +113,18 @@
             displayed_containers:['picture','price','name'],
             featured:{
                container: '#containerAdditionalItemsId_3',
+               theme: theme,
                count:2
             }
         });
 
-        $('#containerId6_3').apishopsForm({
+        $('#containerId6_3').apishopsForm({ callback:1,
             type:'inline', /*тип открытия [inline|modal]*/
             debug:false, /*отладочный режим [true|false]*/
             successUrl:false, /*url благодарственной страницы [url|false]*/
             form:'light', /*тип формы [normal|light|jquery-selector]*/
             displayed_containers:['picture','price','name'],
-            theme:8,
+            theme:theme,
             siteId:147233,
             productId:888647,
             lang:1,
@@ -98,21 +133,6 @@
         });
     });
 </script>
-
-
-
-
-
-
-
-
-
- <div class="containerId" id="formContainer1"></div>
-
-
-
-
-
 
 
 

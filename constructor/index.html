@@ -143,6 +143,9 @@
                     <input type=checkbox class='apishopsFormConstructorShowPromocode apishopsFormConstructorControl' value='0' checked> Показывать поле промокода
                 </div>
                 <div class='apishopsFormConstructorGroup'>
+                    <input type=checkbox class='apishopsFormConstructorShowCallback apishopsFormConstructorControl' value='1' checked> Показывать кнопку обратного звонка
+                </div>
+                <div class='apishopsFormConstructorGroup'>
                     <input type=checkbox checked class='apishopsFormConstructorIsShowFeature apishopsFormConstructorControl' value='0'> Показывать по <input class='apishopsFormConstructordFeatureCount apishopsFormConstructorControl' type=text value='2'> рекомендуемых товара
                 </div>
                 <div class='apishopsFormConstructorGroup'>
@@ -168,6 +171,7 @@
                     <option value=1>рублях</option>
                     <option value=6>гривнях</option>
                     <option value=7>бел.рублях</option>
+                    <option value=8>тенге</option>
                 </select>
             </div>
             <div class='apishopsFormConstructorGroup'>
@@ -226,6 +230,7 @@
 <script>
     $(document).ready( function() {
         $('#containerId').apishopsForm({
+            callback:1, /*кнопка обратного звонка [0|1]*/
             type:'inline', /*тип открытия [inline|modal]*/
             successUrl:'finish.jsp', /*url благодарственной страницы [url|false]*/
             form:'light', /*тип формы [normal|light|jquery-selector]*/

@@ -12,6 +12,9 @@
   padding: 0px;
   transition: left 0.5s ease-out !important;
   visibility: visible;
+  right: auto;
+  right: initial;
+  overflow: hidden;
 }
 .apishopsModal.apishopsAnimationQV.in .apishopsModalWindow .apishopsModalClose2 {
   display: none;
@@ -32,6 +35,9 @@
   opacity: 1;
   padding: 0px;
   visibility: visible;
+  right: auto;
+  right: initial;
+  overflow: hidden;
 }
 .apishopsModal.apishopsAnimationQVR.in .apishopsModalWindow {
   -webkit-transition: left 0.5s ease-out !important;
@@ -46,6 +52,9 @@
   opacity: 1;
   padding: 0px;
   visibility: visible;
+  right: auto;
+  right: initial;
+  overflow: hidden;
 }
 .apishopsModal.apishopsAnimationQVL.in .apishopsModalWindow .apishopsModalClose2 {
   display: none;

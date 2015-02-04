@@ -1,59 +1,79 @@
 
+            .apishopsModalHtml,.apishopsModalHtml > body{
+                overflow: hidden;
+                position: relative;
+                height: initial;
+                height: auto;
+            }
+
 
             .apishopsModal{
                 display: none;
                 z-index: 999999;
             }
+
             .apishopsModal {
+                bottom: 0;
                 display: none;
-            }
-
-
-            .apishopsModal.apishopsAnimation{
-                transition: opacity 0.2s ease-out;
-                opacity:0;
-                visibility:hidden;
-            }
-
-            .apishopsModal.apishopsAnimation.in{
-                opacity:1;
-                visibility:visible;
-            }
-
-            .apishopsModal.apishopsAnimation .apishopsModalWindow{
-                top:100px !important;
-                left: 100px;
-                right: 100px;
-                width: auto;
-                width: initial;
-                border-radius: 10px;
-                padding: 50px;
-                z-index: 99999;
+                left: 0;
+                overflow-x: hidden;
+                overflow-y: auto;
                 position: fixed;
-                overflow: auto;
+                right: 0;
+                top: 0;
             }
 
-            .apishopsModal.apishopsAnimation .apishopsModalWindow.apishopsModalWindowSmall{
-                bottom: initial !important;
-                left: 50%;
-                margin-left: -250px;
-                max-width: 500px;
+            .apishopsModal .apishopsModalWindow{
+                position: relative;
+                z-index: 99999;
+                background: none repeat scroll 0 0 white;
+                border-radius: 3px 3px 3px 3px;
+                box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+                box-sizing: padding-box;
+                margin: 30px;
+                padding: 50px;
+                top: initial !important;
+                top: auto !important;
+            }
+
+            .apishopsModal .apishopsModalWindow.apishopsModalWindowSmall{
+                margin: 30px auto;
                 padding: 20px;
-                right: initial;
-                top: 100px !important;
+                text-align: center;
+                width: 360px;
             }
 
-            .apishopsModal.apishopsAnimation .apishopsModalContent{
+            .apishopsModal .apishopsModalWindow.apishopsModalWindowNormal {
+                margin: 30px auto;
+                padding: 50px;
+                width: 550px;
+            }
+
+            .apishopsModal .apishopsModalWindow.apishopsModalWindowBig{
+                margin: 30px;
+                padding: 50px;
+                width: auto;
+            }
+
+            .apishopsModal .apishopsModalWindow.apishopsModalWindowSmall .apishopsModalContent{
+              text-align: center;
+            }
+            .apishopsModal .apishopsModalWindow.apishopsModalWindowNormal .apishopsModalContent{
+              text-align: left;
+            }
+            .apishopsModal .apishopsModalWindow.apishopsModalWindowBig .apishopsModalContent{
               text-align: left;
             }
 
-            .apishopsModal.apishopsAnimation *{
+            .apishopsModal *{
               font-family: Arial;
+              box-sizing: border-box;
             }
-            .apishopsModal.apishopsAnimation h1{
+            .apishopsModal h1{
               line-height: 100%;
             }
 
+            /*
             .apishopsModalWindow {
                 background: none repeat scroll 0 0 white;
                 border-radius: 3px 3px 3px 3px;
@@ -66,8 +86,10 @@
                 width: 500px;
                 z-index: 4010;
                 box-sizing: padding-box;
+                -moz-box-sizing: padding-box;
+                -webkit-box-sizing: padding-box;
                 box-sizing: padding-box;
-            }
+            }*/
 
             .apishopsModal.apishopsAnimation .additionalProducts a {
                 color: #0095ff;
@@ -474,23 +496,19 @@ background: linear-gradient(to bottom, #a0ad4f 0%, #a0ad4f 100%) repeat scroll 0
 
 @media (max-width: 767px) {
 
-.apishopsModal.apishopsAnimation .apishopsModalWindow{
-        bottom: 10px;
-        left: 10px;
-        padding: 30px;
-        right: 10px;
-        top: 10px !important;
+    .apishopsModal .apishopsModalWindow{
+
     }
 
-    .apishopsModal.apishopsAnimation .apishopsModalWindow *{
+    .apishopsModal .apishopsModalWindow *{
         font-size: 13px;
     }
 
-    .apishopsModal.apishopsAnimation .apishopsModalWindow h1 {
+    .apishopsModal .apishopsModalWindow h1 {
         font-size: 20px;
     }
 
-    .apishopsModal.apishopsAnimation .apishopsModalWindow h2 {
+    .apishopsModal .apishopsModalWindow h2 {
         font-size: 20px !important;
         margin: 8px 0 !important;
     }
@@ -499,23 +517,19 @@ background: linear-gradient(to bottom, #a0ad4f 0%, #a0ad4f 100%) repeat scroll 0
 @media (min-width: 768px) and (max-width: 991px) {
 
 
-    .apishopsModal.apishopsAnimation .apishopsModalWindow{
-        bottom: 10px;
-        left: 10px;
-        padding: 30px;
-        right: 10px;
-        top: 10px  !important;
+    .apishopsModal .apishopsModalWindow{
+
     }
 
-    .apishopsModal.apishopsAnimation .apishopsModalWindow *{
+    .apishopsModal .apishopsModalWindow *{
         font-size: 16px;
     }
 
-    .apishopsModal.apishopsAnimation .apishopsModalWindow h1 {
+    .apishopsModal .apishopsModalWindow h1 {
         font-size: 25px;
     }
 
-    .apishopsModal.apishopsAnimation .apishopsModalWindow h2 {
+    .apishopsModal .apishopsModalWindow h2 {
         font-size: 25px !important;
     }
 

@@ -38,6 +38,7 @@ $(document).ready( function() {
           var showNameInput=$('.apishopsFormConstructorShowName','.apishopsFormConstructor');
           var showCountInput=$('.apishopsFormConstructorShowCount','.apishopsFormConstructor');
           var showPromocodeInput=$('.apishopsFormConstructorShowPromocode','.apishopsFormConstructor');
+          var showCallback=$('.apishopsFormConstructorShowCallback','.apishopsFormConstructor');
 
           var langInput=$('.apishopsFormConstructorLang','.apishopsFormConstructor');
 
@@ -119,6 +120,12 @@ $(document).ready( function() {
           else{
             code += "        $('#buttonId').apishopsForm({\n";
             code += "            type:'modal', /*тип открытия [inline|modal]*/\n";
+          }
+
+          if(showCallback.is(':checked')){
+            code += "            callback:1, /*кнопка обратного звонка [0|1]*/\n";
+          }else{
+            $('.apishopsCallback').remove();
           }
 
          if(isFinishInput.is(':checked')){
