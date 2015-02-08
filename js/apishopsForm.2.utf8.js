@@ -72,26 +72,26 @@ jQuery.fn.apishopsForm=function(options)
         settings.type=(settings.type=='inline' && jQuery(settings.object).is("input,button,a"))?'modal':settings.type;
         settings.theme=(typeof settings.featured == 'undefined' || typeof settings.featured.theme == 'undefined')?settings.theme:settings.featured.theme;
 
-        if(settings.form=='normal' || settings.form=='light' || typeof settings.featured != 'undefined'){
 
-            var templatesList=['modal','quickview'];
+        var templatesList=['modal','quickview'];
 
-            if(settings.form=='normal' || settings.form=='light')
-                templatesList.push('theme');
+        if(typeof settings.featured != 'undefined')
+            templatesList.push('theme');
 
-            if(typeof settings.featured != 'undefined' && typeof settings.featured.form != 'undefined' && (settings.featured.form=='normal' || settings.featured.form=='light'))
-                templatesList.push('theme');
+        if(settings.form=='normal' || settings.form=='light')
+            templatesList.push('theme');
 
-            apishopsFormLoadTemplates(_.uniq(templatesList),settings.charset, settings.theme,
-                function(result){
-                    start()
-                },
-                function(result){
-                    //alert(':((')
-                })
-        }else{
+        if(typeof settings.featured != 'undefined' && typeof settings.featured.form != 'undefined' && (settings.featured.form=='normal' || settings.featured.form=='light'))
+            templatesList.push('theme');
+
+        apishopsFormLoadTemplates(_.uniq(templatesList),settings.charset, settings.theme,
+        function(result){
             start()
-        }
+        },
+        function(result){
+            //alert(':((')
+        })
+
         formEnvironment();
    }
 
