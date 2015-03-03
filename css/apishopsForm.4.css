@@ -21,6 +21,7 @@
                 position: fixed;
                 right: 0;
                 top: 0;
+                opacity: 1 !important;
             }
 
             .apishopsModal .apishopsModalWindow{
@@ -122,7 +123,7 @@
     display: inline-block;
     position: relative;
     overflow: hidden;
-    height: 200px;
+    height: 300px;
     width: 100%;
 
     background-position: center center;
@@ -492,6 +493,33 @@ background: linear-gradient(to bottom, #a0ad4f 0%, #a0ad4f 100%) repeat scroll 0
     display: none;
 }
 
+
+.apishopsFormButton.apishopsFormBuy {
+    background: url("http://img.apishops.org/SinglePageWebsites/custom/images/button_bg2.png") repeat scroll 0 -5px rgba(0, 0, 0, 0);
+    display: inline-block;
+    margin-top: 10px;
+}
+.apishopsFormButton.apishopsFormBuy b {
+    color: #000000;
+    display: inline-block;
+    font-size: 27px;
+    font-weight: bold;
+    line-height: 45px;
+    padding: 1px 0 0 29px;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.92);
+    white-space: nowrap;
+    position: relative;
+}
+
+.apishopsFormButton.apishopsFormBuy b:after {
+    background: url("http://img.apishops.org/SinglePageWebsites/custom/images/button_bg2.png") no-repeat scroll right -59px rgba(0, 0, 0, 0);
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 100px;
+    top: 0px;
+    right: -30px;
+}
 
 
 @media (max-width: 767px) {

@@ -28,6 +28,11 @@
     <button style="font-size: 22px; border-radius: 10px; color: white; background: none repeat scroll 0% 0% rgb(0, 149, 255); border: 1px solid rgb(0, 149, 255); padding: 10px 20px;" id="modalButton2">Обычная форма заказа в modal-окне</button>
 </div>
 
+<div>
+    <h3>Контейнер для актуальной цены: <b class='apishopsProductPrice'>--</b></h3>
+    <h3>Контейнер для старой цены: <b class='apishopsProductOldPrice'>--</b></h3>
+</div>
+
 <div id="containerAdditionalItemsId_3" class='containerAdditionalItemsId'>
 </div>
 <script>
@@ -44,7 +49,8 @@
             theme:theme,
             siteId:147233,
             productId:888647,
-            lang:1
+            lang:1,
+            page:{price:'.apishopsProductPrice',oldprice:'.apishopsProductOldPrice'}
         });
 
         $('#modalButton2').apishopsForm({ callback:1,

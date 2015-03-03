@@ -100,6 +100,7 @@ jQuery.fn.apishopsForm=function(options)
         apishopsFormEnvironment.productId=settings.productId;
         apishopsFormEnvironment.version='2.0';
         apishopsFormEnvironment.lang=settings.lang;
+        apishopsFormEnvironment.callback=false;
    }
 
    function start(){
@@ -387,13 +388,20 @@ jQuery.fn.apishopsForm=function(options)
                     //settings.form.removeClass('apishopsFormLoading');
 
                     if(typeof result.data.price != 'undefined')
-                        settings.price=result.data.price
+                        settings.price=parseInt(result.data.price)
                     else{
                         //settings.form.remove()
                         return false;
                     }
-                    settings.oldprice=parseInt(result.data.price)*1.72;
-                    settings.discount=20;
+                    settings.oldprice=parseInt(result.data.oldPrice);
+                    settings.discount=parseInt((100-settings.price*100/settings.oldprice))
+
+                    if (typeof settings.page !='undefined'){
+                        if (typeof settings.page.price!='undefined')
+                            jQuery(settings.page.price).html(settings.price)
+                        if (typeof settings.page.oldprice!='undefined')
+                            jQuery(settings.page.oldprice).html(settings.oldprice)
+                    }
 
                     if(typeof result.data.img != 'undefined')
                         settings.img=result.data.img
@@ -550,6 +558,7 @@ jQuery.fn.apishopsForm=function(options)
                     {
                         NAME : settings.name,
                         DESC : settings.description,
+                        PRODUCTID : settings.productId,
                         FULLDESC : settings.fullDescription,
                         MORE : '__QUICKVIEW__',
                         IMG : '__IMG__ apishopsFormImage',
@@ -618,6 +627,8 @@ jQuery.fn.apishopsForm=function(options)
                         phone_input.inputmask("+380(99)999-99-99");
                     else if(settings.lang==1)
                         phone_input.inputmask("+7(999)999-99-99");
+                   else if(settings.lang==8)
+                        phone_input.inputmask("8(799)999-99-99");
                     else if(settings.lang==7)
                         phone_input.inputmask("+375(99)999-99-99");
 
@@ -637,7 +648,7 @@ jQuery.fn.apishopsForm=function(options)
                                 successUrl:false,
                                 sourceRef:getSource("sourceRef"),
                                 sourceParam:getSource("sourceParam"),
-                                productId:jQuery(quickviews[current_quickview_id]).attr('quickckview_id'),
+                                productId:jQuery(this).attr('productId'),
                                 siteId:settings.siteId,
                                 lang:settings.lang
                             };
@@ -681,7 +692,8 @@ jQuery.fn.apishopsForm=function(options)
             });
 
 
-            if(typeof settings.callback !='undefined' && settings.callback!='false' && settings.callback!=false && settings.callback>0 && jQuery('.apishopsCallback').length==0){
+            if(typeof settings.callback !='undefined' && settings.callback!='false' && settings.callback!=false && settings.callback>0 && jQuery('.apishopsCallback').length==0 && apishopsFormEnvironment.callback==false){
+                apishopsFormEnvironment.callback=true;
                 renderCallback();
             }
 
@@ -747,11 +759,11 @@ jQuery.fn.apishopsForm=function(options)
                                                     settings.apishopsFormGiftsHoverCardObject=settings.apishopsGiftsObject.find('.apishopsFormGiftHoverCard');
 
                                                     if(typeof settings.gifts[0] !='undefined'){
-                                                        settings.apishopsFormGiftsModal+="<img width='200' src='"+settings.gifts[0]['picture']+"' style='float:left'><h3>"+settings.gifts[0]['name']+"</h3>"+settings.gifts[0]['text']+"";
+                                                        settings.apishopsFormGiftsModal+="<img width='200' src='"+settings.gifts[0]['picture']+"' style='float:left;width:200px;'><h3>"+settings.gifts[0]['name']+"</h3>"+settings.gifts[0]['text']+"";
                                                     }
 
                                                     if(typeof settings.gifts[1] !='undefined'){
-                                                        settings.apishopsFormGiftsModal+="<img width='200' src='"+settings.gifts[1]['picture']+"' style='float:left'><h3>"+settings.gifts[1]['name']+"</h3>"+settings.gifts[1]['text']+"";
+                                                        settings.apishopsFormGiftsModal+="<img width='200' src='"+settings.gifts[1]['picture']+"' style='float:left;width:200px;'><h3>"+settings.gifts[1]['name']+"</h3>"+settings.gifts[1]['text']+"";
                                                     }
 
                                                     var form=settings.inputs['phone'].closest('form');
@@ -826,6 +838,8 @@ jQuery.fn.apishopsForm=function(options)
                                 apishopsFormCallbackPhone.inputmask("+380(99)999-99-99");
                             else if(settings.lang==1)
                                 apishopsFormCallbackPhone.inputmask("+7(999)999-99-99");
+                            else if(settings.lang==8)
+                                apishopsFormCallbackPhone.inputmask("8(799)999-99-99");
                             else if(settings.lang==7)
                                 apishopsFormCallbackPhone.inputmask("+375(99)999-99-99");
                         }
@@ -885,6 +899,8 @@ jQuery.fn.apishopsForm=function(options)
                         settings.inputs.phone.inputmask("+380(99)999-99-99");
                     else if(settings.lang==1)
                         settings.inputs.phone.inputmask("+7(999)999-99-99");
+                    else if(settings.lang==8)
+                        settings.inputs.phone.inputmask("8(799)999-99-99");
                     else if(settings.lang==7)
                         settings.inputs.phone.inputmask("+375(99)999-99-99");
                 }

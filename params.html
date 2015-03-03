@@ -150,6 +150,11 @@ $(document).ready( function() {
                                     <td><code>[]</code></td>
                                     <td>Массив из названий частей формы, которые надо показывать. Доступные значения 'picture', 'price', 'name', 'quickview'. По умолчананию контейнеры с картинкой, ценой, названием товара и ссылкой на подробное описание скрыты.</td>
                                 </tr>
+                                  <tr>
+                                    <td><code>page</code></td>
+                                    <td><code>{}</code></td>
+                                    <td>Объект c price и oldprice переменных, которые должны указывать на CSS селекторы контейнеров актуальной и старой цены сооветвственно.<br><br>Пример использования:<br><code>page:{price:'.apishopsProductPrice',oldprice:'.apishopsProductOldPrice'}</code></td>
+                                </tr>
                                  <tr>
                                     <td><code>successUrl</code></td>
                                     <td><code>/finish.jsp?id=</code></td>

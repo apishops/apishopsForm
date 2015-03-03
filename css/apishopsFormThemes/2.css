@@ -296,7 +296,7 @@
 .apishopsFormTheme3____price h3 span:after {
     position: absolute;
     content: "";
-    border-bottom: 1px solid;
+    /*border-bottom: 1px solid;*/
     top: 10px;
     left: -2px;
     right: 0;
@@ -356,6 +356,7 @@
 
 .apishopsFormTheme3____form input,.apishopsFormTheme3____form select {
     width: 250px;
+    color:#787878!important;
 }
 
 .apishopsFormTheme3____form input, .apishopsFormTheme3____form select, .apishopsFormTheme3____form .button {
@@ -426,4 +427,8 @@ a.__QUICKVIEW__:hover{
 
 .apishopsModal .apishopsFormTheme3____item {
     border: 0 none;
+}
+
+.apishopsFormTheme3____form form {
+    width: 100% !important;
 }
