@@ -59,7 +59,13 @@ jQuery.fn.apishopsForm=function(options)
         gift:'auto',
         checked:false,
         charset:'cp1251',
-        successUrl:'/finish.jsp?id='
+        successUrl:'/finish.jsp?id=',
+
+        // Callbacks
+        onCancel : jQuery.noop, // If canceling
+        beforeSend : jQuery.noop,
+        afterSend : jQuery.noop,
+        onLoaded : jQuery.noop
     }, options);
 
 
@@ -93,6 +99,8 @@ jQuery.fn.apishopsForm=function(options)
         })
 
         formEnvironment();
+
+        return settings;
    }
 
    function formEnvironment(){
@@ -387,13 +395,18 @@ jQuery.fn.apishopsForm=function(options)
 
                     //settings.form.removeClass('apishopsFormLoading');
 
-                    if(typeof result.data.price != 'undefined')
+                    if(typeof result.data.price != 'undefined' && result.data.price>0)
                         settings.price=parseInt(result.data.price)
                     else{
-                        //settings.form.remove()
+                        jQuery(settings).trigger("onCancel")
                         return false;
                     }
-                    settings.oldprice=parseInt(result.data.oldPrice);
+
+                    if(typeof result.data.oldPrice != 'undefined')
+                        settings.oldprice=parseInt(result.data.oldPrice);
+                    else
+                        settings.oldprice=parseInt(settings.price*1.7);
+
                     settings.discount=parseInt((100-settings.price*100/settings.oldprice))
 
                     if (typeof settings.page !='undefined'){
@@ -415,6 +428,12 @@ jQuery.fn.apishopsForm=function(options)
                         settings.description=result.data.shorDescription
                     if(typeof result.data.description != 'undefined')
                         settings.fullDescription=result.data.description
+
+                    try {
+                        jQuery(settings).trigger("onLoaded",[ settings]);
+                    }
+                    catch(err) {}
+
                     render(context);
                     bind(context);
         });
@@ -653,6 +672,13 @@ jQuery.fn.apishopsForm=function(options)
                                 lang:settings.lang
                             };
                             apishopsFormSubmit(params);
+
+                            try {
+                                jQuery(settings).trigger("beforeSend");
+                            }
+                            catch(err) {
+
+                            }
                         }
                     });
 
@@ -848,6 +874,10 @@ jQuery.fn.apishopsForm=function(options)
                         }
                         jQuery(apishopsFormCallbackForm).submit(function(event) {
                             event.preventDefault();
+                            if(new RegExp('[_]').test(apishopsFormCallbackPhone.val())){
+                                alert('Поле телефона: допустимы только цифры, знак плюс, скобки и дефисы');
+                                return false;
+                            }
                             lang=(typeof settings['lang']!='undefined')?settings['lang']:'1';
                             params={
                                 object:settings.inputs['button'],
@@ -865,6 +895,12 @@ jQuery.fn.apishopsForm=function(options)
                                 charset:settings.charset,
                                 lang:lang
                             };
+                            try {
+                                jQuery(settings).trigger("beforeSend");
+                            }
+                            catch(err) {
+
+                            }
                             apishopsFormSubmit(params);
                         });
                     });
@@ -1044,6 +1080,12 @@ jQuery.fn.apishopsForm=function(options)
                                     sourceParam:getSource("sourceParam")
                                 };
                                 apishopsFormSubmit(params);
+                                try {
+                                    jQuery(settings).trigger("beforeSend");
+                                }
+                                catch(err) {
+
+                                }
                         }
                         event.preventDefault();
                     });
@@ -1089,6 +1131,12 @@ jQuery.fn.apishopsForm=function(options)
                                     lang:lang
                                 };
                                 apishopsFormSubmit(params);
+                                try {
+                                    jQuery(settings).trigger("beforeSend");
+                                }
+                                catch(err) {
+
+                                }
                         }
                         event.preventDefault();
                     });
@@ -1097,8 +1145,6 @@ jQuery.fn.apishopsForm=function(options)
 
 
             }else{
-
-
 
                 settings.featured.more.bind('click', function(event){
                     event.preventDefault();
@@ -3824,9 +3870,6 @@ function apishopsFormSubmit(params){
                     }else{
                         alert('Ваш заказ #<b>'+result.data.id+'</b> принят и ожидает подтверждения.<br><div class="text">Скоро Вам позвонит оператор и уточнит все детали');
                     }
-
-
-
                 }
                 else{
                     if(typeof result.parameters.isReserve == 'undefined' || result.parameters.isReserve==0){

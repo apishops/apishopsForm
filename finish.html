@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Apishops JS API 2</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/apishopsForm.github.js"></script>
+    <link rel="stylesheet" href="css/apishopsForm.github.css">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Apishops JS API 2</h1>
+        <p>Подключаемые к страницам формы оформления заказов и обратных звонков</p>
+
+        <p class="view"><a href="index.html">Знакомство</a></p>
+        <p class="view"><a href="installation.html">Подключение</a></p>
+        <p class="view"><a href="params.html">Параметры</a></p>
+        <hr>
+        <p class="view"><a href="featured.html">Рекомендуемые товары</a></p>
+        <p class="view"><a href="themes.html">Темы</a></p><p class="view"><a href="gifts.html">Подарки</a></p>
+        <p class="view"><a href="markup.html">Свои формы</a></p>
+        <p class="view"><a href="splitdata.html">Отдельная подгрузка данных</a></p>
+        <hr>
+        <p class="view"><a href="faq.html">FAQ</a></p>
+        <p class="view"><a href="constructor/">Конструктор форм</a></p>
+        <br><br>
+
+        <ul>
+          <li><a href="https://github.com/apishops/apishopsForm/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/apishops/apishopsForm">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+
+      <section>
+        <div class="page-header">
+
+        <h1>Финишная страница и апселы</h1>
+                    <div class="row">
+                      <p class="alert alert-info">
+                        По умолчанию плагин подключаемой формы после отправки заказа отправляет клиента на финишную страницу, где ему предлагается приобрести дополнительные заказы к оформленному заказу. Существует три варианта для переадресации покупаетелей:
+                        <ul>
+                          <li>Создание собственной финишной страницы и подключение «апселов» к ней</li>
+                          <li>Отображение финишного окна, создаваемоего плагином формы,  без перезагрузки</li>
+                          <li>Использование сгенерированной системой страницы</li>
+                        </ul>
+
+                       </p>
+                       <div>
+
+
+                      <h1>Создание собственной финишной страницы и подключение «апселов» к ней</h1>
+                    <div class="row">
+                      <p class="alert alert-info">
+<article itemprop="mainContentOfPage" class="markdown-body entry-content">
+
+<p>Этот вариант основывается на плагине дополнительных товаров, который обычно подключают к своим финишным страницам, чтобы отображать на ней товары, рекомендуемые к приобритению клиентам. <br> Плагин подключаемых товаров:</p>
+
+<ul class="task-list">
+<li>Размещает на странице «Спасибо за заказ» список товаров, которые можно приобрести</li>
+<li>Приобрести дополнительные товары нажатием одной кнопки</li>
+</ul>
+
+<h3>
+<a aria-hidden="true" href="#%D0%9F%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5" class="anchor" id="user-content-Подключение"><span class="octicon octicon-link"></span></a>Подключение</h3>
+
+<div class="highlight highlight-sh"><pre><span class="pl-k">&lt;</span>link rel=<span class="pl-s1"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> href=<span class="pl-s1"><span class="pl-pds">"</span>http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm.css<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>script src=<span class="pl-s1"><span class="pl-pds">"</span>http://img.apishops.org/SinglePageWebsites/custom/js/apishopsAdditionalProductForm.js<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/script<span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>link href=<span class="pl-s1"><span class="pl-pds">"</span>http://img.apishops.org/SinglePageWebsites/custom/css/apishopsAdditionalProductForm.css<span class="pl-pds">"</span></span> rel=<span class="pl-s1"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-s3">type</span>=<span class="pl-s1"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+</pre></div>
+
+<h3>
+<a aria-hidden="true" href="#%D0%98%D0%BD%D0%B8%D1%86%D0%B8%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D0%BF%D0%BB%D0%B0%D0%B3%D0%B8%D0%BD%D0%B0-%D0%BA-%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5" class="anchor" id="user-content-Инициализация-плагина-к-странице"><span class="octicon octicon-link"></span></a>Инициализация плагина к странице</h3>
+
+<p>Инициализация плагина в два этапа:</p>
+
+<ul class="task-list">
+<li>Создание контейнера в пределах  для размещения списка товаров</li>
+<li>Инициализация компонента</li>
+</ul>
+
+<p>Создание контейнера</p>
+
+<div class="highlight highlight-sh"><pre><span class="pl-k">&lt;</span>div class=<span class="pl-s1"><span class="pl-pds">"</span>additionalProducts<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/div<span class="pl-k">&gt;</span></pre></div>
+
+<p>Инициализация компоненты</p>
+
+<div class="highlight highlight-sh"><pre><span class="pl-k">&lt;</span>script<span class="pl-k">&gt;</span>
+<span class="pl-s1"><span class="pl-pds">$(</span><span class="pl-en">document).ready(function</span>(){</span>
+<span class="pl-s1"><span class="pl-s1"><span class="pl-pds">$(</span><span class="pl-s1"><span class="pl-pds">"</span>.additionalProducts<span class="pl-pds">"</span></span><span class="pl-pds">)</span></span>.apishopsAdditionalProductForm({</span>
+<span class="pl-s1">siteId: XXXX,</span>
+<span class="pl-s1">orderId: YYYY</span>
+<span class="pl-s1">})<span class="pl-k">;</span></span>
+<span class="pl-s1">}<span class="pl-pds">)</span></span><span class="pl-k">;</span>
+<span class="pl-k">&lt;</span>/script<span class="pl-k">&gt;</span></pre></div>
+
+<h5>
+<a aria-hidden="true" href="#%D0%9F%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5-%D0%B4%D0%BB%D1%8F-%D0%B8%D0%BD%D0%B8%D1%86%D0%B8%D0%B0%D0%BB%D0%B7%D0%B0%D1%86%D0%B8%D0%B8-%D0%BA%D0%BE%D0%BC%D0%BF%D0%BE%D0%BD%D0%B5%D0%BD%D1%82%D1%8B" class="anchor" id="user-content-Переменные-для-инициалзации-компоненты"><span class="octicon octicon-link"></span></a>Переменные для инициалзации компоненты</h5>
+
+<ul class="task-list">
+<li>XXXX &mdash; id сайта в системе ApiShops</li>
+<li>YYYY &ndash; id заказа в системе ApiShops (обычно берется из GET параметра "orderId" страницы, на которую редиректит пользователя после заказа)</li>
+</ul>
+
+<h3>
+<a aria-hidden="true" href="#%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80-%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BF%D0%BB%D0%B0%D0%B3%D0%B8%D0%BD%D0%B0" class="anchor" id="user-content-Пример-использования-плагина"><span class="octicon octicon-link"></span></a>Пример использования плагина</h3>
+
+<div class="highlight highlight-sh"><pre><span class="pl-k">&lt;</span><span class="pl-k">!</span>DOCTYPE HTML PUBLIC <span class="pl-s1"><span class="pl-pds">"</span>-//W3C//DTD HTML 4.01 Transitional//EN<span class="pl-pds">"</span></span> <span class="pl-s1"><span class="pl-pds">"</span>http://www.w3.org/TR/html4/loose.dtd<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>html<span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>head<span class="pl-k">&gt;</span>
+    <span class="pl-k">&lt;</span>title<span class="pl-k">&gt;</span>Пример<span class="pl-k">&lt;</span>/title<span class="pl-k">&gt;</span>
+    <span class="pl-k">&lt;</span>script src=<span class="pl-s1"><span class="pl-pds">"</span>//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/script<span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>/head<span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>body<span class="pl-k">&gt;</span>
+
+<span class="pl-k">&lt;</span>div class=<span class="pl-s1"><span class="pl-pds">"</span>additionalProducts<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/div<span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>link rel=<span class="pl-s1"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> href=<span class="pl-s1"><span class="pl-pds">"</span>http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm.css<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>script src=<span class="pl-s1"><span class="pl-pds">"</span>http://img.apishops.org/SinglePageWebsites/custom/js/apishopsAdditionalProductForm.js<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/script<span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>link href=<span class="pl-s1"><span class="pl-pds">"</span>http://img.apishops.org/SinglePageWebsites/custom/css/apishopsAdditionalProductForm.css<span class="pl-pds">"</span></span> rel=<span class="pl-s1"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-s3">type</span>=<span class="pl-s1"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>script<span class="pl-k">&gt;</span>
+<span class="pl-s1"><span class="pl-pds">$(</span><span class="pl-en">document).ready(function</span>(){</span>
+<span class="pl-s1">    <span class="pl-s1"><span class="pl-pds">$(</span><span class="pl-s1"><span class="pl-pds">"</span>.additionalProducts<span class="pl-pds">"</span></span><span class="pl-pds">)</span></span>.apishopsAdditionalProductForm({</span>
+<span class="pl-s1">        siteId: 16836,</span>
+<span class="pl-s1">        orderId: 395092</span>
+<span class="pl-s1">    })<span class="pl-k">;</span></span>
+<span class="pl-s1">}<span class="pl-pds">)</span></span><span class="pl-k">;</span>
+<span class="pl-k">&lt;</span>/script<span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>/body<span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>/html<span class="pl-k">&gt;</span></pre></div>
+
+</article>
+                       </p>
+
+
+
+                      <h1>Отображение финишного окна, создаваемоего плагином формы,  без перезагрузки</h1>
+                    <div class="row">
+                      <p class="alert alert-info">
+                        Этот вариант наиоболее удобный, т.к. он не требует «подгона» страницу под себя и вызывается лишь значением «false» для параметра «successUrl», а окно с благодарностью отображается прямо на странице с вашим дизайном и тем самым не вводит покупателя в заблуждение
+                        <br>
+
+                       </p>
+                       <div>
+
+<pre class="prettyprint linenums">
+        $(&#x27;#containerId2_3&#x27;).apishopsForm({ callback:1,
+            type:&#x27;inline&#x27;, /*&#x442;&#x438;&#x43F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x442;&#x438;&#x44F; [inline|modal]*/
+            successUrl:false, /*url &#x431;&#x43B;&#x430;&#x433;&#x43E;&#x434;&#x430;&#x440;&#x441;&#x442;&#x432;&#x435;&#x43D;&#x43D;&#x43E;&#x439; &#x441;&#x442;&#x440;&#x430;&#x43D;&#x438;&#x446;&#x44B; [url|false]*/
+            form:&#x27;light&#x27;, /*&#x442;&#x438;&#x43F; &#x444;&#x43E;&#x440;&#x43C;&#x44B; [normal|light|jquery-selector]*/
+            siteId:387700,
+            productId:1013683,
+            lang:1,
+            successForm:false
+        });
+</pre>
+<p>  <img src=http://cl.ly/image/162E3K2m2A1o/download/screenshot%202015-03-07%20%D0%B2%2004.51.40.png style='max-width:100%'></p>
+
+
+
+                      <h1>Использование сгенерированной системой страницы</h1>
+                    <div class="row">
+                      <p class="alert alert-info">
+                        Этот вариант один из самых простых. Все, что вам надо сделать — это узнать «url» страницы вашего одногостраничника в Apishops и подставить его значение в параметры successUrl.
+                       </p>
+                       <p>
+                        Если адрес вашей страницы http://newtemplate.apishops.ru, то значение для successUrl будет «http://newtemplate.apishops.ru/finish.jsp?id=»
+                       </p>
+                       <div>
+
+<pre class="prettyprint linenums">
+        $(&#x27;#containerId2_3&#x27;).apishopsForm({ callback:1,
+            type:&#x27;inline&#x27;, /*&#x442;&#x438;&#x43F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x442;&#x438;&#x44F; [inline|modal]*/
+            successUrl:false, /*url &#x431;&#x43B;&#x430;&#x433;&#x43E;&#x434;&#x430;&#x440;&#x441;&#x442;&#x432;&#x435;&#x43D;&#x43D;&#x43E;&#x439; &#x441;&#x442;&#x440;&#x430;&#x43D;&#x438;&#x446;&#x44B; [url|false]*/
+            form:&#x27;light&#x27;, /*&#x442;&#x438;&#x43F; &#x444;&#x43E;&#x440;&#x43C;&#x44B; [normal|light|jquery-selector]*/
+            siteId:387700,
+            productId:1013683,
+            lang:1,
+            successForm:'http://newtemplate.apishops.ru/finish.jsp?id='
+        });
+</pre>
+
+
+
+
+
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/apishops">apishops</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+  </body>
+</html>

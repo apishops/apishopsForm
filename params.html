@@ -138,7 +138,7 @@ $(document).ready( function() {
                                  <tr>
                                     <td><code>featured</code></td>
                                     <td><code>{}</code></td>
-                                    <td>набор параметров для отображения рекомендуемых товаров (более подробно в разделе <a href="features.html">рекомендуемые товары</a>)</td>
+                                    <td>набор параметров для отображения рекомендуемых товаров <a href="features.html">более подробно в разделе «рекомендуемые товары»</a></td>
                                 </tr>
                                  <tr>
                                     <td><code>hidden_fields</code></td>
@@ -151,14 +151,32 @@ $(document).ready( function() {
                                     <td>Массив из названий частей формы, которые надо показывать. Доступные значения 'picture', 'price', 'name', 'quickview'. По умолчананию контейнеры с картинкой, ценой, названием товара и ссылкой на подробное описание скрыты.</td>
                                 </tr>
                                   <tr>
-                                    <td><code>page</code></td>
-                                    <td><code>{}</code></td>
-                                    <td>Объект c price и oldprice переменных, которые должны указывать на CSS селекторы контейнеров актуальной и старой цены сооветвственно.<br><br>Пример использования:<br><code>page:{price:'.apishopsProductPrice',oldprice:'.apishopsProductOldPrice'}</code></td>
+                                    <td><code>onCancel</code></td>
+                                    <td><code>$.noop</code></td>
+                                    <td>событие, вызываемое в случае отмены полной загрузки плагина (если товар недоступен на складе), <a href="events.html">более подробно в разделе «события»</a></td>
+                                </tr>
+                                  <tr>
+                                    <td><code>beforeSend</code></td>
+                                    <td><code>$.noop</code></td>
+                                    <td>событие, вызываемое перед отправкой заказа в систему, <a href="events.html">более подробно в разделе «события»</a></td>
+                                </tr>
+                                  <tr>
+                                    <td><code>afterSend</code></td>
+                                    <td><code>$.noop</code></td>
+                                    <td>событие, вызываемое после отправки заказа в систему, <a href="events.html">более подробно в разделе «события»</a></td>
+                                </tr>
+                                  <tr>
+                                    <td><code>onLoaded</code></td>
+                                    <td><code>$.noop</code></td>
+                                    <td>событие, вызываемое после загрузки информации по товару, <a href="events.html">более подробно в разделе «события»</a></td>
                                 </tr>
                                  <tr>
                                     <td><code>successUrl</code></td>
                                     <td><code>/finish.jsp?id=</code></td>
-                                    <td>url, по которому отправляется пользователь после успешной отправки заявки или false в случае, если редирект не нужен</td>
+                                    <td><code>url</code>, по которому отправляется пользователь после успешной отправки заявки <br>
+                                        <code>false</code> в случае, если редирект не нужен, <br>
+                                        <a href="finish.html">Более подробно в разделе «финишная страница и апселы»</a>
+                                    </td>
                                 </tr>
 
                             </tbody>

@@ -48,9 +48,12 @@
             displayed_containers:['price','name'],
             theme:theme,
             siteId:147233,
-            productId:888647,
+            productId:794432,
             lang:1,
-            page:{price:'.apishopsProductPrice',oldprice:'.apishopsProductOldPrice'}
+            page:{price:'.apishopsProductPrice',oldprice:'.apishopsProductOldPrice'},
+            onCancel: function() {
+                alert('222');
+            }
         });
 
         $('#modalButton2').apishopsForm({ callback:1,
@@ -72,9 +75,12 @@
             form:'light', /*тип формы [normal|light|jquery-selector]*/
             displayed_containers:['price','name'],
             theme:theme,
-            siteId:147233,
-            productId:888647,
-            lang:1
+            siteId:387700,
+            productId:1013683,
+            lang:1,
+            onCancel: function() {
+                //alert('222');
+            }
         });
 
         $('#containerId3_3').apishopsForm({ callback:1,
@@ -105,7 +111,7 @@
             displayed_containers:['picture','price','name']
         });
 
-        $('#containerId5_3').apishopsForm({ callback:1,
+        var apishops=$('#containerId5_3').apishopsForm({ callback:1,
             type:'inline', /*тип открытия [inline|modal]*/
             debug:false, /*отладочный режим [true|false]*/
             successUrl:false, /*url благодарственной страницы [url|false]*/
@@ -122,6 +128,9 @@
                theme: theme,
                count:2
             }
+        });
+        $(apishops).on( "onLoaded", function( event, params ) {
+            alert(params.price);
         });
 
         $('#containerId6_3').apishopsForm({ callback:1,
