@@ -16,6 +16,8 @@
     <body>
 
 
+
+
 <span class="containerId" id="containerId2_3"></span>
 <span class="containerId" id="containerId3_3"></span>
 <span class="containerId" id="containerId4_3"></span>
@@ -47,12 +49,12 @@
             form:'light', /*тип формы [normal|light|jquery-selector]*/
             displayed_containers:['price','name'],
             theme:theme,
-            siteId:147233,
-            productId:794432,
+            siteId:319380,
+            productId:876732,
             lang:1,
             page:{price:'.apishopsProductPrice',oldprice:'.apishopsProductOldPrice'},
             onCancel: function() {
-                alert('222');
+                //alert('222');
             }
         });
 
@@ -63,8 +65,8 @@
             form:'normal', /*тип формы [normal|light|jquery-selector]*/
             displayed_containers:['price','name'],
             theme:theme,
-            siteId:147233,
-            productId:888647,
+            siteId:319380,
+            productId:1002235,
             lang:1
         });
 
@@ -75,11 +77,11 @@
             form:'light', /*тип формы [normal|light|jquery-selector]*/
             displayed_containers:['price','name'],
             theme:theme,
-            siteId:387700,
-            productId:1013683,
+            siteId:319380,
+            productId:876732,
             lang:1,
             onCancel: function() {
-                //alert('222');
+                alert('222');
             }
         });
 
@@ -90,8 +92,8 @@
             form:'light', /*тип формы [normal|light|jquery-selector]*/
             displayed_containers:['name'],
             theme:theme,
-            siteId:147233,
-            productId:888647,
+            siteId:319380,
+            productId:1002235,
             lang:1,
             callback:1,
             hidden_fields:['count']
@@ -104,8 +106,8 @@
             form:'light', /*тип формы [normal|light|jquery-selector]*/
             displayed_containers:['picture','price','name'],
             theme:theme,
-            siteId:147233,
-            productId:888647,
+            siteId:319380,
+            productId:1002235,
             lang:1,
             hidden_fields:['count','address'],
             displayed_containers:['picture','price','name']
@@ -118,8 +120,8 @@
             form:'light', /*тип формы [normal|light|jquery-selector]*/
             displayed_containers:['picture','price','name'],
             theme:theme,
-            siteId:147233,
-            productId:888647,
+            siteId:319380,
+            productId:1002235,
             lang:1,
             hidden_fields:['count','fio','address'],
             displayed_containers:['picture','price','name'],
@@ -130,7 +132,7 @@
             }
         });
         $(apishops).on( "onLoaded", function( event, params ) {
-            alert(params.price);
+            //alert(params.price);
         });
 
         $('#containerId6_3').apishopsForm({ callback:1,
@@ -140,8 +142,8 @@
             form:'light', /*тип формы [normal|light|jquery-selector]*/
             displayed_containers:['picture','price','name'],
             theme:theme,
-            siteId:147233,
-            productId:888647,
+            siteId:319380,
+            productId:1002235,
             lang:1,
             hidden_fields:['count','fio','address','promocode'],
             displayed_containers:['picture','price','name']

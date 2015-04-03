@@ -1,727 +1,930 @@
-(function($){
+/*jshint -W117 */
 
-jQuery.fn.apishopsForm=function(options)
-{
-   var settings =
-    jQuery.extend({
-        type: 'inline', /*inline,modal*/
-        form: 'normal', /*normal, light, html*/
-        placement:'.apishopsModalContent', /*контейнер внутри модального окна, где должна размещаться форма (для встроенных это место передается в качестве инициализируемого объекта)*/
-        modal:'<div class="apishopsModal apishopsAnimation apishopsSideFall"><div class="apishopsModalWindow"><div class="apishopsModalClose"></div><div class="apishopsModalContent"></div><div class="apishopsModalClose2"><a href="#" class="underline">закрыть окно</a></div></div><div class="apishopsModalOverlay"></div></div>',
-        modal__:'<div class="apishopsModal apishopsAnimation apishopsSideFall"><div class="apishopsModalWindow"><div class="apishopsModalClose"></div><div class="apishopsModalContent"></div><div class="apishopsModalClose2"><a href="#" class="underline">закрыть окно</a></div></div><div class="apishopsModalOverlay"></div></div>',
-        inputs:{
-            address:'[name=apishopsFormAddress]',
-            count:'[name=apishopsFormCount]',
-            delivery:'[name=apishopsFormDelivery]',
-            email:'[name=apishopsFormEmail]',
-            fio:'[name=apishopsFormFio]',
-            payment:'[name=apishopsFormPayment]',
-            phone:'[name=apishopsFormPhone]',
-            promocode:'[name=apishopsFormPromocode]',
-            region:'[name=apishopsFormRegion]',
-            cost:'[name=apishopsFormCost]',
-            button:'.apishopsFormBuy'
-        },
-        containers:{
-            picture:'.apishopsFormImage',
-            price:'.apishopsFormPrice',
-            name:'.apishopsFormName',
-            quickview:'.apishopsQuickView'
-        },
-        inputs_:{
-            address:'Поле адреса',
-            count:'Поле количество значений',
-            delivery:'Поле типа доставки',
-            email:'Поле электронного адреса',
-            promocode:'Поле для промокода',
-            fio:'Поле ФИО',
-            payment:'Поле типа оплаты',
-            phone:'Поле номера телефона',
-            region:'Поле региона',
-            cost:'Поле стоимости заказа'
-        },
-        paths_:{
-            rootdir:'http://img2.apishops.org/SinglePageWebsites/custom/',
-            cssdir:'css/',
-            jsdir:'js/',
-            themesdir:'apishopsFormThemes'
-        },
-        theme:0,
-        forms:[],
-        placements:[],
-        optional_fields:['address'],
-        hidden_fields:[],
-        displayed_containers:[],
-        siteId:10221,
-        productId:632879,
-        price:0,
-        lang:1,
-        gift:'auto',
-        checked:false,
-        charset:'cp1251',
-        successUrl:'/finish.jsp?id=',
+(function ($) {
+    "use strict";
 
-        // Callbacks
-        onCancel : jQuery.noop, // If canceling
-        beforeSend : jQuery.noop,
-        afterSend : jQuery.noop,
-        onLoaded : jQuery.noop
-    }, options);
+    jQuery.fn.apishopsForm = function(options) {
+
+        var settings = {
+            type: "inline", /*inline,modal*/
+            form: "normal", /*normal, light, html*/
+            placement : ".apishopsModalContent", /*контейнер внутри модального окна, где должна размещаться форма (для встроенных это место передается в качестве инициализируемого объекта)*/
+            inputs : {
+                address : "[name=apishopsFormAddress]",
+                count : "[name=apishopsFormCount]",
+                delivery : "[name=apishopsFormDelivery]",
+                email : "[name=apishopsFormEmail]",
+                fio : "[name=apishopsFormFio]",
+                payment : "[name=apishopsFormPayment]",
+                phone : "[name=apishopsFormPhone]",
+                promocode : "[name=apishopsFormPromocode]",
+                region : "[name=apishopsFormRegion]",
+                cost : "[name=apishopsFormCost]",
+                button : ".apishopsFormBuy"
+            },
+            containers : {
+                picture : ".apishopsFormImage",
+                price : ".apishopsFormPrice",
+                name : ".apishopsFormName",
+                quickview : ".apishopsQuickView"
+            },
+            inputs_names : {
+                address : "Поле адреса",
+                count : "Поле количество значений",
+                delivery : "Поле типа доставки",
+                email : "Поле электронного адреса",
+                promocode : "Поле для промокода",
+                fio : "Поле ФИО",
+                payment : "Поле типа оплаты",
+                phone : "Поле номера телефона",
+                region : "Поле региона",
+                cost : "Поле стоимости заказа"
+            },
+            theme : 0,
+            forms : [],
+            placements : [],
+            optional_fields : ["address"],
+            hidden_fields : [],
+            displayed_containers : [],
+            siteId : 10221,
+            productId : 632879,
+            price : 0,
+            lang : 1,
+            gift : "auto",
+            charset:'cp1251',
+            successUrl : "/finish.jsp?id=",
+
+            // Callbacks
+            onCancel : jQuery.noop, // If canceling
+            beforeSend : jQuery.noop,
+            afterSend : jQuery.noop,
+            onLoaded : jQuery.noop,
+
+            locales : [
+                {},
+                {
+                    phone : {mask : "+7(999)999-99-99"},
+                    currency : ['рублей','Р.','руб.','RUB']
+                },
+                {},
+                {},
+                {},
+                {},
+                {
+                    phone : {mask : "+380(99)999-99-99"},
+                    currency : ['гривень','Грн.','грн.','UAH']
+                },
+                {
+                    phone : {mask : "+375(99)999-99-99"},
+                    currency : ['рублей','Р.','руб.','BYR']
+                },
+                {
+                    phone : {mask : "8(799)999-99-99"},
+                    currency : ['тенге','Т.','тнг','KZT']
+                }
+            ]
+
+        };
+
+        jQuery.extend(settings, options);
 
 
-   return init(this);
+        function init(object) {
 
+            //wrap container if container and form is the same
+            settings.object = (jQuery(settings.form).selector && jQuery(settings.form).selector === jQuery(object).selector) ? object.wrap('<some></some>').parent() : object;
+            settings.type = (settings.type === 'inline' && jQuery(settings.object).is("input,button,a")) ? 'modal' : settings.type;
+            settings.theme = (settings.featured && settings.featured.theme !== undefined) ?  settings.featured.theme : settings.theme;
 
-   function init(object){
+            var templatesList = ['modal'];
 
-        settings.object=(jQuery(settings.form).selector==jQuery(object).selector && jQuery(settings.form).selector!='')?object.wrap('<some></some>').parent():object;
-        settings.type=(settings.type=='inline' && jQuery(settings.object).is("input,button,a"))?'modal':settings.type;
-        settings.theme=(typeof settings.featured == 'undefined' || typeof settings.featured.theme == 'undefined')?settings.theme:settings.featured.theme;
-
-
-        var templatesList=['modal','quickview'];
-
-        if(typeof settings.featured != 'undefined')
-            templatesList.push('theme');
-
-        if(settings.form=='normal' || settings.form=='light')
-            templatesList.push('theme');
-
-        if(typeof settings.featured != 'undefined' && typeof settings.featured.form != 'undefined' && (settings.featured.form=='normal' || settings.featured.form=='light'))
-            templatesList.push('theme');
-
-        apishopsFormLoadTemplates(_.uniq(templatesList),settings.charset, settings.theme,
-        function(result){
-            start()
-        },
-        function(result){
-            //alert(':((')
-        })
-
-        formEnvironment();
-
-        return settings;
-   }
-
-   function formEnvironment(){
-        apishopsFormEnvironment.siteId=settings.siteId;
-        apishopsFormEnvironment.productId=settings.productId;
-        apishopsFormEnvironment.version='2.0';
-        apishopsFormEnvironment.lang=settings.lang;
-        apishopsFormEnvironment.callback=false;
-   }
-
-   function start(){
-        check();
-        spawn();
-        construct('main');
-
-        if(settings.displayed_containers.length>0 && settings.productId>0){
-            loadRenderBind('main');
-        }else{
-            render('main');
-            bind('main');
-        }
-   }
-
-   function check()
-   {
-
-        if(settings.form!='normal' && settings.form!='light'){
-            $form=jQuery(settings.form);
-            var inputs_tmp={};
-            for(index in settings.inputs){
-                value=settings.inputs[index];
-                $input=jQuery(value,$form);
-                if($input.length &&  typeof $input !='undefined')
-                    inputs_tmp[index]=$input;
+            //add templates to load
+            if (settings.featured ||
+                (settings.form === 'normal' || settings.form === 'light') ||
+                (settings.featured && settings.featured.form && (settings.featured.form === 'normal' || settings.featured.form === 'light')))
+            {
+                templatesList.push('theme');
             }
+
+            apishopsFormLoadTemplates(_.uniq(templatesList), settings.charset, settings.theme,
+                function() {
+                    prepare();
+                    spawn();
+                    construct('main');
+                    getProductInfo();
+                    render('main');
+                    bind('main');
+                });
+
+            env();
+
+            return settings;
         }
 
-        if(settings.object.length==0)
-            alert('Ошибка формы:\n jQuery("'+settings.object.selector+'") к которому подключается форма  "jQuery("'+settings.object.selector+'").apishopsForm(..)" не найден. Проверьте, пожалуйста, код');
 
-        if(typeof settings.productId == 'undefined' || settings.productId<=0)
-            alert('settings.productId должен быть указан и не равен 0')
 
-        if((settings.form=='normal' || settings.form=='light') && typeof apishopsFormThemeLight=='undefined')
-            alert('Простите, но темы #'+settings.theme+' (параметр "jQuery(...).apishopsForm({..theme:'+settings.theme+'..}) нет');
+        //Get 'normal','light' or html code form
+        function prepare() {
 
-        if(settings.form!='normal' && settings.form!='light' && settings.checked!=true){
+            var inputs_tmp;
 
-            settings.displayed_containers=[]
-            $form=jQuery(settings.form);
-            $html=$form.html()
-            var inputs_tmp={};
-            for(index in settings.inputs){
-                value=settings.inputs[index];
-                $input=jQuery(value,$form);
-                if($input.length &&  typeof $input !='undefined')
-                    inputs_tmp[index]=$input;
+            if (!settings.object.length) {
+                alert('Ошибка формы:\n jQuery("' + settings.object.selector + '") к которому подключается форма  "jQuery("' + settings.object.selector + '").apishopsForm(..)" не найден. Проверьте, пожалуйста, код');
             }
-            if(typeof inputs_tmp['fio']=='undefined'  || typeof inputs_tmp['phone']=='undefined'  || typeof inputs_tmp['address']=='undefined'  || typeof inputs_tmp['count']=='undefined' ){
-                settings.form='light';
+
+            if (!settings.productId) {
+                alert('Ошибка: settings.productId должен быть указан');
             }
-            else if((typeof inputs_tmp['region']!= 'undefined') && (typeof inputs_tmp['count']=='undefined' || typeof inputs_tmp['cost']=='undefined' || typeof inputs_tmp['region']=='undefined' || typeof inputs_tmp['delivery']=='undefined'  || typeof inputs_tmp['payment']=='undefined')){
-                //alert(2)
-                settings.form='normal';
-            }else{
-                jQuery(settings.form).hide();
-                settings.form=jQuery('<div>').append(jQuery(settings.form).clone()).html()
+
+            if (typeof apishopsFormThemeLight === 'undefined' && (settings.form === 'normal' || settings.form === 'light')) {
+                alert('Ошибка: темы #' + settings.theme + ' (параметр "jQuery(...).apishopsForm({..theme:' + settings.theme + '..}) нет');
             }
-            /**
-             * Создаем для пользовательских форм свои
-             * displayed_containers
-             * чтобы исходя из пользовательских форм
-             * принимать решение подгружать или нет
-             */
-            if($html.indexOf("%NAME%") > -1)
-                settings.displayed_containers.push('name')
-            if($html.indexOf("%PRICE%") > -1)
-                settings.displayed_containers.push('price')
-            if($html.indexOf('%IMG%') > -1)
-                settings.displayed_containers.push('picture')
-            if($html.indexOf('%QUICKVIEW%') > -1)
-                settings.displayed_containers.push('quickview')
-        }
 
-        if(typeof settings.featured != 'undefined'){
 
-            /*Проверки для рек.товаров*/
+            if (settings.form !== 'normal' && settings.form !== 'light' && !apishopsFormEnvironment.checked) {
 
-            if(typeof settings.featured.count == 'undefined')
-                settings.featured.count=3;
+                inputs_tmp = importInputs(settings.form);
 
-            if(typeof settings.featured.last == 'undefined')
-                settings.featured.last=0;
-
-            if(typeof settings.featured.theme == 'undefined')
-                settings.featured.theme=settings.theme;
-
-            if(typeof settings.featured.form == 'undefined'){
-                settings.featured.form=settings.form;
-                settings.featured.displayed_containers=settings.displayed_containers;
-            }else{
-                if(settings.featured.form!='normal' && settings.featured.form!='light'){
-                    settings.featured.displayed_containers=[]
-                    $form=jQuery(settings.featured.form);
-                    $html=$form.html()
-                    var inputs_tmp={};
-                    for(index in settings.inputs){
-                        value=settings.inputs[index];
-                        $input=jQuery(value,$form);
-                        if($input.length &&  typeof $input !='undefined')
-                            inputs_tmp[index]=$input;
-                    }
-                    /**
-                     * Создаем для пользовательских форм свои
-                     * displayed_containers
-                     * чтобы исходя из пользовательских форм
-                     * принимать решение подгружать или нет
-                     */
-                    if($html.indexOf("%NAME%") > -1)
-                        settings.featured.displayed_containers.push('name')
-                    if($html.indexOf("%PRICE%") > -1)
-                        settings.featured.displayed_containers.push('price')
-                    if($html.indexOf('%IMG%') > -1)
-                        settings.featured.displayed_containers.push('picture')
-                    if($html.indexOf('%QUICKVIEW%') > -1)
-                        settings.featured.displayed_containers.push('quickview')
-
-                    if(typeof inputs_tmp['fio']=='undefined'  || typeof inputs_tmp['phone']=='undefined'  || typeof inputs_tmp['address']=='undefined'  || typeof inputs_tmp['count']=='undefined' ){
-                        //alert(3)
-                        settings.featured.form='light';
-                    }
-                    else if((typeof inputs_tmp['region']!= 'undefined') && (typeof inputs_tmp['count']=='undefined' || typeof inputs_tmp['cost']=='undefined' || typeof inputs_tmp['region']=='undefined' || typeof inputs_tmp['delivery']=='undefined'  || typeof inputs_tmp['payment']=='undefined')){
-                        //alert(4)
-                        settings.featured.form='normal';
-                    }else{
-                        jQuery(settings.featured.form).hide();
-                        settings.featured.form=jQuery('<div>').append(jQuery(settings.featured.form).clone()).html()
-                    }
+                if (!inputs_tmp.fio || !inputs_tmp.phone || !inputs_tmp.address || !inputs_tmp.count) {
+                    settings.form = 'light';
+                } else if ((inputs_tmp.region) && (!inputs_tmp.count || !inputs_tmp.cost || !inputs_tmp.region || !inputs_tmp.delivery || !inputs_tmp.payment)) {
+                    settings.form = 'normal';
+                } else {
+                    jQuery(settings.form).hide();
+                    settings.form = jQuery('<div>').append(jQuery(settings.form).clone()).html();
+                    settings.displayed_containers = importContainers(settings.form);
                 }
             }
 
-            if(typeof settings.featured.displayed_containers == 'undefined')
-                settings.featured.displayed_containers=settings.displayed_containers;
 
-            if(typeof settings.featured.hidden_fields == 'undefined')
-                settings.featured.hidden_fields=settings.hidden_fields;
 
-            if(typeof settings.featured.container == 'undefined' || jQuery(settings.featured.container).length==0){
-                alert('Контейнер "'+settings.featured.container+'"(параметр featured{..container:""..}), в котором будут размещаться формы для заказа дополнительных товаров не задан или не может быть найден')
-                delete settings.featured;
+            if (settings.featured) {
+
+                if (!settings.featured.container || !jQuery(settings.featured.container).length) {
+
+                    alert('Контейнер "' + settings.featured.container + '"(параметр featured{..container:""..}), в котором будут размещаться формы для заказа дополнительных товаров не задан или не может быть найден');
+                    delete settings.featured;
+
+                } else {
+
+                    settings.featured.count = settings.featured.count || 3;
+                    settings.featured.last = settings.featured.last || 0;
+                    settings.featured.theme = settings.featured.theme || settings.theme;
+                    settings.featured.hidden_fields = settings.featured.hidden_fields || settings.hidden_fields;
+                    settings.featured.container = settings.featured.container || "";
+                    settings.featured.containerClosest = settings.featured.containerClosest || "";
+
+
+                    inputs_tmp = settings.featured.form ? importInputs(settings.featured.form) : [];
+
+                    if (settings.featured.form && inputs_tmp.fio && inputs_tmp.phone && inputs_tmp.address && inputs_tmp.count) {
+
+                        if (settings.featured.more && !jQuery(settings.featured.more).length) {
+
+                            alert('Параметр featured{...more:""..} ("' + settings.featured.more + '"), который будет использоваться для кнопки подгрузки других товаров в вашей собственной форме необходимо задать');
+                            delete settings.featured;
+
+                        } else {
+                            jQuery(settings.featured.form).hide();
+                            settings.featured.form = jQuery('<div>').append(jQuery(settings.featured.form).clone()).html();
+                            settings.featured.displayed_containers = importContainers(settings.featured.form);
+                        }
+
+                    } else {
+                        settings.featured.form = 'light';
+                        settings.featured.displayed_containers = settings.featured.displayed_containers || settings.displayed_containers;
+                    }
+
+                }
+
             }
 
-            if(settings.featured.form!='normal' && settings.featured.form!='light' && !_.isUndefined(settings.featured.more) && _.isEmpty(jQuery(settings.featured.more))){
-                alert('Параметр featured{...more:""..} ("'+settings.featured.more+'"), который будет использоваться для кнопки подгрузки других товаров в вашей собственной форме необходимо задать');
-                delete  settings.featured;
-            }
         }
-   }
 
 
 
 
-   function spawn(){
 
-        $jsonp={
-                action: "getFeaturedProductIdListForProductId",
-                siteId: settings.siteId,
-                lang: settings.lang
-        };
-        if(!_.isUndefined(settings.featured)){
-            if(_.isUndefined(settings.featured.productIds) || !_.isArray(settings.featured.productIds) || _.isEmpty(settings.featured.productIds)){
-                if(settings.featured.container != 'undefined')
-                    jQuery(settings.featured.container).hide();
-                if(settings.featured.containerClosest != 'undefined')
-                    jQuery(settings.featured.containerClosest).hide();
-                jQuery('.__apishopsFormFeaturedFormMoreButton__').hide();
+        function spawn() {
 
-                apishopsFormGetJSONP($jsonp,function(result){
-                    if(!_.isUndefined(result.data) && _.isArray(result.data) && !_.isEmpty(result.data)){
-                            settings.featured.productIds=result.data;
-                            settings.featured.productIdsLoaded=[];
-                            if(typeof settings.featured.container != 'undefined')
-                                jQuery(settings.featured.container).show();
-                            if(typeof settings.featured.containerClosest != 'undefined')
-                                jQuery(settings.featured.containerClosest).show();
-                            jQuery('.__apishopsFormFeaturedFormMoreButton__').show();
-                            construct('featured');
-                            spawnChilds()
-                            bind('featured');
-                    }
-                });
-            }else
-                spawnChilds()
-        }
-   }
-
-   function spawnChilds(){
-
-        var dbt=new Date(new Date().getTime() + (2 * 24 * 60 * 60 * 1000));
-        settings.finisDate = (dbt.getMonth()+1)+"/"+dbt.getDate()+"/"+dbt.getFullYear()+" 5:00 AM";
-        startTimer()
-
-        var productIdsLoading=_.first(_.difference(settings.featured.productIds, settings.featured.productIdsLoaded),settings.featured.count)
-        _.each(productIdsLoading, function(productId){
-            jQuery(settings.featured.container).apishopsForm({
-                type:'inline',
-                successUrl:false,
-                form:settings.featured.form,
-                displayed_containers:settings.featured.displayed_containers,
-                theme:settings.featured.theme,
-                siteId:settings.siteId,
-                productId:productId,
-                checked:1,
-                gift:false,
-                hidden_fields:settings.featured.hidden_fields,
-                lang:settings.lang
-            });
-        });
-        settings.featured.productIdsLoaded=_.union(settings.featured.productIdsLoaded,productIdsLoading)
-        if(_.isEmpty(_.difference(settings.featured.productIds, settings.featured.productIdsLoaded)))
-            jQuery(settings.featured.more).fadeOut();
-        if(typeof settings.featured.max!='undefined' && settings.featured.max!=0 && settings.featured.max<=settings.featured.productIdsLoaded.length)
-            jQuery(settings.featured.more).fadeOut();
-   }
-
-   /**
-    * Конструирует и размещает форму для каждого объявленного в качестве основного или дополнительного товара
-    * (в случае ошибок показывает ошибку)
-    * @return {[type]} [description]
-    */
-   function construct(context)
-   {
-
-        if(context=='main'){
-
-            settings.placement=(settings.type=='modal')?apishopsFormModalInit(settings.object,['small','hide-close2','init']):settings.object
-            settings.oldprice=0;
-            settings.discount=0;
-            settings.name='';
-            settings.img='';
-
-
-            /**
-             * Для всех типов формы мы везде берем код
-             * Но в случае собственной формы мы ещё и:
-             * - скрываем контейнер, на который ссылаемся
-             * - проверяем наличие полей для ввода
-             */
-
-            if(settings.form=='normal'){
-                settings.form=typeof apishopsFormThemeNormal!='undefined'?apishopsFormThemeNormal:'';
-                settings.form_type='normal';
-            }
-            else if(settings.form=='light'){
-                settings.form=typeof apishopsFormThemeLight!='undefined'?apishopsFormThemeLight:'';
-                settings.form_type='light';
-            }
-            else{
-                //jQuery(settings.form).hide();
-                //settings.form=jQuery('<div>').append(jQuery(settings.form).clone()).html()
-                settings.form_type=jQuery(settings.inputs['region'],jQuery(settings.form)).length==0?'light':'normal';
-
-            }
-        }else{
-            if(settings.featured.form=='normal' || settings.featured.form=='light')
-                settings.featured.more=apishopsFormThemeMore;
-
-            if(!_.isUndefined(settings.featured.more) && !_.isEmpty(jQuery(settings.featured.more)))
-                settings.featured.more=jQuery('<div>').addClass('featured__more').append(jQuery(settings.featured.more)).appendTo(settings.featured.container)
-
-            settings.featured.container=jQuery('<div>').addClass('featured__in').addClass('featured_grid').prependTo(jQuery(settings.featured.container))
-        }
-   }
-
-   function loadRenderBind(context)
-   {
-        //if(typeof settings.form.attr('id')=='undefined')
-         //   settings.form.attr('id','apishopsId'+String.fromCharCode(65 + Math.floor(Math.random() * 26)) + _.now())
-
-        $jsonp={
-                action: "getProductInfo",
-                productId: settings.productId,
-                siteId: settings.siteId,
-                charset:settings.charset,
-                lang: settings.lang
-        };
-
-        //settings.form.addClass('apishopsLoading');
-
-
-        apishopsFormGetJSONP($jsonp,function(result){
-
-                    //settings.form.removeClass('apishopsFormLoading');
-
-                    if(typeof result.data.price != 'undefined' && result.data.price>0)
-                        settings.price=parseInt(result.data.price)
-                    else{
-                        jQuery(settings).trigger("onCancel")
-                        return false;
-                    }
-
-                    if(typeof result.data.oldPrice != 'undefined')
-                        settings.oldprice=parseInt(result.data.oldPrice);
-                    else
-                        settings.oldprice=parseInt(settings.price*1.7);
-
-                    settings.discount=parseInt((100-settings.price*100/settings.oldprice))
-
-                    if (typeof settings.page !='undefined'){
-                        if (typeof settings.page.price!='undefined')
-                            jQuery(settings.page.price).html(settings.price)
-                        if (typeof settings.page.oldprice!='undefined')
-                            jQuery(settings.page.oldprice).html(settings.oldprice)
-                    }
-
-                    if(typeof result.data.img != 'undefined')
-                        settings.img=result.data.img
-                    //if(typeof result.data.images != 'undefined')
-                        settings.images=[result.data.img,result.data.img]
-                    if(typeof result.data.name != 'undefined')
-                        settings.name=result.data.name.replace(/^(.{17}[^\s]*).*/, "$1")
-                    if(typeof result.data.discount != 'undefined')
-                        settings.discount=result.data.discount
-                    if(typeof result.data.shorDescription != 'undefined')
-                        settings.description=result.data.shorDescription
-                    if(typeof result.data.description != 'undefined')
-                        settings.fullDescription=result.data.description
-
-                    try {
-                        jQuery(settings).trigger("onLoaded",[ settings]);
-                    }
-                    catch(err) {}
-
-                    render(context);
-                    bind(context);
-        });
-   }
-
-
-   function render(context){
-
-        if(context=='main'){
-
-
-            try {
-                _.templateSettings = {
-                  interpolate : /%(.+?)%/g
+            var $jsonp = {
+                    action: "getFeaturedProductIdListForProductId",
+                    siteId: settings.siteId,
+                    lang: settings.lang
                 };
 
-                var template = _.template(settings.form);
+            if (settings.featured) {
 
-                settings.form=jQuery(template(
-                        {
-                            NAME : '<some class="apishopsFormName">'+settings.name+'</some>',
-                            DESC : settings.description,
-                            QUICKVIEW : '__QUICKVIEW__ apishopsQuickView',
-                            IMG : '__IMG__',
-                            PRICE : '<some class="apishopsFormPrice">'+Math.round(settings.price)+'</some>',
-                            OLDPRICE : '<some class="apishopsFormPrice">'+Math.round(settings.oldprice)+'</some>',
-                            DISCOUNT : '<some class="apishopsFormDiscount">'+Math.round(settings.discount)+'</some>',
-                            CYR : '<some class="apishopsFormPrice">'+((settings.lang==6)?'грн':((settings.lang==8)?'тнг':'р'))+'</some>',
-                            CY : '<some class="apishopsFormPrice">'+((settings.lang==6)?'г':((settings.lang==8)?'т':'р'))+'</some>'
-                        })).clone();
+                if (!settings.featured.productIds || !jQuery.isArray(settings.featured.productIds) || !settings.featured.productIds.length) {
+
+                    jQuery(settings.featured.container).hide();
+                    jQuery(settings.featured.containerClosest).hide();
+                    jQuery('.__apishopsFormFeaturedFormMoreButton__').hide();
+
+                    apishopsFormGetJSONP($jsonp, function(result) {
+
+                        if (result.data && jQuery.isArray(result.data) && result.data.length) {
+
+                            settings.featured.productIds = result.data;
+                            settings.featured.productIdsLoaded = [];
+
+                            jQuery(settings.featured.container).show();
+                            jQuery(settings.featured.containerClosest).show();
+                            jQuery('.__apishopsFormFeaturedFormMoreButton__').show();
+
+                            construct('featured');
+                            spawnChilds();
+                            bind('featured');
+                        }
+                    });
+
+                } else {
+                    spawnChilds();
+                }
             }
-            catch(err) {
-                settings.form=jQuery(settings.form).clone();
+        }
+
+
+
+
+        function spawnChilds() {
+
+            var productIdsLoading = _.first(_.difference(settings.featured.productIds, settings.featured.productIdsLoaded), settings.featured.count);
+
+            _.each(productIdsLoading, function(productId) {
+                jQuery(settings.featured.container).apishopsForm({
+                    type : "inline",
+                    successUrl : false,
+                    form : settings.featured.form,
+                    displayed_containers : settings.featured.displayed_containers,
+                    theme : settings.featured.theme,
+                    siteId : settings.siteId,
+                    productId : productId,
+                    checked : 1,
+                    gift : false,
+                    hidden_fields : settings.featured.hidden_fields,
+                    lang : settings.lang
+                });
+            });
+
+            settings.featured.productIdsLoaded = _.union(settings.featured.productIdsLoaded, productIdsLoading);
+
+            if (_.isEmpty(_.difference(settings.featured.productIds, settings.featured.productIdsLoaded))) {
+                jQuery(settings.featured.more).fadeOut();
             }
 
-            settings.form.css('display',"").addClass('featured_item').addClass('apishopsFormItem').addClass('animate');
+            if (settings.featured.max && settings.featured.max <= settings.featured.productIdsLoaded.length) {
+                jQuery(settings.featured.more).fadeOut();
+            }
+        }
 
 
-            /*
-            background-image: url("http://img.apishops.org/669~-~0~16777215~11~0~35~16773120~40/1/794/794422/1838101.jpg");
-            'src',
-             */
-            jQuery('.__IMG__', settings.form).hide().wrap('<div quickckview_id="'+settings.productId+'" class="apishopsFormImageWrapper apishopsFormImage" style="background-image:url(\''+settings.img+'\')"/>')
-            jQuery('body').append('<style>.apishopsFormImageWrapper:before{content: "Подробнее" !important;}</style>')
-            if(jQuery('.__QUICKVIEW__', settings.form))
-            jQuery('.__QUICKVIEW__', settings.form).attr('quickckview_id',settings.productId).attr('name',settings.name).attr('discount',settings.discount).attr('src',settings.img)
 
-            settings.placement.append(settings.form);
+        //set in settings.form html code of normal or light default template
+        function construct(context) {
 
-            jQuery.each( settings.containers, function( index, value ) {
-                value=settings.containers[index];
-                $container=jQuery(value,settings.form);
-                apishopsLog(index + ": " + value +'?'+settings.displayed_containers+' is '+ _.indexOf(settings.displayed_containers, index));
-                if(typeof $container !='undefined' && $container.length && typeof  settings.displayed_containers!='undefined' && _.indexOf(settings.displayed_containers, index)>=0)
-                {
-                    apishopsLog(index + ": " + value );
-                    //$container.show().attr('style','none')
-                    if(index!='picture')
-                        $container.show()
-                    else{
-                        $container.show().parent().show();//.attr('style','none')
-                        $container.parent().css('display','initial');/*FIX FOR INLINE IMG CONTAINERS*/
+            if (context === 'main') {
+
+                settings.placement = (settings.type === 'modal') ? apishopsFormModalInit(settings.object, ['small', 'hide-close2', 'init']) : settings.object;
+                settings.oldprice = 0;
+                settings.discount = 0;
+                settings.name = '';
+                settings.img = '';
+
+                if (settings.form === 'normal') {
+                    settings.form = apishopsFormThemeNormal || '';
+                    settings.form_type = 'normal';
+                } else if (settings.form === 'light') {
+                    settings.form = apishopsFormThemeLight || '';
+                    settings.form_type = 'light';
+                }
+
+            } else {
+
+                if (settings.featured.form === 'normal' || settings.featured.form === 'light') {
+                    settings.featured.more = apishopsFormThemeMore;
+                }
+
+                if (settings.featured.more && jQuery(settings.featured.more).length) {
+                    settings.featured.more = jQuery('<div>').addClass('featured__more').append(jQuery(settings.featured.more)).appendTo(settings.featured.container);
+                }
+
+                settings.featured.container = jQuery('<div>').addClass('featured__in').addClass('featured_grid').prependTo(jQuery(settings.featured.container));
+            }
+        }
+
+
+
+        //fill template
+        function getProductInfo() {
+
+            var $jsonp = {
+                    action : "getProductInfo",
+                    productId : settings.productId,
+                    siteId : settings.siteId,
+                    charset : settings.charset,
+                    lang : settings.lang
+                };
+
+            apishopsFormGetJSONP($jsonp, function(result) {
+
+                var data = {};
+
+                result.data = result.data || {};
+
+                data.price = result.data.price || 0;
+                data.oldPrice = result.data.oldPrice || data.price * 1.5;
+                data.img = result.data.img || "";
+                data.images = result.data.images || [data.img];
+                data.name = result.data.name || ""
+                data.fullName = result.data.name || ""
+                data.description = result.data.shortDescription || "";
+                data.fullDescription = result.data.description || "";
+                data.discount = parseInt((100 - settings.price * 100 / settings.oldprice), 10);
+                data.productVariants = result.data.productVariants || [];
+
+                //name length fix
+                data.name=data.name.replace(/^(.{40}[^\s]*).*/, "$1");
+                //descr fix
+                data.fullDescription = data.fullDescription.replace(/(<([^>]+)>)/ig,"")
+                //round prices
+                data.price = Math.round(data.price);
+                data.oldPrice = Math.round(data.oldPrice);
+
+                if (settings.page && settings.page.price && settings.page.oldprice){
+
+                    jQuery(settings.page.price).html(data.price);
+                    jQuery(settings.page.oldprice).html(data.oldprice);
+
+                }
+
+                if (!data.price) {
+                    try {
+                        jQuery(settings).trigger("onCancel");
+                    } catch (err) {
+                        apishopsLog("onCancel trigger error");
                     }
-                    apishopsLog(index + ": " + value );
-                }else{
-                    if(index!='picture')
-                        $container.hide();
-                    else{
-                        $container.hide().parent().hide();
-                        //$container.parent().parent().hide();
+                    return false;
+                }
+
+                jQuery.extend(settings, data);
+
+                renderForm();
+
+                try {
+                    jQuery(settings).trigger("onLoaded", [data]);
+                } catch (err) {
+                    apishopsLog("onLoaded trigger error");
+                }
+
+            });
+        }
+
+
+
+
+
+        function renderForm() {
+
+            if (typeof settings.form === 'string') {
+
+                settings.form = jQuery(templateStr(settings.form)).clone();
+
+                //wrap product image
+                jQuery('.__IMG__', settings.form).hide()
+                    .wrap('<div class="apishopsFormImageWrapper apishopsFormImage""/>');
+
+                settings.form.render(templateContext(),templateDirectives());
+
+                //locale fixes
+                settings.form.css('display', "").
+                    addClass('featured_item').
+                    addClass('apishopsFormItem').
+                    addClass('animate');
+
+                //charset encoding
+                jQuery('body').append('<style>.apishopsFormImageWrapper:before{content: "Подробнее" !important;}</style>');
+
+                //bind
+                jQuery('.apishopsFormImageWrapper,.__QUICKVIEW__', settings.form).bind('click', function(event) {
+                    event.preventDefault();
+                    slideshowDoAction('show');
+                });
+
+                //place
+                settings.placement.append(settings.form);
+
+                formSlideRender();
+                //formVariantsRender();
+
+            } else {
+                settings.form.render(templateContext(),templateDirectives());
+
+                formSlideRender();
+
+                //formVariantsRender();
+            }
+        }
+
+
+        /**
+         * Рендерит варианты
+         * 1. Если вариантов нет, то ничего не загружаем
+         * 2. Если вариант есть, то рендерит
+         * @return {[type]} [description]
+         */
+        function formVariantsRender() {
+
+            if (isQuery(settings.variants)) {
+
+                if(settings.productVariants && settings.productVariants.length) {
+                    settings.variants.css('display','inline-block');
+                    settings.variants.render(templateContext(),templateDirectives());
+                    formVariantsBind();
+                } else {
+                    settings.variants.hide();
+                }
+
+            } else {
+                apishopsFormLoadTemplates(['variants'], settings.charset, settings.theme, function() {
+
+                    var lastInput, styles;
+
+                    lastInput = settings.form.find('input[type=text]:last').exists();
+
+                    if(apishopsFormVariantesRadio && lastInput) {
+
+                            styles = jQuery(lastInput).getStyleObject();
+
+
+                            settings.variants = settings.variants || jQuery(apishopsFormVariantesRadio).insertAfter(lastInput);
+
+
+                            settings.variants.
+                                css('vertical-align','middle').
+                                css('width',(lastInput.outerWidth()<150 ? 150 : lastInput.outerWidth())+'px');
+
+
+                            settings.variants.find('.apishopsFormVariantsTitle').
+                                css('height',(lastInput.outerHeight() || '40')+'px').
+                                css('line-height',(lastInput.outerHeight() || '40')+'px').
+                                css('color',styles.color||'').
+                                css('background-color', (styles.backgroundColor === 'transparent' ? 'white' : styles.backgroundColor) ).
+                                css('font-size',styles.fontSize||'').
+                                css('border-radius',styles.borderBottomLeftRadius||'').
+                                css('margin-bottom',styles.marginBottom||'').
+                                css('font-family',styles.fontFamily||'');
+
+
+                            settings.variants.find('.apishopsFormVariantsList').
+                                css('margin-top',lastInput.outerHeight()+'px');
+
+
+                            settings.variants.parent().css('text-align','center');
+
+                            if(settings.productVariants && settings.productVariants.length) {
+
+                                settings.variants.css('display','inline-block');
+                                settings.variants.render(templateContext(),templateDirectives());
+                                formVariantsBind();
+
+                            } else {
+                                settings.variants.hide();
+                            }
                     }
+                });
+            }
+        }
+
+
+
+        function formVariantsBind() {
+
+            settings.variants.find('.apishopsFormVariantsTitle').addClass('bound').bind('click', function() {
+                settings.variants.find('.apishopsFormVariants').addClass('apishopsFormVariants-open');
+            });
+
+            settings.variants.find('input[type=radio]').addClass('bound').bind('click', function() {
+                var title = settings.variants.find('.apishopsFormVariantsTitle');
+                var currentVariant = jQuery(this).attr('alt');
+                var currentVariantPrefix = 'Размер: ';
+                var colors;
+                var colorStyle = jQuery(this).closest('label').find('.apishopsFormVariantName').exists().attr('style');
+
+                settings.variants.find('.apishopsFormVariants').removeClass('apishopsFormVariants-open');
+
+                colors = helperGetColorFromName(currentVariant);
+                if(colors.length) {
+                    currentVariantPrefix = 'Расцветка: ';
+                    //currentVariantPrefix = '';
+                }
+
+                title.html(currentVariantPrefix + currentVariant).attr('alt', currentVariant);
+                if(colorStyle !== ''){
+                    settings.variants.find('.apishopsFormVariantsDropDown').addClass('apishopsFormVariantsDropDownColor');
+                    jQuery('<b></b>').addClass('apishopsFormVariantsTitleColor').attr('style',colorStyle).appendTo(title);
+                } else {
+                    settings.variants.find('.apishopsFormVariantsDropDown').removeClass('apishopsFormVariantsDropDownColor');
+                }
+            });
+
+            settings.variants.find('.apishopsFormVariantName').addClass('bound').bind('mouseenter', function() {
+                var variant = jQuery(this).attr('alt');
+                var currentVariantPrefix = 'Размер: ';
+                var currentVariant = settings.variants.find('.apishopsFormVariantsTitle').html();
+                var title = settings.variants.find('.apishopsFormVariantsTitle');
+                var colors = [];
+                colors = helperGetColorFromName(currentVariant);
+                if(colors.length) {
+                    currentVariantPrefix = 'Расцветка: ';
+                    //currentVariantPrefix = '';
+                }
+                //title.attr('alt',currentVariant);
+                title.html(currentVariantPrefix+variant);
+
+            }).bind('mouseleave', function() {
+                var currentVariant = settings.variants.find('.apishopsFormVariantsTitle').attr('alt');
+                var currentVariantPrefix = 'Размер: ';
+                var title = settings.variants.find('.apishopsFormVariantsTitle');
+                var colors = [];
+                if(currentVariant){
+                    colors = helperGetColorFromName(currentVariant);
+                    if(colors.length) {
+                        currentVariantPrefix = 'Расцветка: ';
+                        //currentVariantPrefix = '';
+                    }
+                    title.html(currentVariantPrefix+currentVariant)
                 }
             });
 
 
-            for(index in settings.inputs){
-                value=settings.inputs[index];
-                $input=jQuery(value,settings.form);
-                if($input.length &&  typeof $input !='undefined' && typeof  settings.hidden_fields!='undefined' && _.indexOf(settings.hidden_fields, index)>=0)
-                {
-                    $input.hide();
-                }
-            }
+            settings.variants.find('input[type=radio]:first').click();
 
-            jQuery('.apishopsFormImageWrapper,.__QUICKVIEW__',settings.form).bind('click', function(event){
+        }
+
+
+
+
+
+        function formSlideRender() {
+
+            if (isQuery(settings.slide)) {
+
+                settings.slide.render(templateContext(),templateDirectives());
+                formSlideBind();
+
+            } else {
+
+                //render slideshow
+                apishopsFormLoadTemplates(['slideshow'], settings.charset, settings.theme,
+
+                    function() {
+
+
+                        //init slideshow if not set
+                        settings.slideshow = jQuery('.apishopsFormSlideshow').exists();
+
+                        if (!settings.slideshow) {
+                            settings.slideshow = jQuery(apishopsFormSlideshow).appendTo('body');
+                        }
+
+
+                        //init one slide if not set
+                        settings.slide = jQuery('.apishopsFormSlideshowSlide#'+settings.productId).exists();
+
+                        if (!settings.slide) {
+                            settings.slide = jQuery(apishopsFormSlideshowSlide).
+                                attr('id',settings.productId).appendTo(settings.slideshow.find('ul'));
+                        }
+
+
+                        //slideshow controls
+                        settings.slideshowCtrlPrev = settings.slideshowCtrlPrev || jQuery('.apishopsFormSlideshowIconNavPrev');
+                        settings.slideshowCtrlNext = settings.slideshowCtrlNext || jQuery('.apishopsFormSlideshowIconNavNext');
+                        settings.slideshowCtrlClose = settings.slideshowCtrlClose || jQuery('.apishopsFormSlideshowIconNavClose');
+
+
+                        //slide elements
+                        settings.slideBigImage = settings.slideBigImage || settings.slide.find('.apishopsFormImage');
+                        settings.slideForm = settings.slideForm || settings.slide.find('.apishopsFormOrder');
+                        settings.slidePhone = settings.slidePhone || settings.slide.find('.slidePhone');
+
+
+                        //slideshow bind
+                        if (!settings.slideshowCtrlPrev.hasClass('bound') &&
+                                !settings.slideshowCtrlNext.hasClass('bound') &&
+                                !settings.slideshowCtrlClose.hasClass('bound')) {
+
+
+                            settings.slideshowCtrlPrev.addClass('bound').bind('click', function() {
+                                slideshowDoAction('prev');
+                            });
+
+                            settings.slideshowCtrlNext.addClass('bound').bind('click', function() {
+                                slideshowDoAction('next');
+                            });
+
+                            settings.slideshowCtrlClose.addClass('bound').bind('click', function() {
+                                slideshowDoAction('close');
+                            });
+
+                            jQuery(document).bind('keydown', function(e) {
+
+                                if (!settings.slideshow.is(':hidden')) {
+
+                                    if ((e.which || e.keyCode) === 27) {
+                                        slideshowDoAction('close');
+                                    } else if ((e.which || e.keyCode) === 39 && !settings.slideshowCtrlNext.is(':hidden')) {
+                                        slideshowDoAction('next');
+                                    } else if ((e.which || e.keyCode) === 37 && !settings.slideshowCtrlPrev.is(':hidden')) {
+                                        slideshowDoAction('prev');
+                                    }
+
+                                }
+                            });
+                        }
+
+
+                        //slide bind
+                        if(settings.name) {
+                            settings.slide.render(templateContext(),templateDirectives());
+                            formSlideBind();
+                        }
+
+                    });
+
+            }
+        }
+
+
+
+        function formSlideBind(){
+
+            //slide bind
+            if (!settings.slideBigImage.hasClass('bound') && !settings.slideForm.hasClass('bound')){
+
+                bindPhoneMask(settings.slidePhone);
+
+                if(settings.slide.find('.apishopsFormImagesImage').length<=2){
+                    settings.slide.find('.apishopsFormImagesContainerRight').hide();
+                    settings.slide.find('.apishopsFormImagesContainerLeft').hide();
+                } else {
+                    settings.slide.find('.apishopsFormImagesContainerRight').show();
+                    settings.slide.find('.apishopsFormImagesContainerLeft').show();
+                }
+
+                settings.slideBigImage.addClass('bound').bind('mousemove', function(e) {
+
+                    var mousePosX = ((e.pageX-jQuery(this).offset().left) / jQuery(this).width()) * 100;
+                    var mousePosY = ((e.pageY-jQuery(this).offset().top) / jQuery(this).height()) * 100;
+
+                    jQuery(this).css({
+                        'background-size' : 'auto',
+                        'background-position': mousePosX + '%' + mousePosY + '%'
+                    })
+
+                }).bind('mouseout', function(e) {
+
+                    jQuery(this).css({
+                        'background-size' : 'cover',
+                        'background-position': 'center'
+                    });
+
+                });
+
+                settings.slideForm.addClass('bound').submit(function(event) {
+                    var params;
 
                     event.preventDefault();
 
-                    var source = jQuery(this).closest('.apishopsFormItem');
-                    var styles = jQuery(source).getStyleObject();
-                    var modal = jQuery(apishopsFormModal).clone().appendTo('body');
-                    var modal_class='apishopsAnimationQV';
-                    var modal_top=parseInt(jQuery(source).offset().top);
-                    var quickview_id = jQuery(this).attr('quickckview_id');
-                    var prev_quickview_id=0;
-                    var next_quickview_id=0;
-                    var current_quickview_id=0;
-                    var quickviews={};
-
-                    if(jQuery(this).hasClass('__QUICKVIEWPREV__') || jQuery(this).hasClass('__QUICKVIEWNEXT__')){
-                        if(jQuery(this).hasClass('__QUICKVIEWNEXT__'))
-                            modal_class='apishopsAnimationQVL';
-                        else if(jQuery(this).hasClass('__QUICKVIEWPREV__'))
-                            modal_class='apishopsAnimationQVR';
-                        jQuery(this).removeClass('__QUICKVIEWPREV__').removeClass('__QUICKVIEWNEXT__')
-                        modal_top=parseInt(jQuery(this).attr('top'));
-                        jQuery(this).attr('top','');
+                    if (new RegExp('[_]').test(settings.slidePhone.val()) || settings.slidePhone.val().length<5) {
+                        alert('Номер может состоять только из цифр, скобок и знака «+» и «-»')
                     }
+                    else {
+                        params={
+                            object:settings.slideForm,
+                            form:this,
+                            count:1,
+                            fio:'',
+                            address:'',
+                            phone:settings.slidePhone.val(),
+                            promocode:'',
+                            successUrl:false,
+                            sourceRef:getSource("sourceRef"),
+                            sourceParam:getSource("sourceParam"),
+                            productId: settings.productId,
+                            siteId:settings.siteId,
+                            lang:settings.lang
+                        };
+                        apishopsFormSubmit(params);
 
-                    var foundCurrent=false;
-                    jQuery.each(jQuery('.__QUICKVIEW__:visible'), function( index, value ) {
-                        if(jQuery(value).attr('quickckview_id')==quickview_id && current_quickview_id!=quickview_id){
-                            prev_quickview_id=current_quickview_id;
+                        try {
+                            jQuery(settings).trigger("beforeSend");
                         }
-                        if(current_quickview_id==quickview_id){
-                            next_quickview_id=jQuery(value).attr('quickckview_id')
+                        catch(err) {
+
                         }
-                        current_quickview_id=jQuery(value).attr('quickckview_id');
-                        quickviews[current_quickview_id]=value;
-                    });
-                    //alert(prev_quickview_id+'<-'+quickview_id+'->'+next_quickview_id)
-
-                    modal.addClass('in').addClass(modal_class).css('display','block').children('.apishopsModalWindow').
-                    css('top',modal_top).
-                    css('left',jQuery(source).offset().left).
-                    css('width',jQuery(source).outerWidth()).
-                    css('height',jQuery(source).outerHeight()).css('position','absolute');
-
-                    if(!_.isEmpty(quickviews)){
-                        jQuery('.apishopsModalNavigation',modal).show();
-                        jQuery('.apishopsModalNavigationNextClosest',modal).css('top',modal_top)
-                        jQuery('.apishopsModalNavigationPrevClosest',modal).css('top',modal_top)
                     }
-
-                    _.templateSettings = {
-                      interpolate : /%(.+?)%/g
-                    };
-                    var quickViewTemplate = _.template(apishopsFormQuickView);
-
-                    quickViewHtml=quickViewTemplate(
-                    {
-                        NAME : settings.name,
-                        DESC : settings.description,
-                        PRODUCTID : settings.productId,
-                        FULLDESC : settings.fullDescription,
-                        MORE : '__QUICKVIEW__',
-                        IMG : '__IMG__ apishopsFormImage',
-                        IMGSRC: settings.img,
-                        PRICE : Math.round(settings.price),
-                        OLDPRICE : Math.round(settings.oldprice),
-                        DISCOUNT : Math.round(settings.discount),
-                        CYR : ((settings.lang==6)?'грн':'руб'),
-                        CY : ((settings.lang==6)?'г':'р'),
-                        ALTERNATIVEVIEW : '__ALTERNATIVEVIEW__',
-                        ALTERNATIVEVIEWITEM : '__ALTERNATIVEVIEWITEM__',
-                        ALTERNATIVEVIEWIMAGE : '__ALTERNATIVEVIEWIMAGE__',
-                        ALSOLIKE : '__ALSOLIKE__',
-                        ALSOLIKEITEM : '__ALSOLIKEITEM__',
-                        ALSOLIKENAME : '__ALSOLIKENAME__',
-                        ALSOLIKEIMAGE : '__ALSOLIKEIMAGE__',
-                        ALSOLIKEDISCOUNT : settings.discount
-                    });
-
-                    jQuery('.apishopsModalContent',modal).html(quickViewHtml);
-
-                    var totalInserted=0;
-                    jQuery.each(settings.images, function( index, value ) {
-                        totalInserted++;
-                        var item=jQuery('.__ALTERNATIVEVIEWITEM__:first-child',modal).clone();
-                        item.find('.__ALTERNATIVEVIEWIMAGE__').attr('src',value);
-                        item.insertAfter( ".__ALTERNATIVEVIEWITEM__:first-child",modal);
-                        jQuery(item).bind('mouseover', function(event){
-                            jQuery('.apishopsFormQVContainerMainImage').attr('src',jQuery(this).attr('src'));
-                            jQuery('.apishopsFormBThubm').removeClass('apishopsFormBThubmSelected');
-                            jQuery(this).addClass('apishopsFormBThubmSelected');
-                        });
-                    });
-                    jQuery('.__ALTERNATIVEVIEWITEM__:first-child',modal).remove();
-                    if(totalInserted==0) jQuery('.__ALTERNATIVEVIEW__',modal).remove();
-
-                    var iter=0;
-                    jQuery.each(jQuery('.__ALSOLIKE__',modal), function( index, alsolike ) {
-                        var totalInserted=0;
-                        var finded_quickview_id=0;
-                        jQuery.each(_.shuffle(quickviews), function( index, value ) {
-                            if(index!=quickview_id && index!=0){
-                                totalInserted++;
-                                var item=jQuery('.__ALSOLIKEITEM__:first-child',alsolike).clone();
-                                item.find('.__ALSOLIKEIMAGE__').attr('src',jQuery(value).attr('src'));
-                                item.find('.__ALSOLIKENAME__').html(jQuery(value).attr('name').substring(0, 23)+'...');
-                                item.insertAfter(jQuery(".__ALSOLIKEITEM__:first-child",alsolike));
-                                //quickckview_id
-                                jQuery(item).bind('click', function(event){
-                                    event.preventDefault();
-                                    jQuery(modal).remove();
-                                    jQuery(quickviews[jQuery(value).attr('quickckview_id')]).addClass('__QUICKVIEWNEXT__').attr('top',modal_top).click();
-                                });
-                            }else{
-                                finded_quickview_id=index;
-                            }
-                        });
-                        jQuery('.__ALSOLIKEITEM__:first-child',alsolike).remove();
-                        if(totalInserted==0)
-                            jQuery(alsolike).remove();
-                        iter++;
-                    });
-
-                    var phone_input=jQuery('input[name=phone]',modal);
-                    if(settings.lang==6)
-                        phone_input.inputmask("+380(99)999-99-99");
-                    else if(settings.lang==1)
-                        phone_input.inputmask("+7(999)999-99-99");
-                   else if(settings.lang==8)
-                        phone_input.inputmask("8(799)999-99-99");
-                    else if(settings.lang==7)
-                        phone_input.inputmask("+375(99)999-99-99");
-
-                    jQuery('form',modal).submit(function(event) {
-                        event.preventDefault();
-                        if(phone_input.val().length<=5)
-                            alert('Номер телефона должен быть не менее 5 символов')
-                        else{
-                            params={
-                                object:phone_input,
-                                form:this,
-                                count:1,
-                                fio:'',
-                                address:'',
-                                phone:phone_input.val(),
-                                promocode:'',
-                                successUrl:false,
-                                sourceRef:getSource("sourceRef"),
-                                sourceParam:getSource("sourceParam"),
-                                productId:jQuery(this).attr('productId'),
-                                siteId:settings.siteId,
-                                lang:settings.lang
-                            };
-                            apishopsFormSubmit(params);
-
-                            try {
-                                jQuery(settings).trigger("beforeSend");
-                            }
-                            catch(err) {
-
-                            }
-                        }
-                    });
-
-                    if(prev_quickview_id==0)
-                        jQuery('.apishopsModalNavigationPrevClosest',modal).hide();
-                    else{
-                        jQuery('.apishopsModalNavigationPrev',modal).css('background-image','url('+jQuery(quickviews[prev_quickview_id]).attr('src')+')')
-                        jQuery(jQuery('.apishopsModalNavigationPrevClosest',modal)).bind('click', function(event){
-                            modal.remove();
-                            jQuery(quickviews[prev_quickview_id]).addClass('__QUICKVIEWPREV__').attr('top',modal_top).click();
-                        });
-                    }
-
-                    if(next_quickview_id==0)
-                        jQuery('.apishopsModalNavigationNextClosest',modal).hide();
-                    else{
-                        jQuery('.apishopsModalNavigationNext',modal).css('background-image','url('+jQuery(quickviews[next_quickview_id]).attr('src')+')')
-                        jQuery(jQuery('.apishopsModalNavigationNextClosest',modal)).bind('click', function(event){
-                            modal.remove();
-                            jQuery(quickviews[next_quickview_id]).addClass('__QUICKVIEWNEXT__').attr('top',modal_top).click();
-                        });
-                    }
-
-                    jQuery(jQuery('.apishopsModalOverlay',modal)).bind('click', function(event){
-                        modal.remove();
-                    });
-
-                    jQuery(jQuery('.apishopsModalClose',modal)).bind('click', function(event){
-                        modal.remove();
-                    });
-
-
-
-                    window.setTimeout( function(){
-                        modal.children('.apishopsModalWindow').css('left','').css('width','auto');
-                    },100)
-            });
-
-
-            if(typeof settings.callback !='undefined' && settings.callback!='false' && settings.callback!=false && settings.callback>0 && jQuery('.apishopsCallback').length==0 && apishopsFormEnvironment.callback==false){
-                apishopsFormEnvironment.callback=true;
-                renderCallback();
+                });
             }
+
+        }
+
+
+
+
+
+        function slideshowDoAction(dir) {
+
+            var translate,
+                transformOutVal,
+                transformIncomingVal,
+                itemWidth = 460,
+                support3d = true,
+                clientWidth = window.document.documentElement.clientWidth || 0,
+                innerWidth =  window.innerWidth || 0,
+                viewportWidth = clientWidth < innerWidth ?  clientWidth : innerWidth,
+                currentSlide,
+                nextSlide,
+                prevSlide,
+                slides;
+
+
+            translate = Number(viewportWidth / 2 + itemWidth / 2);
+
+            slides = settings.slideshow.find('li');
+
+
+            //close manipulations: remove all current and show markers, disable all transform
+            if (dir === 'close') {
+                settings.slideshow.removeClass('apishopsFormSlideshow-open').fadeOut();
+                slides.removeClass('show current').css('transform', '');
+                return;
+            }
+
+
+            //translation vector
+            if (dir === 'prev') {
+                transformOutVal = translate;
+                transformIncomingVal = translate * -1;
+            } else {
+                transformOutVal = translate * -1;
+                transformIncomingVal = translate;
+            }
+
+
+            //determinate current slide
+            if (dir === 'show') {
+                currentSlide = settings.slide;
+            } else {
+                currentSlide = settings.slideshow.find('li.current');
+            }
+
+
+            //remove current marker from current
+            currentSlide.removeClass('current show');
+
+
+            //detext current slide if next-prev direction
+            if (dir === 'next') {
+                currentSlide = currentSlide.next();
+            } else if (dir === 'prev') {
+                currentSlide = currentSlide.prev();
+            }
+
+
+            //detect next-prev slides for 100% current slide
+            nextSlide = currentSlide.next().exists();
+            prevSlide = currentSlide.prev().exists();
+
+
+            //remove transfrom from 100% current slide
+            currentSlide.css('transform', '');
+
+
+            if (prevSlide) {
+                prevSlide.addClass('show').css('transform', 'translate3d( ' + (dir === 'prev' ? transformIncomingVal : transformOutVal) + 'px, 0, -150px )');
+                prevSlide.prev().css('transform', 'translate3d( ' + (dir === 'prev' ? 2 * transformIncomingVal : 2 * transformOutVal) + 'px, 0, -150px )');
+                settings.slideshowCtrlPrev.show();
+            } else {
+                settings.slideshowCtrlPrev.hide();
+            }
+
+
+            if (nextSlide) {
+                nextSlide.addClass('show').css('transform', 'translate3d( ' + (dir === 'prev' ? transformOutVal : transformIncomingVal) + 'px, 0, -150px )');
+                nextSlide.next().css('transform', 'translate3d( ' + (dir === 'prev' ? 2 * transformOutVal : 2 * transformIncomingVal) + 'px, 0, -150px )');
+                settings.slideshowCtrlNext.show();
+            } else {
+                settings.slideshowCtrlNext.hide();
+            }
+
+
+            //set current marker for 100% current marker
+            currentSlide.addClass('current show');
+
+
+            //after show
+            if (dir === 'show') {
+                settings.slideshow.addClass('apishopsFormSlideshow-open').fadeIn();
+            }
+        }
+
+
+
+
+
+        function renderCallback() {
+
+            if (settings.callback && !apishopsFormEnvironment.callback && !jQuery('.apishopsCallback').length) {
+
+                apishopsFormEnvironment.callback = true;
+
+                try {
+                    apishopsFormLoadTemplates(['callback'], settings.charset, settings.callback,
+                        function() {
+                            if (apishopsFormCallbackIcon && apishopsFormCallbackText) {
+
+                                apishopsFormCallbackIcon = jQuery(apishopsFormCallbackIcon);
+                                apishopsFormCallbackIcon.appendTo('body');
+
+                                apishopsFormCallbackIcon.click(function() {
+
+                                    var apishopsFormCallbackWindow,
+                                        apishopsFormCallbackForm,
+                                        apishopsFormCallbackPhone;
+
+                                    apishopsFormCallbackWindow = apishopsFormModalInit(apishopsFormCallbackText, ['normal', 'hide-close2']);
+                                    apishopsFormCallbackForm = apishopsFormCallbackWindow.find('form');
+                                    apishopsFormCallbackPhone = apishopsFormCallbackWindow.find('[name=apishopsFormPhone]');
+                                    //apishopsFormCallbackClose2 = apishopsFormCallbackWindow.find('.apishopsModalClose2');
+
+                                    bindPhoneMask(apishopsFormCallbackPhone);
+
+                                    jQuery(apishopsFormCallbackForm).submit(function(event) {
+
+                                        var lang, params;
+
+                                        event.preventDefault();
+
+                                        if (new RegExp('[_]').test(apishopsFormCallbackPhone.val()) || apishopsFormCallbackPhone.val().length<5) {
+                                            alert('Номер может состоять только из цифр, скобок и знака «+» и «-»');
+                                            return false;
+                                        }
+
+                                        lang = settings.lang || 1;
+
+                                        params = {
+                                            object: settings.inputs.button,
+                                            form: settings.form,
+                                            count: 1,
+                                            fio: '',
+                                            address: '',
+                                            phone: apishopsFormCallbackPhone.val(),
+                                            promocode: '',
+                                            successUrl: false,
+                                            sourceRef: getSource("sourceRef"),
+                                            sourceParam: getSource("sourceParam"),
+                                            productId: settings.productId,
+                                            siteId: settings.siteId,
+                                            charset: settings.charset,
+                                            lang: settings.lang
+                                        };
+
+                                        try {
+                                            jQuery(settings).trigger("beforeSend");
+                                        } catch (err) {
+                                            apishopsLog("beforeSend trigger error");
+                                        }
+
+                                        apishopsFormSubmit(params);
+                                    });
+                                });
+                            }
+                        });
+                } catch (err) {
+                    apishopsLog("renderCallback error");
+                }
+
+            }
+        }
+
+
+
+
+
+
+
+
+    function render(context){
+
+        if(context=='main'){
+
+
+            renderForm();
+            renderCallback();
+            toggleInputs()
+            toggleContainers();
 
             /*
                 Подгрузка подарков
@@ -828,9 +1031,6 @@ jQuery.fn.apishopsForm=function(options)
 
 
                                                 }
-                                            },
-                                            function(result){
-                                                //alert(':((')
                                             });
                                     }
                                 });
@@ -847,102 +1047,390 @@ jQuery.fn.apishopsForm=function(options)
    }
 
 
-   function renderCallback(){
-        try {
-        apishopsFormLoadTemplates(['callback'],settings.charset, settings.callback,
-            function(result){
-                if(typeof apishopsFormCallbackIcon !='undefined' && typeof apishopsFormCallbackText !='undefined'){
-                    $apishopsFormCallbackIcon=jQuery(apishopsFormCallbackIcon);
-                    $apishopsFormCallbackIcon.appendTo('body');
-                    $apishopsFormCallbackIcon.click(function() {
-                        var apishopsFormCallbackWindow= apishopsFormModalInit(apishopsFormCallbackText,['normal','hide-close2']);
-                        var apishopsFormCallbackForm=apishopsFormCallbackWindow.find('form');
-                        var apishopsFormCallbackPhone=apishopsFormCallbackWindow.find('[name=apishopsFormPhone]');
-                        var apishopsFormCallbackClose2=apishopsFormCallbackWindow.find('.apishopsModalClose2');
-                        try {
-                            if(settings.lang==6)
-                                apishopsFormCallbackPhone.inputmask("+380(99)999-99-99");
-                            else if(settings.lang==1)
-                                apishopsFormCallbackPhone.inputmask("+7(999)999-99-99");
-                            else if(settings.lang==8)
-                                apishopsFormCallbackPhone.inputmask("8(799)999-99-99");
-                            else if(settings.lang==7)
-                                apishopsFormCallbackPhone.inputmask("+375(99)999-99-99");
-                        }
-                        catch(err) {
-                            //alert(err);
-                        }
-                        jQuery(apishopsFormCallbackForm).submit(function(event) {
-                            event.preventDefault();
-                            if(new RegExp('[_]').test(apishopsFormCallbackPhone.val())){
-                                alert('Поле телефона: допустимы только цифры, знак плюс, скобки и дефисы');
-                                return false;
-                            }
-                            lang=(typeof settings['lang']!='undefined')?settings['lang']:'1';
-                            params={
-                                object:settings.inputs['button'],
-                                form:settings.form,
-                                count:1,
-                                fio:'',
-                                address:'',
-                                phone:apishopsFormCallbackPhone.val(),
-                                promocode:'',
-                                successUrl:settings.successUrl,
-                                sourceRef:getSource("sourceRef"),
-                                sourceParam:getSource("sourceParam"),
-                                productId:settings.productId,
-                                siteId:settings.siteId,
-                                charset:settings.charset,
-                                lang:lang
-                            };
-                            try {
-                                jQuery(settings).trigger("beforeSend");
-                            }
-                            catch(err) {
 
-                            }
-                            apishopsFormSubmit(params);
-                        });
-                    });
+
+        //Update global environemt
+        function env() {
+            apishopsFormEnvironment.siteId = settings.siteId;
+            apishopsFormEnvironment.productId = settings.productId;
+            apishopsFormEnvironment.version = '2.0';
+            apishopsFormEnvironment.lang = settings.lang;
+            apishopsFormEnvironment.checked = false;
+        }
+
+
+
+        //import inputs from jquery selector
+        //return inputs array
+        function importInputs(selector) {
+            var $form = jQuery(selector),
+                inputs_tmp = {},
+                index,
+                value,
+                $input;
+
+            for (index in settings.inputs) {
+                if (settings.inputs.hasOwnProperty(index)) {
+                    value = settings.inputs[index];
+                    $input = jQuery(value, $form);
+                    if ($input && $input.length) {
+                        inputs_tmp[index] = $input;
+                    }
                 }
-            },
-            function(result){
-                //alert(':((')
+            }
+
+            return inputs_tmp;
+        }
+
+
+        //return containers array
+        function importContainers(selector) {
+
+            var $form = jQuery(selector),
+                displayed_containers = [],
+                $html;
+
+            $html = $form.html() || '';
+
+            if ($html.indexOf("%NAME%") > -1) {
+                displayed_containers.push('name');
+            }
+            if ($html.indexOf("%PRICE%") > -1) {
+                displayed_containers.push('price');
+            }
+            if ($html.indexOf('%IMG%') > -1) {
+                displayed_containers.push('picture');
+            }
+            if ($html.indexOf('%QUICKVIEW%') > -1) {
+                displayed_containers.push('quickview');
+            }
+            return displayed_containers;
+        }
+
+
+
+
+
+        function toggleInputs() {
+
+            var input, hidden_fields = settings.hidden_fields || [];
+
+            jQuery.each(settings.inputs, function(name, value) {
+
+                input = jQuery(value, settings.form);
+
+                if (input && input.length && _.indexOf(hidden_fields, name) >= 0) {
+                    input.hide();
+                }
             });
+        }
+
+
+
+
+        function toggleContainers() {
+
+            var container, displayed_containers = settings.displayed_containers || [];
+
+            jQuery.each(settings.containers, function(index, value) {
+
+                container = jQuery(value, settings.form);
+
+                if (container && container.length && _.indexOf(displayed_containers, index) >= 0) {
+
+                    if (index !== 'picture') {
+                        container.show();
+                    } else {
+                        container.show().parent().show(); //.attr('style','none')
+                        container.parent().css('display', 'initial'); /*FIX FOR INLINE IMG CONTAINERS*/
+                    }
+
+                } else {
+
+                    if (index !== 'picture') {
+                        container.hide();
+                    } else {
+                        container.hide().parent().hide();
+                    }
+                }
+
+            });
+        }
+
+
+        function templateStr(str) {
+
+            str = str.replace(/%NAME%/g,'<some class="apishopsFormName"></some>');
+            str = str.replace(/%DESC%/g,'<some class="apishopsFormDescription"></some>');
+            str = str.replace(/%PRICE%/g,'<some class="apishopsFormCurentPrice apishopsFormPrice"></some>');
+            str = str.replace(/%OLDPRICE%/g,'<some class="apishopsFormOldPrice apishopsFormPrice"></some>');
+            str = str.replace(/%DISCOUNT%/g,'<some class="apishopsFormDiscount apishopsFormPrice"></some>');
+            str = str.replace(/%CYR%/g,'<some class="apishopsFormCyr apishopsFormPrice"></some>');
+            str = str.replace(/%CY%/g,'<some class="apishopsFormCy apishopsFormPrice"></some>');
+            str = str.replace(/%QUICKVIEW%/g,'__QUICKVIEW__ apishopsQuickView');
+            str = str.replace('%IMG%','__IMG__');
+            //apishopsFormImageWrapper apishopsFormImage
+
+            return str;
+
+        }
+
+        function templateContext() {
+
+            var locale, currency, context;
+
+            locale = settings.locales[settings.lang] || {};
+            currency = locale.currency || {};
+
+            context = {
+                apishopsFormName: settings.name,
+                apishopsFormFullName: settings.fullName,
+                apishopsFormDescription: settings.description,
+                apishopsFormFullDescription: settings.fullDescription,
+                apishopsFormCurentPrice: settings.price,
+                apishopsFormOldPrice: settings.oldPrice,
+                apishopsFormDiscount: settings.discount,
+                apishopsFormImage : settings.img,
+                apishopsFormImages : settings.images,
+                apishopsFormVariants : templateVariantsContext(settings.productVariants),
+                apishopsFormCyr: currency[2],
+                apishopsFormCy: currency[1]
+            };
+
+            return context;
+        }
+
+        function templateVariantsContext(obj) {
+            var returnObj = {};
+
+            if (obj) {
+
+
+                returnObj.apishopsFormVariantsList = [];
+
+                jQuery.each(obj, function(index, value){
+                    var vObj={},
+                        nameColors;
+
+                    nameColors = helperGetColorFromName(value.name);
+
+                    vObj.apishopsFormVariantName = value.name;
+                    vObj.apishopsFormVariantValue = value.id || '';
+                    vObj.apishopsFormVariantColor = nameColors || [];
+
+                    returnObj.apishopsFormVariantsList.splice(0, 0, vObj);
+                });
+
+                returnObj.apishopsFormVariantsTitle = 'Выберите вариант:';
+
             }
-            catch(err) {
-                //alert(err);
+
+            return returnObj;
+        }
+
+
+
+        function helperGetColorFromName(name) {
+
+            var colors = [],
+
+                colorDef = {
+                    'black' : ['черн'],
+                    '#D2D2D2' : ['серебр','серы','Серы'],
+                    'white' : ['бел'],
+                    '#DD0B0B' : ['красн','Красн'],
+                    '#6CADFC' : ['голуб'],
+                    '#3C8DFC' : ['сини','синя','Синя'],
+                    '#F9BCFF' : ['розов'],
+                    '#FFDC00' : ['золот','ранж','желты','Желты'],
+                    '#B2F132' : ['салат','Салат'],
+                    '#7ECB5B' : ['зелен','Зеленый'],
+                    '#C8A2C8' : ['сирен'],
+                    '#F5F5DC' : ['бежев','Бежев'],
+                    '#964B00' : ['коричн','Коричн'],
+                    '#900020' : ['бордо','Бордо'],
+                    '#5A009D' : ['иолет']
+                },
+
+                isDoubleColors = false;
+
+            jQuery.each(colorDef, function(colorValue, colorNames){
+                jQuery.each(colorNames, function(colorIndex, colorName){
+
+                    if(name.indexOf(colorName)>=0) {
+
+                        //if(jQuery.inArray(colorValue,colors)>=0) {
+                        //    isDoubleColors = true;
+                        //    alert(colorValue + ' in ' + colors);
+                        //}
+                        colors.splice(0, 0, colorValue);
+                    }
+
+                })
+            })
+
+            return colors;
+        }
+
+        function helperGenerateBg(colors) {
+
+            var colorStr, colorStrFF, colorStrWK, colorStrOP, colorStrMS, percentStep;
+
+            if (!colors.length) {
+                return ''
             }
-   }
+
+            percentStep = Math.round(100/colors.length);
+
+            colorStrFF = 'background: -moz-linear-gradient(left ';
+            colorStrWK = 'background: -webkit-linear-gradient(left ';
+            colorStrOP = 'background: -o-linear-gradient(left ';
+            colorStrMS = 'background: -ms-linear-gradient(left ';
+            jQuery.each(colors, function(colorIndex, colorValue){
+                colorStrFF = colorStrFF + ', '+colorValue + ' '+(percentStep*colorIndex)+'%, '+colorValue+' '+(percentStep*colorIndex+percentStep)+'%';
+                colorStrWK = colorStrWK + ', '+colorValue + ' '+(percentStep*colorIndex)+'%, '+colorValue+' '+(percentStep*colorIndex+percentStep)+'%';
+                colorStrOP = colorStrOP + ', '+colorValue + ' '+(percentStep*colorIndex)+'%, '+colorValue+' '+(percentStep*colorIndex+percentStep)+'%';
+                colorStrMS = colorStrMS + ', '+colorValue + ' '+(percentStep*colorIndex)+'%, '+colorValue+' '+(percentStep*colorIndex+percentStep)+'%';
+            })
+            colorStrFF = colorStrFF + ');'
+            colorStrWK = colorStrWK + ');'
+            colorStrOP = colorStrOP + ');'
+            colorStrMS = colorStrMS + ');'
+
+            colorStr = colorStrFF + colorStrWK + colorStrOP + colorStrMS;
+
+            return colorStr;
+
+        }
+
+        function helperIsDropdownMenu(apishopsFormVariants){
+            var isDoubleVariants, isMultipleVariants = false, colors = [], colorsCol;
+
+            if(apishopsFormVariants.apishopsFormVariantsList){
+
+                jQuery.each(apishopsFormVariants.apishopsFormVariantsList, function(apishopsFormVariantIndex, apishopsFormVariant){
+                    if(apishopsFormVariant.apishopsFormVariantColor.length>1) {
+                        isMultipleVariants=true;
+                    }
+                    if(apishopsFormVariant.apishopsFormVariantColor.length){
+                        //alert(apishopsFormVariant.apishopsFormVariantColor[0]);
+                        colors.splice(0, 0, apishopsFormVariant.apishopsFormVariantColor[0]);
+                    }
+                });
+
+                colorsCol=colors.length;
+                //alert(jQuery.unique(colors) + '=' + colors);
+
+                if(!colors.length){
+                    return true;
+                }
+                if(jQuery.unique(colors).length != colorsCol) {
+                    //alert ('is menu');
+                    return true;
+                } else {
+                    //alert(isMultipleVariants);
+                    return isMultipleVariants;
+                }
+
+            }
+
+        }
+
+        function templateDirectives() {
+
+            var directives = {
+                apishopsFormImage: {
+                    style: function(params) {
+                        return "background:url('"+this.apishopsFormImage+"'); background-position:center; background-size: cover;";
+                    },
+                    text : function(params) {
+                        return "";
+                    }
+                } ,
+                apishopsFormImages: {
+                    apishopsFormImagesImage : {
+                        style: function(params) {
+                                return "background:url('"+this.value+"'); background-position:center; background-size: cover;";
+                        },
+                        text : function(params) {
+                            return "";
+                        },
+                        class : function(params) {
+                            if(!params.index)
+                                return "apishopsFormImagesImage apishopsFormImagesImageActive";
+                            else
+                                return "apishopsFormImagesImage"
+                        }
+                    }
+                } ,
+                apishopsFormVariants: {
+                    apishopsFormVariantsList : {
+                        apishopsFormVariantName : {
+                            style: function(params) {
+                                    return helperGenerateBg(this.apishopsFormVariantColor);
+                            },
+                            alt: function(params) {
+                                    return this.apishopsFormVariantName;
+                            }
+                        },
+                        apishopsFormVariantTitle : {
+                            text: function(params) {
+                                    return this.apishopsFormVariantName;
+                            }
+                        },
+                        apishopsFormVariant : {
+                            value: function(params) {
+                                    return this.apishopsFormVariantValue;
+                            },
+                            alt: function(params) {
+                                    return this.apishopsFormVariantName;
+                            }
+                        }
+                    } ,
+                    class : function(params) {
+                        if(helperIsDropdownMenu(this.apishopsFormVariants))
+                            return "apishopsFormVariants apishopsFormVariantsDropDown"
+                        else
+                            return "apishopsFormVariants apishopsFormVariantsRadioBox"
+                    }
+                }
+            };
+
+            return directives;
+
+        }
+
+        function bindPhoneMask(elem) {
+
+            var input, mask, phone, locale;
+
+            try {
+
+                input = isQuery(elem) ? elem : jQuery(elem);
+                locale = settings.locales[settings.lang] || {};
+                phone = locale.phone || {};
+                mask = phone.mask || "";
+
+                if (mask) {
+                    input.inputmask(mask);
+                }
+
+            } catch (err) {
+                apishopsLog('Error' + err);
+            }
+        }
+
 
 
    function bind(context){
 
         if(context=='main'){
-                var inputs_tmp={};
+                var inputs_tmp;
 
-                for(index in settings.inputs){
-                    value=settings.inputs[index];
-                    $input=jQuery(value,settings.form);
-                    if($input.length &&  typeof $input !='undefined')
-                        inputs_tmp[index]=$input;
-                };
+                settings.inputs = importInputs(settings.form);
+                bindPhoneMask(settings.inputs.phone);
 
-                settings.inputs=inputs_tmp;
 
-                try {
-                    if(settings.lang==6)
-                        settings.inputs.phone.inputmask("+380(99)999-99-99");
-                    else if(settings.lang==1)
-                        settings.inputs.phone.inputmask("+7(999)999-99-99");
-                    else if(settings.lang==8)
-                        settings.inputs.phone.inputmask("8(799)999-99-99");
-                    else if(settings.lang==7)
-                        settings.inputs.phone.inputmask("+375(99)999-99-99");
-                }
-                catch(err) {
-
-                }
 
                 /*
                 Подсветка инпутов с ошибками
@@ -972,29 +1460,27 @@ jQuery.fn.apishopsForm=function(options)
                           });
                 });
 
-                if(settings.form_type=='normal'){
-                    lang=(typeof settings['lang']!='undefined')?settings['lang']:'1';
-                    params={
+                if(settings.form_type=='normal' && settings.inputs['region']){
+                    var params={
                         object:settings.inputs['region'],
                         price:settings.price,
                         productId:settings.productId,
                         siteId:settings.siteId,
                         charset:settings.charset,
-                        lang:lang,
+                        lang:settings.lang||1,
                         retrys:3
                     };
                     apishopsFormLoadRegions(params);
 
                     settings.inputs['region'].bind('change', function(){
-                            lang=(typeof settings['lang']!='undefined')?settings['lang']:'1';
-                            params={
+                            var params={
                                 object:settings.inputs['delivery'],
                                 regionId:jQuery(this).val(),
                                 price:settings.price,
                                 productId:settings.productId,
                                 siteId:settings.siteId,
                                 charset:settings.charset,
-                                lang:lang,
+                                lang:settings.lang||1,
                                 retrys:3
                             };
                           settings.inputs['delivery'].closest('.apishopsFormGroup').addClass('in');
@@ -1002,15 +1488,14 @@ jQuery.fn.apishopsForm=function(options)
                     });
 
                     settings.inputs['delivery'].bind('change', function(){
-                            lang=(typeof settings['lang']!='undefined')?settings['lang']:'1';
-                            params={
+                            var params={
                                 object:settings.inputs['payment'],
                                 deliveryId:jQuery(this).val(),
                                 regionId:settings.inputs['region'].val(),
                                 price:settings.price,
                                 productId:settings.productId,
                                 siteId:settings.siteId,
-                                lang:lang,
+                                lang:settings.lang||1,
                                 retrys:3
                             };
                           settings.inputs['payment'].closest('.apishopsFormGroup').addClass('in');
@@ -1018,8 +1503,7 @@ jQuery.fn.apishopsForm=function(options)
                     });
 
                     settings.inputs['payment'].bind('change', function(){
-                            lang=(typeof settings['lang']!='undefined')?settings['lang']:'1';
-                            params={
+                            var params={
                                 count:settings.inputs['count'].val(),
                                 object:settings.inputs['cost'],
                                 deliveryId:settings.inputs['delivery'].val(),
@@ -1028,7 +1512,7 @@ jQuery.fn.apishopsForm=function(options)
                                 price:settings.price,
                                 productId:settings.productId,
                                 siteId:settings.siteId,
-                                lang:lang,
+                                lang:settings.lang||1,
                                 retrys:3
                             };
                           settings.inputs['cost'].closest('.apishopsFormGroup').addClass('in');
@@ -1036,13 +1520,13 @@ jQuery.fn.apishopsForm=function(options)
                     });
 
                     jQuery(settings.form).submit(function(event) {
-                        var error='';
+                        var error='', promocode, params;
                         event.preventDefault();
                         jQuery.each(settings.inputs, function(index, value){
                             if(jQuery(value) && typeof jQuery(value) !='undefined' && typeof jQuery(value).attr('pattern')!='undefined' && jQuery(value).attr('pattern')!=''  && _.indexOf(settings.hidden_fields, index)<0  && _.indexOf(settings.optional_fields, index)<0)  {
                                     if(!new RegExp(jQuery(value).attr('pattern')).test(jQuery(value).val())  || new RegExp('[<>]').test(jQuery(value).val())){
                                             jQuery(value).closest('.apishopsFormGroup').addClass('apishopsFormError');
-                                            error+=' - '+settings.inputs_[index]+'\n';
+                                            error+=' - '+settings.inputs_names[index]+'\n';
                                     }
                                     else if(index=='phone' && new RegExp('[_]').test(jQuery(value).val())){
                                             error+='Поле телефона: допустимы только цифры, знак плюс, скобки и дефисы';
@@ -1057,7 +1541,6 @@ jQuery.fn.apishopsForm=function(options)
                             return false;
                         }else{
                                 promocode=(typeof settings.inputs['promocode']!='undefined' && settings.inputs['promocode'].length)?settings.inputs['promocode'].val():'';
-                                lang=(typeof settings['lang']!='undefined')?settings['lang']:'1';
                                 params={
                                     object:settings.inputs['button'],
                                     form:settings.form,
@@ -1073,7 +1556,7 @@ jQuery.fn.apishopsForm=function(options)
                                     price:settings.price,
                                     productId:settings.productId,
                                     siteId:settings.siteId,
-                                    lang:lang,
+                                    lang:settings.lang||1,
                                     charset:settings.charset,
                                     successUrl:settings.successUrl,
                                     sourceRef:getSource("sourceRef"),
@@ -1092,13 +1575,13 @@ jQuery.fn.apishopsForm=function(options)
                 }else{
 
                     jQuery(settings.form).submit(function(event) {
-                        var error='';
+                        var error='', promocode, params,productVariantId;
                         event.preventDefault();
                         jQuery.each(settings.inputs, function(index, value){
                             if(jQuery(value) && typeof jQuery(value) !='undefined' && typeof jQuery(value).attr('pattern')!='undefined' && jQuery(value).attr('pattern')!='' && _.indexOf(settings.hidden_fields, index)<0 && _.indexOf(settings.optional_fields, index)<0)  {
                                     if(!new RegExp(jQuery(value).attr('pattern')).test(jQuery(value).val())  || new RegExp('[<>]').test(jQuery(value).val())){
                                             jQuery(value).closest('.apishopsFormGroup').addClass('apishopsFormError');
-                                            error+=' - '+settings.inputs_[index]+'\n';
+                                            error+=' - '+settings.inputs_names[index]+'\n';
                                     }
                                     else if(index=='phone' && new RegExp('[_]').test(jQuery(value).val())){
                                             error+='Поле телефона: допустимы только цифры, знак плюс, скобки и дефисы';
@@ -1113,7 +1596,7 @@ jQuery.fn.apishopsForm=function(options)
                             return false;
                         }else{
                                 promocode=(typeof settings.inputs['promocode']!='undefined' && settings.inputs['promocode'].length)?settings.inputs['promocode'].val():'';
-                                lang=(typeof settings['lang']!='undefined')?settings['lang']:'1';
+                                productVariantId=settings.form.find('[name=apishopsFormVariant]:checked').val() || '';
                                 params={
                                     object:settings.inputs['button'],
                                     form:settings.form,
@@ -1128,7 +1611,8 @@ jQuery.fn.apishopsForm=function(options)
                                     productId:settings.productId,
                                     siteId:settings.siteId,
                                     charset:settings.charset,
-                                    lang:lang
+                                    lang:settings.lang||1,
+                                    productVariantId: productVariantId
                                 };
                                 apishopsFormSubmit(params);
                                 try {
@@ -1148,7 +1632,10 @@ jQuery.fn.apishopsForm=function(options)
 
                 settings.featured.more.bind('click', function(event){
                     event.preventDefault();
-                    spawn()
+                    spawn();
+                    jQuery('html, body').animate({
+                        scrollTop: jQuery(this).offset().top - 800
+                    }, 1000);
                 });
             }
 
@@ -1156,34 +1643,7 @@ jQuery.fn.apishopsForm=function(options)
    }
 
 
-    function startTimer()
-    {
-        var finisTime = new Date(settings.finisDate);
-        var nowTime = new Date();
-        var diffTime = new Date(finisTime-nowTime);
-        var finishSeconds = Math.floor(diffTime.valueOf()/1000);
 
-        var days=parseInt(finishSeconds/86400);
-        var hours = parseInt(finishSeconds/3600)%24;
-        var minutes = parseInt(finishSeconds/60)%60;
-        var seconds = finishSeconds%60;
-        if (days < 10) days = "0" + days;
-        if (hours < 10) hours = "0" + hours;
-        if (minutes < 10) minutes = "0" + minutes;
-        if (seconds < 10) seconds = "0" + seconds;
-
-        days=days.toString();
-        hours=days.toString();
-        minutes=minutes.toString();
-        seconds=seconds.toString();
-
-
-        jQuery('.hours__').html(hours.charAt(0) + hours.charAt(1));
-        jQuery('.minutes__').html(minutes.charAt(0) + minutes.charAt(1));
-        jQuery('.seconds__').html(seconds.charAt(0) + seconds.charAt(1));
-
-        setTimeout(startTimer, 1000);
-    }
 
 
 
@@ -1197,6 +1657,9 @@ jQuery.fn.apishopsForm=function(options)
     }
 
     function extractSource(name){
+
+        var sourceParam;
+
         if(name=='sourceParam'){
             if(typeof location.href.split('?')[1] != 'undefined')
             {
@@ -1253,6 +1716,9 @@ jQuery.fn.apishopsForm=function(options)
       return value;
     }
 
+    function isQuery (obj) {
+        return obj && obj.hasOwnProperty && obj instanceof $;
+    }
 
 
     function log(text) {
@@ -1261,13 +1727,54 @@ jQuery.fn.apishopsForm=function(options)
       //}
     }
 
+
+
+
+
+    return init(this);
+
 };
 
 
+jQuery.fn.exists = function () {
+    return this.length > 0 ? this : false;
+}
 
+jQuery.fn.getStyleObject = function(){
+    var dom = this.get(0);
+    var style;
+    var returns = {};
+    if(window.getComputedStyle){
+        var camelize = function(a,b){
+            return b.toUpperCase();
+        };
+        style = window.getComputedStyle(dom, null);
+        for(var i = 0, l = style.length; i < l; i++){
+            var prop = style[i];
+            var camel = prop.replace(/\-([a-z])/g, camelize);
+            var val = style.getPropertyValue(prop);
+            returns[camel] = val;
+        };
+        return returns;
+    };
+    if(style = dom.currentStyle){
+        for(var prop in style){
+            returns[prop] = style[prop];
+        };
+        return returns;
+    };
+    return this.css();
+}
 
 
 })(jQuery);
+
+/**
+ * Stack catcher
+ */
+!function(a,b){function c(a,b){try{if("function"!=typeof a)return a;if(!a.bugsnag){var c=e();a.bugsnag=function(d){if(b&&b.eventHandler&&(u=d),v=c,!y){var e=a.apply(this,arguments);return v=null,e}try{return a.apply(this,arguments)}catch(f){throw l("autoNotify",!0)&&(x.notifyException(f,null,null,"error"),s()),f}finally{v=null}},a.bugsnag.bugsnag=a.bugsnag}return a.bugsnag}catch(d){return a}}function d(){B=!1}function e(){var a=document.currentScript||v;if(!a&&B){var b=document.scripts||document.getElementsByTagName("script");a=b[b.length-1]}return a}function f(a){var b=e();b&&(a.script={src:b.src,content:l("inlineScript",!0)?b.innerHTML:""})}function g(b){var c=l("disableLog"),d=a.console;void 0===d||void 0===d.log||c||d.log("[Bugsnag] "+b)}function h(b,c,d){if(d>=5)return encodeURIComponent(c)+"=[RECURSIVE]";d=d+1||1;try{if(a.Node&&b instanceof a.Node)return encodeURIComponent(c)+"="+encodeURIComponent(r(b));var e=[];for(var f in b)if(b.hasOwnProperty(f)&&null!=f&&null!=b[f]){var g=c?c+"["+f+"]":f,i=b[f];e.push("object"==typeof i?h(i,g,d):encodeURIComponent(g)+"="+encodeURIComponent(i))}return e.join("&")}catch(j){return encodeURIComponent(c)+"="+encodeURIComponent(""+j)}}function i(a,b){if(null==b)return a;a=a||{};for(var c in b)if(b.hasOwnProperty(c))try{a[c]=b[c].constructor===Object?i(a[c],b[c]):b[c]}catch(d){a[c]=b[c]}return a}function j(a,b){a+="?"+h(b)+"&ct=img&cb="+(new Date).getTime();var c=new Image;c.src=a}function k(a){var b={},c=/^data\-([\w\-]+)$/;if(a)for(var d=a.attributes,e=0;e<d.length;e++){var f=d[e];if(c.test(f.nodeName)){var g=f.nodeName.match(c)[1];b[g]=f.value||f.nodeValue}}return b}function l(a,b){C=C||k(J);var c=void 0!==x[a]?x[a]:C[a.toLowerCase()];return"false"===c&&(c=!1),void 0!==c?c:b}function m(a){return a&&a.match(D)?!0:(g("Invalid API key '"+a+"'"),!1)}function n(b,c){var d=l("apiKey");if(m(d)&&A){A-=1;var e=l("releaseStage"),f=l("notifyReleaseStages");if(f){for(var h=!1,k=0;k<f.length;k++)if(e===f[k]){h=!0;break}if(!h)return}var n=[b.name,b.message,b.stacktrace].join("|");if(n!==w){w=n,u&&(c=c||{},c["Last Event"]=q(u));var o={notifierVersion:H,apiKey:d,projectRoot:l("projectRoot")||a.location.protocol+"//"+a.location.host,context:l("context")||a.location.pathname,userId:l("userId"),user:l("user"),metaData:i(i({},l("metaData")),c),releaseStage:e,appVersion:l("appVersion"),url:a.location.href,userAgent:navigator.userAgent,language:navigator.language||navigator.userLanguage,severity:b.severity,name:b.name,message:b.message,stacktrace:b.stacktrace,file:b.file,lineNumber:b.lineNumber,columnNumber:b.columnNumber,payloadVersion:"2"},p=x.beforeNotify;if("function"==typeof p){var r=p(o,o.metaData);if(r===!1)return}return 0===o.lineNumber&&/Script error\.?/.test(o.message)?g("Ignoring cross-domain script error. See https://bugsnag.com/docs/notifiers/js/cors"):(j(l("endpoint")||G,o),void 0)}}}function o(){var a,b,c=10,d="[anonymous]";try{throw new Error("")}catch(e){a="<generated>\n",b=p(e)}if(!b){a="<generated-ie>\n";var f=[];try{for(var h=arguments.callee.caller.caller;h&&f.length<c;){var i=E.test(h.toString())?RegExp.$1||d:d;f.push(i),h=h.caller}}catch(j){g(j)}b=f.join("\n")}return a+b}function p(a){return a.stack||a.backtrace||a.stacktrace}function q(a){var b={millisecondsAgo:new Date-a.timeStamp,type:a.type,which:a.which,target:r(a.target)};return b}function r(a){if(a){var b=a.attributes;if(b){for(var c="<"+a.nodeName.toLowerCase(),d=0;d<b.length;d++)b[d].value&&"null"!=b[d].value.toString()&&(c+=" "+b[d].name+'="'+b[d].value+'"');return c+">"}return a.nodeName}}function s(){z+=1,a.setTimeout(function(){z-=1})}function t(a,b,c){var d=a[b],e=c(d);a[b]=e}var u,v,w,x={},y=!0,z=0,A=10;x.noConflict=function(){return a.Bugsnag=b,x},x.refresh=function(){A=10},x.notifyException=function(a,b,c,d){b&&"string"!=typeof b&&(c=b,b=void 0),c||(c={}),f(c),n({name:b||a.name,message:a.message||a.description,stacktrace:p(a)||o(),file:a.fileName||a.sourceURL,lineNumber:a.lineNumber||a.line,columnNumber:a.columnNumber?a.columnNumber+1:void 0,severity:d||"warning"},c)},x.notify=function(b,c,d,e){n({name:b,message:c,stacktrace:o(),file:a.location.toString(),lineNumber:1,severity:e||"warning"},d)};var B="complete"!==document.readyState;document.addEventListener?(document.addEventListener("DOMContentLoaded",d,!0),a.addEventListener("load",d,!0)):a.attachEvent("onload",d);var C,D=/^[0-9a-f]{32}$/i,E=/function\s*([\w\-$]+)?\s*\(/i,F="https://notify.bugsnag.com/",G=F+"js",H="2.4.7",I=document.getElementsByTagName("script"),J=I[I.length-1];if(a.atob){if(a.ErrorEvent)try{0===new a.ErrorEvent("test").colno&&(y=!1)}catch(K){}}else y=!1;if(l("autoNotify",!0)){t(a,"onerror",function(b){return function(c,d,e,g,h){var i=l("autoNotify",!0),j={};!g&&a.event&&(g=a.event.errorCharacter),f(j),v=null,i&&!z&&n({name:h&&h.name||"window.onerror",message:c,file:d,lineNumber:e,columnNumber:g,stacktrace:h&&p(h)||o(),severity:"error"},j),b&&b(c,d,e,g,h)}});var L=function(a){return function(b,d){if("function"==typeof b){b=c(b);var e=Array.prototype.slice.call(arguments,2);return a(function(){b.apply(this,e)},d)}return a(b,d)}};t(a,"setTimeout",L),t(a,"setInterval",L),a.requestAnimationFrame&&t(a,"requestAnimationFrame",function(a){return function(b){return a(c(b))}}),a.setImmediate&&t(a,"setImmediate",function(a){return function(){var b=Array.prototype.slice.call(arguments);return b[0]=c(b[0]),a.apply(this,b)}}),"EventTarget Window Node ApplicationCache AudioTrackList ChannelMergerNode CryptoOperation EventSource FileReader HTMLUnknownElement IDBDatabase IDBRequest IDBTransaction KeyOperation MediaController MessagePort ModalWindow Notification SVGElementInstance Screen TextTrack TextTrackCue TextTrackList WebSocket WebSocketWorker Worker XMLHttpRequest XMLHttpRequestEventTarget XMLHttpRequestUpload".replace(/\w+/g,function(b){var d=a[b]&&a[b].prototype;d&&d.hasOwnProperty&&d.hasOwnProperty("addEventListener")&&(t(d,"addEventListener",function(a){return function(b,d,e,f){return d&&d.handleEvent&&(d.handleEvent=c(d.handleEvent,{eventHandler:!0})),a.call(this,b,c(d,{eventHandler:!0}),e,f)}}),t(d,"removeEventListener",function(a){return function(b,d,e,f){return a.call(this,b,d,e,f),a.call(this,b,c(d),e,f)}}))})}a.Bugsnag=x,"function"==typeof define&&define.amd?define([],function(){return x}):"object"==typeof module&&"object"==typeof module.exports&&(module.exports=x)}(window,window.Bugsnag);
+Bugsnag.apiKey = "59eac90c60e80a2b71e83f27ebadfadf";
+Bugsnag.noConflict();
 
 /*
 * Input Mask plugin for jquery
@@ -3284,11 +3791,20 @@ var apishopsFormTemplates={
     quickview:{
         css:apishopsFormPaths.rootdir+apishopsFormPaths.cssdir+'/apishopsFormQuickView.css',
         js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+'/apishopsFormQuickView%CHARSETSUFFIX%.js'
+    },
+    slideshow:{
+        css:apishopsFormPaths.rootdir+apishopsFormPaths.cssdir+'/apishopsFormSlideshow.css',
+        js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+'/apishopsFormSlideshow%CHARSETSUFFIX%.js'
+    },
+    variants:{
+        css:apishopsFormPaths.rootdir+apishopsFormPaths.cssdir+'/apishopsFormVariants.css',
+        js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+'/apishopsFormVariants%CHARSETSUFFIX%.js'
     }
 }
 
 
-function apishopsFormLoadTemplates(templates, charset, theme, successFunction, errorFunction){
+function apishopsFormLoadTemplates(templates, charset, theme, successFunction){
+
     var templates_js_loaded=0;
 
     apishopsLog('Templates:'+theme+' '+templates_js_loaded+'/'+templates.length);
@@ -3296,10 +3812,10 @@ function apishopsFormLoadTemplates(templates, charset, theme, successFunction, e
     for(template_no in templates){
         for(template_file_type in apishopsFormTemplates[templates[template_no]]){
 
-            if(template_file_type=='css'){
+            if(template_file_type=='css' && apishopsFormTemplates[templates[template_no]][template_file_type]!==true){
                 var template_file=apishopsFormTemplates[templates[template_no]][template_file_type].replace("%THEME%", theme).replace("%CHARSETSUFFIX%",(charset=='utf8'?'.utf8':''));
                 jQuery('head').append( jQuery('<link rel="stylesheet" type="text/css" />').attr('href', template_file));
-                //apishopsFormTemplates[templates[template_no]][template_file_type]=true;
+                apishopsFormTemplates[templates[template_no]][template_file_type]=true;
                 apishopsLog('Templates:'+theme+' - '+templates[template_no]+','+template_file_type+' == true '+templates_js_loaded+'/'+templates.length);
             }
 
@@ -3714,7 +4230,13 @@ function apishopsFormModalInit(apishopsFormVariableObject,parameters){
         //onclick
 
         /*litle hack for old css replacement*/
-        jQuery("link[href$='apishopsForm.css']").attr('href','http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm.2.css')
+        var apishopsFormInclude=jQuery("link[href$='apishopsForm.css']");
+
+        if(apishopsFormInclude.length) {
+            apishopsFormInclude.attr('href','http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm.2.css');
+        } else {
+            jQuery('head').append(jQuery('<link rel="stylesheet" type="text/css" />').attr('href', 'http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm.2.css'));
+        }
 
         var apishopsFormVariableModal=jQuery(apishopsFormModal).clone().appendTo('body');
         var apishopsFormVariableModalWindow=apishopsFormVariableModal.find('.apishopsModalWindow').css('z-index','3999');
@@ -3830,7 +4352,8 @@ function apishopsFormSubmit(params){
                 clientTimeZone: clientTimeZone,
                 successUrl: params.successUrl,
                 charset:params.charset,
-                lang:params.lang
+                lang:params.lang,
+                productVariantId:params.productVariantId || ''
         };
     }
 
@@ -3943,6 +4466,645 @@ function apishopsLog(text) {
 }
 
 
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var $, Context, Transparency, helpers, _,
+__indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+_ = require('../lib/lodash.js');
+helpers = require('./helpers');
+Context = require('./context');
+Transparency = {};
+Transparency.render = function(context, models, directives, options) {
+var log, _base;
+if (models == null) {
+models = [];
+}
+if (directives == null) {
+directives = {};
+}
+if (options == null) {
+options = {};
+}
+log = options.debug && console ? helpers.consoleLogger : helpers.nullLogger;
+log("Transparency.render:", context, models, directives, options);
+if (!context) {
+return;
+}
+if (!_.isArray(models)) {
+models = [models];
+}
+context = (_base = helpers.data(context)).context || (_base.context = new Context(context, Transparency));
+return context.render(models, directives, options).el;
+};
+Transparency.matcher = function(element, key) {
+return element.el.id === key || __indexOf.call(element.classNames, key) >= 0 || element.el.name === key || element.el.getAttribute('data-bind') === key;
+};
+Transparency.clone = function(node) {
+return jQuery(node).clone()[0];
+};
+Transparency.jQueryPlugin = helpers.chainable(function(models, directives, options) {
+var context, _i, _len, _results;
+_results = [];
+for (_i = 0, _len = this.length; _i < _len; _i++) {
+context = this[_i];
+_results.push(Transparency.render(context, models, directives, options));
+}
+return _results;
+});
+if ((typeof jQuery !== "undefined" && jQuery !== null) || (typeof Zepto !== "undefined" && Zepto !== null)) {
+$ = jQuery || Zepto;
+if ($ != null) {
+jQuery.fn.render = Transparency.jQueryPlugin;
+}
+}
+if (typeof module !== "undefined" && module !== null ? module.exports : void 0) {
+module.exports = Transparency;
+}
+if (typeof window !== "undefined" && window !== null) {
+window.Transparency = Transparency;
+}
+if (typeof define !== "undefined" && define !== null ? define.amd : void 0) {
+define(function() {
+return Transparency;
+});
+}
+},{"../lib/lodash.js":7,"./context":3,"./helpers":5}],2:[function(require,module,exports){
+var Attribute, AttributeFactory, BooleanAttribute, Class, Html, Text, helpers, _,
+__hasProp = {}.hasOwnProperty,
+__extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+_ = require('../lib/lodash');
+helpers = require('./helpers');
+module.exports = AttributeFactory = {
+Attributes: {},
+createAttribute: function(element, name) {
+var Attr;
+Attr = AttributeFactory.Attributes[name] || Attribute;
+return new Attr(element, name);
+}
+};
+Attribute = (function() {
+function Attribute(el, name) {
+this.el = el;
+this.name = name;
+this.templateValue = this.el.getAttribute(this.name) || '';
+}
+Attribute.prototype.set = function(value) {
+this.el[this.name] = value;
+return this.el.setAttribute(this.name, value.toString());
+};
+return Attribute;
+})();
+BooleanAttribute = (function(_super) {
+var BOOLEAN_ATTRIBUTES, name, _i, _len;
+__extends(BooleanAttribute, _super);
+BOOLEAN_ATTRIBUTES = ['hidden', 'async', 'defer', 'autofocus', 'formnovalidate', 'disabled', 'autofocus', 'formnovalidate', 'multiple', 'readonly', 'required', 'checked', 'scoped', 'reversed', 'selected', 'loop', 'muted', 'autoplay', 'controls', 'seamless', 'default', 'ismap', 'novalidate', 'open', 'typemustmatch', 'truespeed'];
+for (_i = 0, _len = BOOLEAN_ATTRIBUTES.length; _i < _len; _i++) {
+name = BOOLEAN_ATTRIBUTES[_i];
+AttributeFactory.Attributes[name] = BooleanAttribute;
+}
+function BooleanAttribute(el, name) {
+this.el = el;
+this.name = name;
+this.templateValue = this.el.getAttribute(this.name) || false;
+}
+BooleanAttribute.prototype.set = function(value) {
+this.el[this.name] = value;
+if (value) {
+return this.el.setAttribute(this.name, this.name);
+} else {
+return this.el.removeAttribute(this.name);
+}
+};
+return BooleanAttribute;
+})(Attribute);
+Text = (function(_super) {
+__extends(Text, _super);
+AttributeFactory.Attributes['text'] = Text;
+function Text(el, name) {
+var child;
+this.el = el;
+this.name = name;
+this.templateValue = ((function() {
+var _i, _len, _ref, _results;
+_ref = this.el.childNodes;
+_results = [];
+for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+child = _ref[_i];
+if (child.nodeType === helpers.TEXT_NODE) {
+_results.push(child.nodeValue);
+}
+}
+return _results;
+}).call(this)).join('');
+this.children = _.toArray(this.el.children);
+if (!(this.textNode = this.el.firstChild)) {
+this.el.appendChild(this.textNode = this.el.ownerDocument.createTextNode(''));
+} else if (this.textNode.nodeType !== helpers.TEXT_NODE) {
+this.textNode = this.el.insertBefore(this.el.ownerDocument.createTextNode(''), this.textNode);
+}
+}
+Text.prototype.set = function(text) {
+var child, _i, _len, _ref, _results;
+while (child = this.el.firstChild) {
+this.el.removeChild(child);
+}
+this.textNode.nodeValue = text;
+this.el.appendChild(this.textNode);
+_ref = this.children;
+_results = [];
+for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+child = _ref[_i];
+_results.push(this.el.appendChild(child));
+}
+return _results;
+};
+return Text;
+})(Attribute);
+Html = (function(_super) {
+__extends(Html, _super);
+AttributeFactory.Attributes['html'] = Html;
+function Html(el) {
+this.el = el;
+this.templateValue = '';
+this.children = _.toArray(this.el.children);
+}
+Html.prototype.set = function(html) {
+var child, _i, _len, _ref, _results;
+while (child = this.el.firstChild) {
+this.el.removeChild(child);
+}
+this.el.innerHTML = html + this.templateValue;
+_ref = this.children;
+_results = [];
+for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+child = _ref[_i];
+_results.push(this.el.appendChild(child));
+}
+return _results;
+};
+return Html;
+})(Attribute);
+Class = (function(_super) {
+__extends(Class, _super);
+AttributeFactory.Attributes['class'] = Class;
+function Class(el) {
+Class.__super__.constructor.call(this, el, 'class');
+}
+return Class;
+})(Attribute);
+},{"../lib/lodash":7,"./helpers":5}],3:[function(require,module,exports){
+var Context, Instance, after, before, chainable, cloneNode, _ref;
+_ref = require('./helpers'), before = _ref.before, after = _ref.after, chainable = _ref.chainable, cloneNode = _ref.cloneNode;
+Instance = require('./instance');
+module.exports = Context = (function() {
+var attach, detach;
+detach = chainable(function() {
+this.parent = this.el.parentNode;
+if (this.parent) {
+this.nextSibling = this.el.nextSibling;
+return this.parent.removeChild(this.el);
+}
+});
+attach = chainable(function() {
+if (this.parent) {
+if (this.nextSibling) {
+return this.parent.insertBefore(this.el, this.nextSibling);
+} else {
+return this.parent.appendChild(this.el);
+}
+}
+});
+function Context(el, Transparency) {
+this.el = el;
+this.Transparency = Transparency;
+this.template = cloneNode(this.el);
+this.instances = [new Instance(this.el, this.Transparency)];
+this.instanceCache = [];
+}
+Context.prototype.render = before(detach)(after(attach)(chainable(function(models, directives, options) {
+var children, index, instance, model, _i, _len, _results;
+while (models.length < this.instances.length) {
+this.instanceCache.push(this.instances.pop().remove());
+}
+while (models.length > this.instances.length) {
+instance = this.instanceCache.pop() || new Instance(cloneNode(this.template), this.Transparency);
+this.instances.push(instance.appendTo(this.el));
+}
+_results = [];
+for (index = _i = 0, _len = models.length; _i < _len; index = ++_i) {
+model = models[index];
+instance = this.instances[index];
+children = [];
+_results.push(instance.prepare(model, children).renderValues(model, children).renderDirectives(model, index, directives).renderChildren(model, children, directives, options));
+}
+return _results;
+})));
+return Context;
+})();
+},{"./helpers":5,"./instance":6}],4:[function(require,module,exports){
+var AttributeFactory, Checkbox, Element, ElementFactory, Input, Radio, Select, TextArea, VoidElement, helpers, _,
+__hasProp = {}.hasOwnProperty,
+__extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+_ = require('../lib/lodash.js');
+helpers = require('./helpers');
+AttributeFactory = require('./attributeFactory');
+module.exports = ElementFactory = {
+Elements: {
+input: {}
+},
+createElement: function(el) {
+var El, name;
+if ('input' === (name = el.nodeName.toLowerCase())) {
+El = ElementFactory.Elements[name][el.type.toLowerCase()] || Input;
+} else {
+El = ElementFactory.Elements[name] || Element;
+}
+return new El(el);
+}
+};
+Element = (function() {
+function Element(el) {
+this.el = el;
+this.attributes = {};
+this.childNodes = _.toArray(this.el.childNodes);
+this.nodeName = this.el.nodeName.toLowerCase();
+this.classNames = this.el.className.split(' ');
+this.originalAttributes = {};
+}
+Element.prototype.empty = function() {
+var child;
+while (child = this.el.firstChild) {
+this.el.removeChild(child);
+}
+return this;
+};
+Element.prototype.reset = function() {
+var attribute, name, _ref, _results;
+_ref = this.attributes;
+_results = [];
+for (name in _ref) {
+attribute = _ref[name];
+_results.push(attribute.set(attribute.templateValue));
+}
+return _results;
+};
+Element.prototype.render = function(value) {
+return this.attr('text', value);
+};
+Element.prototype.attr = function(name, value) {
+var attribute, _base;
+attribute = (_base = this.attributes)[name] || (_base[name] = AttributeFactory.createAttribute(this.el, name, value));
+if (value != null) {
+attribute.set(value);
+}
+return attribute;
+};
+Element.prototype.renderDirectives = function(model, index, attributes) {
+var directive, name, value, _results;
+_results = [];
+for (name in attributes) {
+if (!__hasProp.call(attributes, name)) continue;
+directive = attributes[name];
+if (!(typeof directive === 'function')) {
+continue;
+}
+value = directive.call(model, {
+element: this.el,
+index: index,
+value: this.attr(name).templateValue
+});
+if (value != null) {
+_results.push(this.attr(name, value));
+} else {
+_results.push(void 0);
+}
+}
+return _results;
+};
+return Element;
+})();
+Select = (function(_super) {
+__extends(Select, _super);
+ElementFactory.Elements['select'] = Select;
+function Select(el) {
+Select.__super__.constructor.call(this, el);
+this.elements = helpers.getElements(el);
+}
+Select.prototype.render = function(value) {
+var option, _i, _len, _ref, _results;
+value = value.toString();
+_ref = this.elements;
+_results = [];
+for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+option = _ref[_i];
+if (option.nodeName === 'option') {
+_results.push(option.attr('selected', option.el.value === value));
+}
+}
+return _results;
+};
+return Select;
+})(Element);
+VoidElement = (function(_super) {
+var VOID_ELEMENTS, nodeName, _i, _len;
+__extends(VoidElement, _super);
+function VoidElement() {
+return VoidElement.__super__.constructor.apply(this, arguments);
+}
+VOID_ELEMENTS = ['area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
+for (_i = 0, _len = VOID_ELEMENTS.length; _i < _len; _i++) {
+nodeName = VOID_ELEMENTS[_i];
+ElementFactory.Elements[nodeName] = VoidElement;
+}
+VoidElement.prototype.attr = function(name, value) {
+if (name !== 'text' && name !== 'html') {
+return VoidElement.__super__.attr.call(this, name, value);
+}
+};
+return VoidElement;
+})(Element);
+Input = (function(_super) {
+__extends(Input, _super);
+function Input() {
+return Input.__super__.constructor.apply(this, arguments);
+}
+Input.prototype.render = function(value) {
+return this.attr('value', value);
+};
+return Input;
+})(VoidElement);
+TextArea = (function(_super) {
+__extends(TextArea, _super);
+function TextArea() {
+return TextArea.__super__.constructor.apply(this, arguments);
+}
+ElementFactory.Elements['textarea'] = TextArea;
+return TextArea;
+})(Input);
+Checkbox = (function(_super) {
+__extends(Checkbox, _super);
+function Checkbox() {
+return Checkbox.__super__.constructor.apply(this, arguments);
+}
+ElementFactory.Elements['input']['checkbox'] = Checkbox;
+Checkbox.prototype.render = function(value) {
+return this.attr('checked', Boolean(value));
+};
+return Checkbox;
+})(Input);
+Radio = (function(_super) {
+__extends(Radio, _super);
+function Radio() {
+return Radio.__super__.constructor.apply(this, arguments);
+}
+ElementFactory.Elements['input']['radio'] = Radio;
+return Radio;
+})(Checkbox);
+},{"../lib/lodash.js":7,"./attributeFactory":2,"./helpers":5}],5:[function(require,module,exports){
+var ElementFactory, expando, html5Clone, _getElements;
+ElementFactory = require('./elementFactory');
+exports.before = function(decorator) {
+return function(method) {
+return function() {
+decorator.apply(this, arguments);
+return method.apply(this, arguments);
+};
+};
+};
+exports.after = function(decorator) {
+return function(method) {
+return function() {
+method.apply(this, arguments);
+return decorator.apply(this, arguments);
+};
+};
+};
+exports.chainable = exports.after(function() {
+return this;
+});
+exports.onlyWith$ = function(fn) {
+if ((typeof jQuery !== "undefined" && jQuery !== null) || (typeof Zepto !== "undefined" && Zepto !== null)) {
+return (function($) {
+return fn(arguments);
+})(jQuery || Zepto);
+}
+};
+exports.getElements = function(el) {
+var elements;
+elements = [];
+_getElements(el, elements);
+return elements;
+};
+_getElements = function(template, elements) {
+var child, _results;
+child = template.firstChild;
+_results = [];
+while (child) {
+if (child.nodeType === exports.ELEMENT_NODE) {
+elements.push(new ElementFactory.createElement(child));
+_getElements(child, elements);
+}
+_results.push(child = child.nextSibling);
+}
+return _results;
+};
+exports.ELEMENT_NODE = 1;
+exports.TEXT_NODE = 3;
+html5Clone = function() {
+return document.createElement('nav').cloneNode(true).outerHTML !== '<:nav></:nav>';
+};
+exports.cloneNode = (typeof document === "undefined" || document === null) || html5Clone() ? function(node) {
+return node.cloneNode(true);
+} : function(node) {
+var cloned, element, _i, _len, _ref;
+cloned = Transparency.clone(node);
+if (cloned.nodeType === exports.ELEMENT_NODE) {
+cloned.removeAttribute(expando);
+_ref = cloned.getElementsByTagName('*');
+for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+element = _ref[_i];
+element.removeAttribute(expando);
+}
+}
+return cloned;
+};
+expando = 'transparency';
+exports.data = function(element) {
+return element[expando] || (element[expando] = {});
+};
+exports.nullLogger = function() {};
+exports.consoleLogger = function() {
+return console.log(arguments);
+};
+exports.log = exports.nullLogger;
+},{"./elementFactory":4}],6:[function(require,module,exports){
+var Instance, chainable, helpers, _,
+__hasProp = {}.hasOwnProperty;
+_ = require('../lib/lodash.js');
+chainable = (helpers = require('./helpers')).chainable;
+module.exports = Instance = (function() {
+function Instance(template, Transparency) {
+this.Transparency = Transparency;
+this.queryCache = {};
+this.childNodes = _.toArray(template.childNodes);
+this.elements = helpers.getElements(template);
+}
+Instance.prototype.remove = chainable(function() {
+var node, _i, _len, _ref, _results;
+_ref = this.childNodes;
+_results = [];
+for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+node = _ref[_i];
+_results.push(node.parentNode.removeChild(node));
+}
+return _results;
+});
+Instance.prototype.appendTo = chainable(function(parent) {
+var node, _i, _len, _ref, _results;
+_ref = this.childNodes;
+_results = [];
+for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+node = _ref[_i];
+_results.push(parent.appendChild(node));
+}
+return _results;
+});
+Instance.prototype.prepare = chainable(function(model) {
+var element, _i, _len, _ref, _results;
+_ref = this.elements;
+_results = [];
+for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+element = _ref[_i];
+element.reset();
+_results.push(helpers.data(element.el).model = model);
+}
+return _results;
+});
+Instance.prototype.renderValues = chainable(function(model, children) {
+var element, key, value, _results;
+if (_.isElement(model) && (element = this.elements[0])) {
+return element.empty().el.appendChild(model);
+} else if (typeof model === 'object') {
+_results = [];
+for (key in model) {
+if (!__hasProp.call(model, key)) continue;
+value = model[key];
+if (value != null) {
+if (_.isString(value) || _.isNumber(value) || _.isBoolean(value) || _.isDate(value)) {
+_results.push((function() {
+var _i, _len, _ref, _results1;
+_ref = this.matchingElements(key);
+_results1 = [];
+for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+element = _ref[_i];
+_results1.push(element.render(value));
+}
+return _results1;
+}).call(this));
+} else if (typeof value === 'object') {
+_results.push(children.push(key));
+} else {
+_results.push(void 0);
+}
+}
+}
+return _results;
+}
+});
+Instance.prototype.renderDirectives = chainable(function(model, index, directives) {
+var attributes, element, key, _results;
+_results = [];
+for (key in directives) {
+if (!__hasProp.call(directives, key)) continue;
+attributes = directives[key];
+if (!(typeof attributes === 'object')) {
+continue;
+}
+if (typeof model !== 'object') {
+model = {
+value: model
+};
+}
+_results.push((function() {
+var _i, _len, _ref, _results1;
+_ref = this.matchingElements(key);
+_results1 = [];
+for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+element = _ref[_i];
+_results1.push(element.renderDirectives(model, index, attributes));
+}
+return _results1;
+}).call(this));
+}
+return _results;
+});
+Instance.prototype.renderChildren = chainable(function(model, children, directives, options) {
+var element, key, _i, _len, _results;
+_results = [];
+for (_i = 0, _len = children.length; _i < _len; _i++) {
+key = children[_i];
+_results.push((function() {
+var _j, _len1, _ref, _results1;
+_ref = this.matchingElements(key);
+_results1 = [];
+for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
+element = _ref[_j];
+_results1.push(this.Transparency.render(element.el, model[key], directives[key], options));
+}
+return _results1;
+}).call(this));
+}
+return _results;
+});
+Instance.prototype.matchingElements = function(key) {
+var el, elements, _base;
+elements = (_base = this.queryCache)[key] || (_base[key] = (function() {
+var _i, _len, _ref, _results;
+_ref = this.elements;
+_results = [];
+for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+el = _ref[_i];
+if (this.Transparency.matcher(el, key)) {
+_results.push(el);
+}
+}
+return _results;
+}).call(this));
+helpers.log("Matching elements for '" + key + "':", elements);
+return elements;
+};
+return Instance;
+})();
+},{"../lib/lodash.js":7,"./helpers":5}],7:[function(require,module,exports){
+var _ = {};
+_.toString = Object.prototype.toString;
+_.toArray = function(obj) {
+var arr = new Array(obj.length);
+for (var i = 0; i < obj.length; i++) {
+arr[i] = obj[i];
+}
+return arr;
+};
+_.isString = function(obj) { return _.toString.call(obj) == '[object String]'; };
+_.isNumber = function(obj) { return _.toString.call(obj) == '[object Number]'; };
+_.isArray = Array.isArray || function(obj) {
+return _.toString.call(obj) === '[object Array]';
+};
+_.isDate = function(obj) {
+return _.toString.call(obj) === '[object Date]';
+};
+_.isElement = function(obj) {
+return !!(obj && obj.nodeType === 1);
+};
+_.isPlainValue = function(obj) {
+var type;
+type = typeof obj;
+return (type !== 'object' && type !== 'function') || exports.isDate(obj);
+};
+_.isBoolean = function(obj) {
+return obj === true || obj === false;
+};
+module.exports = _;
+},{}]},{},[1]);
 //     Underscore.js 1.7.0
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors

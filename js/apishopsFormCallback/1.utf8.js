@@ -1,5 +1,5 @@
 var apishopsFormCallbackIcon, apishopsFormCallbackText;
 
-apishopsFormCallbackIcon = "<div class='apishopsCallback'>\n    <div class='apishopsFormCallBackDot'>\n    </div>\n    <div class='apishopsFormCallBackDot2'>\n    </div>\n    <div class='apishopsFormCallback'>\n    </div>\n</div>";
+apishopsFormCallbackIcon = "<div class='apishopsCallback'>\n<div class='apishopsFormCallBackDot'>\n</div>\n<div class='apishopsFormCallBackDot2'>\n</div>\n<div class='apishopsFormCallback'>\n</div>\n</div>";
 
 apishopsFormCallbackText = "<h2 style='margin-top: 0px;'>Понравился этот товар?</h2>\n\nМы расскажем Вам все об этом товаре, предложим наилучшие условия и ознакомим с подходящими акционными предложениями!<br>\n\n<form class=\"apishopsFormQVIContainerRightInOrder\">\n                                <div class=\"bl2\">\n                                    <input type=\"input\" placeholder=\"Ваш номер телефона\" value=\"\" name=\"apishopsFormPhone\" style='width: 250px;'>\n                                </div>\n                                <div class=\"bl3\">\n                                    <input type=\"submit\" value=\"Перезвонить мне!\">\n                                </div>\n                            </form>\n\n<b>Оператор перезвонит Вам через 15-30 минут</b>";

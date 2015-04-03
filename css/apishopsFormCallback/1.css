@@ -32,6 +32,49 @@
     animation:none;
 }
 
+.apishopsFormQVIContainerRightInOrder .bl3 {
+    float: left;
+}
+.apishopsFormQVIContainerRightInOrder .bl2 {
+    float: left;
+    padding-right: 5px;
+}
+.apishopsFormQVIContainerRightInOrder .bl2 input {
+    border-color: #808080 #d9d9d9 #d9d9d9 #808080;
+    border-radius: 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 14px;
+    height: 36px;
+    padding-left: 5px;
+    width: 150px;
+}
+.apishopsFormQVIContainerRightInOrder .bl3 input[type=submit] {
+  background: linear-gradient(#ff6500, #f00) repeat-x scroll 0 0 #f00;
+  border-color: #dc3737;
+  border-radius: 9px;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0 2px 1px 0 rgba(137,118,118,0.46);
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  height: 36px;
+  line-height: 30px;
+  margin: 0;
+  padding: 0 12px;
+  position: relative;
+  text-align: left;
+  vertical-align: middle;
+  height: 36px;
+  line-height: 30px;
+  transition: 0.2s all;
+}
+.apishopsFormQVIContainerRightInOrder .bl3 input[type=submit]:hover {
+  opacity: 0.8;
+}
 .apishopsFormCallBackDot{
     -webkit-animation: 3s ease-out 0s normal none infinite running pulse;
     animation: 3s ease-out 0s normal none infinite running pulse;

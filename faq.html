@@ -41,103 +41,35 @@
       </header>
 
       <section>
-        <div class="page-header">
-                    <h1>Популярные вопросы и ответы на них</h1>
-                </div>
+
 
 
                 <div class="row">
                     <div class="span12">
 
-                        <h4>Как задать редирект на собственную финишную страницу?</h4>
-                        <p>По умолчанию редирект происходит на finish.jsp, для того, чтобы задать редирект на собственную страницу надо указать <code>successUrl</code> таким образом</p>
-                        <p>
-<pre class="prettyprint linenums">
-$('#container2').apishopsForm({ callback:1,
-type:'inline', /*тип открытия [inline|modal]*/
-form:'light', /*тип формы [normal|light|jquery-selector]*/
-siteId:10221,
-productId:632879,
-price:1017.41, /*цена товара*/
-<b>successUrl:'http://sitename.ru/finish.jsp?id=' </b>
-});
-</pre>
 
-                         </p><code>?id=</code> в <code>'http://sitename.ru/finish.jsp?id='</code> является обязательным,
-                            т.к. наш плагин добавляет к ней номер заказа и финишная страница превращается в <code>http://sitename.ru/finish.jsp?id=321321</code>.</p>
+<script type='text/javascript'>
 
+var _ues = {
+host:'apishops.userecho.com',
+forum:'39892',
+lang:'ru',
+tab_show:false,
+container_id:'ue-embedded-widget',
+};
 
+(function() {
+    var _ue = document.createElement('script'); _ue.type = 'text/javascript'; _ue.async = true;
+    _ue.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.userecho.com/js/widget-1.4.gz.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(_ue, s);
+  })();
 
+</script>
 
-                        <h4>Как изменить кодировку</h4>
-                        <p>В случае необходимости использования скрипта другой кодировки вы можете подключить apishopsForm.2.utf8.js вместо apishopsForm.2.js</p>
-                        <p>
-<pre class="pre-scrollable prettyprint linenums">&lt;script src=&quot;http://img.apishops.org/SinglePageWebsites/custom/js/apishopsForm.2.utf8.js&quot;&gt;&lt;/script&gt;</script></pre>
-
-                        </p>
-                    </div>
-
-                    <div class="span12">
-                        <h4>Куда можно спрятать код стандартной формы, что бы вывести её в Modal форме? </h4>
-                        <p>Вы можете разместить код своей формы в любой части страницы. Если тип формы в инициализации плагина задан как <code>modal</code>, плагин скопирует в себя код указанной формы и разместит его в modal окне. При этом, форма, на код которой Вы укажете сама по себе работать не будет, так как останется неинициализированной. В таком случае, чтобы задействовать эту форму на странице рекомендуем инциализировать плагин с типаом <code>inline</code>, тогда код вашей формы будет работать ещё и отдельно, не в modal окне</p>
-                    </div>
-
-                    <div class="span12">
-                        <h4>Могу ли я создать свою финишную страницу с апселами? </h4>
-                        <p>Да, вы можете создать свою финишную страницу или использовать наше окно «благодарности за заказ», воспользовавшись инструкциями на этой странице — <a href="finish.html">раздел «финишная страница и апселы»</a></p>
-                    </div>
-
-                    <div class="span12">
-                        <h4>Где взять параметры siteId, wpId, productId</h4>
-                        <p>Для подключения и использования API вам необходимо знать <b>siteId</b>, <b>wpId</b> и <b>productId</b></p>
-                        <div class="alert alert-info"> <b>Внимание</b> Обязательно, перед использованием формы для продажи того или иного товара добавьте его в свой проект</div>
-                        <h5>1 способ. Взять параметры из сгенерированного одностраничника</h5>
-                        <p>Эти параметры генерируются системой Apishops для каждого магазина-«одностраничника» и прописываются в HTML страницы магазина следующим образом:</p>
-<code>Исходный код http://ham.apishops.ru/:</code>
-<pre class="prettyprint linenums">
-&lt;script type=&quot;text/javascript&quot;&gt;
-var siteId = 3016;/*ID сайта*/
-var productId = 564022;/*ID товара*/
-var price = 899.0;/*Цена товара*/
-var priceRound = 899;/*Округленная цена товара*/
-var wpId = 9587555; /*Внутренний артикул товара*/
-var sourceParam = &quot;&quot;;
-var sourceRef = &quot;&quot;;
-&lt;/script&gt;
-</pre>
+<div id="ue-embedded-widget"></div>
 
 
 
-                        <h5>2 способ. Взять параметры на сайта</h5>
-
-                        <div class="media clearfix">
-                          <a class="pull-left" href="http://cl.ly/image/202V3K083F2Y">
-                            <img width="250" class="thumbnail media-object" src="http://cl.ly/image/202V3K083F2Y/screenshot%202013-11-07%20%D0%B2%2005.22.56.png">
-                          </a>
-                          <div class="media-body">
-                            <b>siteId(id сайта)</b> содержится во всех URL страниц управления проектом
-                          </div>
-                        </div>
-
-                        <div class="media clearfix">
-                          <a class="pull-left" href="http://cl.ly/image/1c2x2P3I0c40">
-                            <img width="250" class="thumbnail media-object" src="http://cl.ly/image/1c2x2P3I0c40/screenshot%202013-11-07%20в%2005.05.29.png">
-                          </a>
-                          <div class="media-body">
-                            <b>productId(ID товара)</b> можно взять из кладки «Ассортимент» <a href=#>главной страницы ApiShops</a> (колонка ID)
-                          </div>
-                        </div>
-
-                        <div class="media clearfix">
-                          <a class="pull-left" href="http://cl.ly/image/110i2g2w3Q3F">
-                            <img width="250" class="thumbnail media-object" src="http://cl.ly/image/110i2g2w3Q3F/screenshot%202013-11-07%20%D0%B2%2005.18.12.png">
-                          </a>
-                          <div class="media-body">
-                            <b>wpId(внутренний артикул товара)</b> можно найти в разделе «Товары»
-                          </div>
-                        </div>
-
-                        <p></p>
 
 
                 </div>

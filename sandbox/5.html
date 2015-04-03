@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="../css/cd.css" />
+        <script src="../js/modernizr.custom.63321.js"></script>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script type="text/javascript" src="../js/jquery.dropdown.js"></script>
+    </head>
+    <body style='text-align:center'>
+        <div style='display:none'>
+                    <select id="cd-dropdown" class="cd-select">
+                        <option value="-1" selected>Выберите цвет:</option>
+                        <option value="1">Красный</option>
+                        <option value="2">Синий</option>
+                        <option value="3">Желтый</option>
+                    </select>
+        </div>
+
+<!-- init apishops -->
+<script src="../js/apishopsForm.2.js"></script>
+<link href="../css/apishopsForm.2.css" rel="stylesheet">
+<div id="containerId"></div>
+<script>
+    $(document).ready( function() {
+        $('#containerId').apishopsForm({
+            type:'inline', /*тип открытия [inline|modal]*/
+            callback:1, /*кнопка обратного звонка [0|1]*/
+            successUrl:'/finish.jsp', /*url благодарственной страницы [url|false]*/
+            form:'light', /*тип формы [normal|light|jquery-selector]*/
+            displayed_containers:['picture','price','name'],
+            theme:1,
+            siteId:32290,/*айди сайта из панели партнера http://www.apishops.com/Webmaster/WebsiteGroup/WebsiteGroupList.jsp */
+            productId:384562, /*айди товара из ассортимента на странице http://www.apishops.com*/
+            lang:1,
+        });
+    });
+</script>
+
+
+
+
+        <script type="text/javascript">
+
+            $( function() {
+
+                setInterval(function() {
+
+
+                $( '#cd-dropdown' ).insertBefore($('[name=apishopsFormPromocode]'))
+
+                $( '#cd-dropdown' ).dropdown( {
+                    gutter : 5,
+                    delay : 40,
+                    rotated : 'left'
+                } );
+
+
+                 }, 2000)
+
+
+
+            });
+
+        </script>
+    </body>
+</html>

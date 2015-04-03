@@ -1,0 +1,422 @@
+/*
+* @Author: mac
+* @Date:   2015-03-30 17:00:47
+* @Last Modified by:   mac
+* @Last Modified time: 2015-04-01 05:23:38
+*/
+
+
+
+.apishopsFormVariantesRadio, .apishopsFormVariantesRadio  *, .apishopsFormVariantesRadio  *::after, .apishopsFormVariantesRadio  *::before {
+
+    box-sizing: border-box;
+    color: #555554;
+    font-family: Arial;
+
+    -webkit-animation : none;
+
+    animation : none;
+    -webkit-animation-delay : 0;
+    animation-delay : 0;
+    -webkit-animation-direction : normal;
+    animation-direction : normal;
+    -webkit-animation-duration : 0;
+    animation-duration : 0;
+    -webkit-animation-fill-mode : none;
+    animation-fill-mode : none;
+    -webkit-animation-iteration-count : 1;
+    animation-iteration-count : 1;
+    -webkit-animation-name : none;
+    animation-name : none;
+    -webkit-animation-play-state : running;
+    animation-play-state : running;
+    -webkit-animation-timing-function : ease;
+    animation-timing-function : ease;
+
+    background : 0;
+    background-attachment : scroll;
+    background-clip : border-box;
+    background-color : transparent;
+    background-image : none;
+    background-origin : padding-box;
+    background-position : 0 0;
+    background-position-x : 0;
+    background-position-y : 0;
+    background-repeat : repeat;
+    background-size : auto auto;
+    border : 0;
+    border-style : none;
+    border-width : medium;
+    border-color : inherit;
+    border-bottom : 0;
+    border-bottom-color : inherit;
+    border-bottom-left-radius : 0;
+    border-bottom-right-radius : 0;
+    border-bottom-style : none;
+    border-bottom-width : medium;
+    border-collapse : separate;
+    border-image : none;
+    border-left : 0;
+    border-left-color : inherit;
+    border-left-style : none;
+    border-left-width : medium;
+    border-radius : 0;
+    border-right : 0;
+    border-right-color : inherit;
+    border-right-style : none;
+    border-right-width : medium;
+    border-spacing : 0;
+    border-top : 0;
+    border-top-color : inherit;
+    border-top-left-radius : 0;
+    border-top-right-radius : 0;
+    border-top-style : none;
+    border-top-width : medium;
+    bottom : auto;
+    box-shadow : none;
+    font-size:medium;
+    caption-side : top;
+    clear : none;
+    clip : auto;
+
+    -webkit-columns : auto;
+
+    -moz-columns : auto;
+
+    columns : auto;
+    -webkit-column-count : auto;
+    -moz-column-count : auto;
+    column-count : auto;
+    -webkit-column-fill : balance;
+    -moz-column-fill : balance;
+    column-fill : balance;
+    -webkit-column-gap : normal;
+    -moz-column-gap : normal;
+    column-gap : normal;
+    -webkit-column-rule : medium none currentColor;
+    -moz-column-rule : medium none currentColor;
+    column-rule : medium none currentColor;
+    -webkit-column-rule-color : currentColor;
+    -moz-column-rule-color : currentColor;
+    column-rule-color : currentColor;
+    -webkit-column-rule-style : none;
+    -moz-column-rule-style : none;
+    column-rule-style : none;
+    -webkit-column-rule-width : none;
+    -moz-column-rule-width : none;
+    column-rule-width : none;
+    -webkit-column-span : 1;
+    -moz-column-span : 1;
+    column-span : 1;
+    -webkit-column-width : auto;
+    -moz-column-width : auto;
+    column-width : auto;
+    content : normal;
+    counter-increment : none;
+    counter-reset : none;
+
+    direction : ltr;
+
+    empty-cells : show;
+    float : none;
+    font : normal;
+
+    font-style : normal;
+    font-variant : normal;
+    font-weight : normal;
+    height : auto;
+    -webkit-hyphens : none;
+    -moz-hyphens : none;
+    -ms-hyphens : none;
+    hyphens : none;
+    left : auto;
+    letter-spacing : normal;
+    line-height : normal;
+    list-style : none;
+    list-style-image : none;
+    list-style-position : outside;
+    list-style-type : disc;
+    margin : 0;
+    margin-bottom : 0;
+    margin-left : 0;
+    margin-right : 0;
+    margin-top : 0;
+    max-height : none;
+    max-width : none;
+    min-height : 0;
+    min-width : 0;
+    opacity : 1;
+    orphans : 0;
+    outline : 0;
+    outline-color : invert;
+    outline-style : none;
+    outline-width : medium;
+    overflow : visible;
+    overflow-x : visible;
+    overflow-y : visible;
+    padding : 0;
+    padding-bottom : 0;
+    padding-left : 0;
+    padding-right : 0;
+    padding-top : 0;
+    page-break-after : auto;
+    page-break-before : auto;
+    page-break-inside : auto;
+    -webkit-perspective : none;
+    perspective : none;
+    -webkit-perspective-origin : 50% 50%;
+    perspective-origin : 50% 50%;
+    position : static;
+    /* May need to alter quotes for different locales (e.g fr) */
+    quotes : '\201C' '\201D' '\2018' '\2019';
+    right : auto;
+    -moz-tab-size : 8;
+    tab-size : 8;
+    table-layout : auto;
+    text-align : inherit;
+    text-align-last : auto;
+    text-decoration : none;
+    -moz-text-decoration-color : inherit;
+    text-decoration-color : inherit;
+    -moz-text-decoration-line : none;
+    text-decoration-line : none;
+    -webkit-text-decoration-style : solid;
+    -moz-text-decoration-style : solid;
+    text-decoration-style : solid;
+    text-indent : 0;
+    text-shadow : none;
+    text-transform : none;
+    top : auto;
+    -webkit-transform : none;
+    -ms-transform : none;
+    transform : none;
+    -webkit-transform-style : flat;
+    transform-style : flat;
+    transition : none;
+    transition-delay : 0s;
+    transition-duration : 0s;
+    transition-property : none;
+    transition-timing-function : ease;
+    unicode-bidi : normal;
+    vertical-align : baseline;
+
+    white-space : normal;
+    widows : 0;
+    width : auto;
+    word-spacing : normal;
+    z-index : auto;
+
+    list-style: none;
+}
+
+
+.apishopsFormVariantsList label {
+    display: inline-block;
+    font-size: 11px;
+    line-height: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+.apishopsFormVariantsList input[type="radio"] {
+    display: none;
+}
+
+.apishopsFormVariantsDropDown{
+    position: relative;
+}
+
+
+
+.apishopsFormVariantsDropDown .apishopsFormVariantsTitle {
+    box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.25) inset;
+    cursor: pointer;
+    padding-left: 12px;
+    padding-right: 33px;
+    position: relative;
+    text-align: left;
+    background: none repeat scroll 0 0 white;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    border-bottom: 1px solid rgba(9, 9, 9, 0.3);
+    border-top: 1px solid rgba(9, 9, 9, 0.11);
+    background-color: white;
+}
+
+.apishopsFormVariantsDropDown.apishopsFormVariantsDropDownColor .apishopsFormVariantsTitle{
+    padding-left: 37px;
+}
+.apishopsFormVariantsDropDown.apishopsFormVariantsDropDownColor .apishopsFormVariantsTitle .apishopsFormVariantsTitleColor {
+
+    box-shadow: 1px 2px 3px 0px rgba(126, 126, 126, 0.49);
+    border-radius: 50px;
+    height: 27px;
+    left: 4px;
+    margin-top: -15px;
+    position: absolute;
+    top: 50%;
+    width: 27px;
+}
+
+.apishopsFormVariantsDropDown.apishopsFormVariantsDropDownColor .apishopsFormVariantsTitle .apishopsFormVariantsTitleColor:after {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    content: ""; /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */
+background: linear-gradient(45deg,  rgba(255,255,255,0) 0%,rgba(241,241,241,0.5) 50%,rgba(225,225,225,0.51) 51%,rgba(246,246,246,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#f6f6f6',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+    border-radius: 50px;
+}
+
+.apishopsFormVariantsDropDown .apishopsFormVariantsTitle:after {
+    content: '\25BC';
+    border-left: 1px solid #ddd;
+    bottom: 0;
+    color: #8c8c8c;
+    font-size: 12px;
+    line-height: 40px;
+    padding: 0 7px;
+    position: absolute;
+    right: 7px;
+    text-align: center;
+    top: 0px;
+    vertical-align: middle;
+    width: 18px;
+}
+
+
+.apishopsFormVariantsDropDown .apishopsFormVariantsList {
+    display: none;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 999;
+    background: white;
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.25);
+}
+.apishopsFormVariantsDropDown .apishopsFormVariantTitle{
+    cursor: pointer;
+}
+
+.apishopsFormVariantsDropDown .apishopsFormVariantsList label{
+    border-bottom: 1px solid #dcdcdc;
+    clear: both;
+    display: block;
+    overflow: hidden;
+    padding: 10px;
+    cursor: pointer;
+    background: white;
+    transition:0.2s background;
+}
+.apishopsFormVariantsDropDown .apishopsFormVariantsList label:HOVER{
+    background: #F1F7FC;
+}
+
+.apishopsFormVariantsDropDown.apishopsFormVariants-open .apishopsFormVariantsList{
+    display: block;
+}
+
+.apishopsFormVariantsDropDown.apishopsFormVariants-open .apishopsFormVariantsList .apishopsFormVariantName{
+    float: right;
+}
+
+.apishopsFormVariantsDropDown.apishopsFormVariants-open .apishopsFormVariantsList .apishopsFormVariantTitle{
+    display: inline-block;
+    float: left;
+    height: 30px;
+    text-align: left;
+    vertical-align: middle;
+    width: 76%;
+    font-size: 13px;
+}
+
+.apishopsFormVariantsRadioBox .apishopsFormVariantsTitle{
+    height: unset !important;
+    height: none !important;
+
+    line-height: unset !important;
+    line-height: none !important;
+/*                                css('line-height',lastInput.outerHeight()+'px').
+                                css('color',styles.color||'').
+                                css('background-color',styles.backgroundColor||'').
+                                css('font-size',styles.fontSize||'').
+                                css('border-radius',styles.borderBottomLeftRadius||'').
+                                css('margin-bottom',styles.marginBottom||'').
+                                css('font-family',styles.fontFamily||'');*/
+
+    color: unset !important;
+    color: none !important;
+
+    background-color: unset !important;
+    background-color: none !important;
+
+
+}
+
+.apishopsFormVariantsRadioBox  .apishopsFormVariantsList{
+    margin-top: initial !important;
+    margin-top: none !important;
+}
+
+.apishopsFormVariantName{
+    overflow: hidden;
+    color: rgba(255, 255, 255, 0) !important;
+    border: 1px solid rgba(0, 0, 0, 0.11);
+    width: 40px;
+}
+
+.apishopsFormVariantsList .apishopsFormVariantName{
+    /*background: url("http://img2.apishops.org/SinglePageWebsites/custom/images/watchUlysse_web/icons-s58518789b1.png") no-repeat scroll 0 -56px rgba(0, 0, 0, 0);*/
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 30px;
+    position: relative;
+
+    padding: 9px;
+
+    cursor: pointer;
+
+}
+
+.apishopsFormVariantsList  .apishopsFormVariantTitle{
+    display: none;
+}
+
+.apishopsFormVariantsRadioBox .apishopsFormVariantTitle{
+    display: none !important;
+}
+
+.apishopsFormVariantsRadioBox .apishopsFormVariantName{
+    color: rgba(255, 255, 255, 0) !important;
+}
+
+.apishopsFormVariantsList .apishopsFormVariantName:after{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    content: ""; /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.18) 59%,rgba(0,0,0,0.3) 99%,rgba(0,0,0,0.3) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#4d000000',GradientType=0 ); /* IE6-9 */
+
+}
+
+.apishopsFormVariantName {
+    transition:0.2s all;
+    cursor: pointer;
+}
+
+.apishopsFormVariantsList input[type="radio"]:checked ~ .apishopsFormVariantName {
+    box-shadow: 0 0 7px 3px #5992C6;
+
+}
+
+.apishopsFormVariantsList .apishopsFormVariantName:HOVER {
+    box-shadow: 0 0 7px 3px #96C6ED;
+}

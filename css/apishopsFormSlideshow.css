@@ -1,0 +1,689 @@
+
+@font-face {
+    font-family: "fontawesome";
+    font-style: normal;
+    font-weight: normal;
+    src: url("http://img2.apishops.org/SinglePageWebsites/custom/fonts/compact/fontawesome.eot?#iefix-e43dk9") format("embedded-opentype"),
+         url("http://img2.apishops.org/SinglePageWebsites/custom/fonts/compact/fontawesome.woff?-e43dk9") format("woff"),
+         url("http://img2.apishops.org/SinglePageWebsites/custom/fonts/compact/fontawesome.ttf?-e43dk9") format("truetype"),
+         url("http://img2.apishops.org/SinglePageWebsites/custom/fonts/compact/fontawesome.svg?-e43dk9#fontawesome") format("svg");
+}
+
+
+@font-face {
+    font-family: "bpicons";
+    font-style: normal;
+    font-weight: normal;
+    src: url("http://img2.apishops.org/SinglePageWebsites/custom/fonts/compact/bpicons.eot?#iefix") format("embedded-opentype"),
+         url("http://img2.apishops.org/SinglePageWebsites/custom/fonts/compact/bpicons.woff") format("woff"),
+         url("http://img2.apishops.org/SinglePageWebsites/custom/fonts/compact/bpicons.ttf") format("truetype"),
+         url("http://img2.apishops.org/SinglePageWebsites/custom/fonts/compact/bpicons.svg#bpicons") format("svg");
+}
+
+
+
+.apishopsFormSlideshow, .apishopsFormSlideshow  *, .apishopsFormSlideshow  *::after, .apishopsFormSlideshow  *::before {
+
+    box-sizing: border-box;
+    color: #555554;
+    font-family: Arial;
+
+    -webkit-animation : none;
+
+    animation : none;
+    -webkit-animation-delay : 0;
+    animation-delay : 0;
+    -webkit-animation-direction : normal;
+    animation-direction : normal;
+    -webkit-animation-duration : 0;
+    animation-duration : 0;
+    -webkit-animation-fill-mode : none;
+    animation-fill-mode : none;
+    -webkit-animation-iteration-count : 1;
+    animation-iteration-count : 1;
+    -webkit-animation-name : none;
+    animation-name : none;
+    -webkit-animation-play-state : running;
+    animation-play-state : running;
+    -webkit-animation-timing-function : ease;
+    animation-timing-function : ease;
+
+    background : 0;
+    background-attachment : scroll;
+    background-clip : border-box;
+    background-color : transparent;
+    background-image : none;
+    background-origin : padding-box;
+    background-position : 0 0;
+    background-position-x : 0;
+    background-position-y : 0;
+    background-repeat : repeat;
+    background-size : auto auto;
+    border : 0;
+    border-style : none;
+    border-width : medium;
+    border-color : inherit;
+    border-bottom : 0;
+    border-bottom-color : inherit;
+    border-bottom-left-radius : 0;
+    border-bottom-right-radius : 0;
+    border-bottom-style : none;
+    border-bottom-width : medium;
+    border-collapse : separate;
+    border-image : none;
+    border-left : 0;
+    border-left-color : inherit;
+    border-left-style : none;
+    border-left-width : medium;
+    border-radius : 0;
+    border-right : 0;
+    border-right-color : inherit;
+    border-right-style : none;
+    border-right-width : medium;
+    border-spacing : 0;
+    border-top : 0;
+    border-top-color : inherit;
+    border-top-left-radius : 0;
+    border-top-right-radius : 0;
+    border-top-style : none;
+    border-top-width : medium;
+    bottom : auto;
+    box-shadow : none;
+    font-size:medium;
+    caption-side : top;
+    clear : none;
+    clip : auto;
+
+    -webkit-columns : auto;
+
+    -moz-columns : auto;
+
+    columns : auto;
+    -webkit-column-count : auto;
+    -moz-column-count : auto;
+    column-count : auto;
+    -webkit-column-fill : balance;
+    -moz-column-fill : balance;
+    column-fill : balance;
+    -webkit-column-gap : normal;
+    -moz-column-gap : normal;
+    column-gap : normal;
+    -webkit-column-rule : medium none currentColor;
+    -moz-column-rule : medium none currentColor;
+    column-rule : medium none currentColor;
+    -webkit-column-rule-color : currentColor;
+    -moz-column-rule-color : currentColor;
+    column-rule-color : currentColor;
+    -webkit-column-rule-style : none;
+    -moz-column-rule-style : none;
+    column-rule-style : none;
+    -webkit-column-rule-width : none;
+    -moz-column-rule-width : none;
+    column-rule-width : none;
+    -webkit-column-span : 1;
+    -moz-column-span : 1;
+    column-span : 1;
+    -webkit-column-width : auto;
+    -moz-column-width : auto;
+    column-width : auto;
+    content : normal;
+    counter-increment : none;
+    counter-reset : none;
+
+    direction : ltr;
+
+    empty-cells : show;
+    float : none;
+    font : normal;
+
+    font-style : normal;
+    font-variant : normal;
+    font-weight : normal;
+    height : auto;
+    -webkit-hyphens : none;
+    -moz-hyphens : none;
+    -ms-hyphens : none;
+    hyphens : none;
+    left : auto;
+    letter-spacing : normal;
+    line-height : normal;
+    list-style : none;
+    list-style-image : none;
+    list-style-position : outside;
+    list-style-type : disc;
+    margin : 0;
+    margin-bottom : 0;
+    margin-left : 0;
+    margin-right : 0;
+    margin-top : 0;
+    max-height : none;
+    max-width : none;
+    min-height : 0;
+    min-width : 0;
+    opacity : 1;
+    orphans : 0;
+    outline : 0;
+    outline-color : invert;
+    outline-style : none;
+    outline-width : medium;
+    overflow : visible;
+    overflow-x : visible;
+    overflow-y : visible;
+    padding : 0;
+    padding-bottom : 0;
+    padding-left : 0;
+    padding-right : 0;
+    padding-top : 0;
+    page-break-after : auto;
+    page-break-before : auto;
+    page-break-inside : auto;
+    -webkit-perspective : none;
+    perspective : none;
+    -webkit-perspective-origin : 50% 50%;
+    perspective-origin : 50% 50%;
+    position : static;
+    /* May need to alter quotes for different locales (e.g fr) */
+    quotes : '\201C' '\201D' '\2018' '\2019';
+    right : auto;
+    -moz-tab-size : 8;
+    tab-size : 8;
+    table-layout : auto;
+    text-align : inherit;
+    text-align-last : auto;
+    text-decoration : none;
+    -moz-text-decoration-color : inherit;
+    text-decoration-color : inherit;
+    -moz-text-decoration-line : none;
+    text-decoration-line : none;
+    -webkit-text-decoration-style : solid;
+    -moz-text-decoration-style : solid;
+    text-decoration-style : solid;
+    text-indent : 0;
+    text-shadow : none;
+    text-transform : none;
+    top : auto;
+    -webkit-transform : none;
+    -ms-transform : none;
+    transform : none;
+    -webkit-transform-style : flat;
+    transform-style : flat;
+    transition : none;
+    transition-delay : 0s;
+    transition-duration : 0s;
+    transition-property : none;
+    transition-timing-function : ease;
+    unicode-bidi : normal;
+    vertical-align : baseline;
+
+    white-space : normal;
+    widows : 0;
+    width : auto;
+    word-spacing : normal;
+    z-index : auto;
+
+    list-style: none;
+}
+
+@charset "utf8";
+
+
+.apishopsFormSlideLeft
+{
+    width: 347px;
+    overflow: hidden;
+    float: left;
+}
+
+.apishopsFormSlideLeft .apishopsFormImage{
+    height: 430px;
+    border: 2px solid white;
+    box-shadow: 0 0 2px #a2a2a2;
+    margin: 15px;
+    cursor: move;
+    position: relative;
+}
+
+.apishopsFormSlideLeft .apishopsFormImage::after {
+    background: none repeat scroll 0 0 rgba(51, 51, 51, 0.63);
+    border-radius: 35px;
+    color: white;
+    content: "Наведите для увеличения";
+    display: inline-block;
+    font-size: 12px;
+    font-weight: normal !important;
+    left: 50%;
+    margin-left: -90px;
+    margin-top: -20px;
+    padding: 12px 10px;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    top: 50%;
+    width: 180px;
+    transition:0.1s all;
+}
+.apishopsFormSlideshow-open .apishopsFormSlideLeft .apishopsFormImage:HOVER::after{
+    opacity: 0;
+}
+
+.apishopsFormSlideLeft .apishopsFormImagesContainer{
+    height: 74px;
+    overflow: hidden;
+    padding: 0px 20px 0px 16px;
+    width: 100%;
+}
+
+.apishopsFormSlideLeft .apishopsFormImagesContainerLeft,
+.apishopsFormSlideLeft .apishopsFormImagesContainerRight{
+    display: inline-block;
+    height: 74px;
+    width: 25px;
+    position: relative;
+    cursor: pointer;
+    opacity: 0.5;
+    transition:0.05s all;
+}
+
+.apishopsFormSlideLeft .apishopsFormImagesContainerLeft:HOVER,
+.apishopsFormSlideLeft .apishopsFormImagesContainerRight:HOVER{
+    opacity: 1;
+}
+
+.apishopsFormSlideLeft .apishopsFormImagesContainerLeft:AFTER,
+.apishopsFormSlideLeft .apishopsFormImagesContainerRight:AFTER{
+    content: "\e601";
+    font-family: 'fontawesome';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    font-size: 18px;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+
+background: rgb(181,189,201); /* Old browsers */ /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */
+background: linear-gradient(45deg,  rgba(181,189,201,1) 0%,rgba(147,150,150,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b5bdc9', endColorstr='#939696',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+    color: white;
+    border-radius: 50px;
+
+    padding: 5px 7px;
+
+    top: 23px;
+
+
+}
+.apishopsFormSlideLeft .apishopsFormImagesContainerRight:AFTER{
+    content: "\e600";
+}
+
+.apishopsFormSlideLeft .apishopsFormImagesContainerArea {
+    display: inline-block;
+    height: 74px;
+    overflow: hidden;
+    width: 250px;
+}
+
+.apishopsFormSlideLeft .apishopsFormImages{
+    height: 74px;
+    overflow: hidden;
+    padding: 2px;
+    width: 20000px;
+}
+
+.apishopsFormSlideLeft .apishopsFormImages .apishopsFormImagesImage{
+    width: 90px;
+    height: 70px;
+    border: 2px solid white;
+    box-shadow: 0 0 2px #a2a2a2;
+    float: left;
+    margin:0 8px 8px 0;
+    overflow: hidden;
+    cursor: pointer;
+}
+.apishopsFormSlideLeft .apishopsFormImages .apishopsFormImagesImageActive,.apishopsFormSlideLeft .apishopsFormImages .apishopsFormImagesImage:HOVER{
+    box-shadow: 0 0 0px 2px #FFD300;
+}
+
+.apishopsFormOrder{
+    margin: 20px 0;
+}
+
+.apishopsFormOrder [type=submit]{
+  background: linear-gradient(#ff6500, #f00) repeat-x scroll 0 0 #f00;
+  border-color: #dc3737;
+  border-radius: 9px;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0 2px 1px 0 rgba(137,118,118,0.46);
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  height: 36px;
+  line-height: 30px;
+  margin: 0;
+  padding: 0 12px;
+  position: relative;
+  text-align: left;
+  vertical-align: middle;
+  height: 36px;
+  line-height: 30px;
+}
+
+
+.apishopsFormOrder [type=input] {
+    border-color: #808080 #d9d9d9 #d9d9d9 #808080;
+    border-radius: 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 14px;
+    height: 36px;
+    padding-left: 5px;
+    width: 150px;
+}
+
+
+.apishopsFormSlideRight
+{
+    display: inline-block;
+    float: left;
+    padding: 7px;
+    width: 280px;
+    position: relative;
+}
+
+.apishopsFormSlideRight .apishopsFormName{
+    font-size: 35px;
+    font-weight: bold;
+    margin: 16px 0;
+}
+
+.apishopsFormSlideRight .apishopsFormFullDescription{
+    max-height: 200px;
+    overflow: auto;
+    color: #898989;
+}
+
+
+.apishopsFormOldPriceBlock {
+    display: block;
+    font-weight: normal;
+    text-decoration: line-through;
+    white-space: nowrap;
+    opacity: 0.8;
+    color: white;
+}
+
+.apishopsFormOldPriceBlock * {
+    font-size: 18px !important;
+    color: white;
+}
+
+.apishopsFormCurrentPriceBlock {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+
+
+.apishopsFormSlideRight .apishopsFormPriceBlock {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  top: 10px;
+  right: 280px;
+  -o-border-radius: 100px;
+  border-radius: 100px;
+  background-clip: padding-box;
+  background: #bd0909;
+  background: linear-gradient(30deg, #ff6e6e 0%, #bd0909 100%);
+  color: white;
+
+  font-weight: bold;
+  text-align: center;
+  padding-top: 33px;
+  color: white;
+  white-space: nowrap;
+}
+
+
+.apishopsFormSlideRight .apishopsFormCurrentPriceBlock *{
+    color: white;
+  font-size: 40px;
+}
+
+.apishopsFormSlideRight .apishopsFormPriceBlock .apishopsFormCyr {
+    font-size: 18px;
+    font-weight: normal;
+}
+
+
+/* Slideshow style */
+.apishopsFormSlideshow {
+    position: fixed;
+    background: rgba(0,0,0,0.6);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 500;
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+    transition: opacity 0.5s, visibility 0s 0.5s;
+    display: none;
+}
+
+.apishopsFormSlideshow-open.apishopsFormSlideshow {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s;
+}
+
+.apishopsFormSlideshow ul {
+    width: 100%;
+    height: 100%;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform: translate3d(0,0,150px);
+    transform: translate3d(0,0,150px);
+    transition: -webkit-transform 0.5s;
+    transition: transform 0.5s;
+}
+
+.apishopsFormSlideshow ul li {
+    transition: -webkit-transform 0.5s;
+    transition: transform 0.5s;
+    background: white;
+}
+
+.apishopsFormSlideshow-open.apishopsFormSlideshow ul {
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+}
+
+.apishopsFormSlideshow li {
+    width: 660px;
+    height: 560px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -280px 0 0 -330px;
+    visibility: hidden;
+}
+
+.apishopsFormSlideshow li.show {
+    visibility: visible;
+}
+
+.apishopsFormSlideshow li:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(255,255,255,0.8);
+    transition: opacity 0.3s;
+}
+
+.apishopsFormSlideshow li.current:after {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0s 0.3s;
+}
+
+.apishopsFormSlideshow figure {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border: 10px solid #fff;
+    overflow: hidden;
+    margin: 0px;
+}
+
+.apishopsFormSlideshow figcaption {
+    padding-bottom: 20px;
+}
+
+.apishopsFormSlideshow figcaption h3 {
+    font-weight: 300;
+    font-size: 200%;
+}
+
+/* Navigation */
+.apishopsFormSlideshow nav span {
+    position: fixed;
+    z-index: 1000;
+    color: #59656c;
+    text-align: center;
+    padding: 3%;
+    cursor: pointer;
+    font-size: 2.2em;
+}
+
+.apishopsFormSlideshow nav .apishopsFormSlideshowIconNavPrev,
+.apishopsFormSlideshow nav .apishopsFormSlideshowIconNavNext {
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.apishopsFormSlideshow nav .apishopsFormSlideshowIconNavNext {
+    right: 0;
+}
+
+.apishopsFormSlideshow nav .apishopsFormSlideshowIconNavClose {
+    top: 0;
+    right: 0;
+    padding: 0.5em 1em;
+    color: #31373a;
+}
+
+.apishopsFormSlideshowIcon:before,
+.apishopsFormSlideshowIcon:after {
+    font-family: 'fontawesome';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    font-size: 35px;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.apishopsFormSlideshowIconNavPrev:before {
+    content: "\e601";
+}
+
+.apishopsFormSlideshowIconNavNext:before  {
+    content: "\e600";
+}
+
+.apishopsFormSlideshowIconNavClose:before {
+    content: "\e602";
+    color: white;
+    cursor: pointer;
+}
+
+/* Info on arrow key navigation */
+.info-keys {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 60px;
+    font-size: 8px;
+    padding-top: 20px;
+    text-transform: uppercase;
+    color: #fff;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.info-keys:before,
+.info-keys:after {
+    position: absolute;
+    top: 0;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #fff;
+    text-align: center;
+    line-height: 14px;
+    font-size: 12px;
+    font-family: "fontawesome";
+    color: white;
+}
+
+.info-keys:before {
+    left: 10px;
+    content: "\e603";
+}
+
+.info-keys:after {
+    right: 10px;
+    content: "\e604";
+}
+
+/* Example media queries (reduce number of columns and change slideshow layout) */
+
+@media screen and (max-width: 60em) {
+
+
+    .apishopsFormSlideshow li {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        margin: 0;
+    }
+
+    .apishopsFormSlideshow li figure img {
+        width: auto;
+        margin: 0 auto;
+        max-width: 100%;
+    }
+
+    .apishopsFormSlideshow nav span,
+    .apishopsFormSlideshow nav .apishopsFormSlideshowIconNavClose {
+        font-size: 1.8em;
+        padding: 0.3em;
+    }
+
+    .info-keys {
+        display: none;
+    }
+
+}

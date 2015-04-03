@@ -9,6 +9,9 @@
     display: inline-block;
      margin-left: -30px;
 }
+.apishopsFormImage .apishopsFormImage{
+    background: none !important;
+}
 .apishopsFormButton.apishopsFormBuy b {
     color: #000000;
     display: inline-block;

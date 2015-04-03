@@ -14,7 +14,9 @@
   display: inline-block;
   margin: 7px;
 }
-
+.apishopsFormImage .apishopsFormImage{
+    background: none !important;
+}
 .apishopsFormImageWrapper {
     width: 107px;
     height: 111px !important;
