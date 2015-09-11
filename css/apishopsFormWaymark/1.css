@@ -1,0 +1,164 @@
+/*
+* @Author: apishops
+* @Date:   2015-04-19 02:18:32
+* @Last Modified by:   mac
+* @Last Modified time: 2015-04-20 00:39:21
+*/
+
+@font-face {
+  font-family: 'entypo';
+  src: url("http://img.apishops.org/SinglePageWebsites/custom/fonts/compact/entypo.eot");
+  src: url("http://img.apishops.org/SinglePageWebsites/custom/fonts/compact/entypo.eot?#iefix") format('embedded-opentype'),
+        url("http://img.apishops.org/SinglePageWebsites/custom/fonts/compact/entypo.woff") format('woff'),
+        url("http://img.apishops.org/SinglePageWebsites/custom/fonts/compact/entypo.ttf") format('truetype'),
+        url("http://img.apishops.org/SinglePageWebsites/custom/fonts/compact/entypo.svg#entypo") format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.grid{
+    overflow: unset !important;
+}
+
+.apishopsFormWaymark * {
+    box-sizing: border-box;
+}
+.apishopsFormWaymark{
+    /*position: absolute;
+    margin-left: -100px;*/
+    right: 0px !important;
+    top: 0px !important;
+    bottom: 0px !important;
+    box-shadow: 2px 2px 2px 0 rgba(6, 6, 6, 0.11), -2px -2px 1px rgba(6, 6, 6, 0.15) inset; /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(183, 183, 183,0.26) 0%,rgba(183, 183, 183,0.13) 51%,rgba(61,61,61,0.18) 84%,rgba(61,61,61,0.2) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0fffffff', endColorstr='#333d3d3d',GradientType=0 ); /* IE6-9 */
+    border-radius:5px;
+    border-top: 1px solid rgba(130, 130, 130, 0.0);
+    border-right: none;
+    border-bottom: none;
+    border-left: 1px solid rgba(130, 130, 130, 0.14);
+    display:inline-block;
+    cursor:pointer;
+    text-decoration:none;
+    text-shadow:0px 2px 0px #e1e2ed;
+    width: none;
+    width: initial;
+    margin: 0 10px 0 5px;
+    vertical-align: middle;
+    line-height: 20px;
+
+}
+
+.apishopsFormWaymark .apishopsFormWaymarkName {
+    /*display: inline-block;*/
+    padding: 5px 10px;
+    text-decoration: none;
+    font-size: 60%;
+    padding: 0px 5px 0px 4px;
+    vertical-align: middle;
+    padding: 5px 5px 5px 0px;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.30);
+    /*position: relative;*/
+}
+
+.apishopsFormWaymark  .apishopsFormWaymarkName:before{
+    content: '\e724';
+    font-family: "entypo";
+
+    padding: 0 5px;
+    font-size: 120%;
+    text-shadow: none;
+
+    /*
+    position: absolute;
+    top: -4px;
+    left: -7px;*/
+}
+
+
+
+
+.apishopsFormWaymark .apishopsFormWaymarkUl .apishopsFormWaymarkUl {
+    /*display: none;*/
+    height: auto;
+}
+
+    .apishopsFormWaymark .apishopsFormWaymarkUl .apishopsFormWaymarkLi:hover > .apishopsFormWaymarkUl {
+        display: block;
+    }
+
+/* Style Menu */
+.apishopsFormWaymark .apishopsFormWaymarkUl {
+
+}
+
+
+
+
+    .apishopsFormWaymark .apishopsFormWaymarkUl:after {
+        content: "";
+        clear: both;
+        display: block;
+    }
+
+
+
+/**/
+.apishopsFormWaymark .apishopsFormWaymarkUl .apishopsFormWaymarkLi {
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    white-space: nowrap;
+    position: relative;
+}
+
+    .apishopsFormWaymark .apishopsFormWaymarkUl .apishopsFormWaymarkLi:hover {
+        background: #4b545f;
+        background: linear-gradient(top, #4f5964 0%, #5f6975 40%);
+        color: white;
+    }
+
+        .apishopsFormWaymark .apishopsFormWaymarkUl .apishopsFormWaymarkLi:hover a {
+
+        }
+
+
+
+.apishopsFormWaymark .apishopsFormWaymarkUl .apishopsFormWaymarkUl {
+    background: #5f6975;
+    border-radius: 0px;
+    padding: 0;
+    position: absolute;
+    top: 90%;
+    z-index: 999999;
+    left:0px;
+    display: none;
+}
+
+    .apishopsFormWaymark .apishopsFormWaymarkUl .apishopsFormWaymarkUl .apishopsFormWaymarkLi {
+        border-bottom: 1px solid #575f6a;
+        border-top: 1px solid #6b727c;
+        line-height: 20px;
+        position: relative;
+        text-align: left;
+        display: block;
+        width: 100%;
+    }
+
+        .apishopsFormWaymark .apishopsFormWaymarkUl .apishopsFormWaymarkUl .apishopsFormWaymarkLi a {
+            color: #fff;
+            display: block;
+            font-size: 13px;
+            margin: 0 !important;
+            padding: 5px 20px;
+            text-decoration: none;
+            text-shadow: none;
+            width: 100%;
+            border: none;
+            text-transform: none;
+        }
+
+            .apishopsFormWaymark .apishopsFormWaymarkUl .apishopsFormWaymarkUl .apishopsFormWaymarkLi a:hover {
+                background: #4b545f;
+                border: none;
+            }

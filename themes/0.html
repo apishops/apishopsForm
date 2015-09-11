@@ -16,6 +16,40 @@
     <body>
 
 
+<script>
+    jQuery(function($){
+        $('#divform1').apishopsForm({ callback:1,
+                type:'inline',
+                form:'#form1',
+                siteId:436615,
+                productId:1090577,
+                price:10000.00
+            });
+    });
+</script>
+
+<div id="divform1"><form id="form1" method="post" target="_parent" class="wow bounceInRight shadow">
+<input type="hidden" name="apishopsFormAddress" value="Спросить по телефону" />
+<input type="hidden" name="apishopsFormCount" value="1" />
+
+  <legend class="text-center text-uppercase">Заказать сейчас за <s>3000</s> 1490 р</legend>
+
+  <div class="form-group">
+    <label for="" class="sr-only">label</label>
+    <input name="apishopsFormFio" type="text" placeholder="Введите ваше имя" required class="form-control input-lg">
+  </div>
+
+  <div class="form-group">
+    <label for="" class="sr-only">label</label>
+    <input name="apishopsFormPhone" type="text" placeholder="Введите ваш телефон" required class="form-control input-lg">
+  </div>
+
+  <button type="submit" class="btn btn-creative btn-lg btn-block"><span>Заказать! </span></button>
+
+  <p class="mt text-success text-center"><span class="glyphicon glyphicon-ok-circle"></span> Таких нет ни у кого!</p>
+</form></div>
+
+
 <span class="containerId" id="containerId2_3"></span>
 <span class="containerId" id="containerId3_3"></span>
 <span class="containerId" id="containerId4_3"></span>

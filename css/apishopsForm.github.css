@@ -428,8 +428,24 @@ background: linear-gradient(to bottom, #a0ad4f 0%, #a0ad4f 100%) repeat scroll 0
 }
 
 
+.apishopsFormNotAvailable{
 
+}
 
+.apishopsFormNotAvailableIncription {
+    color: #787878;
+    text-align: center;
+}
+
+.caron::before {
+    content: "\02C7";
+    position: absolute;
+    top: -10px;
+    right: 4px;
+}
+.caron {
+    position: relative;
+}
 
 
 
@@ -525,7 +541,8 @@ background: linear-gradient(to bottom, #a0ad4f 0%, #a0ad4f 100%) repeat scroll 0
 @media (max-width: 767px) {
 
     .apishopsModal .apishopsModalWindow{
-
+        width: auto !important;
+        margin: 0px;
     }
 
     .apishopsModal .apishopsModalWindow *{

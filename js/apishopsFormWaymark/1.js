@@ -1,0 +1,3 @@
+var apishopsFormWaymark;
+
+apishopsFormWaymark = "<some class='apishopsFormWaymark'>\n    <some class='apishopsFormWaymarkUl'>\n        <some class='apishopsFormWaymarkLi'>\n            <some href=\"#\" class='apishopsFormWaymarkName'>РФ</some>\n            <some class='apishopsFormWaymarkUl'>\n                <some class='apishopsFormWaymarkLi'><a href=\"?lang=1\">Россия</a></some>\n                <some class='apishopsFormWaymarkLi'><a href=\"?lang=6\">Украина</a></some>\n                <some class='apishopsFormWaymarkLi'><a href=\"?lang=7\">Беларусь</a></some>\n                <some class='apishopsFormWaymarkLi'><a href=\"?lang=8\">Казахстан</a></some>\n            </some>\n        </some>\n    </some>\n</some>";

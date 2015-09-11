@@ -40,32 +40,9 @@
 
     $(document).ready( function() {
 
-        $('#modalButton').apishopsForm({ callback:1,
-            type:'modal', /*тип открытия [inline|modal]*/
-            debug:false, /*отладочный режим [true|false]*/
-            successUrl:false, /*url благодарственной страницы [url|false]*/
-            form:'light', /*тип формы [normal|light|jquery-selector]*/
-            displayed_containers:['price','name'],
-            theme:theme,
-            siteId:147233,
-            productId:888647,
-            lang:1,
-            page:{price:'.apishopsProductPrice',oldprice:'.apishopsProductOldPrice'}
-        });
 
-        $('#modalButton2').apishopsForm({ callback:1,
-            type:'modal', /*тип открытия [inline|modal]*/
-            debug:false, /*отладочный режим [true|false]*/
-            successUrl:false, /*url благодарственной страницы [url|false]*/
-            form:'normal', /*тип формы [normal|light|jquery-selector]*/
-            displayed_containers:['price','name'],
-            theme:theme,
-            siteId:147233,
-            productId:888647,
-            lang:1
-        });
 
-        $('#containerId2_3').apishopsForm({ callback:1,
+        var apishops = $('#containerId2_3').apishopsForm({ callback:1,
             type:'inline', /*тип открытия [inline|modal]*/
             debug:false, /*отладочный режим [true|false]*/
             successUrl:false, /*url благодарственной страницы [url|false]*/
@@ -73,8 +50,17 @@
             displayed_containers:['price','name'],
             theme:theme,
             siteId:147233,
-            productId:888647,
-            lang:1
+            productId:[888647,1078419],
+            lang:'auto'
+        });
+        $(apishops).on( "onLoaded", function( event, params ) {
+            //alert(params.productId + ' =)) '+params.price);
+        });
+        $(apishops).on( "onCancel", function( event, params ) {
+            //alert(params.productId + ' =((( '+params.price);
+        });
+        $(apishops).on( "onCallback", function( event, params ) {
+            alert('2');
         });
 
         $('#containerId3_3').apishopsForm({ callback:1,
@@ -86,7 +72,7 @@
             theme:theme,
             siteId:147233,
             productId:888647,
-            lang:1,
+            lang:'auto',
             callback:1,
             hidden_fields:['count']
         });
@@ -100,7 +86,7 @@
             theme:theme,
             siteId:147233,
             productId:888647,
-            lang:1,
+            lang:'auto',
             hidden_fields:['count','address'],
             displayed_containers:['picture','price','name']
         });
@@ -113,8 +99,9 @@
             displayed_containers:['picture','price','name'],
             theme:theme,
             siteId:147233,
-            productId:888647,
-            lang:1,
+            productId:[888647,515908,1078421],
+            productIds:[1078422,1078418,1078419],
+            lang:'auto',
             hidden_fields:['count','fio','address'],
             displayed_containers:['picture','price','name'],
             featured:{
@@ -133,9 +120,34 @@
             theme:theme,
             siteId:147233,
             productId:888647,
-            lang:1,
+            lang:'auto',
             hidden_fields:['count','fio','address','promocode'],
             displayed_containers:['picture','price','name']
+        });
+
+        $('#modalButton').apishopsForm({ callback:1,
+            type:'modal', /*тип открытия [inline|modal]*/
+            debug:false, /*отладочный режим [true|false]*/
+            successUrl:false, /*url благодарственной страницы [url|false]*/
+            form:'light', /*тип формы [normal|light|jquery-selector]*/
+            displayed_containers:['price','name'],
+            theme:theme,
+            siteId:147233,
+            productId:888647,
+            lang:'auto',
+            page:{price:'.apishopsProductPrice',oldprice:'.apishopsProductOldPrice'}
+        });
+
+        $('#modalButton2').apishopsForm({ callback:1,
+            type:'modal', /*тип открытия [inline|modal]*/
+            debug:false, /*отладочный режим [true|false]*/
+            successUrl:false, /*url благодарственной страницы [url|false]*/
+            form:'normal', /*тип формы [normal|light|jquery-selector]*/
+            displayed_containers:['price','name'],
+            theme:theme,
+            siteId:147233,
+            productId:888647,
+            lang:'auto'
         });
     });
 </script>

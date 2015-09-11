@@ -59,16 +59,40 @@
                        <div>
 
 <pre class="prettyprint linenums">
-        $(&#x27;#containerId2_3&#x27;).apishopsForm({ callback:1,
+        var apishops=$(&#x27;#containerId2_3&#x27;).apishopsForm({ callback:1,
+            type:&#x27;inline&#x27;, /*&#x442;&#x438;&#x43F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x442;&#x438;&#x44F; [inline|modal]*/
+            successUrl:false, /*url &#x431;&#x43B;&#x430;&#x433;&#x43E;&#x434;&#x430;&#x440;&#x441;&#x442;&#x432;&#x435;&#x43D;&#x43D;&#x43E;&#x439; &#x441;&#x442;&#x440;&#x430;&#x43D;&#x438;&#x446;&#x44B; [url|false]*/
+            form:&#x27;light&#x27;, /*&#x442;&#x438;&#x43F; &#x444;&#x43E;&#x440;&#x43C;&#x44B; [normal|light|jquery-selector]*/
+            siteId:387700,
+            productId:1013683,
+            lang:1
+        });
+        $(apishops).on( &#x22;onCancel&#x22;, function( event, params ) {
+              alert(&#x27;&#x414;&#x430;&#x43D;&#x43D;&#x44B;&#x439; &#x442;&#x43E;&#x432;&#x430;&#x440; &#x441;&#x435;&#x439;&#x447;&#x430;&#x441; &#x43D;&#x435;&#x434;&#x43E;&#x441;&#x442;&#x443;&#x43F;&#x435;&#x43D; &#x43D;&#x430; &#x441;&#x43A;&#x43B;&#x430;&#x434;&#x435;&#x27;);
+        });
+</pre>
+
+
+                      <h3>Событие onCallback</h3>
+                    <div class="row">
+                      <p class="alert alert-info">
+                        Возникает тогда, когда происходит нажатие на кнопку обратного звонка.Этот обработчик полезно использовать, для отправки информации по целям в Яндекс.Метрику
+                       </p>
+                       <div>
+
+<pre class="prettyprint linenums">
+        var apishops=$(&#x27;#containerId5_3&#x27;).apishopsForm({
             type:&#x27;inline&#x27;, /*&#x442;&#x438;&#x43F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x442;&#x438;&#x44F; [inline|modal]*/
             successUrl:false, /*url &#x431;&#x43B;&#x430;&#x433;&#x43E;&#x434;&#x430;&#x440;&#x441;&#x442;&#x432;&#x435;&#x43D;&#x43D;&#x43E;&#x439; &#x441;&#x442;&#x440;&#x430;&#x43D;&#x438;&#x446;&#x44B; [url|false]*/
             form:&#x27;light&#x27;, /*&#x442;&#x438;&#x43F; &#x444;&#x43E;&#x440;&#x43C;&#x44B; [normal|light|jquery-selector]*/
             siteId:387700,
             productId:1013683,
             lang:1,
-            onCancel: function() {
-                alert(&#x27;&#x414;&#x430;&#x43D;&#x43D;&#x44B;&#x439; &#x442;&#x43E;&#x432;&#x430;&#x440; &#x441;&#x435;&#x439;&#x447;&#x430;&#x441; &#x43D;&#x435;&#x434;&#x43E;&#x441;&#x442;&#x443;&#x43F;&#x435;&#x43D; &#x43D;&#x430; &#x441;&#x43A;&#x43B;&#x430;&#x434;&#x435;&#x27;);
-            }
+            callback:1
+        });
+        $(apishops).on( &#x22;onCallback&#x22;, function( event, params ) {
+            alert("Вызов диалога обратного звонка");
+            yaCounter12345.reachGoal(&#x27;beforeSend&#x27;);
         });
 </pre>
 
@@ -81,16 +105,16 @@
                        <div>
 
 <pre class="prettyprint linenums">
-        $(&#x27;#containerId2_3&#x27;).apishopsForm({ callback:1,
+        var apishops=$(&#x27;#containerId2_3&#x27;).apishopsForm({ callback:1,
             type:&#x27;inline&#x27;, /*&#x442;&#x438;&#x43F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x442;&#x438;&#x44F; [inline|modal]*/
             successUrl:false, /*url &#x431;&#x43B;&#x430;&#x433;&#x43E;&#x434;&#x430;&#x440;&#x441;&#x442;&#x432;&#x435;&#x43D;&#x43D;&#x43E;&#x439; &#x441;&#x442;&#x440;&#x430;&#x43D;&#x438;&#x446;&#x44B; [url|false]*/
             form:&#x27;light&#x27;, /*&#x442;&#x438;&#x43F; &#x444;&#x43E;&#x440;&#x43C;&#x44B; [normal|light|jquery-selector]*/
             siteId:387700,
             productId:1013683,
-            lang:1,
-            beforeSend: function() {
-                yaCounter12345.reachGoal(&#x27;beforeSend&#x27;);
-            }
+            lang:1
+        });
+        $(apishops).on( &#x22;onCallback&#x22;, function( event, params ) {
+              yaCounter12345.reachGoal(&#x27;beforeSend&#x27;);
         });
 </pre>
 

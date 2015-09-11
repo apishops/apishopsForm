@@ -1,0 +1,175 @@
+#!/usr/bin/python
+'''
+Usage:
+javascript2dot.py file.js
+Then, with graphviz, open out.gv
+
+* Green means leaf function (the function calls no other functions)
+* Brown means trunk function (the function is called by no other function)
+* Inverted arrow means that the called function returns something (it might just be a boolean though)
+
+Group is the namespace
+group will contain function nodes and possibly subgroups
+There will be one global group to hold everything
+In javascript, this is the window namespace which is also implicit
+it must hold all of the nodes in its space
+we will loop through the group to calculate edges and this will be a convenient way to determine namespace of the edges
+They must maintain an internal representation of content for determining edges. Even subgroups should contain this. It makes things easier
+
+Nodes are functions
+node will contain a parent pointer to the namespace
+Should also have an internal filestring of the content
+
+Edges are function calls
+
+
+This python file is a wrapper for the functionality. Basically, it will:
+1. parse arguments
+2. read the files
+3. decide which implementation (javascript or python) to use
+4. import that and run the mapper for that implementation
+5. write the dot file
+
+'''
+
+import __builtin__
+import argparse
+import os
+import pdb
+import pprint
+import sys
+
+from code2flowlib.engine import *
+import code2flowlib.dotgenerator as dotgenerator
+from subprocess import call
+
+import code, traceback, signal
+
+
+def debug(sig, frame):
+    """Interrupt running process, and provide a python prompt for
+    interactive debugging."""
+    d={'_frame':frame}         # Allow access to frame object.
+    d.update(frame.f_globals)  # Unless shadowed by global
+    d.update(frame.f_locals)
+
+    i = code.InteractiveConsole(d)
+    message  = "Signal recieved : entering python shell.\nTraceback:\n"
+    message += ''.join(traceback.format_stack(frame))
+    i.interact(message)
+
+def listen():
+    signal.signal(signal.SIGUSR1, debug)  # Register handler
+
+def isInstalled(program):
+	def is_exe(fpath):
+		return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
+
+	for path in os.environ["PATH"].split(os.pathsep):
+		path = path.strip('"')
+		exe_file = os.path.join(path, program)
+		if is_exe(exe_file):
+			return True
+
+	return False
+
+SUPPORTED_LANGUAGES = {'js':'javascript','py':'python'}
+
+
+
+if __name__ == "__main__":
+
+	if not isInstalled('dot') and not isInstalled('dot.exe'):
+		print "You must have graphviz (specifically dot) installed to run code2flow"
+		sys.exit(1)
+
+	cli = argparse.ArgumentParser(description="See flow charts of your source code.\n\rThis EXPERIMENTAL script is useful for documentation and code refactoring in simple projects")
+	cli.add_argument('files', metavar='files', nargs='+', help='The source file you are trying to graph. Currently, only handles python and javascript') #
+	cli.add_argument('-o','--outfile', dest='outfile',help='Filetype can be dot, gv, png, ps, svg, etc. Default is `out.png`',default='out.png')
+	cli.add_argument('--language', dest='language',default=None)
+	cli.add_argument('--hidelegend', dest='hidelegend',action='store_true',default=False)
+	#cli.add_argument('-v','--verbose', dest='verbose',action='store_true',default=False)
+	cli.add_argument('-d','--debug', dest='debug',action='store_true',default=False)
+	cli.add_argument('--version', action='version', version='%(prog)s 0.1')
+
+	args = cli.parse_args()
+
+	#set debug for this and all imported modules
+	__builtin__.DEBUG = args.debug
+
+	if DEBUG:
+		pprint.pprint(args)
+		listen()
+
+	#get all of the files in one list
+	if args.language:
+		language = args.language
+	else:
+		language = None
+	files = []
+	if DEBUG:
+		print language
+
+	def handleFile(fileString,forceAppend=False):
+		'''
+		Figure out the language and if it is okay, attach the file to the files array
+		'''
+		global language
+		global files
+
+		#set the language if not set
+		if not language:
+			language = fileString[fileString.rfind('.')+1:]
+			if language not in SUPPORTED_LANGUAGES and not forceAppend:
+				raise Exception("File not supported")
+
+		#if the file is part of the language we are using, append it
+		if forceAppend or fileString[-1*len(language):]==language:
+			files.append(fileString)
+
+	#loop through arguments appending all files to the list
+	for fil in args.files:
+		if os.path.isfile(fil):
+			handleFile(fil,forceAppend=True)
+		elif os.path.isdir(fil):
+			for fi in os.listdir(fil):
+				handleFile(fil)
+		else:
+			raise Exception('Could not find "%s"'%fil)
+
+	#import the module specific to the source language
+	#these modules are superclasses of the engine.py base classes
+	if language == 'js':
+		import code2flowlib.languages.javascript as implementation
+	elif language == 'py':
+		import code2flowlib.languages.python as implementation
+	else:
+		raise Exception("The file type you passed is not yet supported")
+
+	#Do the mapping (a lot happens here)
+	mapper = implementation.Mapper(implementation,files)
+	groups,nodes,edges = mapper.map()
+
+	#determine whether we are just writing a dot file or also translating to an image
+	if args.outfile.endswith('.gv') or args.outfile.endswith('.dot'):
+		dotFile = args.outfile
+		finalFile = None
+	else:
+		finalFile = args.outfile
+		dotFile, extension = args.outfile.rsplit('.',1)
+		dotFile += '.gv'
+
+	#print the for file
+	dotgenerator.writeDotFile(dotFile=dotFile,nodes=nodes,edges=edges,groups=groups,hidelegend=args.hidelegend)
+
+	#translate to an image if that was requested
+	if finalFile:
+		command = "dot -T%s %s > %s"%(extension,dotFile,finalFile)
+		os.system(command)
+
+	print "Completed your flowchart!"
+	print "To see it, open %s"%args.outfile
+
+	#open it in graphviz if we are on os.x
+	if DEBUG and sys.platform == 'darwin':
+		os.system("open out.gv")

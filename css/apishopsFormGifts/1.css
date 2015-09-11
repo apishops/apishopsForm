@@ -4,7 +4,7 @@
     width: 100% !important;
 }
 .apishopsFormGift{
-    background: url('http://apishops.github.io/apishopsForm/images/apishopsFormGifts/1/gift.png');
+    background: url('http://img2.apishops.org/SinglePageWebsites/custom/images/apishopsFormGifts/1/gift.png');
     background-size: 100% 100%;
     border-radius: 11px;
     box-shadow:         5px 13px 13px 0px rgba(0,0,0,0.23), inset 0px -3px 0px 1px rgba(0,0,0,0.12);
@@ -99,11 +99,11 @@
     left: 0px;
     right: 0px;
     bottom: 0px;
-    background: url('http://apishops.github.io/apishopsForm/images/apishopsFormGifts/1/gift-confetti.gif');
+    background: url('http://img2.apishops.org/SinglePageWebsites/custom/images/apishopsFormGifts/1/gift-confetti.gif');
     background-size: cover;
 }
 .apishopsFormGiftTitle{
-    background: url('http://apishops.github.io/apishopsForm/images/apishopsFormGifts/1/gift-title.png');
+    background: url('http://img2.apishops.org/SinglePageWebsites/custom/images/apishopsFormGifts/1/gift-title.png');
     display: inline-block;
     width: 100px;
     height: 87px;

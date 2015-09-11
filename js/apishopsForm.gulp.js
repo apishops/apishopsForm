@@ -47,40 +47,99 @@
             hidden_fields : [],
             displayed_containers : [],
             siteId : 10221,
-            productId : 632879,
+            //productId : 632879,
+            //productIds : [],
             price : 0,
             lang : 1,
             gift : "auto",
             charset:'cp1251',
             successUrl : "/finish.jsp?id=",
 
+            isFeatured : false,
+
+
             // Callbacks
             onCancel : jQuery.noop, // If canceling
+            //onCallback : jQuery.noop, //if callback button click
             beforeSend : jQuery.noop,
             afterSend : jQuery.noop,
             onLoaded : jQuery.noop,
 
+            waymark : 1,
+            variations: 0,
+
             locales : [
                 {},
                 {
-                    phone : {mask : "+7(999)999-99-99"},
-                    currency : ['рублей','Р.','руб.','RUB']
+                    phone : {mask : "+7(999)999-99-99", callcenter : "(499) 704-25-93"},
+                    currency : ['рублей', 'Р.', 'руб.', 'RUB'],
+                    location : ['Россия', 'России'],
+                    requisites : "<p>Срочную доставку осуществляет курьерская служба <a href=http://tnx.ru>TNX Express.</a></p><center><img src=http://img2.apishops.org/SinglePageWebsites/custom/images/rekviz.png style='max-width: 100%; width:auto;'></center>",
+                    exclusion : [907935, 931621, 877242]
                 },
                 {},
                 {},
                 {},
                 {},
                 {
-                    phone : {mask : "+380(99)999-99-99"},
-                    currency : ['гривень','Грн.','грн.','UAH']
+                    phone : {mask : "+380(99)999-99-99", callcenter : "+380 (044) 383-43-35"},
+                    location : ['Украина', 'Украине'],
+                    requisites : "<p>Срочную доставку осуществляет <b>Новая Почта</b>.</p><p>Доставка оплачивается по тарифам Новой почты при получении</p><center><img src=http://img2.apishops.org/SinglePageWebsites/custom/images/rekviz_black_ua.png style='max-width: 100%;width:auto;'></center>",
+                    currency : ['гривень', 'Грн.', 'грн.', 'UAH']
                 },
                 {
-                    phone : {mask : "+375(99)999-99-99"},
-                    currency : ['рублей','Р.','руб.','BYR']
+                    phone : {mask : "+375(99)999-99-99", callcenter : ""},
+                    location : ['Беларусь', 'Беларауси'],
+                    requisites : "<p>Срочную доставку осуществляет <b>Белпочта</b>.</p><center><img src=http://img2.apishops.org/SinglePageWebsites/custom/images/rekviz_black_by.png style='max-width: 100%;width:auto;'></center>",
+                    currency : ['рублей', 'Р.', 'руб.', 'BYR']
                 },
                 {
-                    phone : {mask : "8(799)999-99-99"},
-                    currency : ['тенге','Т.','тнг','KZT']
+                    phone : {mask : "8(799)999-99-99", callcenter : "+7 (727) 349-45-15"},
+                    location : ['Казахстан', 'Республике Казахстан'],
+                    requisites : "<p>Срочную доставку осуществляет <b>Казпочта</b>.</p><center><img src=http://img2.apishops.org/SinglePageWebsites/custom/images/rekviz_black_kz.png style='max-width: 100%;width:auto;'></center>",
+                    currency : ['тенге', 'Т.', 'тнг', 'KZT']
+                },
+                {
+                    phone : {mask : "+994(999)999-999", callcenter : ""},
+                    location : ['Азербайджан', 'Республике Азербайджан'],
+                    requisites : "<p>Срочную доставку осуществляет курьерская служба Courier</p>",
+                    currency : ['манат', '<small>AZN</small>', 'ман.', 'AZN']
+                },
+                {
+                    phone : {mask : "+374(999)999-999", callcenter : ""},
+                    location : ['Армения', 'Армении'],
+                    requisites : "<p>Срочную доставку осуществляет курьерская служба Courier</p>",
+                    currency : ['драм', '<small>amd</small>', 'драм', 'AMD']
+                },
+                {
+                    phone : {mask : "+372(999)999-999", callcenter : ""},
+                    location : ['Эстония', 'Эстонии'],
+                    requisites : "<p>Срочную доставку осуществляет курьерская служба Courier</p>",
+                    currency : ['евро', '€', '€', 'EUR']
+                },
+                {
+                    phone : {mask : "+371(999)999-999", callcenter : ""},
+                    location : ['Латвия', 'Латвии'],
+                    requisites : "<p>Срочную доставку осуществляет курьерская служба Courier</p>",
+                    currency : ['евро', '€', '€', 'EUR']
+                },
+                {
+                    phone : {mask : "+373(999)999-999", callcenter : ""},
+                    location : ['Молдова', 'Молдове'],
+                    requisites : "<p>Срочную доставку осуществляет курьерская служба Courier</p>",
+                    currency : ['лей', 'L', 'lei', 'RON']
+                },
+                {
+                    phone : {mask : "+420(999)999-999", callcenter : ""},
+                    location : ['Чехия', 'Чехии'],
+                    requisites : "<p>Срочную доставку осуществляет курьерская служба Courier</p>",
+                    currency : ['крон', 'Kc.', 'Czk', 'CZK']
+                },
+                {
+                    phone : {mask : "+421(999)999-999", callcenter : ""},
+                    location : ['Словакия', 'Словакии'],
+                    requisites : "<p>Срочную доставку осуществляет курьерская служба Courier</p>",
+                    currency : ['евро', '€', '€', 'EUR']
                 }
             ]
 
@@ -91,6 +150,10 @@
 
         function init(object) {
 
+            //apishopsUtm.sync();
+            //
+            settings.lang = 'auto';
+
             //wrap container if container and form is the same
             settings.object = (jQuery(settings.form).selector && jQuery(settings.form).selector === jQuery(object).selector) ? object.wrap('<some></some>').parent() : object;
             settings.type = (settings.type === 'inline' && jQuery(settings.object).is("input,button,a")) ? 'modal' : settings.type;
@@ -100,39 +163,133 @@
 
             //add templates to load
             if (settings.featured ||
-                (settings.form === 'normal' || settings.form === 'light') ||
-                (settings.featured && settings.featured.form && (settings.featured.form === 'normal' || settings.featured.form === 'light')))
-            {
+                    (settings.form === 'normal' || settings.form === 'light') ||
+                    (settings.featured && settings.featured.form && (settings.featured.form === 'normal' || settings.featured.form === 'light'))) {
                 templatesList.push('theme');
             }
 
 
-            if (templatesList.length) {
 
-                apishopsFormLoadTemplates(_.uniq(templatesList), settings.charset, settings.theme,
-                    function() {
-                        prepare();
-                        spawn();
-                        construct('main');
-                        getProductInfo();
-                        render('main');
-                        bind('main');
+            /**
+             * LOAD TEMPLATES IF NEED
+             * @param  {[type]} )
+             * @return {[type]}   [description]
+             */
+            apishopsTemplates.get(_.uniq(templatesList), settings.charset, settings.theme, function() {
+
+                //prepare variables
+                prepare();
+
+                //set in settings.form html code of normal or light default template
+                construct('main');
+
+                /**
+                 * GET LANG FROM COOKIES OR GET PARAMETER, OR MAKE QUERY FOR SERVER
+                 * @param  {[type]} lang)
+                 * @return {[type]}       [description]
+                 */
+                apishopsSites.getLang(settings.siteId, settings.lang, settings.charset, function(lang) {
+
+                    //correct lang after trying to get geo
+                    settings.lang = apishopsCookies.set('lang', lang);
+
+                    /**
+                     * LOAD INFO FOR ONE OR MUCH MORE PRODUCTS
+                     * @param  {[type]} productsInfo [description]
+                     * @param  {[type]} lang)
+                     * @return {[type]}              [description]
+                     */
+                    apishopsSites.getProductsInfo(settings.siteId, settings.productIds, settings.lang, settings.charset, function(productsInfo, lang) {
+
+                        //correct lang after trying to get product info
+                        settings.lang = apishopsCookies.set('lang', lang);
+
+                        //run design manipulations
+                        apishopsLandings.renderWaymark(settings.waymark, settings.locales[settings.lang], settings.lang, settings.charset);
+                        apishopsLandings.renderCallback(settings.callback, settings.productId, settings.siteId, settings.locales[settings.lang], settings.lang, settings.charset, function() {
+                            jQuery(settings).trigger("onCallback");
+                        }, function() {
+                            jQuery(settings).trigger("beforeSend");
+                        });
+
+
+                        //each for all products info
+                        jQuery.each(productsInfo, function(key, productInfo) {
+
+                            //for all products info add locale info
+                            productInfo.locale = settings.locales[settings.lang] || {};
+
+                            //for main product extend, render form, fix page and place prices
+                            if(productInfo.productId==settings.productId){
+
+                                jQuery.extend(settings, productInfo);
+
+                                //TODO: render with module and callbacks
+                                formRender();
+
+                                if (settings.page && settings.page.price && settings.page.oldprice){
+                                    jQuery(settings.page.price).html(productInfo.price);
+                                    jQuery(settings.page.oldprice).html(productInfo.oldPrice);
+                                }
+
+                                //make manipulations on page
+                                if(!settings.isFeatured){
+
+                                    //set discount on page
+                                    apishopsLandings.renderDiscount(productInfo.discount);
+
+                                    //set prices if onLoaded function not defined
+                                    if(settings.onCancel == jQuery.noop) {
+                                        apishopsLandings.changePrices(productInfo.price, productInfo.oldPrice, productInfo.locale);
+                                    }
+                                }
+
+                                //TODO move isExlusion to apishopsLandings
+                                if (isExclusion()) {
+
+                                    if (settings.type === 'inline') {
+                                        jQuery(settings.form).html('<center>Данный товар не доставляется по РФ</center>');
+                                    } else {
+                                        settings.object.hide();
+                                    }
+
+                                    jQuery("img[src$='rekviz.png']").hide();
+                                    jQuery("a[href$='conf_text']").hide();
+                                    jQuery("a[href$='tnx.ru']").parent().hide();
+                                    jQuery("a[href$='partner.apishops.com']").hide();
+                                }
+
+                            }
+
+                            //for all products trigger onCancel
+                            if (!productInfo.price || productInfo.isProductNotForSale) {
+                                jQuery(settings).trigger("onCancel",[productInfo]);
+                            }
+
+                            //for all products trigger onLoanded
+                            jQuery(settings).trigger("onLoaded", [productInfo]);
+
+                        });
+
+                        //console.log(productsInfo);
                     });
 
-            } else {
+                    //TODO: make featured with module and callbacks
+                    dataFeaturedLoad();
+                    //dataProductLoad();
+                });
 
-                prepare();
-                spawn();
-                construct('main');
-                getProductInfo();
                 render('main');
                 bind('main');
-            }
+
+            });
+
 
             env();
 
             return settings;
         }
+
 
 
 
@@ -143,17 +300,21 @@
             var inputs_tmp;
 
             if (!settings.object.length) {
-                alert('Ошибка формы:\n jQuery("' + settings.object.selector + '") к которому подключается форма  "jQuery("' + settings.object.selector + '").apishopsForm(..)" не найден. Проверьте, пожалуйста, код');
+                //alert('Ошибка формы:\n jQuery("' + settings.object.selector + '") к которому подключается форма  "jQuery("' + settings.object.selector + '").apishopsForm(..)" не найден. Проверьте, пожалуйста, код');
             }
 
-            if (!settings.productId) {
-                alert('Ошибка: settings.productId должен быть указан');
+
+            if (!settings.productId && !settings.productIds) {
+                alert('Ошибка: settings.productId или settings.productIds должны быть указаны');
+            } else {
+                settings.productIds = getProductIds(settings.productId, settings.productIds);
+                settings.productId = parseInt(settings.productIds[0]);
             }
 
-            if (typeof apishopsFormThemeLight === 'undefined' && (settings.form === 'normal' || settings.form === 'light')) {
+
+            if (typeof apishopsFormThemeLight === undefined && (settings.form === 'normal' || settings.form === 'light')) {
                 alert('Ошибка: темы #' + settings.theme + ' (параметр "jQuery(...).apishopsForm({..theme:' + settings.theme + '..}) нет');
             }
-
 
             if (settings.form !== 'normal' && settings.form !== 'light' && !apishopsFormEnvironment.checked) {
 
@@ -172,11 +333,14 @@
 
 
 
+
+
+
             if (settings.featured) {
 
                 if (!settings.featured.container || !jQuery(settings.featured.container).length) {
 
-                    alert('Контейнер "' + settings.featured.container + '"(параметр featured{..container:""..}), в котором будут размещаться формы для заказа дополнительных товаров не задан или не может быть найден');
+                    //alert('Контейнер "' + settings.featured.container + '"(параметр featured{..container:""..}), в котором будут размещаться формы для заказа дополнительных товаров не задан или не может быть найден');
                     delete settings.featured;
 
                 } else {
@@ -219,7 +383,7 @@
 
 
 
-        function spawn() {
+        function dataFeaturedLoad() {
 
             var $jsonp = {
                     action: "getFeaturedProductIdListForProductId",
@@ -227,33 +391,46 @@
                     lang: settings.lang
                 };
 
-            if (settings.featured) {
+            if (settings.lang === 'auto') {
 
-                if (!settings.featured.productIds || !jQuery.isArray(settings.featured.productIds) || !settings.featured.productIds.length) {
+                return false;
 
-                    jQuery(settings.featured.container).hide();
-                    jQuery(settings.featured.containerClosest).hide();
-                    jQuery('.__apishopsFormFeaturedFormMoreButton__').hide();
+            } else {
 
-                    apishopsFormGetJSONP($jsonp, function(result) {
+                if (settings.featured) {
 
-                        if (result.data && jQuery.isArray(result.data) && result.data.length) {
+                    if (!settings.featured.productIds || !jQuery.isArray(settings.featured.productIds) || !settings.featured.productIds.length) {
 
-                            settings.featured.productIds = result.data;
-                            settings.featured.productIdsLoaded = [];
+                        jQuery(settings.featured.container).hide();
+                        jQuery(settings.featured.containerClosest).hide();
+                        jQuery('.__apishopsFormFeaturedFormMoreButton__').hide();
 
-                            jQuery(settings.featured.container).show();
-                            jQuery(settings.featured.containerClosest).show();
-                            jQuery('.__apishopsFormFeaturedFormMoreButton__').show();
+                        apishopsClient.query($jsonp, function(result) {
 
-                            construct('featured');
-                            spawnChilds();
-                            bind('featured');
-                        }
-                    });
+                            var locale, exclusion;
 
-                } else {
-                    spawnChilds();
+                            locale = settings.locales[settings.lang] || {};
+                            exclusion = locale.exclusion || [];
+
+                            if (result.data && jQuery.isArray(result.data) && result.data.length) {
+
+                                settings.featured.productIds = _.difference(result.data, exclusion);
+                                settings.featured.productIdsLoaded = [];
+
+                                jQuery(settings.featured.container).show();
+                                jQuery(settings.featured.containerClosest).show();
+                                jQuery('.__apishopsFormFeaturedFormMoreButton__').show();
+
+                                construct('featured');
+                                spawnChilds();
+                                //alert('2');
+                                bind('featured');
+                            }
+                        });
+
+                    } else {
+                        spawnChilds();
+                    }
                 }
             }
         }
@@ -275,6 +452,8 @@
                     siteId : settings.siteId,
                     productId : productId,
                     checked : 1,
+                    variations : 1,
+                    isFeatured : true,
                     gift : false,
                     hidden_fields : settings.featured.hidden_fields,
                     lang : settings.lang
@@ -291,6 +470,8 @@
                 jQuery(settings.featured.more).fadeOut();
             }
         }
+
+
 
 
 
@@ -329,76 +510,17 @@
 
 
 
-        //fill template
-        function getProductInfo() {
-
-            var $jsonp = {
-                    action : "getProductInfo",
-                    productId : settings.productId,
-                    siteId : settings.siteId,
-                    charset : settings.charset,
-                    lang : settings.lang
-                };
-
-            apishopsFormGetJSONP($jsonp, function(result) {
-
-                var data = {};
-
-                result.data = result.data || {};
-
-                data.price = result.data.price || 0;
-                data.oldPrice = result.data.oldPrice || data.price * 1.5;
-                data.img = result.data.img || "";
-                data.images = result.data.images || [data.img];
-                data.name = result.data.name || ""
-                data.fullName = result.data.name || ""
-                data.description = result.data.shortDescription || "";
-                data.fullDescription = result.data.description || "";
-                data.discount = parseInt((100 - settings.price * 100 / settings.oldprice), 10);
-                data.productVariants = result.data.productVariants || [];
-
-                //name length fix
-                data.name=data.name.replace(/^(.{40}[^\s]*).*/, "$1");
-                //descr fix
-                data.fullDescription = data.fullDescription.replace(/(<([^>]+)>)/ig,"")
-                //round prices
-                data.price = Math.round(data.price);
-                data.oldPrice = Math.round(data.oldPrice);
-
-                if (settings.page && settings.page.price && settings.page.oldprice){
-
-                    jQuery(settings.page.price).html(data.price);
-                    jQuery(settings.page.oldprice).html(data.oldprice);
-
-                }
-
-                if (!data.price) {
-                    try {
-                        jQuery(settings).trigger("onCancel");
-                    } catch (err) {
-                        apishopsLog("onCancel trigger error");
-                    }
-                    return false;
-                }
-
-                jQuery.extend(settings, data);
-
-                renderForm();
-
-                try {
-                    jQuery(settings).trigger("onLoaded", [data]);
-                } catch (err) {
-                    apishopsLog("onLoaded trigger error");
-                }
-
-            });
-        }
 
 
 
 
 
-        function renderForm() {
+
+
+
+
+
+        function formRender() {
 
             if (typeof settings.form === 'string') {
 
@@ -428,15 +550,22 @@
                 //place
                 settings.placement.append(settings.form);
 
-                formSlideRender();
-                //formVariantsRender();
+                //formSlideRender();
+
+                if(settings.variations) {
+                    formVariantsRender();
+                }
 
             } else {
                 settings.form.render(templateContext(),templateDirectives());
 
+                bindPhoneMask(settings.inputs.phone);
+
                 formSlideRender();
 
-                //formVariantsRender();
+                if(settings.variations) {
+                    formVariantsRender();
+                }
             }
         }
 
@@ -460,7 +589,7 @@
                 }
 
             } else {
-                apishopsFormLoadTemplates(['variants'], settings.charset, settings.theme, function() {
+                apishopsTemplates.get(['variants'], settings.charset, function() {
 
                     var lastInput, styles;
 
@@ -578,9 +707,27 @@
 
 
 
+        function isExclusion(productId) {
+            var locale, exclusion;
+
+            locale = settings.locales[settings.lang] || {};
+            exclusion = locale.exclusion || [];
+            productId = productId || parseInt(settings.productId);
+
+            if (jQuery.inArray(productId, exclusion) >= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
 
 
         function formSlideRender() {
+
+            if (isExclusion()) {
+                return false;
+            }
 
             if (isQuery(settings.slide)) {
 
@@ -590,7 +737,7 @@
             } else {
 
                 //render slideshow
-                apishopsFormLoadTemplates(['slideshow'], settings.charset, settings.theme,
+                apishopsTemplates.get(['slideshow'], settings.charset,
 
                     function() {
 
@@ -724,8 +871,8 @@
                             phone:settings.slidePhone.val(),
                             promocode:'',
                             successUrl:false,
-                            sourceRef:getSource("sourceRef"),
-                            sourceParam:getSource("sourceParam"),
+                            sourceRef:apishopsSources.get('referrer'),
+                            sourceParam:apishopsSources.get('campaign')||apishopsSources.get('account'),
                             productId: settings.productId,
                             siteId:settings.siteId,
                             lang:settings.lang
@@ -761,7 +908,8 @@
                 currentSlide,
                 nextSlide,
                 prevSlide,
-                slides;
+                slides,
+                support3d = helperHas3d();
 
 
             translate = Number(viewportWidth / 2 + itemWidth / 2);
@@ -773,6 +921,7 @@
             if (dir === 'close') {
                 settings.slideshow.removeClass('apishopsFormSlideshow-open').fadeOut();
                 slides.removeClass('show current').css('transform', '');
+                jQuery('html').removeClass('apishopsFormSlideshowHtml');
                 return;
             }
 
@@ -814,11 +963,19 @@
 
             //remove transfrom from 100% current slide
             currentSlide.css('transform', '');
+            currentSlide.css('-webkit-transform', '');
 
 
             if (prevSlide) {
-                prevSlide.addClass('show').css('transform', 'translate3d( ' + (dir === 'prev' ? transformIncomingVal : transformOutVal) + 'px, 0, -150px )');
-                prevSlide.prev().css('transform', 'translate3d( ' + (dir === 'prev' ? 2 * transformIncomingVal : 2 * transformOutVal) + 'px, 0, -150px )');
+                if (support3d) {
+                    prevSlide.addClass('show').css('transform', 'translate3d( ' + (dir === 'prev' ? transformIncomingVal : transformOutVal) + 'px, 0, -150px )');
+                    prevSlide.prev().css('transform', 'translate3d( ' + (dir === 'prev' ? 2 * transformIncomingVal : 2 * transformOutVal) + 'px, 0, -150px )');
+                    prevSlide.addClass('show').css('-webkit-transform', 'translate3d( ' + (dir === 'prev' ? transformIncomingVal : transformOutVal) + 'px, 0, -150px )');
+                    prevSlide.prev().css('-webkit-transform', 'translate3d( ' + (dir === 'prev' ? 2 * transformIncomingVal : 2 * transformOutVal) + 'px, 0, -150px )');
+                } else {
+                    prevSlide.addClass('show').css('transform', 'translate( ' + (dir === 'prev' ? transformIncomingVal : transformOutVal) + 'px )');
+                    prevSlide.prev().css('transform', 'translate( ' + (dir === 'prev' ? 2 * transformIncomingVal : 2 * transformOutVal) + 'px )');
+                }
                 settings.slideshowCtrlPrev.show();
             } else {
                 settings.slideshowCtrlPrev.hide();
@@ -826,8 +983,15 @@
 
 
             if (nextSlide) {
-                nextSlide.addClass('show').css('transform', 'translate3d( ' + (dir === 'prev' ? transformOutVal : transformIncomingVal) + 'px, 0, -150px )');
-                nextSlide.next().css('transform', 'translate3d( ' + (dir === 'prev' ? 2 * transformOutVal : 2 * transformIncomingVal) + 'px, 0, -150px )');
+                if (support3d) {
+                    nextSlide.addClass('show').css('transform', 'translate3d( ' + (dir === 'prev' ? transformOutVal : transformIncomingVal) + 'px, 0, -150px )');
+                    nextSlide.next().css('transform', 'translate3d( ' + (dir === 'prev' ? 2 * transformOutVal : 2 * transformIncomingVal) + 'px, 0, -150px )');
+                    nextSlide.addClass('show').css('-webkit-transform', 'translate3d( ' + (dir === 'prev' ? transformOutVal : transformIncomingVal) + 'px, 0, -150px )');
+                    nextSlide.next().css('-webkit-transform', 'translate3d( ' + (dir === 'prev' ? 2 * transformOutVal : 2 * transformIncomingVal) + 'px, 0, -150px )');
+                } else {
+                    nextSlide.addClass('show').css('transform', 'translate( ' + (dir === 'prev' ? transformOutVal : transformIncomingVal) + 'px )');
+                    nextSlide.next().css('transform', 'translate( ' + (dir === 'prev' ? 2 * transformOutVal : 2 * transformIncomingVal) + 'px )');
+                }
                 settings.slideshowCtrlNext.show();
             } else {
                 settings.slideshowCtrlNext.hide();
@@ -840,88 +1004,97 @@
 
             //after show
             if (dir === 'show') {
+                jQuery('html').addClass('apishopsFormSlideshowHtml');
                 settings.slideshow.addClass('apishopsFormSlideshow-open').fadeIn();
             }
         }
 
 
+        /*
 
 
+        * @Author: apishops
 
-        function renderCallback() {
 
-            if (settings.callback && !apishopsFormEnvironment.callback && !jQuery('.apishopsCallback').length) {
+        * @Date:   2015-06-18 04:45:29
 
-                apishopsFormEnvironment.callback = true;
 
-                try {
-                    apishopsFormLoadTemplates(['callback'], settings.charset, settings.callback,
-                        function() {
-                            if (apishopsFormCallbackIcon && apishopsFormCallbackText) {
+        * @Last Modified by:   mac
 
-                                apishopsFormCallbackIcon = jQuery(apishopsFormCallbackIcon);
-                                apishopsFormCallbackIcon.appendTo('body');
 
-                                apishopsFormCallbackIcon.click(function() {
+        * @Last Modified time: 2015-09-03 01:34:45
 
-                                    var apishopsFormCallbackWindow,
-                                        apishopsFormCallbackForm,
-                                        apishopsFormCallbackPhone;
 
-                                    apishopsFormCallbackWindow = apishopsFormModalInit(apishopsFormCallbackText, ['normal', 'hide-close2']);
-                                    apishopsFormCallbackForm = apishopsFormCallbackWindow.find('form');
-                                    apishopsFormCallbackPhone = apishopsFormCallbackWindow.find('[name=apishopsFormPhone]');
-                                    //apishopsFormCallbackClose2 = apishopsFormCallbackWindow.find('.apishopsModalClose2');
+        */
 
-                                    bindPhoneMask(apishopsFormCallbackPhone);
 
-                                    jQuery(apishopsFormCallbackForm).submit(function(event) {
+        
 
-                                        var lang, params;
 
-                                        event.preventDefault();
+        function bindPhoneMask(elem) {
 
-                                        if (new RegExp('[_]').test(apishopsFormCallbackPhone.val()) || apishopsFormCallbackPhone.val().length<5) {
-                                            alert('Номер может состоять только из цифр, скобок и знака «+» и «-»');
-                                            return false;
-                                        }
 
-                                        lang = settings.lang || 1;
+        
 
-                                        params = {
-                                            object: settings.inputs.button,
-                                            form: settings.form,
-                                            count: 1,
-                                            fio: '',
-                                            address: '',
-                                            phone: apishopsFormCallbackPhone.val(),
-                                            promocode: '',
-                                            successUrl: false,
-                                            sourceRef: getSource("sourceRef"),
-                                            sourceParam: getSource("sourceParam"),
-                                            productId: settings.productId,
-                                            siteId: settings.siteId,
-                                            charset: settings.charset,
-                                            lang: settings.lang
-                                        };
 
-                                        try {
-                                            jQuery(settings).trigger("beforeSend");
-                                        } catch (err) {
-                                            apishopsLog("beforeSend trigger error");
-                                        }
+            var input, mask, phone, locale,
 
-                                        apishopsFormSubmit(params);
-                                    });
-                                });
-                            }
-                        });
-                } catch (err) {
-                    apishopsLog("renderCallback error");
+
+                ua = navigator.userAgent.toLowerCase(),
+
+
+                isAndroid = ua.indexOf("android") > -1;
+
+
+        
+
+
+            try {
+
+
+                input = isQuery(elem) ? elem : jQuery(elem);
+
+
+                locale = settings.locales[settings.lang] || {};
+
+
+                phone = locale.phone || {};
+
+
+                mask = phone.mask || "";
+
+
+        
+
+
+                if (mask && !isAndroid) {
+
+
+                    input.inputmask(mask);
+
+
                 }
 
+
+        
+
+
+            } catch (err) {
+
+
+                apishopsLog('Error' + err);
+
+
             }
+
+
         }
+
+        
+        
+        
+
+        
 
 
 
@@ -935,8 +1108,7 @@
         if(context=='main'){
 
 
-            renderForm();
-            renderCallback();
+            formRender();
             toggleInputs()
             toggleContainers();
 
@@ -945,16 +1117,16 @@
             */
             try {
                 if(typeof settings.gift !='undefined' && settings.gift!='false' && jQuery('.giftitems').length==0 && settings.gift!=false && (settings.gift=='auto' || settings.gift>0)){
-                    apishopsFormGetJSONP({
+                    apishopsClient.query({
                         action: "getProductInfo",
                         productId: settings.productId,
                         siteId: settings.siteId,
                         charset:settings.charset,
-                        lang: settings.lang
+                        lang: 1
                         },function(result){
                             settings.wpId=result.data.wpId;
 
-                            apishopsFormGetJSONP(
+                            apishopsClient.query(
                                 {
                                     action: "getPresentsForProductId",
                                     siteId: settings.siteId,
@@ -970,7 +1142,7 @@
                                     if(typeof result.data.presents!=='undefined' && result.data.presents.length>0)
                                     {
                                         settings.gifts=result.data.presents;
-                                        apishopsFormLoadTemplates(['gift'],settings.charset, settings.gift,
+                                        apishopsTemplates.get(['gift'],settings.charset, settings.gift,
                                             function(result){
                                                 if(typeof apishopsFormGifts !='undefined' && typeof settings.inputs['phone']=='object'){
 
@@ -1002,11 +1174,11 @@
                                                     settings.apishopsFormGiftsHoverCardObject=settings.apishopsGiftsObject.find('.apishopsFormGiftHoverCard');
 
                                                     if(typeof settings.gifts[0] !='undefined'){
-                                                        settings.apishopsFormGiftsModal+="<img width='200' src='"+settings.gifts[0]['picture']+"' style='float:left;width:200px;'><h3>"+settings.gifts[0]['name']+"</h3>"+settings.gifts[0]['text']+"";
+                                                        settings.apishopsFormGiftsModal+="<img width='200' src='"+settings.gifts[0]['picture']+"' style='float:left;width:200px;'><h3>"+settings.gifts[0]['name']+"</h3>"+settings.gifts[0]['text'].replace("\n", "<br/>")+"";
                                                     }
 
                                                     if(typeof settings.gifts[1] !='undefined'){
-                                                        settings.apishopsFormGiftsModal+="<img width='200' src='"+settings.gifts[1]['picture']+"' style='float:left;width:200px;'><h3>"+settings.gifts[1]['name']+"</h3>"+settings.gifts[1]['text']+"";
+                                                        settings.apishopsFormGiftsModal+="<img width='200' src='"+settings.gifts[1]['picture']+"' style='float:left;width:200px;'><h3>"+settings.gifts[1]['name']+"</h3>"+settings.gifts[1]['text'].replace("\n", "<br/>")+"";
                                                     }
 
                                                     var form=settings.inputs['phone'].closest('form');
@@ -1135,7 +1307,7 @@
                 input = jQuery(value, settings.form);
 
                 if (input && input.length && _.indexOf(hidden_fields, name) >= 0) {
-                    input.hide();
+                    input.hide().removeAttr('required');
                 }
             });
         }
@@ -1190,6 +1362,8 @@
 
         }
 
+
+
         function templateContext() {
 
             var locale, currency, context;
@@ -1214,6 +1388,8 @@
 
             return context;
         }
+
+
 
         function templateVariantsContext(obj) {
             var returnObj = {};
@@ -1242,6 +1418,35 @@
 
             return returnObj;
         }
+
+        
+
+        //get productsIds from two object (string, number or array)
+
+        function getProductIds(productId, productIds) {
+
+            return jQuery.merge(getArrayFromObj(settings.productId), getArrayFromObj(settings.productIds));
+
+        }
+
+        
+
+        //get array from object (string, number or array)
+
+        function getArrayFromObj(obj) {
+
+            if(typeof obj === 'string' || typeof obj === 'object' || typeof obj === 'number') {
+
+                return obj.toString().split(',');
+
+            } else {
+
+                return [];
+
+            }
+
+        }
+
 
 
 
@@ -1318,6 +1523,38 @@
 
         }
 
+
+        function helperHas3d() {
+            if (!window.getComputedStyle) {
+                return false;
+            }
+
+            var el = document.createElement('p'),
+                has3d,
+                transforms = {
+                    'webkitTransform':'-webkit-transform',
+                    'OTransform':'-o-transform',
+                    'msTransform':'-ms-transform',
+                    'MozTransform':'-moz-transform',
+                    'transform':'transform'
+                };
+
+            // Add it to the body to get the computed style.
+            document.body.insertBefore(el, null);
+
+            for (var t in transforms) {
+                if (el.style[t] !== undefined) {
+                    el.style[t] = "translate3d(1px,1px,1px)";
+                    has3d = window.getComputedStyle(el).getPropertyValue(transforms[t]);
+                }
+            }
+
+            document.body.removeChild(el);
+
+            return (has3d !== undefined && has3d.length > 0 && has3d !== "none");
+        }
+
+
         function helperIsDropdownMenu(apishopsFormVariants){
             var isDoubleVariants, isMultipleVariants = false, colors = [], colorsCol;
 
@@ -1354,6 +1591,12 @@
         function templateDirectives() {
 
             var directives = {
+                apishopsFormFullDescription: {
+                    'html' : function(params) {
+                        return this.apishopsFormFullDescription;
+                    }
+                } ,
+
                 apishopsFormImage: {
                     'style': function(params) {
                         return "background:url('"+this.apishopsFormImage+"'); background-position:center; background-size: cover;";
@@ -1415,25 +1658,6 @@
 
         }
 
-        function bindPhoneMask(elem) {
-
-            var input, mask, phone, locale;
-
-            try {
-
-                input = isQuery(elem) ? elem : jQuery(elem);
-                locale = settings.locales[settings.lang] || {};
-                phone = locale.phone || {};
-                mask = phone.mask || "";
-
-                if (mask) {
-                    input.inputmask(mask);
-                }
-
-            } catch (err) {
-                apishopsLog('Error' + err);
-            }
-        }
 
 
 
@@ -1444,7 +1668,6 @@
 
                 settings.inputs = importInputs(settings.form);
                 bindPhoneMask(settings.inputs.phone);
-
 
 
                 /*
@@ -1574,8 +1797,8 @@
                                     lang:settings.lang||1,
                                     charset:settings.charset,
                                     successUrl:settings.successUrl,
-                                    sourceRef:getSource("sourceRef"),
-                                    sourceParam:getSource("sourceParam")
+                                    sourceRef:apishopsSources.get('referrer'),
+                                    sourceParam:apishopsSources.get('campaign')||apishopsSources.get('account')
                                 };
                                 apishopsFormSubmit(params);
                                 try {
@@ -1621,8 +1844,8 @@
                                     phone:settings.inputs['phone'].val(),
                                     promocode:promocode,
                                     successUrl:settings.successUrl,
-                                    sourceRef:getSource("sourceRef"),
-                                    sourceParam:getSource("sourceParam"),
+                                    sourceRef:apishopsSources.get('referrer'),
+                                    sourceParam:apishopsSources.get('campaign')||apishopsSources.get('account'),
                                     productId:settings.productId,
                                     siteId:settings.siteId,
                                     charset:settings.charset,
@@ -1645,9 +1868,10 @@
 
             }else{
 
+                //alert('3');
                 settings.featured.more.bind('click', function(event){
                     event.preventDefault();
-                    spawn();
+                    dataFeaturedLoad();
                     jQuery('html, body').animate({
                         scrollTop: jQuery(this).offset().top - 800
                     }, 1000);
@@ -1662,74 +1886,6 @@
 
 
 
-    function getSource(name){
-        var value=getCookie(name);
-        if(value==null || value==''){
-            value=extractSource(name);
-            setCookie(name,value);
-        }
-        return value;
-    }
-
-    function extractSource(name){
-
-        var sourceParam;
-
-        if(name=='sourceParam'){
-            if(typeof location.href.split('?')[1] != 'undefined')
-            {
-                var q = {};
-                location.href.split('?')[1].split('&').forEach(function(i){
-                    q[i.split('=')[0]]=i.split('=')[1];
-                });
-                return sourceParam=typeof q['utm_campaign']!='undefined'?q['utm_campaign']:(typeof q['sub_id']!='undefined'?q['sub_id']:'');
-            }else{
-                return "";
-            }
-        }
-        else if(name=='sourceRef')
-            return document.referrer;
-        else
-            return "";
-    }
-
-    function getCookie(name) {
-      var matches = document.cookie.match(new RegExp(
-        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-      ));
-      return matches ? decodeURIComponent(matches[1]) : undefined;
-    }
-
-    function setCookie(name, value, options) {
-      options = options || {};
-
-      var expires = options.expires;
-
-      if (typeof expires == "number" && expires) {
-        var d = new Date();
-        d.setTime(d.getTime() + expires*1000);
-        expires = options.expires = d;
-      }
-      if (expires && expires.toUTCString) {
-        options.expires = expires.toUTCString();
-      }
-
-      value = encodeURIComponent(value);
-
-      var updatedCookie = name + "=" + value;
-
-      for(var propName in options) {
-        updatedCookie += "; " + propName;
-        var propValue = options[propName];
-        if (propValue !== true) {
-          updatedCookie += "=" + propValue;
-         }
-      }
-
-      document.cookie = updatedCookie;
-
-      return value;
-    }
 
     function isQuery (obj) {
         return obj && obj.hasOwnProperty && obj instanceof $;
@@ -1784,16 +1940,1104 @@ jQuery.fn.getStyleObject = function(){
 
 })(jQuery);
 
-/**
- * Stack catcher
- */
+var querystring = {};
+
+querystring.parse = function (str) {
+
+    'use strict';
+
+    if (typeof str !== 'string') {
+        return {};
+    }
+
+    str = str.trim().replace(/^(\?|#|&)/, '');
+
+    if (!str) {
+        return {};
+    }
+
+    return str.trim().split('&').reduce(function (ret, param) {
+        var parts = param.replace(/\+/g, ' ').split('=');
+        var key = parts[0];
+        var val = parts[1];
+
+        key = decodeURIComponent(key);
+        // missing `=` should be `null`:
+        // http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
+        val = val === undefined ? null : decodeURIComponent(val);
+
+        if (!ret.hasOwnProperty(key)) {
+            ret[key] = val;
+        } else if (Array.isArray(ret[key])) {
+            ret[key].push(val);
+        } else {
+            ret[key] = [ret[key], val];
+        }
+
+        return ret;
+    }, {});
+};
+
+
+querystring.stringify = function (obj) {
+
+    'use strict';
+
+    return obj ? Object.keys(obj).sort().map(function (key) {
+        var val = obj[key];
+
+        if (Array.isArray(val)) {
+            return val.sort().map(function (val2) {
+                return encodeURIComponent(key) + '=' + encodeURIComponent(val2);
+            }).join('&');
+        }
+
+        return encodeURIComponent(key) + '=' + encodeURIComponent(val);
+    }).join('&') : '';
+};
+
+
+
+if ('undefined' !== typeof exports) {
+    if ('undefined' !== typeof exports && module.exports) {
+        exports = module.exports = querystring;
+    }
+    exports.querystring = querystring;
+} else {
+    var apishopsQuerystring = querystring;
+}
+
+/*
+* @Author: mac
+* @Date:   2015-05-28 02:37:56
+* @Last Modified by:   mac
+* @Last Modified time: 2015-05-28 02:55:53
+*/
+
+var cookies__ = {};
+
+
+cookies__.get = function (name) {
+
+    'use strict';
+
+    var matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+cookies__.set = function (name, value, options) {
+
+    'use strict';
+
+    options = options || {path:'/'};
+
+    var expires = options.expires;
+
+    if (typeof expires == "number" && expires) {
+        var d = new Date();
+        d.setTime(d.getTime() + expires*1000);
+        expires = options.expires = d;
+    }
+    if (expires && expires.toUTCString) {
+        options.expires = expires.toUTCString();
+    }
+
+    value = encodeURIComponent(value);
+
+    var updatedCookie = name + "=" + value;
+
+    for(var propName in options) {
+        updatedCookie += "; " + propName;
+        var propValue = options[propName];
+        if (propValue !== true) {
+            updatedCookie += "=" + propValue;
+        }
+    }
+
+    document.cookie = updatedCookie;
+
+    return value;
+}
+
+
+if ('undefined' !== typeof exports) {
+    if ('undefined' !== typeof exports && module.exports) {
+        exports = module.exports = cookies__;
+    }
+    exports.cookies__ = cookies__;
+} else {
+    var apishopsCookies = cookies__;
+}
+
+/*
+* Apishops UTM tags module
+* @Author: apishops.com
+* @Date:   2015-05-20 00:46:02
+* @Last Modified by:   mac
+* @Last Modified time: 2015-09-03 02:34:29
+*/
+
+
+var sources = function(search) {
+
+        'use strict';
+
+        var sources = {},
+            templates = {
+                'utm' : {
+                    'source' : 'utm_source',
+                    'site' : 'utm_medium',
+                    'campaign' : 'utm_campaign',
+                    'content' : 'utm_content',
+                    'term' : 'utm_term'
+                },
+                'openstat' : {
+                    'source' : 'openstat_service',
+                    'campaign' : 'openstat_campaign',
+                    'ad' : 'openstat_ad',
+                    'content' : 'openstat_source'
+                },
+                'yandex' : {
+                    'from' : 'from'
+                },
+                'google' : {
+                    'click' : 'gclid'
+                },
+                'apishops' : {
+                    'referrer' : 'referrer',
+                    'useragent' : 'useragent',
+                    'account' : 'sub_id',
+                    'site'  : 'client_id',
+                    'source' : 'source_id',
+                    'ad'    : 'click_id'
+                },
+                'addvacation' : {
+                    'source' : 'label',
+                    'account' : 'subid1',
+                    'account2' : 'subid2',
+                    'account3' : 'subid3',
+                    'account4' : 'subid4',
+                    'account5' : 'subid5'
+                }
+            };
+
+
+        var handleOpenstat = function(query){
+            var matches;
+
+            if (query._openstat) {
+                matches = query._openstat.match(/([^;]+);([^;]+);([^;]+);([^;]+)/);
+                if (matches) {
+                    delete query.openstat;
+                    query.openstat_service = matches[1];
+                    query.openstat_campaign = matches[2];
+                    query.openstat_ad = matches[3];
+                    query.openstat_source = matches[4];
+                }
+            }
+
+            return query;
+        };
+
+
+        this.parse = function(search) {
+
+            var system, name, query;
+
+            search = search || ('undefined' === typeof document ? '' : document.location.search);
+
+            query = apishopsQuerystring.parse(search);
+            query = handleOpenstat(query);
+
+            //cycle loop all available variables
+            for (system in templates) {
+                if (templates.hasOwnProperty(system)) {
+                    for (name in templates[system]) {
+                        if (templates[system].hasOwnProperty(name)) {
+                            if (query[templates[system][name]]) {
+                                this.set(name, query[templates[system][name]]);
+                            }
+                        }
+                    }
+                }
+            }
+
+            //set refferer
+            if ('undefined' !== typeof document && document.referrer) {
+                this.set('referrer', document.referrer);
+            }
+
+            //set useragent
+            if ('undefined' !== typeof navigator && navigator.userAgent) {
+                this.set('useragent', navigator.userAgent);
+            }
+
+        };
+
+
+
+        this.set = function (name, value) {
+            sources[name] = value;
+            apishopsCookies.set('sources_' + name, value);
+        };
+
+
+
+        this.get = function(name, prefix, type) {
+
+            var name_tmp, system,
+                return_obj = {},
+                return_val;
+
+            name = name || 'all';
+            prefix = prefix || '';
+            type = type || 'native';
+
+            if (name === 'all') {
+
+                for (system in templates) {
+                    if (templates.hasOwnProperty(system)) {
+                        for (name_tmp in templates[system]) {
+                            if (templates[system].hasOwnProperty(name_tmp)) {
+
+                                return_val = this.get(name_tmp, prefix, type);
+
+                                if (return_val) {
+                                    if (type === 'grouped') {
+                                        return_obj[prefix + name_tmp] = return_val;
+                                    } else {
+                                        return_obj[prefix + templates[system][name_tmp]] = return_val;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                return return_obj;
+
+            } else {
+                return sources[name] || apishopsCookies.get('sources_' + name);
+            }
+
+        };
+
+        this.parse(search);
+    };
+
+
+var apishopsSources = new sources();
+
+if ('undefined' !== typeof exports) {
+    if ('undefined' !== typeof exports && module.exports) {
+        exports = module.exports = new sources();
+    }
+    exports.sources = new sources();
+}
+
+/*
+* Simple lib for load apishops templates
+* @Author: mac
+* @Date:   2015-06-07 19:39:28
+* @Last Modified by:   mac
+* @Last Modified time: 2015-09-02 03:46:42
+*/
+
+var Templates__ = function(search) {
+
+        'use strict';
+
+        var opts = {
+            root : 'http://127.0.0.1:9000/',
+            css : 'css/',
+            js : 'js/'
+        },
+
+            templates = {
+                gift : 'apishopsFormGifts',
+                waymark : 'apishopsFormWaymark',
+                callback : 'apishopsFormCallback',
+                theme : 'apishopsFormThemes',
+                slideshow : 'apishopsFormSlideshow',
+                variants : 'apishopsFormVariants',
+                modal : 'apishopsFormModal'
+            },
+
+            bulk = {};
+
+
+
+        //get js, css templates url
+        var path = function(template, charset, no, type) {
+
+            var url = '';
+
+            if ('undefined' === typeof templates[template]) {
+                throw 'Template folder for "' + template + '" not defined';
+            } else if('undefined' === typeof opts[type]) {
+                throw 'Template type for "' + type + '" not defined';
+            } else {
+                url = opts.root + opts[type] + templates[template] + ( ('undefined' !== typeof no) ? ('/'+no) : '' ) + ((charset=='utf8' && type !== 'css') ? '.utf8':'')+'.'+type;
+
+            }
+
+            //alert(url);
+
+            return url;
+        };
+
+        var css = function (url) {
+            var head = document.head,
+                link = document.createElement('link');
+
+            link.type = 'text/css';
+            link.rel = 'stylesheet';
+            link.href = url;
+
+            head.appendChild(link);
+        };
+
+        //load js template
+        var script = function (url, callback) {
+
+            if (!url) {
+                throw 'missing url';
+            }
+
+            var head = document.head ||
+                document.head.getElementsByTagName('head')[0];
+
+            var el = document.createElement('script');
+
+            el.type = 'text\/javascript';
+
+            if ('function' === typeof callback) {
+                el.onload = function() {
+                    callback();
+                };
+                el.onerror = function() {
+                    throw this.src + ' could not be loaded';
+                };
+            }
+
+            head.appendChild(el);
+            el.src = url;
+        };
+
+
+        //execute array of functions
+        var call = function (callback) {
+                callback();
+            };
+
+
+        //add to urls queue or release from this
+        var queue = function (url , callback) {
+            var status = 'finish',
+                i;
+
+            if ('undefined' === typeof bulk[url]) {
+                bulk[url] = [callback];
+                status = 'start';
+            } else {
+                if ('object' === typeof bulk[url]) {
+                    switch (typeof callback) {
+                    case 'function':
+                        bulk[url].push(callback);
+                        break;
+                    case 'undefined':
+                        for (i = 0; i < bulk[url].length; i = i + 1) {
+                            bulk[url][i]();
+                        }
+                        bulk[url] = 1;
+                        break;
+                    }
+                    status = 'process';
+                }
+            }
+
+            log(bulk);
+
+            return status;
+        };
+
+
+        //log for debug
+        var log = function (message) {
+            var debug = false;
+            if (debug) {
+                //console.log(message);
+            }
+        };
+
+
+        //load js, css template (if template list not empty)
+        this.get = function (template, arg1, arg2, arg3) {
+            var charset = arg1,
+                no,
+                callback,
+                script_url = '', css_url = '',
+                queue_status = '',
+                template = ('object' === typeof template) ? (template[0] || "") : template;
+
+            if ('function' === typeof arg2) {
+                callback = arg2;
+            } else{
+                no = arg2;
+                callback = arg3;
+            }
+
+            if (!template || template == '' || !template.length){
+                callback();
+                return false;
+            }
+
+            log('Try get "' + template + (typeof template) + '" ...');
+
+            script_url = path(template, charset, no, 'js');
+            css_url = path(template, charset, no, 'css');
+
+            log('Url for "' + template + '" is "' + script_url + '" ');
+
+            queue_status = queue(script_url, callback);
+
+            log('Status for "' + script_url + '" is "' + queue_status + '"');
+
+            switch (queue_status) {
+            case 'start':
+                log('start loading ' + script_url);
+                css(css_url);
+                script(script_url, function () {
+                    log('end loading' + script_url);
+                    queue(script_url);
+                });
+                break;
+            case 'process':
+                log('loading already in process' + script_url + '...');
+                break;
+            case 'finish':
+                log('already loaded!!');
+                callback();
+                break;
+            }
+
+        };
+    };
+
+
+
+
+if ('undefined' !== typeof exports) {
+    if ('undefined' !== typeof exports && module.exports) {
+        exports = module.exports = new Templates__();
+    }
+    exports.sources = new Templates__();
+} else {
+    var apishopsTemplates = new Templates__();
+}
+
+/*
+* Simple lib for send apishops queries
+* @Author: mac
+* @Date:   2015-06-07 19:39:28
+* @Last Modified by:   mac
+* @Last Modified time: 2015-09-02 03:47:36
+*/
+
+var Client__ = function(search) {
+
+        'use strict';
+
+        var gates = [
+                'http://gate1.apishops.org/single.page.ajax.php?callback=?',
+                'http://template2.basing.ru/single.page.ajax.php?callback=?'
+            ],
+
+            bulk = {},
+
+            replies = {};
+
+
+
+        //get gate
+        var gate = function(retry) {
+            var url = gates[retry];
+            if(retry >= gates.length){
+                throw 'Retry for get new gate is "' +retry+ '"';
+            }
+            return url;
+        };
+
+
+        //execute array of functions
+        var call = function (callback) {
+                callback();
+            };
+
+
+        //cache reply or return
+        var reply = function(params, obj) {
+            var params_str = serialize(params);
+            if ('object' === typeof obj) {
+                replies[params_str] = obj;
+            }
+            return replies[params_str];
+        };
+
+
+        //add to urls queue or release from this
+        var queue = function (params, obj, retry) {
+            var status = 'finish',
+                params_str = serialize(params),
+                i;
+
+            log('QUEUE: Try to work ' + params_str + '...');
+
+            if ('undefined' === typeof bulk[params_str]) {
+                log('QUEUE: bulk[' + params_str + '] in undefined');
+                bulk[params_str] = [obj];
+                status = 'start';
+            } else {
+                log('QUEUE: bulk[' + params_str + '] is`t undefined');
+
+                if ('object' === typeof bulk[params_str]) {
+
+                    log('QUEUE: bulk[' + params_str + '] has array of callbacks functions');
+                    switch (typeof obj) {
+                    case 'function':
+                        log('QUEUE: add to bulk[' + params_str + ']  new callback function');
+                        if (!retry) {
+                            bulk[params_str].push(obj);
+                        }
+                        break;
+                    case 'object':
+                        log('QUEUE: need to call functions');
+                        reply(params, obj);
+                        for (i = 0; i < bulk[params_str].length; i = i + 1) {
+                            log('QUEUE: call function #' + i);
+                            bulk[params_str][i](obj);
+                        }
+                        bulk[params_str] = 1;
+                        break;
+                    }
+                    status = retry ? 'start' : 'process';
+                }
+            }
+            log(bulk);
+            return status;
+        };
+
+
+        //serialize params
+        var serialize = function(obj) {
+            var str = [];
+
+            for(var p in obj){
+                if (obj.hasOwnProperty(p)) {
+                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                }
+            }
+            return str.join("&");
+        };
+
+
+        //log for debug
+        var log = function (message) {
+            var debug = false;
+            if (debug) {
+                console.log(message);
+            }
+        };
+
+        //get lang (if need) and callback
+        this.getSiteLang = function (siteId, lang, charset, getSiteLangCallback) {
+
+            var jsonp,
+                lang,
+                search = search || ('undefined' === typeof document ? '' : document.location.search),
+                query = apishopsQuerystring.parse(search);
+
+            if(lang !== 'auto') {
+
+                getSiteLangCallback(parseInt(lang));
+
+            } else {
+
+                lang = query['lang'] || apishopsCookies.get('lang');
+
+                if(lang) {
+                    //if lang defined in query string or cookies
+                    apishopsCookies.set('lang', parseInt(lang));
+                    getSiteLangCallback(parseInt(lang));
+
+                } else {
+                    jsonp = {
+                        action : "getLang",
+                        siteId : siteId,
+                        charset : charset
+                    };
+
+                    this.query(jsonp, function(result) {
+                        var lang;
+
+                        result.data = result.data || {};
+                        lang= result.data.lang || 1;
+                        apishopsCookies.set('lang', lang);
+                        getSiteLangCallback(parseInt(lang));
+
+                    });
+                }
+            }
+        }
+
+
+
+
+        //load json
+        this.query = function (params, callback, retry) {
+
+            var retry = ('undefined' === typeof retry) ? 0 : retry + 1,
+                url = gate(retry),
+                params_string = serialize(params),
+                queue_status,
+                jqxhr,
+                that = this;
+
+            log('QUERY: Try get "' + url + params_string + '" ...');
+
+            queue_status = queue(params, callback, retry)
+
+            switch (queue_status) {
+            case 'start':
+                log('QUERY: start loading ' + url + params_string);
+                jqxhr = jQuery.getJSON(url, params, function (result) {
+                    log('QUERY: end loading ' + url + params_string);
+                    queue(params, result);
+                }).fail(function() {
+                    log('QUERY: could not load ' + url + params_string);
+                    //throw 'could not load "' + url + params_string + '"';
+                    that.query(params, callback, retry);
+                });
+                setTimeout(function(){ jqxhr.abort(); }, 20000);
+                break;
+            case 'process':
+                log('QUERY: loading already in process "' + url + params_string + '"...');
+                break;
+            case 'finish':
+                log('QUERY: already loaded "' + url + params_string + '" !!');
+                callback(reply(params));
+                break;
+            }
+        };
+
+
+    };
+
+
+
+
+if ('undefined' !== typeof exports) {
+    if ('undefined' !== typeof exports && module.exports) {
+        exports = module.exports = new Client__();
+    }
+    exports.sources = new Client__();
+} else {
+    var apishopsClient = new Client__();
+}
+
+/*
+* Simple lib for send apishops queries
+* @Author: mac
+* @Date:   2015-06-07 19:39:28
+* @Last Modified by:   apishops
+* @Last Modified time: 2015-09-06 14:32:21
+*/
+
+var Sites__ = function(search) {
+
+        'use strict';
+
+
+
+        //get lang (if need) and callback
+        this.getLang = function (siteId, lang, charset, getSiteLangCallback) {
+
+            var jsonp,
+                lang,
+                search = search || ('undefined' === typeof document ? '' : document.location.search),
+                query = apishopsQuerystring.parse(search);
+
+            if(lang !== 'auto') {
+
+                getSiteLangCallback(parseInt(lang));
+
+            } else {
+
+                lang = query['lang'] || apishopsCookies.get('lang');
+
+                if(lang) {
+                    //if lang defined in query string or cookies
+                    apishopsCookies.set('lang', parseInt(lang));
+                    getSiteLangCallback(parseInt(lang));
+
+                } else {
+                    jsonp = {
+                        action : "getLang",
+                        siteId : siteId,
+                        charset : charset
+                    };
+
+                    apishopsClient.query(jsonp, function(result) {
+                        var lang;
+
+                        result.data = result.data || {};
+                        lang= result.data.lang || 1;
+                        apishopsCookies.set('lang', lang);
+                        getSiteLangCallback(parseInt(lang));
+
+                    });
+                }
+            }
+        }
+
+        //serialize params
+        var isCanTryRu = function(productIds, lang, data) {
+
+            var isCanTryRu = false;
+
+            if (lang == 1) {
+                return false;
+            }
+
+            //search sympthoms for unvailable delivery in selected coutry
+            jQuery.each(data, function(key, value) {
+                if (value.productId==productIds[0] &&
+                    (!value.price || value.isProductNotForSale)) {
+                    //sympthom finded, interrup load
+                    isCanTryRu = true;
+                }
+            });
+
+            return isCanTryRu;
+
+        };
+
+
+
+     //fill template
+        this.getProductsInfo = function(siteId, productIds, lang, charset, getProductsInfoCallback) {
+
+            var jsonp,
+                productIds = productIds || [],
+                isInterruptLoad = false,
+                lang = lang || 1,
+                productsInfo = [],
+                jsonp = {
+                    action : "getProductsInfo",
+                    productId :  productIds.join(','),
+                    siteId : siteId,
+                    charset : charset,
+                    lang : lang
+                };
+
+            apishopsClient.query(jsonp, function(result) {
+
+                result.data = result.data || [];
+
+                //try to load Russian
+                if(isCanTryRu(productIds, lang, result.data)) {
+
+                    apishopsSites.getProductsInfo(siteId, productIds, 1, charset, getProductsInfoCallback);
+
+                } else {
+
+                    jQuery.each(result.data, function(key, value) {
+
+                        var productInfo = {};
+
+                        productInfo.productId = parseInt(value.productId) || 0;
+                        productInfo.price = value.price || 0;
+                        productInfo.oldPrice = value.oldPrice || productInfo.price * 1.5;
+                        productInfo.img = value.img || "";
+                        productInfo.images = value.images || [productInfo.img];
+                        productInfo.name = value.name || "";
+                        productInfo.isProductNotForSale = value.isProductNotForSale || false;
+                        productInfo.fullName = value.name || "";
+                        productInfo.description = value.shortDescription || "";
+                        productInfo.fullDescription = value.description || "";
+                        productInfo.discount = parseInt((100 - productInfo.price * 100 / productInfo.oldPrice), 10);
+                        productInfo.productVariants = value.productVariants || [];
+
+                        //name length fix
+                        productInfo.name = productInfo.name.replace(/^(.{40}[^\s]*).*/, "$1");
+
+                        //descr fix
+                        productInfo.fullDescription = productInfo.fullDescription.replace(/(<([^>]+)>)/ig,"").replace("\n", "<br/>");
+
+                        //round prices
+                        productInfo.price = lang>8 ? productInfo.price : Math.round(productInfo.price);
+                        productInfo.oldPrice = Math.round(productInfo.oldPrice);
+
+                        //insert product info in products info array
+                        productsInfo.splice(0, 0, productInfo);
+
+
+                    });
+
+                    getProductsInfoCallback(productsInfo, parseInt(lang));
+
+                }
+            });
+
+        }
+
+
+
+
+    };
+
+
+
+
+if ('undefined' !== typeof exports) {
+    if ('undefined' !== typeof exports && module.exports) {
+        exports = module.exports = new Sites__();
+    }
+    exports.sources = new Sites__();
+} else {
+    var apishopsSites = new Sites__();
+}
+
+/*
+* Simple lib for send apishops queries
+* @Author: mac
+* @Date:   2015-06-07 19:39:28
+* @Last Modified by:   apishops
+* @Last Modified time: 2015-08-20 02:31:56
+*/
+
+
+var Landings__ = function(search) {
+
+        'use strict';
+
+
+
+        this.changePrices = function(price, oldprice, locale) {
+
+            jQuery('.apishopsProductPrice').html(price);
+            jQuery('.apishopsProductOldPrice').html(oldprice);
+            jQuery('.currency_0___').html(locale.currency[0]);
+            jQuery('.currency_1___').html(locale.currency[1]);
+            jQuery('.currency_2___').html(locale.currency[2]);
+            jQuery('.currency_3___').html(locale.currency[3]);
+
+        };
+
+        this.renderDiscount = function(discount) {
+            replaceTextNode(' [0-9]{1,2}%',' '+discount+'%')
+            replaceTextNode(' -[0-9]{1,2}%',' -'+discount+'%')
+            //replaceTextNode(' -[0-9]{1,2}[\s\n\t]*<[^>]+>[\s\n\t]*%',' -'+discount+'%')
+        };
+
+
+        function replaceTextNode(search,replace) {
+            var result = [];
+            var root = document.body;
+            var regex = new RegExp(search);
+
+            var node = root.childNodes[0];
+            try {
+                while(node != null) {
+                    //console.log(node.nodeValue);
+                    if(node.nodeType == 3 && node.nodeValue.match(regex)) { /* Fixed a bug here. Thanks @theazureshadow */
+                        node.nodeValue=node.nodeValue.replace(regex,replace);
+                    }
+
+                    if(node.hasChildNodes()) {
+                        node = node.firstChild;
+                    }
+                    else {
+                        while(node.nextSibling == null && node != root) {
+                            node = node.parentNode;
+                        }
+                        node = node.nextSibling;
+                    }
+                }
+            }
+            catch(err) {
+
+            }
+        }
+
+
+        function bindPhonemask(locale, elem) {
+
+            var input, mask, phone, locale,
+                ua = navigator.userAgent.toLowerCase(),
+                isAndroid = ua.indexOf("android") > -1;
+
+            try {
+
+                input = (elem && elem.hasOwnProperty && elem instanceof $) ? elem : jQuery(elem);
+                phone = locale.phone || {};
+                mask = phone.mask || "";
+
+                if (mask && !isAndroid) {
+                    input.inputmask(mask);
+                }
+
+            } catch (err) {
+                apishopsLog('Error' + err);
+            }
+        }
+
+
+
+        this.renderCallback = function(callback, productId, siteId, locale, lang, charset, onCallbackCallback, beforeSendCallback){
+
+            if (!callback || apishopsFormEnvironment.callback || jQuery('.apishopsCallback').length && isExclusion()) {
+                return false;
+            }
+
+            apishopsFormEnvironment.callback = true;
+
+            apishopsTemplates.get(['callback'], charset, callback,
+                function() {
+                    if (apishopsFormCallbackIcon && apishopsFormCallbackText) {
+
+                        apishopsFormCallbackIcon = jQuery(apishopsFormCallbackIcon);
+                        apishopsFormCallbackIcon.appendTo('body');
+
+                        apishopsFormCallbackIcon.click(function() {
+
+                            var apishopsFormCallbackWindow,
+                                apishopsFormCallbackForm,
+                                apishopsFormCallbackPhone;
+
+                            apishopsFormCallbackWindow = jQuery(apishopsFormCallbackText);
+                            apishopsFormCallbackForm = apishopsFormCallbackWindow.find('form');
+                            apishopsFormCallbackPhone = apishopsFormCallbackWindow.find('[name=apishopsFormPhone]');
+
+                            bindPhonemask(locale, apishopsFormCallbackPhone);
+
+                            onCallbackCallback();
+
+                            jQuery(apishopsFormCallbackForm).submit(function(event) {
+
+                                var lang, params;
+
+                                event.preventDefault();
+
+                                if (new RegExp('[_]').test(apishopsFormCallbackPhone.val()) || apishopsFormCallbackPhone.val().length<5) {
+                                    alert('Номер может состоять только из цифр, скобок и знака «+» и «-»');
+                                    return false;
+                                }
+
+
+                                params = {
+                                    /*object: settings.inputs.button,
+                                    form: settings.form,*/
+                                    count: 1,
+                                    fio: '',
+                                    address: '',
+                                    phone: apishopsFormCallbackPhone.val(),
+                                    promocode: '',
+                                    successUrl: false,
+                                    sourceRef: apishopsSources.get('referrer'),
+                                    sourceParam: apishopsSources.get('campaign')||apishopsSources.get('account'),
+                                    productId: productId,
+                                    siteId: siteId,
+                                    charset: charset,
+                                    lang: lang
+                                };
+
+                                beforeSendCallback();
+                                apishopsFormSubmit(params);
+                            });
+
+                            apishopsFormModalInit(apishopsFormCallbackWindow, ['normal', 'hide-close2']);
+                        });
+                    }
+                });
+
+        };
+
+
+
+        this.renderWaymark = function(waymark, locale, lang, charset){
+
+            var lang = parseInt(lang);
+
+            if (!waymark || !apishopsFormEnvironment || apishopsFormEnvironment.waymark) {
+                return false;
+            }
+
+            apishopsFormEnvironment = apishopsFormEnvironment || {};
+            apishopsFormEnvironment.waymark = true;
+
+            apishopsTemplates.get(['waymark'], charset, waymark, function() {
+
+                if (apishopsFormWaymark) {
+
+                    var phone = jQuery('.phone___'),
+                        phone_parent = phone.parent(),
+                        coutry_code = 'РФ';
+
+                    if (lang && lang === 6) {
+                        coutry_code = "UA";
+                    } else if (lang && lang === 7) {
+                        coutry_code = "РБ";
+                    } else if (lang && lang === 8) {
+                        coutry_code = "КЗ";
+                    }
+
+                    if (lang) {
+                        if(lang>1){
+                            phone.text(locale.phone.callcenter);
+                        }
+                        phone.css('white-space', 'nowrap').css('font-size', '60%');
+                        phone_parent.css('width', 'initial').css('margin-right', '0px');
+
+                        jQuery(apishopsFormWaymark).insertAfter('.phone___')
+                            .find('.apishopsFormWaymarkName').html(coutry_code);
+                    }
+                    if (lang === 7) {
+                        phone.hide();
+                    }
+                }
+
+            });
+
+        };
+
+
+
+    };
+
+
+
+
+if ('undefined' !== typeof exports) {
+    if ('undefined' !== typeof exports && module.exports) {
+        exports = module.exports = new Sites__();
+    }
+    exports.sources = new Landings__();
+} else {
+    var apishopsLandings = new Landings__();
+}
+
+
 !function(a,b){function c(a,b){try{if("function"!=typeof a)return a;if(!a.bugsnag){var c=e();a.bugsnag=function(d){if(b&&b.eventHandler&&(u=d),v=c,!y){var e=a.apply(this,arguments);return v=null,e}try{return a.apply(this,arguments)}catch(f){throw l("autoNotify",!0)&&(x.notifyException(f,null,null,"error"),s()),f}finally{v=null}},a.bugsnag.bugsnag=a.bugsnag}return a.bugsnag}catch(d){return a}}function d(){B=!1}function e(){var a=document.currentScript||v;if(!a&&B){var b=document.scripts||document.getElementsByTagName("script");a=b[b.length-1]}return a}function f(a){var b=e();b&&(a.script={src:b.src,content:l("inlineScript",!0)?b.innerHTML:""})}function g(b){var c=l("disableLog"),d=a.console;void 0===d||void 0===d.log||c||d.log("[Bugsnag] "+b)}function h(b,c,d){if(d>=5)return encodeURIComponent(c)+"=[RECURSIVE]";d=d+1||1;try{if(a.Node&&b instanceof a.Node)return encodeURIComponent(c)+"="+encodeURIComponent(r(b));var e=[];for(var f in b)if(b.hasOwnProperty(f)&&null!=f&&null!=b[f]){var g=c?c+"["+f+"]":f,i=b[f];e.push("object"==typeof i?h(i,g,d):encodeURIComponent(g)+"="+encodeURIComponent(i))}return e.join("&")}catch(j){return encodeURIComponent(c)+"="+encodeURIComponent(""+j)}}function i(a,b){if(null==b)return a;a=a||{};for(var c in b)if(b.hasOwnProperty(c))try{a[c]=b[c].constructor===Object?i(a[c],b[c]):b[c]}catch(d){a[c]=b[c]}return a}function j(a,b){a+="?"+h(b)+"&ct=img&cb="+(new Date).getTime();var c=new Image;c.src=a}function k(a){var b={},c=/^data\-([\w\-]+)$/;if(a)for(var d=a.attributes,e=0;e<d.length;e++){var f=d[e];if(c.test(f.nodeName)){var g=f.nodeName.match(c)[1];b[g]=f.value||f.nodeValue}}return b}function l(a,b){C=C||k(J);var c=void 0!==x[a]?x[a]:C[a.toLowerCase()];return"false"===c&&(c=!1),void 0!==c?c:b}function m(a){return a&&a.match(D)?!0:(g("Invalid API key '"+a+"'"),!1)}function n(b,c){var d=l("apiKey");if(m(d)&&A){A-=1;var e=l("releaseStage"),f=l("notifyReleaseStages");if(f){for(var h=!1,k=0;k<f.length;k++)if(e===f[k]){h=!0;break}if(!h)return}var n=[b.name,b.message,b.stacktrace].join("|");if(n!==w){w=n,u&&(c=c||{},c["Last Event"]=q(u));var o={notifierVersion:H,apiKey:d,projectRoot:l("projectRoot")||a.location.protocol+"//"+a.location.host,context:l("context")||a.location.pathname,userId:l("userId"),user:l("user"),metaData:i(i({},l("metaData")),c),releaseStage:e,appVersion:l("appVersion"),url:a.location.href,userAgent:navigator.userAgent,language:navigator.language||navigator.userLanguage,severity:b.severity,name:b.name,message:b.message,stacktrace:b.stacktrace,file:b.file,lineNumber:b.lineNumber,columnNumber:b.columnNumber,payloadVersion:"2"},p=x.beforeNotify;if("function"==typeof p){var r=p(o,o.metaData);if(r===!1)return}return 0===o.lineNumber&&/Script error\.?/.test(o.message)?g("Ignoring cross-domain script error. See https://bugsnag.com/docs/notifiers/js/cors"):(j(l("endpoint")||G,o),void 0)}}}function o(){var a,b,c=10,d="[anonymous]";try{throw new Error("")}catch(e){a="<generated>\n",b=p(e)}if(!b){a="<generated-ie>\n";var f=[];try{for(var h=arguments.callee.caller.caller;h&&f.length<c;){var i=E.test(h.toString())?RegExp.$1||d:d;f.push(i),h=h.caller}}catch(j){g(j)}b=f.join("\n")}return a+b}function p(a){return a.stack||a.backtrace||a.stacktrace}function q(a){var b={millisecondsAgo:new Date-a.timeStamp,type:a.type,which:a.which,target:r(a.target)};return b}function r(a){if(a){var b=a.attributes;if(b){for(var c="<"+a.nodeName.toLowerCase(),d=0;d<b.length;d++)b[d].value&&"null"!=b[d].value.toString()&&(c+=" "+b[d].name+'="'+b[d].value+'"');return c+">"}return a.nodeName}}function s(){z+=1,a.setTimeout(function(){z-=1})}function t(a,b,c){var d=a[b],e=c(d);a[b]=e}var u,v,w,x={},y=!0,z=0,A=10;x.noConflict=function(){return a.Bugsnag=b,x},x.refresh=function(){A=10},x.notifyException=function(a,b,c,d){b&&"string"!=typeof b&&(c=b,b=void 0),c||(c={}),f(c),n({name:b||a.name,message:a.message||a.description,stacktrace:p(a)||o(),file:a.fileName||a.sourceURL,lineNumber:a.lineNumber||a.line,columnNumber:a.columnNumber?a.columnNumber+1:void 0,severity:d||"warning"},c)},x.notify=function(b,c,d,e){n({name:b,message:c,stacktrace:o(),file:a.location.toString(),lineNumber:1,severity:e||"warning"},d)};var B="complete"!==document.readyState;document.addEventListener?(document.addEventListener("DOMContentLoaded",d,!0),a.addEventListener("load",d,!0)):a.attachEvent("onload",d);var C,D=/^[0-9a-f]{32}$/i,E=/function\s*([\w\-$]+)?\s*\(/i,F="https://notify.bugsnag.com/",G=F+"js",H="2.4.7",I=document.getElementsByTagName("script"),J=I[I.length-1];if(a.atob){if(a.ErrorEvent)try{0===new a.ErrorEvent("test").colno&&(y=!1)}catch(K){}}else y=!1;if(l("autoNotify",!0)){t(a,"onerror",function(b){return function(c,d,e,g,h){var i=l("autoNotify",!0),j={};!g&&a.event&&(g=a.event.errorCharacter),f(j),v=null,i&&!z&&n({name:h&&h.name||"window.onerror",message:c,file:d,lineNumber:e,columnNumber:g,stacktrace:h&&p(h)||o(),severity:"error"},j),b&&b(c,d,e,g,h)}});var L=function(a){return function(b,d){if("function"==typeof b){b=c(b);var e=Array.prototype.slice.call(arguments,2);return a(function(){b.apply(this,e)},d)}return a(b,d)}};t(a,"setTimeout",L),t(a,"setInterval",L),a.requestAnimationFrame&&t(a,"requestAnimationFrame",function(a){return function(b){return a(c(b))}}),a.setImmediate&&t(a,"setImmediate",function(a){return function(){var b=Array.prototype.slice.call(arguments);return b[0]=c(b[0]),a.apply(this,b)}}),"EventTarget Window Node ApplicationCache AudioTrackList ChannelMergerNode CryptoOperation EventSource FileReader HTMLUnknownElement IDBDatabase IDBRequest IDBTransaction KeyOperation MediaController MessagePort ModalWindow Notification SVGElementInstance Screen TextTrack TextTrackCue TextTrackList WebSocket WebSocketWorker Worker XMLHttpRequest XMLHttpRequestEventTarget XMLHttpRequestUpload".replace(/\w+/g,function(b){var d=a[b]&&a[b].prototype;d&&d.hasOwnProperty&&d.hasOwnProperty("addEventListener")&&(t(d,"addEventListener",function(a){return function(b,d,e,f){return d&&d.handleEvent&&(d.handleEvent=c(d.handleEvent,{eventHandler:!0})),a.call(this,b,c(d,{eventHandler:!0}),e,f)}}),t(d,"removeEventListener",function(a){return function(b,d,e,f){return a.call(this,b,d,e,f),a.call(this,b,c(d),e,f)}}))})}a.Bugsnag=x,"function"==typeof define&&define.amd?define([],function(){return x}):"object"==typeof module&&"object"==typeof module.exports&&(module.exports=x)}(window,window.Bugsnag);
+
 Bugsnag.apiKey = "59eac90c60e80a2b71e83f27ebadfadf";
 Bugsnag.metaData = {
     browser: "All"
 };
-Bugsnag.noConflict();
-
+Bugsnag = Bugsnag.noConflict();
 /*
 * Input Mask plugin for jquery
 * http://github.com/RobinHerbots/jquery.inputmask
@@ -3778,10 +5022,11 @@ var apishopsJSONP={
 }
 
 var apishopsFormPaths={
-    rootdir:'http://127.0.0.1:9000/',
+    rootdir:'/',
     cssdir:'css/',
     jsdir:'js/',
     giftsdir:'apishopsFormGifts/',
+    waymarkdir:'apishopsFormWaymark/',
     callbacksdir:'apishopsFormCallback/',
     themesdir:'apishopsFormThemes/'
 }
@@ -3798,6 +5043,10 @@ var apishopsFormTemplates={
     gift:{
         css:apishopsFormPaths.rootdir+apishopsFormPaths.cssdir+apishopsFormPaths.giftsdir+'/%THEME%.css',
         js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+apishopsFormPaths.giftsdir+'/%THEME%%CHARSETSUFFIX%.js'
+    },
+    waymark:{
+        css:apishopsFormPaths.rootdir+apishopsFormPaths.cssdir+apishopsFormPaths.waymarkdir+'/%THEME%.css',
+        js:apishopsFormPaths.rootdir+apishopsFormPaths.jsdir+apishopsFormPaths.waymarkdir+'/%THEME%%CHARSETSUFFIX%.js'
     },
     callback:{
         css:apishopsFormPaths.rootdir+apishopsFormPaths.cssdir+apishopsFormPaths.callbacksdir+'/%THEME%.css',
@@ -3845,7 +5094,7 @@ function apishopsFormLoadTemplates(templates, charset, theme, successFunction){
                 var template_file=apishopsFormTemplates[templates[template_no]][template_file_type].replace("%THEME%", theme).replace("%CHARSETSUFFIX%",(charset=='utf8'?'.utf8':''));
 
                 if(template_file_type=='js'){
-                    jQuery.getScript(template_file).done(function( script, textStatus ) {
+                    jQuery.getScript(template_file, function( script, textStatus ) {
                         templates_js_loaded++;
                         if(templates_js_loaded==templates.length){
                             apishopsLog('Templates success:'+theme+' '+templates_js_loaded+'/'+templates.length);
@@ -4262,10 +5511,10 @@ function apishopsFormModalInit(apishopsFormVariableObject,parameters){
 
         //generate container for initiable place
         if(_.contains(parameters,'init')) {
-             var apishopsFormModalInitContainer = jQuery('<some></some>');
+             var apishopsFormModalInitContainer = jQuery('<something></something>');
         }
 
-        apishopsFormLoadTemplates(_.uniq(['modal']), apishopsFormEnvironment.charset || 'utf8', 1,
+        apishopsTemplates.get('modal', apishopsFormEnvironment.charset || 'utf8',
             function() {
 
                 var apishopsFormVariableModal=jQuery(apishopsFormModal).clone().appendTo('body');
@@ -4306,7 +5555,7 @@ function apishopsFormModalInit(apishopsFormVariableObject,parameters){
                 else{
                     apishopsFormVairableHtml.addClass('apishopsModalHtml');
                     apishopsFormVariableModal.show();
-                    apishopsFormVariableContent.html(apishopsFormVariableObject);
+                    apishopsFormVariableContent.append(apishopsFormVariableObject);
                 }
 
                 jQuery(apishopsFormVariableModalOverlay).bind('click', function(event){
@@ -4340,7 +5589,9 @@ function apishopsFormModalInit(apishopsFormVariableObject,parameters){
 
         });
 
-        return apishopsFormModalInitContainer;
+        if(_.contains(parameters,'init')) {
+             return apishopsFormModalInitContainer;
+        }
 }
 
 /*
@@ -4485,7 +5736,7 @@ function apishopsFormSubmit(params){
         };
     }
 
-
+    jQuery.extend($jsonp, apishopsSources.get('all','tag_'));
 
     var objDate = new Date();
     var clientTimeZone = -objDate.getTimezoneOffset()/60;
@@ -4515,7 +5766,7 @@ function apishopsFormSubmit(params){
 
                         apishopsFormModalInit(successHtml,['big']);
 
-                        jQuery.getScript('http://img2.apishops.org/SinglePageWebsites/custom/js/apishopsAdditionalProductForm'+successFilesCharsetSuffix+'.js').done(function( script, textStatus ) {
+                        jQuery.getScript('http://img2.apishops.org/SinglePageWebsites/custom/js/apishopsAdditionalProductForm'+successFilesCharsetSuffix+'.js', function( script, textStatus ) {
                             jQuery(".additionalProducts").apishopsAdditionalProductForm({siteId: result.parameters.siteId, orderId: result.data.id});
                         })
 
@@ -4593,6 +5844,14 @@ function apishopsLog(text) {
 
     }
 }
+
+Object.size = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};
 
 
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){

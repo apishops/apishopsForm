@@ -356,7 +356,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b5bdc9', end
 }
 
 .apishopsFormOrder [type=submit]{
-  background: linear-gradient(#ff6500, #f00) repeat-x scroll 0 0 #f00;
+    background: rgb(255,101,0); /* Old browsers */ /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */
+    background: linear-gradient(45deg,  rgba(255,101,0,1) 0%,rgba(255,0,0,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff6500', endColorstr='#ff0000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
   border-color: #dc3737;
   border-radius: 9px;
   border-style: solid;
@@ -474,7 +476,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b5bdc9', end
     height: 100%;
     top: 0;
     left: 0;
-    z-index: 500;
+    z-index: 9999999;
     opacity: 0;
     visibility: hidden;
     overflow: hidden;
@@ -482,6 +484,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b5bdc9', end
     perspective: 1000px;
     transition: opacity 0.5s, visibility 0s 0.5s;
     display: none;
+
 }
 
 .apishopsFormSlideshow-open.apishopsFormSlideshow {
@@ -661,13 +664,55 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b5bdc9', end
 
 @media screen and (max-width: 60em) {
 
+    .apishopsFormSlideshowHtml, .apishopsFormSlideshowHtml > body{
+        height: auto;
+        overflow: hidden;
+        position: relative;
+    }
 
-    .apishopsFormSlideshow li {
+    .apishopsFormSlideshow-open{
+        opacity: 1 !important;
+        overflow-x: hidden;
+        overflow-y: auto;
+        position: fixed;
+    }
+
+    .apishopsFormSlideshow-open .apishopsFormSlideLeft, .apishopsFormSlideshow-open .apishopsFormSlideRight{
         width: 100%;
-        height: 100%;
+        position: static !important;
+        position: static !important;
+    }
+
+    .apishopsFormSlideLeft .apishopsFormImagesContainerArea {
+        width: 80% !important;
+    }
+
+    .apishopsFormSlideshowIconNavClose::before {
+        color: black;
+    }
+
+    .apishopsFormSlideRight .apishopsFormFullDescription{
+        max-height: auto !important;
+        max-height: none !important;
+    }
+
+    .apishopsFormSlideshow li.show {
+        display: none;
+    }
+
+    .apishopsFormSlideshow li.show.current {
+
+        width: 100%;
         top: 0;
         left: 0;
         margin: 0;
+        height: auto;
+        display: block;
+
+    }
+
+    .apishopsFormSlideRight .apishopsFormPriceBlock{
+        right: 10px;
     }
 
     .apishopsFormSlideshow li figure img {
@@ -685,5 +730,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b5bdc9', end
     .info-keys {
         display: none;
     }
+
+
 
 }
