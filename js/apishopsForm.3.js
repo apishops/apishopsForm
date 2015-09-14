@@ -152,7 +152,9 @@
 
             //apishopsUtm.sync();
             //
-            settings.lang = 'auto';
+            if(settings.lang==1){
+                settings.lang = 'auto';
+            }
 
             //wrap container if container and form is the same
             settings.object = (jQuery(settings.form).selector && jQuery(settings.form).selector === jQuery(object).selector) ? object.wrap('<some></some>').parent() : object;
@@ -2652,8 +2654,8 @@ if ('undefined' !== typeof exports) {
 * Simple lib for send apishops queries
 * @Author: mac
 * @Date:   2015-06-07 19:39:28
-* @Last Modified by:   apishops
-* @Last Modified time: 2015-09-06 14:32:21
+* @Last Modified by:   mac
+* @Last Modified time: 2015-09-11 22:31:54
 */
 
 var Sites__ = function(search) {
@@ -2714,7 +2716,11 @@ var Sites__ = function(search) {
 
             //search sympthoms for unvailable delivery in selected coutry
             jQuery.each(data, function(key, value) {
-                if (value.productId==productIds[0] &&
+                if (
+                    (
+                        (value.productId==productIds[0] && productIds[0]!=564022) ||
+                        (value.productId==productIds[1] && productIds[0]==564022)
+                    ) &&
                     (!value.price || value.isProductNotForSale)) {
                     //sympthom finded, interrup load
                     isCanTryRu = true;
