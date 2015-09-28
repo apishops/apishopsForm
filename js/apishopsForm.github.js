@@ -74,7 +74,7 @@
                     phone : {mask : "+7(999)999-99-99", callcenter : "(499) 704-25-93"},
                     currency : ['рублей', 'Р.', 'руб.', 'RUB'],
                     location : ['Россия', 'России'],
-                    requisites : "<p>Срочную доставку осуществляет курьерская служба <a href=http://tnx.ru>TNX Express.</a></p><center><img src=http://img2.apishops.org/SinglePageWebsites/custom/images/rekviz.png style='max-width: 100%; width:auto;'></center>",
+                    requisites : "<p>Срочную доставку осуществляет курьерская служба ООО «<a href=http://tnx.ru>Курьерская служба</a>»</p><center><img src=http://img2.apishops.org/SinglePageWebsites/custom/images/rekviz.png style='max-width: 100%; width:auto;'></center>",
                     exclusion : [907935, 931621, 877242]
                 },
                 {},
@@ -89,7 +89,7 @@
                 },
                 {
                     phone : {mask : "+375(99)999-99-99", callcenter : ""},
-                    location : ['Беларусь', 'Беларауси'],
+                    location : ['Беларусь', 'Беларуси'],
                     requisites : "<p>Срочную доставку осуществляет <b>Белпочта</b>.</p><center><img src=http://img2.apishops.org/SinglePageWebsites/custom/images/rekviz_black_by.png style='max-width: 100%;width:auto;'></center>",
                     currency : ['рублей', 'Р.', 'руб.', 'BYR']
                 },
@@ -152,9 +152,9 @@
 
             //apishopsUtm.sync();
             //
-            if(settings.lang==1){
-                settings.lang = 'auto';
-            }
+            //if(settings.lang==1){
+            //    settings.lang = 'auto';
+            //}
 
             //wrap container if container and form is the same
             settings.object = (jQuery(settings.form).selector && jQuery(settings.form).selector === jQuery(object).selector) ? object.wrap('<some></some>').parent() : object;
@@ -233,6 +233,9 @@
                                     jQuery(settings.page.price).html(productInfo.price);
                                     jQuery(settings.page.oldprice).html(productInfo.oldPrice);
                                 }
+
+                                //render requisites
+                                apishopsLandings.renderRequisites(productInfo.noRequisitesByRF);
 
                                 //make manipulations on page
                                 if(!settings.isFeatured){
@@ -2655,7 +2658,7 @@ if ('undefined' !== typeof exports) {
 * @Author: mac
 * @Date:   2015-06-07 19:39:28
 * @Last Modified by:   mac
-* @Last Modified time: 2015-09-11 22:31:54
+* @Last Modified time: 2015-09-24 16:53:38
 */
 
 var Sites__ = function(search) {
@@ -2772,6 +2775,7 @@ var Sites__ = function(search) {
                         productInfo.name = value.name || "";
                         productInfo.isProductNotForSale = value.isProductNotForSale || false;
                         productInfo.fullName = value.name || "";
+                        productInfo.noRequisitesByRF = value.noRequisitesByRF || false;
                         productInfo.description = value.shortDescription || "";
                         productInfo.fullDescription = value.description || "";
                         productInfo.discount = parseInt((100 - productInfo.price * 100 / productInfo.oldPrice), 10);
@@ -2972,7 +2976,16 @@ var Landings__ = function(search) {
 
         };
 
+        this.renderRequisites = function(hide){
 
+            if(!hide){
+                return false;
+            }
+
+            jQuery('.requisites___').hide();
+            jQuery('.copyright').hide();
+
+        };
 
         this.renderWaymark = function(waymark, locale, lang, charset){
 
