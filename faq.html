@@ -75,6 +75,33 @@ price:1017.41, /*цена товара*/
 <pre class="pre-scrollable prettyprint linenums">&lt;script src=&quot;http://img.apishops.org/SinglePageWebsites/custom/js/apishopsForm.2.utf8.js&quot;&gt;&lt;/script&gt;</script></pre>
 
                         </p>
+
+                        <h4>Как прописать региональный номер телефона на своей странице</h4>
+                        <p>По умолчанию номер телефона прописывается на странице, к которым подключена и инициализирована форма, во все контейнеры с классом ".phone___". Если класс с таким значением уже используется где-то, контейнер можно задать конфигурацией параметров containers следующим образом</p>
+                        <p>
+<pre class="prettyprint linenums">
+$('#container2').apishopsForm({ callback:1,
+type:'inline', /*тип открытия [inline|modal]*/
+form:'light', /*тип формы [normal|light|jquery-selector]*/
+siteId:10221,
+productId:632879,
+price:1017.41, /*цена товара*/
+containers : {
+    picture : ".apishopsFormImage",
+    price : ".apishopsFormPrice",
+    name : ".apishopsFormName",
+    quickview : ".apishopsQuickView",
+    <b style="background-color: orange;">phone : ".classForPhonenumber"</b>
+}
+});
+</pre>
+
+
+                        </p>
+
+                        <p>
+                          — тут <b style="background-color: orange;">classForPhonenumber</b> – название класса для контейнера, в котором будет размещен номер телефона
+                        </p>
                     </div>
 
                     <div class="span12">

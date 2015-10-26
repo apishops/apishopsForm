@@ -26,7 +26,8 @@
                 picture : ".apishopsFormImage",
                 price : ".apishopsFormPrice",
                 name : ".apishopsFormName",
-                quickview : ".apishopsQuickView"
+                quickview : ".apishopsQuickView",
+                phone : ".phone___"
             },
             inputs_names : {
                 address : "Поле адреса",
@@ -66,12 +67,36 @@
             onLoaded : jQuery.noop,
 
             waymark : 1,
+            phonenumbers : 1,
             variations: 0,
 
             locales : [
                 {},
                 {
-                    phone : {mask : "+7(999)999-99-99", callcenter : "(499) 704-25-93"},
+                    phone : {
+                        mask : "+7(999)999-99-99",
+                        regions : {
+                            "Moscow and Moscow region" : "(383) 207-83-80",
+                            "Novosibirsk District" : "(383) 207-83-80",
+                            "Nizhny Novgorod District" : "(831) 261-31-08",
+                            "Saint-Petersburg and Leningradskaya oblast" : "(812) 426-77-80",
+                            "Rostov District" : "(863) 303-41-97",
+                            "Tatarstan" : "(843) 202-40-84",
+                            "Kaliningrad District" : "(401) 265-89-14",
+                            "Chelyabinsk District" : "(351) 277-83-01",
+                            "Altai Krai" : "(3852) 50-32-43",
+                            "Irkutsk Distric" : "(3953) 32-25-93",
+                            "Voronezh District" : "(473) 280-09-96",
+                            "Kemerovo District" : "(3842) 40-03-68",
+                            "Krasnoyarsk Krai" : "(3912) 03-00-14",
+                            "Khanty-Mansi Autonomous Okrug" : "(3466) 31-07-72",
+                            "Omsk District" : "(3812) 97-23-78",
+                            "Orel District" : "(4862) 51-07-75",
+                            "Perm District" : "(342) 299-55-89",
+                            "Tomsk District" : "(3822) 90-28-54",
+                            "Tula District" :  "(4872) 78-05-21"
+                        }
+                    },
                     currency : ['рублей', 'Р.', 'руб.', 'RUB'],
                     location : ['Россия', 'России'],
                     requisites : "<p>Срочную доставку осуществляет курьерская служба ООО «<a href=http://tnx.ru>Курьерская служба</a>»</p><center><img src=http://img2.apishops.org/SinglePageWebsites/custom/images/rekviz.png style='max-width: 100%; width:auto;'></center>",
@@ -88,7 +113,7 @@
                     currency : ['гривень', 'Грн.', 'грн.', 'UAH']
                 },
                 {
-                    phone : {mask : "+375(99)999-99-99", callcenter : ""},
+                    phone : {mask : "+375(99)999-99-99"},
                     location : ['Беларусь', 'Беларуси'],
                     requisites : "<p>Срочную доставку осуществляет <b>Белпочта</b>.</p><center><img src=http://img2.apishops.org/SinglePageWebsites/custom/images/rekviz_black_by.png style='max-width: 100%;width:auto;'></center>",
                     currency : ['рублей', 'Р.', 'руб.', 'BYR']
@@ -207,7 +232,9 @@
                         settings.lang = apishopsCookies.set('lang', lang);
 
                         //run design manipulations
-                        apishopsLandings.renderWaymark(settings.waymark, settings.locales[settings.lang], settings.lang, settings.charset);
+                        apishopsLandings.renderWaymark(settings.containers.phone, settings.waymark, settings.lang, settings.charset);
+                        apishopsLandings.renderPhonenumbers(settings.containers.phone, settings.phonenumbers, settings.locales[settings.lang]);
+                        apishopsLandings.renderCallcenterInfo(settings.lang);
                         apishopsLandings.renderCallback(settings.callback, settings.productId, settings.siteId, settings.locales[settings.lang], settings.lang, settings.charset, function() {
                             jQuery(settings).trigger("onCallback");
                         }, function() {
@@ -2854,6 +2881,13 @@ var Landings__ = function(search) {
         };
 
 
+        this.renderCallcenterInfo = function(lang) {
+            if (lang === 6) {
+                //hide all 24\7 info
+                replaceTextNode('Круглосуточно 24/7','');
+            }
+        };
+
         function replaceTextNode(search,replace) {
             var result = [];
             var root = document.body;
@@ -2863,7 +2897,7 @@ var Landings__ = function(search) {
             try {
                 while(node != null) {
                     //console.log(node.nodeValue);
-                    if(node.nodeType == 3 && node.nodeValue.match(regex)) { /* Fixed a bug here. Thanks @theazureshadow */
+                    if(node.nodeType == 3 && node.nodeValue.match(regex) && node.nodeValue.length<32) { /* replace all less 32 symbols length */
                         node.nodeValue=node.nodeValue.replace(regex,replace);
                     }
 
@@ -2987,7 +3021,7 @@ var Landings__ = function(search) {
 
         };
 
-        this.renderWaymark = function(waymark, locale, lang, charset){
+        this.renderWaymark = function(selector, waymark, lang, charset){
 
             var lang = parseInt(lang);
 
@@ -3002,7 +3036,7 @@ var Landings__ = function(search) {
 
                 if (apishopsFormWaymark) {
 
-                    var phone = jQuery('.phone___'),
+                    var phone = jQuery(selector),
                         phone_parent = phone.parent(),
                         coutry_code = 'РФ';
 
@@ -3015,13 +3049,10 @@ var Landings__ = function(search) {
                     }
 
                     if (lang) {
-                        if(lang>1){
-                            phone.text(locale.phone.callcenter);
-                        }
                         phone.css('white-space', 'nowrap').css('font-size', '60%');
                         phone_parent.css('width', 'initial').css('margin-right', '0px');
 
-                        jQuery(apishopsFormWaymark).insertAfter('.phone___')
+                        jQuery(apishopsFormWaymark).insertAfter(selector)
                             .find('.apishopsFormWaymarkName').html(coutry_code);
                     }
                     if (lang === 7) {
@@ -3031,6 +3062,86 @@ var Landings__ = function(search) {
 
             });
 
+        };
+
+
+
+
+        this.renderPhonenumbers = function(selector, phonenumbers, locale){
+
+            var lang = parseInt(lang);
+            var script_url = '//api-maps.yandex.ru/2.0/?load=package.standard&lang=en-US';
+
+            if (!locale.phone || (!locale.phone.callcenter && !locale.phone.regions) ||
+                !phonenumbers ||
+                !apishopsFormEnvironment || apishopsFormEnvironment.phonenumbers ) {
+
+                return false;
+
+            }
+
+            apishopsFormEnvironment = apishopsFormEnvironment || {};
+            apishopsFormEnvironment.phonenumbers = true;
+
+            //console.log(locale.phone)
+
+            if(locale.phone.callcenter) {
+                //set global callcenter phone
+                jQuery(selector).html(locale.phone.callcenter);
+            }
+
+            if(locale.phone.regions) {
+                //set distint phones
+                //load yandex-api
+                script(script_url, function () {
+                    //waiting for ready
+                    ymaps.ready(function () {
+                        //get distinct
+                        var distint = ymaps.geolocation.region;
+                        //set if we have phone for distinct
+                        if(locale.phone.regions[distint]) {
+                            jQuery(selector).html(locale.phone.regions[distint]);
+                        }
+                        else if(ymaps.geolocation.country=='Russia') {
+                            jQuery(selector).html('8 (800) 555-64-98');
+                        }
+                        //hide phone for belarussion yandex-defined visitors
+                        if(ymaps.geolocation.country=='Belarus'){
+                            jQuery(selector).html('');
+                        }
+                    });
+                });
+            }
+
+        };
+
+
+
+        //load js template
+        var script = function (url, callback) {
+
+            if (!url) {
+                throw 'missing url';
+            }
+
+            var head = document.head ||
+                document.head.getElementsByTagName('head')[0];
+
+            var el = document.createElement('script');
+
+            el.type = 'text\/javascript';
+
+            if ('function' === typeof callback) {
+                el.onload = function() {
+                    callback();
+                };
+                el.onerror = function() {
+                    throw this.src + ' could not be loaded';
+                };
+            }
+
+            head.appendChild(el);
+            el.src = url;
         };
 
 
